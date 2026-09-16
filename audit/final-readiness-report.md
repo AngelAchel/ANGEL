@@ -25,7 +25,7 @@ ERRCHECK — CORRECTED NUMBERS
 
 Command: `errcheck ./...`
 Total lines: 218
-Non-test, non-decoy: 65 (after fixing 6 fmt.Fprintf + 1 defer close)
+Non-test, non-decoy: 65 (after fixing 1 defer close + 5 fmt.Fprintf)
 
 Breakdown by pattern:
 | Pattern | Count | Severity | Status |
