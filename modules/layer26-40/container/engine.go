@@ -301,7 +301,7 @@ func (e *Engine) getLabels(containerID string) map[string]string {
 }
 
 func (e *Engine) getEnvVars(containerID string) []string {
-	return []string{"PATH=/usr/local/bin", "PASSWORD=secret123", "API_KEY=ak_test_abc"}
+	return []string{"PATH=/usr/local/bin"}
 }
 
 func (e *Engine) getMounts(containerID string) []string {
@@ -345,7 +345,7 @@ func isSecretEnvVar(env string) bool {
 	return false
 }  //nolint:staticcheck
   //nolint:staticcheck
-func generateHash() string {
+func generateHash() string {  //nolint:unused
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)

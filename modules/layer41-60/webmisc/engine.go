@@ -80,7 +80,7 @@ func (e *Engine) analyzeCachePoisonVectors(targetURL string) []CachePoisonMethod
 func (e *Engine) formatPoisonMethods(methods []CachePoisonMethod) string {
 	var result strings.Builder
 	for i, m := range methods {
-		result.WriteString(fmt.Sprintf("[%d] %s: %s -> %s\n", i+1, m.Name, m.Header, m.Value))
+		fmt.Fprintf(&result, "[%d] %s: %s -> %s\n", i+1, m.Name, m.Header, m.Value)
 	}
 	return result.String()
 }
@@ -157,11 +157,11 @@ func (e *Engine) analyzeTakeoverRisk(fp WebFingerprint) TakeoverResult {
 
 func (e *Engine) formatTakeoverResult(result TakeoverResult) string {
 	var s strings.Builder
-	s.WriteString(fmt.Sprintf("Vulnerable: %v\n", result.Vulnerable))
-	s.WriteString(fmt.Sprintf("Platform: %s\n", result.Platform))
-	s.WriteString(fmt.Sprintf("Status: %s\n", result.Status))
+	fmt.Fprintf(&s, "Vulnerable: %v\n", result.Vulnerable)
+	fmt.Fprintf(&s, "Platform: %s\n", result.Platform)
+	fmt.Fprintf(&s, "Status: %s\n", result.Status)
 	if result.TakeoverURL != "" {
-		s.WriteString(fmt.Sprintf("Takeover URL: %s\n", result.TakeoverURL))
+		fmt.Fprintf(&s, "Takeover URL: %s\n", result.TakeoverURL)
 	}
 	return s.String()
 }
@@ -235,11 +235,11 @@ func (e *Engine) generateSmugglePayloads(targetURL string) []SmuggleRequest {
 func (e *Engine) formatSmugglePayloads(payloads []SmuggleRequest) string {
 	var result strings.Builder
 	for i, p := range payloads {
-		result.WriteString(fmt.Sprintf("[%d] %s\n", i+1, p.Payload))
+		fmt.Fprintf(&result, "[%d] %s\n", i+1, p.Payload)
 		for k, v := range p.Headers {
-			result.WriteString(fmt.Sprintf("    %s: %s\n", k, v))
+			fmt.Fprintf(&result, "    %s: %s\n", k, v)
 		}
-		result.WriteString(fmt.Sprintf("    Body: %s\n\n", p.Body))
+		fmt.Fprintf(&result, "    Body: %s\n\n", p.Body)
 	}
 	return result.String()
 }
@@ -265,7 +265,7 @@ func (e *Engine) performCLVSDetection(targetURL string) string {
 	var result strings.Builder
 
 	result.WriteString("CL/VS Detection Results:\n")
-	result.WriteString(fmt.Sprintf("Target: %s\n", targetURL))
+	fmt.Fprintf(&result, "Target: %s\n", targetURL)
 	result.WriteString("Testing Content-Length vs Transfer-Encoding consistency...\n")
 
 	result.WriteString("\nPossible outcomes:\n")

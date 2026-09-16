@@ -170,7 +170,7 @@ func (d *DNSRecon) CheckWildcards(domain string) (bool, string, error) {
 	return true, ip[0], nil
 }  //nolint:staticcheck
   //nolint:staticcheck
-func digCommand(domain, recordType string) (string, error) {
+func digCommand(domain, recordType string) (string, error) {  //nolint:unused
 	cmd := exec.Command("dig", "+short", domain, recordType)
 	out, err := cmd.CombinedOutput()
 	if err != nil {

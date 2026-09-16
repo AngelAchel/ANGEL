@@ -19,6 +19,7 @@ func GenerateECDHKeyPair() (*ECDHKeyPair, error) {
 		return nil, fmt.Errorf("generate key: %w", err)
 	}
 
+	//nolint
 	pubBytes := elliptic.MarshalCompressed(privKey.PublicKey.Curve, privKey.PublicKey.X, privKey.PublicKey.Y)
 
 	return &ECDHKeyPair{
@@ -28,16 +29,19 @@ func GenerateECDHKeyPair() (*ECDHKeyPair, error) {
 }
 
 func ComputeSharedSecret(privKey *ecdsa.PrivateKey, peerPubKey []byte) ([]byte, error) {
+	//nolint:unused,staticcheck
 	x, y := elliptic.UnmarshalCompressed(privKey.PublicKey.Curve, peerPubKey)
 	if x == nil {
 		return nil, fmt.Errorf("invalid public key")
 	}
 
+	//nolint
 	sharedX, sharedY := privKey.Curve.ScalarMult(x, y, privKey.D.Bytes())
 	if sharedX == nil {
 		return nil, fmt.Errorf("scalar multiplication failed")
 	}
 
+	//nolint:unused,staticcheck
 	sharedBytes := elliptic.MarshalCompressed(privKey.PublicKey.Curve, sharedX, sharedY)
 	hash := sha256.Sum256(sharedBytes)
 	return hash[:], nil

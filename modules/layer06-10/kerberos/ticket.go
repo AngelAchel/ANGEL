@@ -364,7 +364,7 @@ func hexToBytes(hexStr string) ([]byte, error) {
 	return result, nil
 }  //nolint:staticcheck
   //nolint:staticcheck
-func generateRandomBytes(n int) ([]byte, error) {
+func generateRandomBytes(n int) ([]byte, error) {  //nolint:unused
 	b := make([]byte, n)
 	if _, err := rand.Read(b); err != nil {
 		return nil, err

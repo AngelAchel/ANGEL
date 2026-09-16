@@ -133,7 +133,7 @@ func generatePayloadHash() string {
 	return hex.EncodeToString(b)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func entropy(data []byte) float64 {
+func entropy(data []byte) float64 {  //nolint:unused
 	if len(data) == 0 {
 		return 0
 	}

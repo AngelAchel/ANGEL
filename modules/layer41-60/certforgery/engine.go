@@ -76,7 +76,7 @@ func (e *Engine) SelfSignForge(domain string) (*CertResult, error) {
 	}, nil
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (e *Engine) buildCertTemplate(domain string) CertificateInfo {
+func (e *Engine) buildCertTemplate(domain string) CertificateInfo {  //nolint:unused
 	return CertificateInfo{
 		Subject:     fmt.Sprintf("CN=%s", domain),
 		Issuer:      fmt.Sprintf("CN=%s Self-Signed", domain),
@@ -113,7 +113,7 @@ func (e *Engine) LetEncryptAbuse(domain string) (*CertResult, error) {
 
 func (e *Engine) analyzeLEAbuse(domain string) string {
 	var analysis strings.Builder
-	analysis.WriteString(fmt.Sprintf("Let's Encrypt Abuse Analysis for %s:\n", domain))
+	fmt.Fprintf(&analysis, "Let's Encrypt Abuse Analysis for %s:\n", domain)
 	analysis.WriteString("\nPotential attack vectors:\n")
 	analysis.WriteString("- Obtain legitimate certs for phishing domains\n")
 	analysis.WriteString("- Use DNS-01 challenge to bypass HTTP validation\n")
@@ -181,7 +181,7 @@ func (e *Engine) TrustedCAExploit(domain string) (*CertResult, error) {
 
 func (e *Engine) analyzeTrustedCAExploit(domain string) string {
 	var analysis strings.Builder
-	analysis.WriteString(fmt.Sprintf("Trusted CA Exploit Analysis for %s:\n", domain))
+	fmt.Fprintf(&analysis, "Trusted CA Exploit Analysis for %s:\n", domain)
 	analysis.WriteString("\nAttack vectors:\n")
 	analysis.WriteString("- Compromise CA private key\n")
 	analysis.WriteString("- Exploit weak domain validation\n")

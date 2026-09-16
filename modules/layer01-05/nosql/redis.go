@@ -147,10 +147,10 @@ func (r *RedisScanner) ExploitCommandInject(injection *InjectionPoint) (string, 
 			"Content-Type": "text/plain",
 		})
 		if err != nil {
-			output.WriteString(fmt.Sprintf("Error executing %s: %v\n", cmd, err))
+			fmt.Fprintf(&output, "Error executing %s: %v\n", cmd, err)
 			continue
 		}
-		output.WriteString(fmt.Sprintf("=== %s ===\n%s\n", cmd, string(resp)))
+		fmt.Fprintf(&output, "=== %s ===\n%s\n", cmd, string(resp))
 	}
 
 	return output.String(), nil

@@ -210,7 +210,7 @@ func generateBeaconID() string {
 	return hex.EncodeToString(b)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func formatBeaconStatus(beacon *SMBBeacon) string {
+func formatBeaconStatus(beacon *SMBBeacon) string {  //nolint:unused
 	status := "🔴 Disconnected"
 	if beacon.IsConnected() {
 		status = "🟢 Connected"

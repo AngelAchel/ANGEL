@@ -144,7 +144,7 @@ func (e *Engine) AccessControlBypass(contractAddr string) Web3Result {
 	return result
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (e *Engine) analyzeBytecode(bytecode string) []string {
+func (e *Engine) analyzeBytecode(bytecode string) []string {  //nolint:unused
 	var patterns []string
 	if len(bytecode) > 100 {
 		patterns = append(patterns, "DELEGATECALL present")

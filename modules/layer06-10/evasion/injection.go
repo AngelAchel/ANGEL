@@ -427,6 +427,6 @@ func runtimeGOOS() string {
 	return runtime.GOOS
 }  //nolint:staticcheck
   //nolint:staticcheck
-func unsafeSlice(ptr unsafe.Pointer, size uintptr) []byte {
+func unsafeSlice(ptr unsafe.Pointer, size uintptr) []byte {  //nolint:unused
 	return unsafe.Slice((*byte)(ptr), size)
 }

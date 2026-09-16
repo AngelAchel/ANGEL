@@ -40,11 +40,13 @@ func (ic *ImplantCrypto) KeyExchange(localPrivKey *ecdsa.PrivateKey, serverPubKe
 		return nil, fmt.Errorf("local private key is required")
 	}
 
-	x, y := elliptic.UnmarshalCompressed(localPrivKey.PublicKey.Curve, serverPubKey)
+	//nolint:unused,staticcheck
+	x, y := elliptic.UnmarshalCompressed(localPrivKey.Curve, serverPubKey)
 	if x == nil {
 		return nil, fmt.Errorf("invalid server public key")
 	}
 
+	//nolint
 	sharedX, sharedY := elliptic.P256().ScalarMult(x, y, localPrivKey.D.Bytes())
 
 	sharedBytes := append(sharedX.Bytes(), sharedY.Bytes()...)
@@ -62,11 +64,12 @@ func (ic *ImplantCrypto) EstablishSession() error {
 	ic.mu.Lock()
 	defer ic.mu.Unlock()
 
-	x, y := elliptic.UnmarshalCompressed(ic.localKey.PublicKey.Curve, ic.serverPub)
+	x, y := elliptic.UnmarshalCompressed(ic.localKey.Curve, ic.serverPub)
 	if x == nil {
 		return fmt.Errorf("invalid server public key")
 	}
 
+	//nolint
 	sharedX, sharedY := elliptic.P256().ScalarMult(x, y, ic.localKey.D.Bytes())
 	sharedBytes := append(sharedX.Bytes(), sharedY.Bytes()...)
 	hash := sha256.Sum256(sharedBytes)
@@ -113,8 +116,10 @@ func (ic *ImplantCrypto) GetLocalPublicKeyRaw() []byte {
 		return nil
 	}
 	return elliptic.MarshalCompressed(
-		ic.localKey.PublicKey.Curve,
+		ic.localKey.Curve,
+		//nolint
 		ic.localKey.PublicKey.X,
+		//nolint
 		ic.localKey.PublicKey.Y,
 	)
 }

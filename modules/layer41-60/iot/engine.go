@@ -77,13 +77,13 @@ func (e *Engine) analyzeFirmware(path string) FirmwareInfo {
 func (e *Engine) formatFirmwareInfo(info FirmwareInfo) string {
 	var result strings.Builder
 	result.WriteString("Firmware Analysis:\n")
-	result.WriteString(fmt.Sprintf("  Vendor: %s\n", info.Vendor))
-	result.WriteString(fmt.Sprintf("  Product: %s\n", info.Product))
-	result.WriteString(fmt.Sprintf("  Version: %s\n", info.Version))
-	result.WriteString(fmt.Sprintf("  Architecture: %s\n", info.Arch))
-	result.WriteString(fmt.Sprintf("  OS: %s\n", info.OS))
-	result.WriteString(fmt.Sprintf("  Checksum: %s\n", info.Checksum))
-	result.WriteString(fmt.Sprintf("  Files: %d\n", len(info.Files)))
+	fmt.Fprintf(&result, "  Vendor: %s\n", info.Vendor)
+	fmt.Fprintf(&result, "  Product: %s\n", info.Product)
+	fmt.Fprintf(&result, "  Version: %s\n", info.Version)
+	fmt.Fprintf(&result, "  Architecture: %s\n", info.Arch)
+	fmt.Fprintf(&result, "  OS: %s\n", info.OS)
+	fmt.Fprintf(&result, "  Checksum: %s\n", info.Checksum)
+	fmt.Fprintf(&result, "  Files: %d\n", len(info.Files))
 
 	return result.String()
 }
@@ -138,15 +138,15 @@ func (e *Engine) formatCredentials(creds []CredentialInfo) string {
 	var result strings.Builder
 	result.WriteString("Credential Analysis:\n")
 	for i, c := range creds {
-		result.WriteString(fmt.Sprintf("\n[%d] %s:\n", i+1, c.Type))
-		result.WriteString(fmt.Sprintf("  Username: %s\n", c.Username))
+		fmt.Fprintf(&result, "\n[%d] %s:\n", i+1, c.Type)
+		fmt.Fprintf(&result, "  Username: %s\n", c.Username)
 		if c.Password != "" {
-			result.WriteString(fmt.Sprintf("  Password: %s\n", c.Password))
+			fmt.Fprintf(&result, "  Password: %s\n", c.Password)
 		}
 		if c.Hash != "" {
-			result.WriteString(fmt.Sprintf("  Hash: %s\n", c.Hash))
+			fmt.Fprintf(&result, "  Hash: %s\n", c.Hash)
 		}
-		result.WriteString(fmt.Sprintf("  Source: %s\n", c.Source))
+		fmt.Fprintf(&result, "  Source: %s\n", c.Source)
 	}
 	return result.String()
 }
@@ -203,9 +203,9 @@ func (e *Engine) formatKeys(keys []HardcodedKey) string {
 	var result strings.Builder
 	result.WriteString("Hardcoded Key Analysis:\n")
 	for i, k := range keys {
-		result.WriteString(fmt.Sprintf("\n[%d] %s (%s)\n", i+1, k.Name, k.Algorithm))
-		result.WriteString(fmt.Sprintf("  Type: %s\n", k.Type))
-		result.WriteString(fmt.Sprintf("  Location: %s\n", k.Location))
+		fmt.Fprintf(&result, "\n[%d] %s (%s)\n", i+1, k.Name, k.Algorithm)
+		fmt.Fprintf(&result, "  Type: %s\n", k.Type)
+		fmt.Fprintf(&result, "  Location: %s\n", k.Location)
 	}
 	return result.String()
 }
@@ -262,11 +262,11 @@ func (e *Engine) formatBackdoors(backdoors []BackdoorInfo) string {
 	var result strings.Builder
 	result.WriteString("Backdoor Analysis:\n")
 	for i, b := range backdoors {
-		result.WriteString(fmt.Sprintf("\n[%d] %s\n", i+1, b.Type))
-		result.WriteString(fmt.Sprintf("  Description: %s\n", b.Description))
-		result.WriteString(fmt.Sprintf("  Location: %s\n", b.Location))
-		result.WriteString(fmt.Sprintf("  Trigger: %s\n", b.Trigger))
-		result.WriteString(fmt.Sprintf("  Impact: %s\n", b.Payload))
+		fmt.Fprintf(&result, "\n[%d] %s\n", i+1, b.Type)
+		fmt.Fprintf(&result, "  Description: %s\n", b.Description)
+		fmt.Fprintf(&result, "  Location: %s\n", b.Location)
+		fmt.Fprintf(&result, "  Trigger: %s\n", b.Trigger)
+		fmt.Fprintf(&result, "  Impact: %s\n", b.Payload)
 	}
 	return result.String()
 }

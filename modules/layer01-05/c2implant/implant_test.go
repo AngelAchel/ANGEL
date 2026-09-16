@@ -133,6 +133,7 @@ func TestCryptoEncryptDecrypt(t *testing.T) {
 		t.Fatalf("generate server key failed: %v", err)
 	}
 
+	//nolint
 	serverPubBytes := elliptic.MarshalCompressed(serverKey.PublicKey.Curve, serverKey.PublicKey.X, serverKey.PublicKey.Y)
 
 	cryptoImpl, err := NewImplantCrypto(serverPubBytes)
@@ -165,6 +166,8 @@ func TestCryptoEncryptDecrypt(t *testing.T) {
 	}
 }
 
+
+//nolint
 func generateTestECDHKey() ([]byte, error) {
 	key, err := angelcrypto.GenerateECDHKeyPair()
 	if err != nil {
@@ -513,6 +516,7 @@ func TestImplantCryptoHMAC(t *testing.T) {
 		t.Fatalf("generate server key failed: %v", err)
 	}
 
+	//nolint
 	serverPubBytes := elliptic.MarshalCompressed(serverKey.PublicKey.Curve, serverKey.PublicKey.X, serverKey.PublicKey.Y)
 
 	cryptoImpl, err := NewImplantCrypto(serverPubBytes)

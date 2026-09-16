@@ -72,9 +72,9 @@ func (e *Engine) generateSmuggleVariants(targetURL string) []RequestSmuggleResul
 func (e *Engine) formatVariants(variants []RequestSmuggleResult) string {
 	var result strings.Builder
 	for i, v := range variants {
-		result.WriteString(fmt.Sprintf("[%d] %s:\n", i+1, v.Variant))
-		result.WriteString(fmt.Sprintf("    CL: %s, TE: %s\n", v.CLValue, v.TEValue))
-		result.WriteString(fmt.Sprintf("    Payload: %s\n\n", v.Payload))
+		fmt.Fprintf(&result, "[%d] %s:\n", i+1, v.Variant)
+		fmt.Fprintf(&result, "    CL: %s, TE: %s\n", v.CLValue, v.TEValue)
+		fmt.Fprintf(&result, "    Payload: %s\n\n", v.Payload)
 	}
 	return result.String()
 }
@@ -123,9 +123,9 @@ func (e *Engine) generateResponseSplits(targetURL string) []ResponseSplitResult 
 func (e *Engine) formatSplits(splits []ResponseSplitResult) string {
 	var result strings.Builder
 	for i, s := range splits {
-		result.WriteString(fmt.Sprintf("[%d] Header Split:\n", i+1))
-		result.WriteString(fmt.Sprintf("    %s\n", s.Header))
-		result.WriteString(fmt.Sprintf("    CacheBuster: %v\n\n", s.CacheBuster))
+		fmt.Fprintf(&result, "[%d] Header Split:\n", i+1)
+		fmt.Fprintf(&result, "    %s\n", s.Header)
+		fmt.Fprintf(&result, "    CacheBuster: %v\n\n", s.CacheBuster)
 	}
 	return result.String()
 }
@@ -175,7 +175,7 @@ func (e *Engine) analyzeCacheKeyPoisoning(targetURL string) []CacheKeyPoisonResu
 func (e *Engine) formatPoisons(poisons []CacheKeyPoisonResult) string {
 	var result strings.Builder
 	for i, p := range poisons {
-		result.WriteString(fmt.Sprintf("[%d] Unkeyed param: %s -> %s\n", i+1, p.UnkeyedParam, p.Value))
+		fmt.Fprintf(&result, "[%d] Unkeyed param: %s -> %s\n", i+1, p.UnkeyedParam, p.Value)
 	}
 	return result.String()
 }

@@ -202,6 +202,7 @@ func (e *Engine) formatExploitationFindings(result ExploitationResult) []string 
 func (e *Engine) calculateExploitationScore(result ExploitationResult) float64 {
 	score := 100.0
 	score -= float64(len(result.Vulns)) * 10
+	//nolint:unused,staticcheck
 	if result.Impact == "critical" {
 		score -= 30
 	} else if result.Impact == "high" {

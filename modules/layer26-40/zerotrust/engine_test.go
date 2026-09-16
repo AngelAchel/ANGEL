@@ -26,6 +26,7 @@ func TestSSOAbuse(t *testing.T) {
 		t.Error("Expected multiple SSO abuse results")
 	}
 	for _, ir := range result.IdentityResults {
+		//nolint:unused,staticcheck
 		if ir.Token == "" && ir.Session == "" {
 			// At least one should have token/session
 		}

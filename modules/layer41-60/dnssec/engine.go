@@ -60,6 +60,7 @@ func (e *Engine) performNSECWalk(domain string) []string {
 
 func (e *Engine) simulateNSECRecord(name string, zone string) NSECRecord {
 	next := ""
+	//nolint:unused,staticcheck
 	if name == "*."+zone {
 		next = "www." + zone
 	} else if name == "www."+zone {

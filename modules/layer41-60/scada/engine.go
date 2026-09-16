@@ -80,7 +80,7 @@ func (e *Engine) formatModbusDevices(devices []ModbusDevice) string {
 	}
 
 	for unitID, devs := range unitDevices {
-		result.WriteString(fmt.Sprintf("\nUnit %d:\n", unitID))
+		fmt.Fprintf(&result, "\nUnit %d:\n", unitID)
 		fcNames := map[byte]string{
 			0x01: "Read Coils",
 			0x02: "Read Discrete Inputs",
@@ -93,7 +93,7 @@ func (e *Engine) formatModbusDevices(devices []ModbusDevice) string {
 		}
 		for _, d := range devs {
 			if name, ok := fcNames[d.FunctionCode]; ok {
-				result.WriteString(fmt.Sprintf("  FC 0x%02X: %s\n", d.FunctionCode, name))
+				fmt.Fprintf(&result, "  FC 0x%02X: %s\n", d.FunctionCode, name)
 			}
 		}
 	}
@@ -151,7 +151,7 @@ func (e *Engine) formatOPCNodes(nodes []OPCNode) string {
 	var result strings.Builder
 	result.WriteString("OPC UA Node Enumeration:\n")
 	for _, n := range nodes {
-		result.WriteString(fmt.Sprintf("  %s (%s) [%s] = %s\n", n.Name, n.NodeID, n.DataType, n.Value))
+		fmt.Fprintf(&result, "  %s (%s) [%s] = %s\n", n.Name, n.NodeID, n.DataType, n.Value)
 	}
 	return result.String()
 }
@@ -176,7 +176,7 @@ func (e *Engine) S7CommAttack(targetIP string) (*SCADAResult, error) {
 func (e *Engine) analyzeS7Comm(targetIP string) string {
 	var result strings.Builder
 	result.WriteString("S7comm Protocol Analysis:\n")
-	result.WriteString(fmt.Sprintf("Target: %s:102\n", targetIP))
+	fmt.Fprintf(&result, "Target: %s:102\n", targetIP)
 
 	result.WriteString("\nCommon S7 functions:\n")
 	result.WriteString("- 0x04: Read Var\n")
@@ -217,7 +217,7 @@ func (e *Engine) DNP3Intercept(targetIP string) (*SCADAResult, error) {
 func (e *Engine) analyzeDNP3(targetIP string) string {
 	var result strings.Builder
 	result.WriteString("DNP3 Protocol Analysis:\n")
-	result.WriteString(fmt.Sprintf("Target: %s:20000\n", targetIP))
+	fmt.Fprintf(&result, "Target: %s:20000\n", targetIP)
 
 	result.WriteString("\nDNP3 object groups:\n")
 	result.WriteString("- Group 1: Binary Input\n")

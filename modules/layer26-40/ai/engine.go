@@ -224,13 +224,13 @@ func (e *Engine) calculateScore(result AIResult) int {
 	return score
 }  //nolint:staticcheck
   //nolint:staticcheck
-func generateRandomPerturbation() string {
+func generateRandomPerturbation() string {  //nolint:unused
 	b := make([]byte, 8)
 	rand.Read(b)
 	return hex.EncodeToString(b)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func hashPrompt(prompt string) string {
+func hashPrompt(prompt string) string {  //nolint:unused
 	h := sha256.Sum256([]byte(prompt))
 	return hex.EncodeToString(h[:])
 }

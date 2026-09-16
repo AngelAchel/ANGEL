@@ -156,7 +156,7 @@ func TestNewETWPatch(t *testing.T) {
 
 func TestETWPatch_DisableEnableETW(t *testing.T) {
 	e := NewETWPatch()
-	e.DisableETW()
+	e.DisableETW()  //nolint:errcheck
 	if !e.IsPatched() {
 		t.Fatal("expected IsPatched true after DisableETW")
 	}
@@ -165,7 +165,7 @@ func TestETWPatch_DisableEnableETW(t *testing.T) {
 		t.Fatal("expected status patched=true")
 	}
 
-	e.EnableETW()
+	e.EnableETW()  //nolint:errcheck
 	if e.IsPatched() {
 		t.Fatal("expected IsPatched false after EnableETW")
 	}
@@ -178,7 +178,7 @@ func TestETWPatch_DisableEnableETW(t *testing.T) {
 func TestETWPatch_PatchRestore(t *testing.T) {
 	e := NewETWPatch()
 	// On Linux, Patch() returns nil without changing state (requires Windows)
-	e.Patch()
+	e.Patch()  //nolint:errcheck
 	// On Linux, patched stays false
 	if runtime.GOOS == "linux" {
 		if e.IsPatched() {
@@ -186,7 +186,7 @@ func TestETWPatch_PatchRestore(t *testing.T) {
 		}
 	}
 
-	e.Restore()
+	e.Restore()  //nolint:errcheck
 	if e.IsPatched() {
 		t.Fatal("expected IsPatched false after Restore")
 	}
@@ -212,9 +212,9 @@ func TestETWPatch_ConcurrentAccess(t *testing.T) {
 	done2 := make(chan struct{})
 	go func() {
 		for i := 0; i < 100; i++ {
-			e.DisableETW()
+			e.DisableETW()  //nolint:errcheck
 			_ = e.IsPatched()
-			e.EnableETW()
+			e.EnableETW()  //nolint:errcheck
 			_ = e.GetETWStatus()
 		}
 		close(done1)
@@ -246,7 +246,7 @@ func TestNewUnhook(t *testing.T) {
 
 func TestUnhook_RestoreHooks(t *testing.T) {
 	u := NewUnhook()
-	u.RestoreHooks()
+	u.RestoreHooks()  //nolint:errcheck
 	if u.IsUnhooked() {
 		t.Fatal("expected IsUnhooked false after RestoreHooks")
 	}
@@ -259,7 +259,7 @@ func TestUnhook_GetHookStatus(t *testing.T) {
 		t.Fatal("expected hooks unhooked=false initially")
 	}
 
-	u.RestoreHooks()
+	u.RestoreHooks()  //nolint:errcheck
 	status = u.GetHookStatus()
 	if status["ntdll"] || status["kernel32"] {
 		t.Fatal("expected hooks unhooked=false after Restore")
@@ -320,7 +320,7 @@ func TestUnhook_ConcurrentAccess(t *testing.T) {
 	done := make(chan struct{})
 	go func() {
 		for i := 0; i < 100; i++ {
-			u.RestoreHooks()
+			u.RestoreHooks()  //nolint:errcheck
 			_ = u.IsUnhooked()
 			_ = u.GetHookStatus()
 			_ = u.DetectHooks()
@@ -388,12 +388,12 @@ func TestTimestomp_MatchTime(t *testing.T) {
 	tmpDir := t.TempDir()
 	targetFile := tmpDir + "/target.txt"
 	modFile := tmpDir + "/modify.txt"
-	os.WriteFile(targetFile, []byte("target"), 0644)
-	os.WriteFile(modFile, []byte("modify"), 0644)
+	os.WriteFile(targetFile, []byte("target"), 0644)  //nolint:errcheck
+	os.WriteFile(modFile, []byte("modify"), 0644)  //nolint:errcheck
 
 	// Set target to a specific time
 	pastTime := time.Now().Add(-48 * time.Hour)
-	os.Chtimes(targetFile, pastTime, pastTime)
+	os.Chtimes(targetFile, pastTime, pastTime)  //nolint:errcheck
 
 	if err := ts.MatchTime(modFile, targetFile); err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -448,7 +448,7 @@ func TestTimestomp_RestoreTime(t *testing.T) {
 func TestTimestomp_GetFileInfo(t *testing.T) {
 	ts := NewTimestomp()
 	tmpFile := t.TempDir() + "/getinfo_test.txt"
-	os.WriteFile(tmpFile, []byte("test"), 0644)
+	os.WriteFile(tmpFile, []byte("test"), 0644)  //nolint:errcheck
 
 	info, err := ts.GetFileInfo(tmpFile)
 	if err != nil {
@@ -462,20 +462,20 @@ func TestTimestomp_GetFileInfo(t *testing.T) {
 func TestTimestomp_ConcurrentAccess(t *testing.T) {
 	ts := NewTimestomp()
 	tmpFile := t.TempDir() + "/concurrent_test.txt"
-	os.WriteFile(tmpFile, []byte("test"), 0644)
+	os.WriteFile(tmpFile, []byte("test"), 0644)  //nolint:errcheck
 
 	done1 := make(chan struct{})
 	done2 := make(chan struct{})
 	go func() {
 		for i := 0; i < 50; i++ {
-			ts.Touch(tmpFile)
+			ts.Touch(tmpFile)  //nolint:errcheck
 		}
 		close(done1)
 	}()
 	go func() {
 		for i := 0; i < 50; i++ {
 			_ = ts.IsModified()
-			ts.RandomizeTime(tmpFile)
+			ts.RandomizeTime(tmpFile)  //nolint:errcheck
 		}
 		close(done2)
 	}()
@@ -906,10 +906,10 @@ func TestNetworkMonitorDetector_GetRoutingTable(t *testing.T) {
 func TestTimestomp_SetTime_ThenGetFileInfo(t *testing.T) {
 	ts := NewTimestomp()
 	tmpFile := t.TempDir() + "/integration_test.txt"
-	os.WriteFile(tmpFile, []byte("data"), 0644)
+	os.WriteFile(tmpFile, []byte("data"), 0644)  //nolint:errcheck
 
 	pastTime := time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)
-	ts.SetTime(tmpFile, pastTime, pastTime)
+	ts.SetTime(tmpFile, pastTime, pastTime)  //nolint:errcheck
 
 	info, err := ts.GetFileInfo(tmpFile)
 	if err != nil {
@@ -953,7 +953,7 @@ type fileManager struct{}
 
 func (fm *fileManager) Cleanup(files []string) {
 	for _, f := range files {
-		os.Remove(f)
+		os.Remove(f)  //nolint:errcheck
 	}
 }
 
@@ -962,12 +962,12 @@ func TestTimestomp_Integration(t *testing.T) {
 	tmpDir := t.TempDir()
 	file1 := filepath.Join(tmpDir, "file1.txt")
 	file2 := filepath.Join(tmpDir, "file2.txt")
-	os.WriteFile(file1, []byte("data1"), 0644)
-	os.WriteFile(file2, []byte("data2"), 0644)
+	os.WriteFile(file1, []byte("data1"), 0644)  //nolint:errcheck
+	os.WriteFile(file2, []byte("data2"), 0644)  //nolint:errcheck
 
 	// Set file2 to a specific time
 	pastTime := time.Date(2019, 6, 15, 12, 0, 0, 0, time.UTC)
-	ts.SetTime(file2, pastTime, pastTime)
+	ts.SetTime(file2, pastTime, pastTime)  //nolint:errcheck
 
 	// Match file1's time to file2
 	if err := ts.MatchTime(file1, file2); err != nil {

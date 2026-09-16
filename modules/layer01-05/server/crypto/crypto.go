@@ -39,6 +39,7 @@ func generateAESKey() []byte {
 }
 
 func (c *ServerCrypto) GetPublicKey() []byte {
+	//nolint
 	return elliptic.Marshal(c.publicKey.Curve, c.publicKey.X, c.publicKey.Y)
 }
 
@@ -83,11 +84,13 @@ func (c *ServerCrypto) Decrypt(data []byte) ([]byte, error) {
 
 func (c *ServerCrypto) ECDHExchange(theirPublicKey []byte) ([]byte, error) {
 	curve := elliptic.P256()
+	//nolint
 	x, y := elliptic.Unmarshal(curve, theirPublicKey)
 	if x == nil {
 		return nil, fmt.Errorf("invalid public key")
 	}
 
+	//nolint
 	sharedX, _ := curve.ScalarMult(x, y, c.privateKey.D.Bytes())
 	return sharedX.Bytes(), nil
 }

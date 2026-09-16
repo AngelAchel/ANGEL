@@ -24,7 +24,7 @@ func NewVPNManager(config *InfraConfig) *VPNManager {
 		log:    logger.New("vpn-mgr", logger.LevelInfo),
 	}
 }  //nolint:staticcheck
-  //nolint:staticcheck
+//nolint:unused
 var wireGuardTemplate = `[Interface]
 PrivateKey = {{.PrivateKey}}
 Address = {{.Address}}
@@ -38,7 +38,8 @@ Endpoint = {{.PeerAddr}}
 PersistentKeepalive = 25
 `  //nolint:staticcheck
   //nolint:staticcheck
-type wgData struct {
+//nolint:unused
+type wgData struct {  //nolint:unused
 	PrivateKey  string
 	Address     string
 	ListenPort  int
@@ -114,7 +115,7 @@ func base64Encode(data []byte) string {
 	}
 	return result.String()
 }  //nolint:staticcheck
-  //nolint:staticcheck
+//nolint:unused
 var openVPNTemplate = `client
 dev {{.Dev}}
 proto {{.Proto}}

@@ -15,7 +15,7 @@ func newTestLogger(level Level) (*Logger, *os.File, *os.File) {
 }
 
 func drainAndClose(r *os.File, w *os.File) string {
-	w.Close()
+	w.Close()  //nolint:errcheck
 	var buf [4096]byte
 	n, _ := r.Read(buf[:])
 	return string(buf[:n])
@@ -113,7 +113,7 @@ func TestLogger_LevelFiltering(t *testing.T) {
 	l.Info("should not appear")
 	l.Warn("should appear")
 	l.Error("should appear")
-	w.Close()
+	w.Close()  //nolint:errcheck
 
 	var buf [8192]byte
 	n, _ := r.Read(buf[:])
@@ -211,7 +211,7 @@ func TestLogger_ConcurrentWrites(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		l.Info("msg %d", i)
 	}
-	w.Close()
+	w.Close()  //nolint:errcheck
 	<-done
 
 	if len(collected) == 0 {

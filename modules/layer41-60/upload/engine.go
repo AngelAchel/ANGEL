@@ -107,7 +107,7 @@ func (e *Engine) generateExtensionBypasses(filename string) []ExtensionBypass {
 func (e *Engine) formatBypasses(bypasses []ExtensionBypass) string {
 	var result strings.Builder
 	for i, b := range bypasses {
-		result.WriteString(fmt.Sprintf("[%d] %s -> %s (%s)\n", i+1, b.Original, b.Bypass, b.Technique))
+		fmt.Fprintf(&result, "[%d] %s -> %s (%s)\n", i+1, b.Original, b.Bypass, b.Technique)
 	}
 	return result.String()
 }
@@ -170,7 +170,7 @@ func (e *Engine) generateContentTypeBypasses(original string) []ContentTypeBypas
 func (e *Engine) formatContentTypes(bypasses []ContentTypeBypass) string {
 	var result strings.Builder
 	for i, b := range bypasses {
-		result.WriteString(fmt.Sprintf("[%d] %s -> %s\n", i+1, b.Original, b.FakeType))
+		fmt.Fprintf(&result, "[%d] %s -> %s\n", i+1, b.Original, b.FakeType)
 	}
 	return result.String()
 }

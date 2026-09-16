@@ -73,6 +73,7 @@ type SQLiConfig struct {
 	DBMS           DBMSType
 	Level          int  //nolint:staticcheck
 	Risk           int  //nolint:staticcheck
+	//nolint:unused
 	tamper         bool
 	UseWAFBypass   bool
 	Verbose        bool

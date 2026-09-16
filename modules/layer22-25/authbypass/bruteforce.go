@@ -112,6 +112,6 @@ func (b *BruteforceModule) RateLimitBypass(target string) (bool, error) {
 	return bypassed, nil
 }  //nolint:staticcheck
   //nolint:staticcheck
-func randomDelay() time.Duration {
+func randomDelay() time.Duration {  //nolint:unused
 	return time.Duration(rand.Intn(500)+100) * time.Millisecond
 }

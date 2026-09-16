@@ -93,7 +93,7 @@ func (e *Engine) generateParamManipulationPayloads(targetURL, redirectURL string
 func (e *Engine) formatPayloads(payloads []BypassPayload) string {
 	var result strings.Builder
 	for i, p := range payloads {
-		result.WriteString(fmt.Sprintf("[%d] %s: %s\n", i+1, p.Technique, p.Encoded))
+		fmt.Fprintf(&result, "[%d] %s: %s\n", i+1, p.Technique, p.Encoded)
 	}
 	return result.String()
 }

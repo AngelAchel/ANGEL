@@ -61,9 +61,9 @@ func TestLoadConfig_EnvOverride(t *testing.T) {
 }
 
 func TestLoadConfig_Defaults(t *testing.T) {
-	os.Unsetenv("GATEWAY_ADDR")
-	os.Unsetenv("GATEWAY_SECRET")
-	os.Unsetenv("JWT_SECRET")
+	os.Unsetenv("GATEWAY_ADDR")  //nolint:errcheck
+	os.Unsetenv("GATEWAY_SECRET")  //nolint:errcheck
+	os.Unsetenv("JWT_SECRET")  //nolint:errcheck
 
 	cfg := LoadConfig()
 

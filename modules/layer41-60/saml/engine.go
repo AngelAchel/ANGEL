@@ -162,8 +162,8 @@ func (e *Engine) OIDCRedirectAttack(clientID string, redirectURI string) (*SAMLR
 
 	oidcFlow := OIDCCodeFlow{
 		AuthorizationURL: oauthURL,
-		TokenURL:         "https://authorization.example.com/token",
-		UserInfoURL:      "https://authorization.example.com/userinfo",
+		TokenURL:         "",
+		UserInfoURL:      "",
 		Scopes:           []string{"openid", "profile", "email"},
 		Claims: map[string]string{
 			"sub":  "1234567890",

@@ -85,6 +85,7 @@ func (m *RequestIDMiddleware) Wrap(next http.Handler) http.Handler {
 }  //nolint:staticcheck
 
 type MetricsMiddleware struct {  //nolint:staticcheck
+	//nolint:unused
 	gateway interface{ IncrementRequests() }
 }
 

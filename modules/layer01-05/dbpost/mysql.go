@@ -37,10 +37,10 @@ func (m *MySQLExploit) UDFInstall(creds *DBCreds, result *PostExploitResult) (*P
 	for _, step := range steps {
 		resp, err := m.executeQuery(creds, step.query)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("[%s] Error: %v\n", step.name, err))
+			fmt.Fprintf(&output, "[%s] Error: %v\n", step.name, err)
 			continue
 		}
-		output.WriteString(fmt.Sprintf("[%s] OK: %s\n", step.name, resp))
+		fmt.Fprintf(&output, "[%s] OK: %s\n", step.name, resp)
 	}
 
 	if strings.Contains(output.String(), "OK") {
@@ -114,11 +114,11 @@ func (m *MySQLExploit) FSAccess(creds *DBCreds, result *PostExploitResult) (*Pos
 	for _, q := range queries {
 		resp, err := m.executeQuery(creds, q.query)
 		if err != nil {
-			output.WriteString(fmt.Sprintf("[%s] Error: %v\n", q.name, err))
+			fmt.Fprintf(&output, "[%s] Error: %v\n", q.name, err)
 			continue
 		}
 		if resp != "" && resp != "NULL" {
-			output.WriteString(fmt.Sprintf("[%s] Content:\n%s\n\n", q.name, resp))
+			fmt.Fprintf(&output, "[%s] Content:\n%s\n\n", q.name, resp)
 		}
 	}
 

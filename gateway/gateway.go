@@ -57,6 +57,7 @@ type Gateway struct {
 	mu         sync.RWMutex
 	startTime  time.Time  //nolint:staticcheck
 	totalReqs  uint64  //nolint:staticcheck
+	//nolint:unused
 	totalErrs  uint64
 	jwtMgr     *auth.JWTManager
 	agents     map[string]*Agent
@@ -273,12 +274,13 @@ func (gw *Gateway) handleLogin(w http.ResponseWriter, r *http.Request) {
 		gw.writeJSON(w, http.StatusUnauthorized, map[string]string{"error": "missing_credentials"})
 		return
 	}
-	role := "viewer"
-	if creds.Username == "admin" {
-		role = "admin"
-	} else if creds.Username == "operator" {
-		role = "operator"
-	}
+		role := "viewer"
+		switch creds.Username {
+		case "admin":
+			role = "admin"
+		case "operator":
+			role = "operator"
+		}
 	token, err := gw.jwtMgr.GenerateToken("user", creds.Username, role)
 	if err != nil {
 		gw.writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "token_generation_failed"})
@@ -465,12 +467,13 @@ func (gw *Gateway) handleStats(w http.ResponseWriter, r *http.Request) {
 			activeAgents++
 		}
 	}
-	for _, t := range gw.tasks {
-		if t.Status == "pending" {
-			pendingTasks++
-		} else if t.Status == "done" {
-			completedTasks++
-		}
+		for _, t := range gw.tasks {
+			switch t.Status {
+			case "pending":
+				pendingTasks++
+			case "done":
+				completedTasks++
+			}
 	}
 	gw.mu.RUnlock()
 	gw.writeJSON(w, http.StatusOK, map[string]interface{}{

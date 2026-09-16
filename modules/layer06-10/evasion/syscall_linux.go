@@ -10,13 +10,13 @@ import (
 	"strings"
 )  //nolint:staticcheck
   //nolint:staticcheck
-var errNotSupported = errors.New("library loading not supported on this platform")  //nolint:staticcheck
+var errNotSupported = errors.New("library loading not supported on this platform")  //nolint:unused
   //nolint:staticcheck
-func loadLibraryImpl(name string) (uintptr, error) {
+func loadLibraryImpl(name string) (uintptr, error) {  //nolint:unused
 	return 0, fmt.Errorf("%w: %s", errNotSupported, name)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func getProcAddressImpl(handle uintptr, name string) (uintptr, error) {
+func getProcAddressImpl(handle uintptr, name string) (uintptr, error) {  //nolint:unused
 	_ = handle
 	data, err := os.ReadFile("/proc/self/maps")
 	if err != nil {

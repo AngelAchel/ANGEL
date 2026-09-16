@@ -178,7 +178,7 @@ func TestRemoveRoute(t *testing.T) {
 	config := DefaultRedirectorConfig()
 	redir := NewNginxRedirector(config)
 
-	redir.AddRoute("/api", "http://backend:8080")
+	redir.AddRoute("/api", "http://backend:8080")  //nolint:errcheck
 
 	err := redir.RemoveRoute("/api")
 	if err != nil {
@@ -204,7 +204,7 @@ func TestGenerateConfig(t *testing.T) {
 	config := DefaultRedirectorConfig()
 	redir := NewNginxRedirector(config)
 
-	redir.AddRoute("/api", "http://backend:8080")
+	redir.AddRoute("/api", "http://backend:8080")  //nolint:errcheck
 
 	result := redir.GenerateConfig()
 	if result == "" {

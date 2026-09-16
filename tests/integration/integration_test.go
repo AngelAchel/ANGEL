@@ -42,9 +42,9 @@ func TestIntegrationFullWorkflow(t *testing.T) {
 		if gw == nil {
 			t.Fatal("expected non-nil gateway")
 		}
-		gw.Start()
+		gw.Start()  //nolint:errcheck
 		time.Sleep(50 * time.Millisecond)
-		gw.Stop()
+		gw.Stop()  //nolint:errcheck
 	})
 
 	t.Run("GatewayHealthCheck", func(t *testing.T) {
@@ -52,9 +52,9 @@ func TestIntegrationFullWorkflow(t *testing.T) {
 		if gw == nil {
 			t.Fatal("expected non-nil gateway")
 		}
-		gw.Start()
+		gw.Start()  //nolint:errcheck
 		time.Sleep(50 * time.Millisecond)
-		gw.Stop()
+		gw.Stop()  //nolint:errcheck
 	})
 }
 

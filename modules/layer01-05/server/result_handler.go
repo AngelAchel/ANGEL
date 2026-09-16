@@ -196,7 +196,7 @@ func generateResultID() string {
 	return hex.EncodeToString(b)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func formatResult(result *TaskResult) string {
+func formatResult(result *TaskResult) string {  //nolint:unused
 	status := "✅ Success"
 	if !result.Success {
 		status = "❌ Failed"

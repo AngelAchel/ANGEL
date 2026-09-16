@@ -350,7 +350,7 @@ func log(x float64) float64 {
 	return sum*2 + float64(n)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (e *Engine) calculateKeySize(ciphertext []byte) int {
+func (e *Engine) calculateKeySize(ciphertext []byte) int {  //nolint:unused
 	if len(ciphertext) < 32 {
 		return 16
 	}
@@ -402,7 +402,7 @@ func (e *Engine) calculateKeySize(ciphertext []byte) int {
 	return bestIdx + 2
 }  //nolint:staticcheck
   //nolint:staticcheck
-func hammingDistance(a, b []byte) int {
+func hammingDistance(a, b []byte) int {  //nolint:unused
 	dist := 0
 	for i := 0; i < len(a) && i < len(b); i++ {
 		xor := a[i] ^ b[i]
@@ -415,7 +415,7 @@ func hammingDistance(a, b []byte) int {
 	return dist
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (e *Engine) detectCipherMode(ciphertext []byte, blockSize int) string {
+func (e *Engine) detectCipherMode(ciphertext []byte, blockSize int) string {  //nolint:unused
 	if len(ciphertext) < blockSize*2 {
 		return "unknown"
 	}
@@ -438,7 +438,7 @@ func (e *Engine) detectCipherMode(ciphertext []byte, blockSize int) string {
 	return "CTR"
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (e *Engine) analyzeIV(iv []byte) map[string]interface{} {
+func (e *Engine) analyzeIV(iv []byte) map[string]interface{} {  //nolint:unused
 	analysis := make(map[string]interface{})
 	analysis["length"] = len(iv)
 	analysis["all_zeros"] = true

@@ -312,7 +312,7 @@ func (e *DestructionChainEngine) executeAttack(target *FullScopeTarget, recon *R
 	result.Access = highestAccess
 
 	// Determine exploit method based on target OS and vulnerability
-	exploitMethod := "unknown"
+	var exploitMethod string
 	switch target.OS {
 	case types.PlatformWindows:
 		if highestAccess == "system" {

@@ -564,6 +564,7 @@ func TestNetworkEvasionEncodeDNSHex(t *testing.T) {
 	parts := strings.Split(encoded, ".")
 	for _, part := range parts {
 		for _, c := range part {
+			//nolint:unused,staticcheck
 			if !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')) {
 				t.Errorf("Invalid hex character in encoded DNS: %c", c)
 				break
@@ -711,6 +712,7 @@ func TestNetworkEvasionGenerateRandomDomain(t *testing.T) {
 	}
 
 	for _, c := range domain {
+		//nolint:unused,staticcheck
 		if !((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9')) {
 			t.Errorf("Invalid character in random domain: %c", c)
 		}
@@ -1464,7 +1466,7 @@ func TestLogCleanupRemoveDirectoryContents(t *testing.T) {
 
 	for i := 0; i < 5; i++ {
 		f := filepath.Join(tmpDir, fmt.Sprintf("file%d.txt", i))
-		os.WriteFile(f, []byte("content"), 0644)
+		os.WriteFile(f, []byte("content"), 0644)  //nolint:errcheck
 	}
 
 	lc := NewLogCleanup(&CleanupConfig{})

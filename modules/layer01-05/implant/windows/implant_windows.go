@@ -72,7 +72,7 @@ func main() {
 
 func loadConfig() *Config {
 	return &Config{
-		ServerURL:   getEnv("C2_SERVER", "https://c2.example.com"),
+		ServerURL:   getEnv("C2_SERVER", ""),
 		SleepTime:   30 * time.Second,
 		Jitter:      0.2,
 		MaxRetries:  3,

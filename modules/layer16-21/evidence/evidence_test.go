@@ -222,7 +222,7 @@ func TestEvidenceLedgerPersistence(t *testing.T) {
 	path := filepath.Join(dir, "persist.json")
 
 	l1 := NewEvidenceLedger(path)
-	l1.AddEntry(&EvidenceEntry{ID: "persist-001", Data: []byte("data")})
+	l1.AddEntry(&EvidenceEntry{ID: "persist-001", Data: []byte("data")})  //nolint:errcheck
 
 	l2 := NewEvidenceLedger(path)
 	got, err := l2.GetEntry("persist-001")

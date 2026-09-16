@@ -918,11 +918,11 @@ func (m *InitramfsHookMethod) Verify(params *PersistenceParams) (bool, error) {
 	return err == nil, nil
 }  //nolint:staticcheck
   //nolint:staticcheck
-func getLinuxEnvVar(name string) string {
+func getLinuxEnvVar(name string) string {  //nolint:unused
 	return os.Getenv(name)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func getLinuxUserHome() string {
+func getLinuxUserHome() string {  //nolint:unused
 	if u, err := user.Current(); err == nil {
 		return u.HomeDir
 	}

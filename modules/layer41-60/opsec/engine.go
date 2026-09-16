@@ -78,6 +78,7 @@ func (e *Engine) analyzeChannel(channelType string) CommunicationProfile {
 
 func (e *Engine) calculateChannelRisk(profile CommunicationProfile) int {
 	risk := 50
+	//nolint:unused,staticcheck
 	if profile.OPSECLevel == "high" {
 		risk = 20
 	} else if profile.OPSECLevel == "low" {

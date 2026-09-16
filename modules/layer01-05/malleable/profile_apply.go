@@ -178,7 +178,7 @@ func (pa *ProfileApplier) GetStats(name string) (int, int) {
 	return 0, 0
 }  //nolint:staticcheck
   //nolint:staticcheck
-func generateMalleableURL(host string, path string) string {
+func generateMalleableURL(host string, path string) string {  //nolint:unused
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}

@@ -291,6 +291,7 @@ func (e *Engine) parseSubFilters(filter string) []string {
 	start := 0
 
 	for i, ch := range filter {
+		//nolint:unused,staticcheck
 		if ch == '(' {
 			if depth == 0 {
 				start = i

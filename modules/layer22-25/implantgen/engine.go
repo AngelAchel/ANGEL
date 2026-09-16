@@ -204,6 +204,7 @@ func (e *ImplantEngine) buildELFHeader(arch Arch, params *GenerateParams) []byte
 	buf = append(buf, eType...)
 
 	eMachine := make([]byte, 2)
+	//nolint:unused,staticcheck
 	if arch == ArchX64 {
 		binary.LittleEndian.PutUint16(eMachine, 0x3E)
 	} else if arch == ArchARM64 {
@@ -251,6 +252,7 @@ func (e *ImplantEngine) buildMachOHeader(arch Arch, params *GenerateParams) []by
 	buf = append(buf, magic...)
 
 	cputype := make([]byte, 4)
+	//nolint:unused,staticcheck
 	if arch == ArchX64 {
 		binary.LittleEndian.PutUint32(cputype, 0x01000007)
 	} else if arch == ArchARM64 {

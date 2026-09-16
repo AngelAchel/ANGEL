@@ -91,13 +91,14 @@ func (s *SessionModule) CookieFlags(urlStr string) (*CookieAnalysis, error) {
 			HttpOnly: cookie.HttpOnly,
 		}
 
-		if cookie.SameSite == http.SameSiteLaxMode {
-			info.SameSite = "Lax"
-		} else if cookie.SameSite == http.SameSiteStrictMode {
-			info.SameSite = "Strict"
-		} else {
-			info.SameSite = "None"
-		}
+	switch cookie.SameSite {
+	case http.SameSiteLaxMode:
+		info.SameSite = "Lax"
+	case http.SameSiteStrictMode:
+		info.SameSite = "Strict"
+	default:
+		info.SameSite = "None"
+	}
 
 		analysis.Cookies = append(analysis.Cookies, info)
 
@@ -128,6 +129,6 @@ func generateSessionID() string {
 	return fmt.Sprintf("%x", b)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func timeNow() time.Time {
+func timeNow() time.Time {  //nolint:unused
 	return time.Now()
 }

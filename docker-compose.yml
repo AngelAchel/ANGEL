@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile.angel
     image: angel:latest
     container_name: angel-teamserver
+    env_file:
+      - lab/configs/lab.env
     ports:
       - "8080:8080"
       - "8443:8443"
@@ -15,11 +17,14 @@ services:
       - ./lab/data:/app/data
       - ./lab/logs:/app/logs
       - ./lab/implants:/app/implants
+      - ./lab/certs:/app/certs
     environment:
       TEAMSERVER_ADDR: "0.0.0.0"
       TEAMSERVER_PORT: "8443"
       DATABASE_URL: "sqlite:///data/angel.db"
       DATABASE_ENCRYPTION_KEY: "${DATABASE_ENCRYPTION_KEY}"
+      TLS_CERT_FILE: "/app/certs/server.crt"
+      TLS_KEY_FILE: "/app/certs/server.key"
       LOG_LEVEL: "debug"
       LOG_FILE: "/app/logs/angel.log"
       C2_DEFAULT_PROFILE: "teams"
@@ -52,6 +57,8 @@ services:
       dockerfile: Dockerfile.console
     image: angel-console:latest
     container_name: angel-console
+    env_file:
+      - lab/configs/lab.env
     ports:
       - "3000:3000"
     volumes:
@@ -81,6 +88,8 @@ services:
       dockerfile: Dockerfile.rules
     image: angel-rules:latest
     container_name: angel-rules
+    env_file:
+      - lab/configs/lab.env
     volumes:
       - ./lab/data:/app/data
     environment:

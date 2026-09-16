@@ -193,7 +193,7 @@ func buildGraftFrame(tag TagConfig) []byte {
 	return frame
 }  //nolint:staticcheck
   //nolint:staticcheck
-func formatTags(tags []TagConfig) string {
+func formatTags(tags []TagConfig) string {  //nolint:unused
 	parts := make([]string, 0)
 	for _, t := range tags {
 		parts = append(parts, fmt.Sprintf("VLAN%d(prio=%d)", t.OuterVLAN, t.Priority))

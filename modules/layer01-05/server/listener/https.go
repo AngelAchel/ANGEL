@@ -21,7 +21,7 @@ type HTTPSListener struct {
 	running  bool
 	agents   map[string]*Agent  //nolint:staticcheck
 	tasks    map[string]*Task  //nolint:staticcheck
-	results  []*Result
+	results  []*Result  //nolint:unused
 }
 
 type Agent struct {

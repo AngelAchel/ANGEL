@@ -18,7 +18,7 @@ type DNSListener struct {
 	running bool
 	agents  map[string]*Agent  //nolint:staticcheck
 	tasks   map[string]*Task  //nolint:staticcheck
-	results []*Result
+	results []*Result  //nolint:unused
 	domain  string
 }
 
@@ -88,10 +88,7 @@ func (l *DNSListener) handleDNSPacket(packet []byte, remoteAddr net.Addr) {
 
 func (l *DNSListener) parseDNSName(packet []byte, offset int) (string, int) {
 	var name []byte
-	for {
-		if offset >= len(packet) {
-			break
-		}
+	for offset < len(packet) {
 		length := int(packet[offset])
 		offset++
 		if length == 0 {
@@ -142,7 +139,7 @@ func (l *DNSListener) GetAgents() []*Agent {
 	return agents
 }  //nolint:staticcheck
   //nolint:staticcheck
-func generateDNSID() string {
+func generateDNSID() string {  //nolint:unused
 	b := make([]byte, 8)
 	rand.Read(b)
 	return hex.EncodeToString(b)

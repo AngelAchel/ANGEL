@@ -10,6 +10,7 @@ import (
 type PayloadGenerator struct {
 	dbms       DBMSType  //nolint:staticcheck
 	columns    int  //nolint:staticcheck
+	//nolint:unused
 	totalWidth int
 	_comment   string
 }
@@ -352,7 +353,7 @@ func (pg *PayloadGenerator) OOBICMP(callbackIP string) string {
 func (pg *PayloadGenerator) HexEncode(payload string) string {
 	var sb strings.Builder
 	for _, b := range []byte(payload) {
-		sb.WriteString(fmt.Sprintf("0x%02x", b))
+		fmt.Fprintf(&sb, "0x%02x", b)
 	}
 	return sb.String()
 }

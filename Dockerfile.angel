@@ -1,6 +1,6 @@
 FROM golang:1.27-alpine AS builder
 WORKDIR /app
-COPY go.mod go.sum ./
+COPY go.mod go.sum .
 RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o bin/angel ./cmd/teamserver/
@@ -11,6 +11,9 @@ WORKDIR /app
 COPY --from=builder /app/bin/angel .
 RUN chmod +x ./angel
 COPY --from=builder /app/.env.example .env.example
+COPY lab/certs/server.crt /app/certs/server.crt
+COPY lab/certs/server.key /app/certs/server.key
+RUN chmod 644 /app/certs/server.crt && chmod 644 /app/certs/server.key
 EXPOSE 8080 8443 443 53 445
 USER nobody
 ENTRYPOINT ["./angel"]

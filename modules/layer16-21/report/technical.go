@@ -45,12 +45,12 @@ func (tr *TechnicalReportGen) AddSection(name, content string) {
 func (tr *TechnicalReportGen) RenderMarkdown() string {
 	var sb strings.Builder
 
-	sb.WriteString(fmt.Sprintf("# %s - Technical Report\n\n", tr.config.Title))
-	sb.WriteString(fmt.Sprintf("Author: %s\n", tr.config.Author))
-	sb.WriteString(fmt.Sprintf("Date: %s\n\n", time.Now().UTC().Format("2006-01-02")))
+	fmt.Fprintf(&sb, "# %s - Technical Report\n\n", tr.config.Title)
+	fmt.Fprintf(&sb, "Author: %s\n", tr.config.Author)
+	fmt.Fprintf(&sb, "Date: %s\n\n", time.Now().UTC().Format("2006-01-02"))
 
 	for _, s := range tr.sections {
-		sb.WriteString(fmt.Sprintf("## %s\n\n%s\n\n", s.Name, s.Content))
+		fmt.Fprintf(&sb, "## %s\n\n%s\n\n", s.Name, s.Content)
 	}
 
 	return sb.String()
@@ -71,15 +71,15 @@ func (tr *TechnicalReportGen) RenderJSON() ([]byte, error) {
 
 func (tr *TechnicalReportGen) addFindingsSection(findings []Finding) {
 	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("Total findings: %d\n\n", len(findings)))
+		fmt.Fprintf(&sb, "Total findings: %d\n\n", len(findings))
 
 	for i, f := range findings {
-		sb.WriteString(fmt.Sprintf("### Finding %d: %s\n", i+1, f.Title))
-		sb.WriteString(fmt.Sprintf("- Severity: %s\n", f.Severity))
-		sb.WriteString(fmt.Sprintf("- Category: %s\n", f.Category))
-		sb.WriteString(fmt.Sprintf("- Description: %s\n", f.Description))
-		sb.WriteString(fmt.Sprintf("- Impact: %s\n", f.Impact))
-		sb.WriteString(fmt.Sprintf("- Remediation: %s\n\n", f.Remediation))
+		fmt.Fprintf(&sb, "### Finding %d: %s\n", i+1, f.Title)
+		fmt.Fprintf(&sb, "- Severity: %s\n", f.Severity)
+		fmt.Fprintf(&sb, "- Category: %s\n", f.Category)
+		fmt.Fprintf(&sb, "- Description: %s\n", f.Description)
+		fmt.Fprintf(&sb, "- Impact: %s\n", f.Impact)
+		fmt.Fprintf(&sb, "- Remediation: %s\n\n", f.Remediation)
 	}
 
 	tr.AddSection("Findings", sb.String())
@@ -87,10 +87,10 @@ func (tr *TechnicalReportGen) addFindingsSection(findings []Finding) {
 
 func (tr *TechnicalReportGen) addEvidenceSection(evidence []string) {
 	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("Evidence items: %d\n\n", len(evidence)))
+	fmt.Fprintf(&sb, "Evidence items: %d\n\n", len(evidence))
 
 	for i, e := range evidence {
-		sb.WriteString(fmt.Sprintf("%d. %s\n", i+1, e))
+		fmt.Fprintf(&sb, "%d. %s\n", i+1, e)
 	}
 
 	tr.AddSection("Evidence", sb.String())

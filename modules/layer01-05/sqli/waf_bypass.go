@@ -85,7 +85,7 @@ func (h *HexEncodingBypass) Bypass(payload string) string {
 	}
 	var sb strings.Builder
 	for _, b := range []byte(payload) {
-		sb.WriteString(fmt.Sprintf("0x%02x", b))
+		fmt.Fprintf(&sb, "0x%02x", b)
 	}
 	return sb.String()
 }
@@ -113,9 +113,9 @@ func (u *UnicodeEncodingBypass) Bypass(payload string) string {
 	var sb strings.Builder
 	for _, r := range payload {
 		if r < 128 {
-			sb.WriteString(fmt.Sprintf("%%%02x", r))
+			fmt.Fprintf(&sb, "%%%02x", r)
 		} else {
-			sb.WriteString(fmt.Sprintf("\\u%04x", r))
+			fmt.Fprintf(&sb, "\\u%04x", r)
 		}
 	}
 	return sb.String()

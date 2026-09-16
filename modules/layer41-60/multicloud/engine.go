@@ -64,9 +64,9 @@ func (e *Engine) findAWSAzurePaths(awsAccount, azureTenant string) []PivotPath {
 func (e *Engine) formatPivotPaths(paths []PivotPath) string {
 	var result strings.Builder
 	for i, p := range paths {
-		result.WriteString(fmt.Sprintf("Path %d (%s):\n", i+1, p.RiskLevel))
+		fmt.Fprintf(&result, "Path %d (%s):\n", i+1, p.RiskLevel)
 		for j, step := range p.Steps {
-			result.WriteString(fmt.Sprintf("  Step %d: [%s] %s -> %s (%s)\n", j+1, step.Cloud, step.Service, step.Resource, step.Action))
+			fmt.Fprintf(&result, "  Step %d: [%s] %s -> %s (%s)\n", j+1, step.Cloud, step.Service, step.Resource, step.Action)
 		}
 	}
 	return result.String()
@@ -155,12 +155,12 @@ func (e *Engine) analyzeCrossAccountTrust(source, target string) []CrossAccountT
 func (e *Engine) formatTrusts(trusts []CrossAccountTrust) string {
 	var result strings.Builder
 	for i, t := range trusts {
-		result.WriteString(fmt.Sprintf("[%d] Account: %s\n", i+1, t.AccountID))
-		result.WriteString(fmt.Sprintf("    Role: %s\n", t.RoleARN))
+		fmt.Fprintf(&result, "[%d] Account: %s\n", i+1, t.AccountID)
+		fmt.Fprintf(&result, "    Role: %s\n", t.RoleARN)
 		if t.ExternalID != "" {
-			result.WriteString(fmt.Sprintf("    ExternalID: %s\n", t.ExternalID))
+			fmt.Fprintf(&result, "    ExternalID: %s\n", t.ExternalID)
 		}
-		result.WriteString(fmt.Sprintf("    Condition: %s\n", t.Condition))
+		fmt.Fprintf(&result, "    Condition: %s\n", t.Condition)
 	}
 	return result.String()
 }

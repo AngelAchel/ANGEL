@@ -16,14 +16,14 @@ func TestBooleanBlindDetector(t *testing.T) {
 		if strings.Contains(param, "' OR '1'='1") || strings.Contains(param, "' OR 1=1--") ||
 			strings.Contains(param, "1 OR 1=1") {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprintf(w, "<html><body>Results: user1, user2, user3, admin, test</body></html>")
+			fmt.Fprintf(w, "<html><body>Results: user1, user2, user3, admin, test</body></html>")  //nolint:errcheck
 		} else if strings.Contains(param, "' OR '1'='2") || strings.Contains(param, "' OR 1=2--") ||
 			strings.Contains(param, "1 OR 1=2") {
 			w.WriteHeader(http.StatusNotFound)
-			fmt.Fprintf(w, "<html><body>No results found</body></html>")
+			fmt.Fprintf(w, "<html><body>No results found</body></html>")  //nolint:errcheck
 		} else {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprintf(w, "<html><body>Default page content here</body></html>")
+			fmt.Fprintf(w, "<html><body>Default page content here</body></html>")  //nolint:errcheck
 		}
 	})
 
@@ -60,10 +60,10 @@ func TestTimeBasedDetector(t *testing.T) {
 			strings.Contains(param, "WAITFOR") {
 			time.Sleep(3 * time.Second)
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprintf(w, "<html><body>Sleep executed</body></html>")
+			fmt.Fprintf(w, "<html><body>Sleep executed</body></html>")  //nolint:errcheck
 		} else {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprintf(w, "<html><body>Normal response</body></html>")
+			fmt.Fprintf(w, "<html><body>Normal response</body></html>")  //nolint:errcheck
 		}
 	})
 
@@ -251,16 +251,16 @@ func TestSQLiEngineScan(t *testing.T) {
 		param := r.URL.Query().Get("id")
 		if strings.Contains(param, "'1'='1") {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprintf(w, "<html><body>Results found</body></html>")
+			fmt.Fprintf(w, "<html><body>Results found</body></html>")  //nolint:errcheck
 		} else if strings.Contains(param, "SLEEP") {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprintf(w, "<html><body>Sleep executed</body></html>")
+			fmt.Fprintf(w, "<html><body>Sleep executed</body></html>")  //nolint:errcheck
 		} else if strings.Contains(param, "UNION") {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprintf(w, "<html><body>MySQL 5.7.42</body></html>")
+			fmt.Fprintf(w, "<html><body>MySQL 5.7.42</body></html>")  //nolint:errcheck
 		} else {
 			w.WriteHeader(http.StatusOK)
-			fmt.Fprintf(w, "<html><body>Default</body></html>")
+			fmt.Fprintf(w, "<html><body>Default</body></html>")  //nolint:errcheck
 		}
 	})
 
@@ -294,13 +294,13 @@ func TestExploit(t *testing.T) {
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		param := r.URL.Query().Get("id")
 		if strings.Contains(param, "version()") {
-			fmt.Fprintf(w, "MySQL 5.7.42")
+			fmt.Fprintf(w, "MySQL 5.7.42")  //nolint:errcheck
 		} else if strings.Contains(param, "database()") || strings.Contains(param, "current_database()") {
-			fmt.Fprintf(w, "testdb")
+			fmt.Fprintf(w, "testdb")  //nolint:errcheck
 		} else if strings.Contains(param, "user()") || strings.Contains(param, "current_user") {
-			fmt.Fprintf(w, "root@localhost")
+			fmt.Fprintf(w, "root@localhost")  //nolint:errcheck
 		} else {
-			fmt.Fprintf(w, "Default")
+			fmt.Fprintf(w, "Default")  //nolint:errcheck
 		}
 	})
 

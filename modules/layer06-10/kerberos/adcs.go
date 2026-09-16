@@ -18,7 +18,7 @@ import (
 type ADCSEngine struct {
 	config *KerberosConfig  //nolint:staticcheck
 	logger *logger.Logger  //nolint:staticcheck
-	mu     sync.RWMutex
+	mu     sync.RWMutex  //nolint:unused
 }
 
 func NewADCSEngine(config *KerberosConfig) *ADCSEngine {

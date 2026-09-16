@@ -106,13 +106,13 @@ func (h *Honeypot) handleLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprintf(w, `<html><head><title>Login</title></head>
-<body><h1>Secure Login</h1>
-<form method="POST">
-<input type="text" name="username" placeholder="Username">
-<input type="password" name="password" placeholder="Password">
-<button type="submit">Login</button>
-</form></body></html>`)
+	_, _ = fmt.Fprintf(w, "<html><head><title>Login</title></head>\n"+
+		"<body><h1>Secure Login</h1>\n"+
+		"<form method=\"POST\">\n"+
+		"<input type=\"text\" name=\"username\" placeholder=\"Username\">\n"+
+		"<input type=\"password\" name=\"password\" placeholder=\"Password\">\n"+
+		"<button type=\"submit\">Login</button>\n"+
+		"</form></body></html>")
 }
 
 func (h *Honeypot) handleAdmin(w http.ResponseWriter, r *http.Request) {
@@ -138,9 +138,9 @@ func (h *Honeypot) handleMySQL(w http.ResponseWriter, r *http.Request) {
 func (h *Honeypot) serveDecoyPage(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Server", "Apache/2.4.52 (Ubuntu)")
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprintf(w, `<html><head><title>Welcome</title></head>
-<body><h1>Welcome to our website</h1>
-<p>This page is under construction.</p></body></html>`)
+	_, _ = fmt.Fprintf(w, "<html><head><title>Welcome</title></head>\n"+
+		"<body><h1>Welcome to our website</h1>\n"+
+		"<p>This page is under construction.</p></body></html>")
 }
 
 func (h *Honeypot) logActivity(ip, action, details, severity string) {

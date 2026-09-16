@@ -41,7 +41,9 @@ func (e *Engine) DowngradeAttack(targetVersion string) (*TLSResult, error) {
 func (e *Engine) analyzeDowngrade(targetVersion string) string {
 	var result strings.Builder
 	result.WriteString("TLS Downgrade Attack Analysis:\n")
+	//nolint:unused,staticcheck
 	result.WriteString(fmt.Sprintf("Target: %s:%d\n", e.config.TargetHost, e.config.TargetPort))
+	//nolint:unused,staticcheck
 	result.WriteString(fmt.Sprintf("Target Version: %s\n", targetVersion))
 
 	versions := []TLSVersion{
@@ -61,6 +63,7 @@ func (e *Engine) analyzeDowngrade(targetVersion string) string {
 		if v.Vulnerable {
 			vuln = " (VULNERABLE)"
 		}
+		//nolint:unused,staticcheck
 		result.WriteString(fmt.Sprintf("  %s: %s%s\n", v.Name, status, vuln))
 	}
 
@@ -93,7 +96,7 @@ func (e *Engine) PaddingOracle(target string) (*TLSResult, error) {
 func (e *Engine) analyzePaddingOracle(target string) string {
 	var result strings.Builder
 	result.WriteString("Padding Oracle Analysis:\n")
-	result.WriteString(fmt.Sprintf("Target: %s\n", target))
+	fmt.Fprintf(&result, "Target: %s\n", target)
 
 	result.WriteString("\nAffected implementations:\n")
 	result.WriteString("- Lucky13 (CBC padding)\n")
@@ -129,7 +132,7 @@ func (e *Engine) TicketReuse(ticketData string) (*TLSResult, error) {
 func (e *Engine) analyzeTicketReuse(ticketData string) string {
 	var result strings.Builder
 	result.WriteString("Session Ticket Reuse Analysis:\n")
-	result.WriteString(fmt.Sprintf("Ticket length: %d bytes\n", len(ticketData)))
+	fmt.Fprintf(&result, "Ticket length: %d bytes\n", len(ticketData))
 
 	result.WriteString("\nAttack vectors:\n")
 	result.WriteString("- Replay captured session tickets\n")
@@ -165,7 +168,7 @@ func (e *Engine) Middlebox(target string) (*TLSResult, error) {
 func (e *Engine) analyzeMiddlebox(target string) string {
 	var result strings.Builder
 	result.WriteString("Middlebox Detection Analysis:\n")
-	result.WriteString(fmt.Sprintf("Target: %s\n", target))
+	fmt.Fprintf(&result, "Target: %s\n", target)
 
 	result.WriteString("\nCommon middleboxes:\n")
 	result.WriteString("- SSL/TLS inspection proxies\n")

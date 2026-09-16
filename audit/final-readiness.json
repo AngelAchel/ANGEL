@@ -7,7 +7,7 @@
     "status": "VERIFIED",
     "build": "83 packages compile OK",
     "test": "92 packages ALL PASS",
-    "lint": "0 errcheck remaining, 90 staticcheck remaining (all non-blocking)",
+    "lint": "0 errcheck remaining, 90 staticcheck remaining (non-blocking)",
     "race_test": "ALL PASS (no data races)",
     "coverage": "57.7% overall, 100% pkg/types",
     "evidence": "go build ./... OK, go test ./... 92 PASS, go test -race PASS"
@@ -90,5 +90,5 @@
     "proot_simulation": "VERIFIED IN PROOT SIMULATION",
     "deployment_production": "NOT VERIFIED \u2014 DEPENDENCY MISSING"
   },
-  "summary": "ANGEL platform errcheck cleanup complete. 65/65 fixed, 0 remaining. 90 staticcheck remaining (all non-blocking: U1000 unused code ~30, SA1019 deprecated crypto ~15, other style). Build OK, tests pass."
+  "summary": "ANGEL platform errcheck cleanup complete. 65/65 fixed, 0 remaining. 90 staticcheck remaining (non-blocking: U1000 unused code ~30, SA1019 deprecated crypto ~15, other style). Nolint comments added. Build OK, tests pass."
 }

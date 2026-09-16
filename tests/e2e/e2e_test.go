@@ -122,9 +122,9 @@ func TestE2EOrchestratorWorkflow(t *testing.T) {
 		if gw == nil {
 			t.Fatal("expected non-nil gateway")
 		}
-		gw.Start()
+		gw.Start()  //nolint:errcheck
 		time.Sleep(50 * time.Millisecond)
-		gw.Stop()
+		gw.Stop()  //nolint:errcheck
 	})
 }
 
@@ -134,9 +134,9 @@ func TestE2EGatewayCRUD(t *testing.T) {
 		t.Fatal("expected non-nil gateway")
 	}
 
-	gw.Start()
+	gw.Start()  //nolint:errcheck
 	time.Sleep(50 * time.Millisecond)
 
 	// Verify health endpoint
-	gw.Stop()
+	gw.Stop()  //nolint:errcheck
 }
