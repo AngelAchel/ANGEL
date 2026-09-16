@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"sync"
 	"time"
+
+	"github.com/angel-platform/angel/gateway/auth"
 )
 
 type Middleware interface {
@@ -22,6 +24,7 @@ type Gateway struct {
 	startTime  time.Time
 	totalReqs  uint64
 	totalErrs  uint64
+	jwtMgr     *auth.JWTManager
 }
 
 type Config struct {
@@ -131,6 +134,7 @@ func New(cfg *Config) *Gateway {
 		routes:    make(map[string]http.Handler),
 		methods:   make(map[string]map[string]http.Handler),
 		startTime: time.Now(),
+		jwtMgr:    auth.NewJWTManager(cfg.JWTSecret, cfg.JWTExpiry),
 	}
 
 	gw.middleware = []Middleware{
@@ -200,8 +204,13 @@ func (gw *Gateway) handleLogin(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"method_not_allowed"}`, http.StatusMethodNotAllowed)
 		return
 	}
+	token, err := gw.jwtMgr.GenerateToken("user", "admin", "operator")
+	if err != nil {
+		http.Error(w, `{"error":"token_generation_failed"}`, http.StatusInternalServerError)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"token":"jwt-token-placeholder","expires_in":86400}`)
+	fmt.Fprintf(w, `{"token":"%s","expires_in":86400}`, token)
 }
 
 func (gw *Gateway) handleLogout(w http.ResponseWriter, r *http.Request) {
@@ -218,8 +227,13 @@ func (gw *Gateway) handleRefresh(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"method_not_allowed"}`, http.StatusMethodNotAllowed)
 		return
 	}
+	token, err := gw.jwtMgr.GenerateToken("user", "admin", "operator")
+	if err != nil {
+		http.Error(w, `{"error":"token_generation_failed"}`, http.StatusInternalServerError)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"token":"refreshed-jwt-token","expires_in":86400}`)
+	fmt.Fprintf(w, `{"token":"%s","expires_in":86400}`, token)
 }
 
 func (gw *Gateway) handleAgents(w http.ResponseWriter, r *http.Request) {

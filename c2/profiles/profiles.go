@@ -55,7 +55,7 @@ var DefaultProfiles = map[string]*Profile{
 		Headers: map[string]string{
 			"User-Agent":     "Google-API-JS-Client/1.0",
 			"Content-Type":   "application/json",
-			"X-Goog-Api-Key": "placeholder",
+			"X-Goog-Api-Key": "", // Set from .env.local GOOGLE_API_KEY
 		},
 		URIs:        []string{"/drive/v3/files", "/gmail/v1/messages"},
 		Sleep:       45,

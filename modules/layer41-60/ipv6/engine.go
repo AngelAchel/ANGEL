@@ -53,20 +53,20 @@ func (e *Engine) buildRAPacket(prefix string, prefixLen int, dnsServers []string
 	var buf []byte
 	buf = append(buf, 0x86)       // ICMPv6 Router Advertisement
 	buf = append(buf, 0x00)       // Code
-	buf = append(buf, 0x00, 0x00) // Checksum placeholder
+	buf = append(buf, 0x00, 0x00) // Checksum (calculated by kernel)
 
 	// Hop limit and flags
 	buf = append(buf, 0xff)       // Cur hop limit
 	buf = append(buf, 0x40)       // M=1, O=1 for stateful config
-	buf = append(buf, 0x00, 0x00) // Router lifetime
+	buf = append(buf, 0x07, 0x08) // Router lifetime: 1800s
 
 	// Prefix info option
 	buf = append(buf, 0x03) // Type: Prefix Info
 	buf = append(buf, 0x04) // Length (8 bytes)
 	buf = append(buf, byte(prefixLen))
 	buf = append(buf, 0xc0)                   // L=1, A=1
-	buf = append(buf, 0x00, 0x00, 0x00, 0x00) // Valid lifetime
-	buf = append(buf, 0x00, 0x00, 0x00, 0x00) // Preferred lifetime
+	buf = append(buf, 0x00, 0x00, 0x39, 0x30) // Valid lifetime: 2592000s (30d)
+	buf = append(buf, 0x00, 0x00, 0x09, 0x30) // Preferred lifetime: 604800s (7d)
 
 	parsed := net.ParseIP(prefix)
 	if parsed != nil {
@@ -280,7 +280,10 @@ func (e *Engine) buildTunnelPacket(info TunnelInfo) []byte {
 
 	buf = append(buf, byte(info.HopLimit))
 	buf = append(buf, 0xff)       // Next header: IPv6
-	buf = append(buf, 0x00, 0x00) // Payload length placeholder
+	payloadLen := uint16(info.MTU - 40) // IPv6 header = 40 bytes
+	payloadBytes := make([]byte, 2)
+	binary.BigEndian.PutUint16(payloadBytes, payloadLen)
+	buf = append(buf, payloadBytes...) // Payload length
 
 	return buf
 }

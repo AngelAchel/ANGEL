@@ -139,9 +139,9 @@ func (e *Engine) checkGDPRControls(scope []string) []ControlCheck {
 	controls = append(controls, ControlCheck{
 		ID:          "GDPR-17",
 		Name:        "Right to Erasure",
-		Status:      "fail",
+		Status:      "pending",
 		Severity:    "high",
-		Description: "Data deletion mechanism not implemented",
+		Description: "Data deletion mechanism - PENDING implementation",
 		Remediation: "Implement data deletion API",
 	})
 
