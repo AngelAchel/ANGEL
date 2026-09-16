@@ -9,6 +9,7 @@ FROM alpine:3.21
 RUN apk add --no-cache ca-certificates tzdata
 WORKDIR /app
 COPY --from=builder /app/bin/angel .
+RUN chmod +x ./angel
 COPY --from=builder /app/.env.example .env.example
 EXPOSE 8080 8443 443 53 445
 USER nobody

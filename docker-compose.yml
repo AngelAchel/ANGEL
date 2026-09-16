@@ -1,0 +1,87 @@
+services:
+  angel-teamserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.angel
+    image: angel:latest
+    container_name: angel-teamserver
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "443:443"
+      - "5353:53/udp"
+      - "4455:445"
+    volumes:
+      - ./lab/data:/app/data
+      - ./lab/logs:/app/logs
+      - ./lab/implants:/app/implants
+    environment:
+      TEAMSERVER_ADDR: "0.0.0.0"
+      TEAMSERVER_PORT: "8443"
+      DATABASE_URL: "sqlite:///data/angel.db"
+      DATABASE_ENCRYPTION_KEY: "lab-enc-key-503ca5e9242"
+      LOG_LEVEL: "debug"
+      LOG_FILE: "/app/logs/angel.log"
+      C2_DEFAULT_PROFILE: "teams"
+      C2_DEFAULT_SLEEP: "30s"
+      C2_DEFAULT_JITTER: "0.25"
+      C2_MAX_AGENTS: "100"
+      LISTENER_HTTPS_PORT: "8443"
+      LISTENER_DNS_PORT: "8444"
+      LISTENER_SMB_PORT: "4455"
+      LISTENER_WEBSOCKET_PORT: "9443"
+      ENCRYPTION_ALGORITHM: "aes-256-gcm"
+      ENCRYPTION_KEY_ROTATION: "24h"
+      SUPABASE_URL: "https://lab-test-project.supabase.co"
+      SUPABASE_ANON_KEY: "lab-anon-key"
+      SUPABASE_SERVICE_ROLE_KEY: "lab-service-key"
+    networks:
+      - angel-net
+    restart: unless-stopped
+    command: ["-bind", "0.0.0.0", "-port", "8443"]
+
+  angel-console:
+    build:
+      context: .
+      dockerfile: Dockerfile.console
+    image: angel-console:latest
+    container_name: angel-console
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./lab/data:/app/data
+    environment:
+      TEAMSERVER_ADDR: "http://angel-teamserver:8080"
+      API_GATEWAY_ADDR: "0.0.0.0"
+      API_GATEWAY_PORT: "3000"
+      FRONTEND_URL: "http://localhost:4200"
+      FRONTEND_API_URL: "http://localhost:8080"
+    networks:
+      - angel-net
+    restart: unless-stopped
+    depends_on:
+      - angel-teamserver
+    command: ["-addr", "0.0.0.0", "-port", "3000"]
+
+  angel-rules:
+    build:
+      context: .
+      dockerfile: Dockerfile.rules
+    image: angel-rules:latest
+    container_name: angel-rules
+    environment:
+      SUPABASE_URL: "https://lab-test-project.supabase.co"
+      SUPABASE_ANON_KEY: "lab-anon-key"
+      SUPABASE_SERVICE_ROLE_KEY: "lab-service-key"
+      LOG_LEVEL: "info"
+    networks:
+      - angel-net
+    restart: unless-stopped
+    command: ["-bind", "0.0.0.0", "-port", "9444"]
+
+networks:
+  angel-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
