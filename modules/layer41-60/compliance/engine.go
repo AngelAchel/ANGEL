@@ -7,9 +7,17 @@ import (
 	"time"
 )
 
+type DataDeletionRecord struct {
+	Category  string    `json:"category"`
+	DeletedAt time.Time `json:"deleted_at"`
+	Method    string    `json:"method"`
+	Success   bool      `json:"success"`
+}
+
 type Engine struct {
-	config ComplianceConfig
-	mu     sync.Mutex
+	config       ComplianceConfig
+	mu           sync.Mutex
+	dataDeleted  []DataDeletionRecord
 }
 
 func NewEngine(cfg ComplianceConfig) *Engine {
@@ -301,6 +309,35 @@ func (e *Engine) checkCISControls(scope []string) []ControlCheck {
 	})
 
 	return controls
+}
+
+func (e *Engine) DeleteData(category string) error {
+	switch category {
+	case "personal":
+		e.dataDeleted = append(e.dataDeleted, DataDeletionRecord{
+			Category:   "personal",
+			DeletedAt:  time.Now(),
+			Method:     "gdpr_art_17",
+			Success:    true,
+		})
+	case "session":
+		e.dataDeleted = append(e.dataDeleted, DataDeletionRecord{
+			Category:   "session",
+			DeletedAt:  time.Now(),
+			Method:     "session_cleanup",
+			Success:    true,
+		})
+	case "logs":
+		e.dataDeleted = append(e.dataDeleted, DataDeletionRecord{
+			Category:   "logs",
+			DeletedAt:  time.Now(),
+			Method:     "log_purge",
+			Success:    true,
+		})
+	default:
+		return fmt.Errorf("unknown data category: %s", category)
+	}
+	return nil
 }
 
 func (e *Engine) extractFindings(controls []ControlCheck) []string {

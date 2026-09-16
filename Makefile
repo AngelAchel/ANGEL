@@ -90,8 +90,14 @@ dev:
 
 # Generate report
 report:
-	@echo "Generating report..."
-	go run ./cmd/console/ report --format html --output report.html
+	@echo "Generating HTML report..."
+	@go run ./cmd/console/ report --format html --output report.html
+	@echo "Report: report.html"
+
+# Generate PDF report (requires: go get github.com/jung-kurt/gofpdf)
+report-pdf:
+	@echo "Generating PDF report..."
+	@go run ./cmd/console/ report --format pdf --output report.pdf 2>/dev/null || echo "PDF not available, use: make report"
 
 # Run rules loader
 rules:
@@ -162,18 +168,25 @@ implant-generate:
 
 # Start dashboard
 dashboard:
-	@echo "Starting dashboard..."
-	cd frontend && ng serve --host 0.0.0.0
+	@echo "Starting console dashboard..."
+	@docker compose up -d angel-console
+	@echo "Dashboard: http://localhost:3000"
 
 # Engage target
 engage:
-	@echo "Engaging target..."
 	@if [ -z "$(SCOPE)" ]; then echo "Usage: make engage SCOPE=target.txt"; exit 1; fi
 	@echo "Engagement started with scope: $(SCOPE)"
+	@mkdir -p lab/logs lab/data
+	@docker compose up -d angel-teamserver angel-console angel-rules
+	@sleep 3
+	@docker compose ps
+	@echo "Engagement ready. Dashboard: http://localhost:3000"
+	@echo "Teamserver: http://localhost:8443"
 
 # Cleanup after engagement
 cleanup:
 	@echo "Cleaning up after engagement..."
+	@docker compose down 2>/dev/null || true
 	@pkill -f "angel" 2>/dev/null || true
 	@rm -f /tmp/angel-*
 	@echo "Cleanup complete"
