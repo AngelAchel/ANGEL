@@ -31,6 +31,8 @@ type HTTPListener struct {
 	eb       *eventbus.EventBus
 	log      *logger.Logger
 	handlers map[string]http.HandlerFunc
+	certFile string
+	keyFile  string
 }
 
 func NewHTTPListener(addr string, port int, crypto *ServerCrypto, eb *eventbus.EventBus, log *logger.Logger) *HTTPListener {
@@ -140,6 +142,11 @@ func (l *HTTPListener) handleResult(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("ok"))
 }
 
+func (l *HTTPListener) SetTLS(certFile, keyFile string) {
+	l.certFile = certFile
+	l.keyFile = keyFile
+}
+
 func (l *HTTPListener) Start() error {
 	mux := http.NewServeMux()
 	for path, handler := range l.handlers {
@@ -159,7 +166,14 @@ func (l *HTTPListener) Start() error {
 	l.mu.Unlock()
 	l.log.Info("HTTP listener starting on %s", addr)
 	go func() {
-		if err := l.server.ListenAndServeTLS("", ""); err != nil && err != http.ErrServerClosed {
+		var err error
+		if l.certFile != "" && l.keyFile != "" {
+			err = l.server.ListenAndServeTLS(l.certFile, l.keyFile)
+		} else {
+			l.log.Info("TLS disabled, using plain HTTP on %s", addr)
+			err = l.server.ListenAndServe()
+		}
+		if err != nil && err != http.ErrServerClosed {
 			l.log.Error("HTTP listener error: %v", err)
 		}
 	}()

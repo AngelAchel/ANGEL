@@ -3,6 +3,7 @@ package c2server
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"sync"
 	"time"
 
@@ -56,6 +57,11 @@ func (ts *Teamserver) Start() error {
 		ts.eb,
 		ts.log,
 	)
+	if certFile := os.Getenv("TLS_CERT_FILE"); certFile != "" {
+		if keyFile := os.Getenv("TLS_KEY_FILE"); keyFile != "" {
+			httpListener.SetTLS(certFile, keyFile)
+		}
+	}
 	ts.listeners.Add(httpListener)
 	dnsListener := NewDNSListener(
 		ts.config.BindAddr,
