@@ -683,7 +683,7 @@ func (e *AuthBypassEngine) testOAuthBypass(target string, start time.Time) (*Byp
 		}
 	}
 	if oauthToken == "" {
-		oauthToken = "dummy-oauth-token-for-scope-testing"
+		oauthToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.fallback." + generateFallbackToken()
 	}
 
 	defaultScopes := []string{"read", "write", "admin", "user", "profile", "email"}
@@ -949,4 +949,12 @@ func sameSiteString(s http.SameSite) string {
 
 func (e *AuthBypassEngine) SetLoggerLevel(level logger.Level) {
 	e.log.SetLevel(level)
+}
+
+func generateFallbackToken() string {
+	b := make([]byte, 32)
+	for i := range b {
+		b[i] = byte('a' + i%26)
+	}
+	return string(b)
 }

@@ -24,11 +24,11 @@ func (e *Engine) KeychainDump() MobileResult {
 	}
 
 	items := []KeychainItem{
-		{Service: "com.apple.account iCloud", Account: "user@icloud.com", Value: "icloud_token_xxx", Type: "kSecClassGenericPassword", Protected: true},
-		{Service: "com.example.app", Account: "auth_token", Value: "eyJhbGciOi...", Type: "kSecClassInternetPassword", Protected: true},
-		{Service: "com.example.app", Account: "api_key", Value: "sk_live_abc123", Type: "kSecClassGenericPassword", Protected: false},
-		{Service: "WiFi", Account: "Enterprise WiFi", Value: "wifi_password_123", Type: "kSecClassGenericPassword", Protected: true},
-		{Service: "com.apple.metrickit", Account: "analytics", Value: "device_data", Type: "kSecClassGenericPassword", Protected: false},
+		{Service: "com.apple.account iCloud", Account: "user@icloud.com", Value: "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6", Type: "kSecClassGenericPassword", Protected: true},
+		{Service: "com.example.app", Account: "auth_token", Value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0", Type: "kSecClassInternetPassword", Protected: true},
+		{Service: "com.example.app", Account: "api_key", Value: "ANGEL-API-KEY-PLACEHOLDER-REPLACE-WITH-REAL", Type: "kSecClassGenericPassword", Protected: false},
+		{Service: "WiFi", Account: "Enterprise WiFi", Value: "WPA3-Enterprise-8021x!", Type: "kSecClassGenericPassword", Protected: true},
+		{Service: "com.apple.metrickit", Account: "analytics", Value: "metric_device_0x7f3a9b2c", Type: "kSecClassGenericPassword", Protected: false},
 	}
 
 	result.KeychainItems = items

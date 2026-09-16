@@ -61,7 +61,7 @@ func DefaultConfig() *ServerConfig {
 			MaxAgents: 1000,
 		},
 		Auth: AuthConfig{
-			JWTSecret:  "angel-jwt-secret-change-me",
+			JWTSecret:  os.Getenv("JWT_SECRET"),
 			JWTExpiry:  24 * time.Hour,
 			EnableRBAC: true,
 		},

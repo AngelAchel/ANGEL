@@ -1,6 +1,4 @@
 # Binaries
-console
-teamserver
 *.exe
 *.dll
 *.so
@@ -30,3 +28,4 @@ Thumbs.db
 .env
 .env.local
 bin/
+lab/logs/

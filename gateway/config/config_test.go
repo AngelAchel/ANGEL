@@ -57,13 +57,14 @@ func TestLoadConfig_EnvOverride(t *testing.T) {
 func TestLoadConfig_Defaults(t *testing.T) {
 	os.Unsetenv("GATEWAY_ADDR")
 	os.Unsetenv("GATEWAY_SECRET")
+	os.Unsetenv("JWT_SECRET")
 
 	cfg := LoadConfig()
 
 	if cfg.Gateway.Addr != "0.0.0.0" {
 		t.Errorf("Gateway.Addr = %q, want %q", cfg.Gateway.Addr, "0.0.0.0")
 	}
-	if cfg.Auth.JWTSecret != "angel-jwt-secret-change-me" {
-		t.Errorf("Auth.JWTSecret = %q, want default", cfg.Auth.JWTSecret)
+	if cfg.Auth.JWTSecret != "" {
+		t.Errorf("Auth.JWTSecret should be empty when JWT_SECRET not set, got %q", cfg.Auth.JWTSecret)
 	}
 }

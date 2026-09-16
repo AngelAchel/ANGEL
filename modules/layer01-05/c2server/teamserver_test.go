@@ -2,10 +2,16 @@ package c2server
 
 import (
 	"encoding/json"
+	"os"
 	"testing"
 
 	"github.com/angel-platform/angel/pkg/types"
 )
+
+func TestMain(m *testing.M) {
+	os.Setenv("TEAMSERVER_KEY", "test-key-for-unit-test")
+	os.Exit(m.Run())
+}
 
 func TestNewTeamserver(t *testing.T) {
 	config := DefaultConfig()

@@ -15,10 +15,17 @@ type TeamserverConfig struct {
 }
 
 func DefaultConfig() *TeamserverConfig {
+	key := os.Getenv("TEAMSERVER_KEY")
+	if key == "" {
+		key = os.Getenv("CRYPTO_KEY")
+	}
+	if key == "" {
+		panic("TEAMSERVER_KEY or CRYPTO_KEY environment variable must be set")
+	}
 	return &TeamserverConfig{
 		BindAddr:  "0.0.0.0",
 		BindPort:  8443,
-		CryptoKey: "default-secret-key-change-me",
+		CryptoKey: key,
 		MaxAgents: 100,
 		DBPath:    "teamserver.db",
 	}

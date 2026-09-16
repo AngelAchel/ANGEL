@@ -1,347 +1,230 @@
 # ANGEL Platform v3.2 - USAGE GUIDE
 
-> **Status:** FINAL & OPERATIONAL  
-> **Tujuan:** Offensive security engagement untuk testing P0/P1  
-> **Legalitas:** Hanya digunakan pada sistem yang telah diizinkan  
+> **Status:** FINAL & OPERATIONAL
+> **Tujuan:** Offensive security engagement untuk testing P0/P1
+> **Legalitas:** Hanya digunakan pada sistem yang telah diizinkan
 > **Prinsip:** "No copy-paste" — tiap baris ditulis sendiri
 
 ---
 
-## SECTION 1: INSTALASI & SETUP CEPAT
+## PRASYARAT
 
-### Langkah 1: Clone Repository
+- Go 1.27+
+- Docker + Docker Compose
+- Make
+
+---
+
+## SECTION 1: INSTALASI & BUILD
+
+### Langkah 1: Clone & Enter
 ```bash
-git clone https://github.com/angel-framework/angel.git
+git clone <repo>
 cd angel
 ```
 
-### Langkah 2: Install Dependencies & Setup Environment
+### Langkah 2: Set Environment Secrets (WAJIB)
 ```bash
-make setup
+export TEAMSERVER_KEY="<strong-random-key-min-32-char>"
+export JWT_SECRET="<strong-random-secret>"
 ```
 
-**Apa yang terjadi:**
-- ✅ Verifikasi dependensi (Go, golangci-lint, terraform, ansible)
-- ✅ Menyalin `.env.example` → `.env.local`
-- ✅ Membangun 3 binary: `angel`, `angel-console`, `angel-rules`
-- ✅ Menyiapkan konfigurasi lengkap
+> **Catatan:** Tanpa env var ini, aplikasi akan panic di startup.
+> Untuk persisten, tambahkan ke `.env.example` atau `~/.bashrc`.
 
-**Verify:**
-```bash
-cat .env.local
-# Akan menampilkan konfigurasi yang sudah di-setup
-```
-
-### Langkah 3: Build Semua Binary
+### Langkah 3: Build Binary
 ```bash
 make build
 ```
 
-**Output yang diharapkan:**
-```
-Building angel...
-go build -ldflags "-X main.Version=e41abf1-dirty -X main.BuildTime=2026-09-15T17:34:45Z" -o bin/angel ./cmd/teamserver/
-go build -ldflags "-X main.Version=e41abf1-dirty -X main.BuildTime=2026-09-15T17:34:45Z" -o bin/angel-console ./cmd/console/
-go build -ldflags "-X main.Version=e41abf1-dirty -X main.BuildTime=2026-09-15T17:34:45Z" -o bin/angel-rules ./cmd/rules-loader/
-Build complete: bin/
-```
+**Output:**
+- `bin/angel` — Teamserver/C2 server
+- `bin/angel-console` — API Gateway / Console
+- `bin/angel-generate` — Implant generator
 
-**Binary yang dihasilkan:**
-- `bin/angel` — Teamserver/Command & Control server
-- `bin/angel-console` — Console/Agent management
-- `bin/angel-rules` — Rules loader
-
-### Langkah 4: Jalankan Test Suite
+### Langkah 4: Test Suite
 ```bash
 make test
 ```
 
-**Output yang diharapkan:**
-```
---- PASS: TestGeneratorNew (0.00s)
---- PASS: TestGeneratorSupportedPlatforms (0.00s)
---- PASS: TestGeneratorGenerate (0.00s)
-ok  	github.com/angel-platform/angel/c2/generate (cached)	coverage: 82.8% of statements
---- PASS: TestImplantNew (0.00s)
---- PASS: TestImplantStop (0.00s)
---- PASS: TestImplantSessionID (0.00s)
-ok  	github.com/angel-platform/angel/c2/implant (cached)	coverage: 10.6% of statements
-... (92 automated tests + 1,346 manual scenarios in TEST_SCENARIOS.md)
-ok  	github.com/angel-platform/angel/tests/integration (cached)	coverage: [no statements]
-```
+**Output:** 92 packages, semestinya ALL PASS.
 
-### Langkah 5: Verifikasi Lint
+### Langkah 5: Lint
 ```bash
 make lint
 ```
 
-**Catatan:** Bisa ada minor style issues yang non-fungsional, tetapi build/test tetap 100% passing.
-
 ---
 
-## SECTION 1.5: DEPLOYMENT LAB (DOCKER COMPOSE)
+## SECTION 2: DEPLOYMENT LAB (DOCKER COMPOSE)
 
 ### Jalankan Semua Service
 ```bash
 docker compose up -d
 ```
 
-**Service yang jalan:**
-- `angel-teamserver` — C2 server di port 8443, 8080, 443, 5353/udp
-- `angel-console` — dashboard di port 3000
-- `angel-rules` — rules engine (internal)
-- `dvwa` — target latihan DVWA di port 8081
+**Service:**
+- `angel-teamserver` — C2 di port 8443, 8080, 443, 5353/udp, 4455
+- `angel-console` — API Gateway di port 3000
+- `angel-rules` — Rules engine (one-shot, bukan server)
+- `dvwa` — Target latihan DVWA di port 8081
 
-**Cek status:**
+### Cek Status
 ```bash
 docker compose ps
 docker logs angel-teamserver
 docker logs angel-rules
 ```
 
-**Test lab:**
+### Test Lab
 ```bash
 ./lab/test_lab.sh
 ```
 
-**Hentikan:**
+### Hentikan
 ```bash
 docker compose down
 ```
 
 ---
 
-## SECTION 2: OPERASIONAL ENGAGEMENT
+## SECTION 3: OPERASIONAL ENGAGEMENT
 
-### Menghulai Teamserver & Listeners
+### Generate Implant
 ```bash
-make listeners-start
-```
-
-**Atau via Docker:**
-```bash
-docker compose up -d angel-teamserver
-docker compose logs -f angel-teamserver
-```
-
-### Generate Implant Binary
-```bash
-# Generate implant untuk Linux x64 (default)
-./bin/angel-generate -os linux -arch amd64 -server http://teamserver:8443 -out lab/implants
+# Linux x64
+./bin/angel-generate -os linux -arch amd64 -server http://localhost:8443 -out lab/implants
 
 # Windows x64
-./bin/angel-generate -os windows -arch amd64 -server http://teamserver:8443 -out lab/implants
-
-# Output: lab/implants/ directory
+./bin/angel-generate -os windows -arch amd64 -server http://localhost:8443 -out lab/implants
 ```
-
-> **Catatan:** `make implant-generate` adalah placeholder. Gunakan `angel-generate` langsung.
 
 ### Define Target Scope
 ```bash
-# Buat file target (daftar host/IP yang akan diuji)
 echo "192.168.1.1" > target.txt
 echo "192.168.1.2" >> target.txt
-
-# Untuk lab: jalankan C2 via Docker
-docker compose up -d angel-teamserver
-
-# Untuk produksi: deploy ke VPS
-make c2-deploy
 ```
 
-> **Catatan:** `make engage` adalah placeholder untuk workflow CLI engagement.
+### Mulai Engagement
+```bash
+make engage SCOPE=target.txt
+```
+
+Atau via Docker:
+```bash
+docker compose up -d angel-teamserver angel-console
+```
 
 ### During Engagement
-- **Dashboard:** `http://localhost:3000` (console Angular)
+- **Dashboard:** `http://localhost:3000`
+- **Teamserver:** `http://localhost:8443`
 - **Monitor logs:** `docker compose logs -f angel-teamserver`
 - **Cek rules:** `docker logs angel-rules`
-- **Status check:** `docker compose ps`
+- **Status:** `docker compose ps`
 
 ---
 
-## SECTION 3: POST-ENGAGEMENT CLEANUP
+## SECTION 4: POST-ENGAGEMENT CLEANUP
 
-### Stop dan Bersihkan
 ```bash
 docker compose down
+make cleanup
 ```
-
-**Yang dilakukan:**
-- Stop semua proses angel
-- Hapus implant binary temporary
-- Bersihkan log sementara
-- Reset konfigurasi ke state awal
-
-### Verify Clean State
-```bash
-make verify-clean
-```
-
-**Verify bahwa tidak ada sisa:**
-- File temporary di `/tmp/angel-*`
-- Process angel yang masih running
-- Konfigurasi berubah
 
 ### Generate Laporan
 ```bash
-# Laporan HTML (satu-satunya format yang didukung)
 make report
-
 # Output: report.html
 ```
 
-> **Catatan:** `FORMAT=pdf` dan `FORMAT=markdown` belum tersedia.
-
 ---
 
-## SECTION 4: STRUKTUR REPOSITORI
+## SECTION 5: STRUKTUR REPOSITORI
 
 ```
 ANGEL/
-├── Makefile           # Entry point: make build / make test / make release
-├── .env.example       # Template konfigurasi environment (dibidang)
-├── .env               # Konfigurasi aktif (dibuat otomatis)
-├── go.mod             # Go module definition
-├── go.sum             # Go module checksums
-├── main.go            # Entry point
-├── scripts/           # Automation pipeline
-│   ├── build.sh
-│   ├── lint.sh
-│   ├── release.sh
-│   └── test.sh
-├── tests/             # Test scenarios TC-001..TC-1346 (Section 17)
-│   ├── integration/
-│   ├── e2e/
-│   └── TEST_SCENARIOS.md
-├── docs/              # Dokumentasi operasional
-│   └── report_template.md
-├── c2/                # Inti C2 (implant, teamserver, malleable profile)
+├── Makefile           # Entry point: make build / test / release
+├── .env.example       # Template environment
+├── go.mod             # Go module
+├── cmd/               # Entry points (teamserver, console, generator, rules-loader)
+├── c2/                # C2 core (implant, profiles, generator)
+├── gateway/           # API Gateway (auth, RBAC, rate limit)
 ├── orchestrator/      # LangGraph orchestration + Brain
-├── gateway/           # API Gateway (.NET 10): auth, RBAC, rate limit
-├── frontend/          # Angular dashboard, agent console, report viewer
-├── infra/             # Terraform + Ansible: VPS, WireGuard, firewall
-└── modules/           # Semua modul ofensif per layer (1–70)
-    ├── layer01-05/    # C2 core, decoy, SQLi, NoSQL, DB post-exploit
-    ├── layer06-10/
-    ├── ...
-    └── layer66-70/
+├── frontend/          # Angular dashboard
+├── infra/             # Terraform + Ansible + WireGuard
+├── modules/           # 70 layer modules (layer01-05 s/d layer61-70)
+├── pkg/               # Shared packages (crypto, eventbus, logger, types)
+├── scripts/           # Build / lint / release pipeline
+├── tests/             # Test scenarios TC-001..TC-1346
+├── docs/              # Dokumentasi + report template
+└── lab/               # Lab environment (configs, implants, logs)
 ```
 
 ---
 
-## SECTION 5: AVAILABLE MAKEFILE TARGETS
+## SECTION 6: MAKEFILE TARGETS
 
 | Target | Deskripsi | Contoh |
 |--------|-----------|--------|
 | `all` | Build + test + lint | `make all` |
 | `build` | Build 3 binary | `make build` |
-| `setup` | Install deps + setup env | `make setup` |
-| `test` | Run 1,346 test cases | `make test` |
-| `lint` | Golangci-lint analysis | `make lint` |
+| `deps` | Install Go deps | `make deps` |
+| `setup` | Deps + build | `make setup` |
+| `test` | Run all tests | `make test` |
+| `lint` | golangci-lint | `make lint` |
 | `fmt` | Format kode | `make fmt` |
 | `tidy` | Go mod tidy | `make tidy` |
 | `clean` | Bersihkan artifacts | `make clean` |
-| `engage` | Mulai engagement | _placeholder_ |
-| `infra-deploy` | Deploy infra (Terraform) | `make infra-deploy ENV=production` |
-| `c2-deploy` | Deploy C2 framework | `make c2-deploy` |
-| `dashboard` | Start Angular dashboard | _butuh Angular CLI_ |
-| `report` | Generate laporan HTML | `make report` |
-| `help` | Show bantuan | `make help` |
+| `engage` | Mulai engagement | `make engage SCOPE=target.txt` |
+| `implant-generate` | Generate implant | `make implant-generate OS=linux TARGET=amd64` |
+| `infra-deploy` | Deploy infra | `make infra-deploy ENV=production` |
+| `c2-deploy` | Deploy C2 | `make c2-deploy` |
+| `report` | Generate laporan | `make report` |
+| `help` | Daftar target | `make help` |
 
 ---
 
-## SECTION 6: LEGALITAS & PRINSIP
+## SECTION 7: LEGALITAS & PRINSIP
 
 ### Legalitas
-- Seluruh aktivitas hanya pada sistem yang telah diizinkan
-- Harus memiliki kontrak, izin polisi, dan persetujuan founder
-- Hanya digunakan untuk engagement resmi offensive security
+- Hanya untuk sistem yang telah diizinkan
+- Harus punya kontrak + izin tertulis
 
-### Prinsip Dasar ANGEL
-1. **"No copy-paste"** — tiap baris ditulis sendiri
-2. **"If I can't explain every line, it doesn't go in"**
-3. **"Signature-free"** — defender gak kenal
-4. **"Modular"** — tiap modul jalan sendiri, tapi orchestrated
-5. **"Evidentiary"** — tiap action ada bukti
-6. **"Clean"** — post-engagement, semua hilang
-7. **"Resilient"** — setiap kegagalan ada fallback
-8. **"Adaptive"** — beradaptasi dengan environment
-9. **"Autonomous"** — keputusan tanpa operator jika perlu
-10. **"Observable"** — setiap aksi log dan terukur
-
-### Environment Detection (Implant Otomatis)
-Implant mendeteksi otomatis:
-- OS version dan architecture
-- CPU cores (< 2 = anti-sandbox)
-- RAM (< 2GB = anti-sandbox)
-- Disk size (< 60GB = anti-sandbox)
-- Uptime (< 5 menit = anti-sandbox)
-- Mouse movement (tidak ada = anti-sandbox)
-- Process count (< 30 = sandbox)
-- Parent process (explorer.exe parent)
-
-Jika dideteksi environment sandbox, implant akan mengadaptasi atau menonaktifkan diri.
-
-### Fallback Chains
-Setiap teknik memiliki fallback otomatis jika teknik utama terdeteksi/blocked:
-- C2 channel rotation: HTTPS → DNS → DoH → WebSocket → Telegram → Blockchain
-- Sleep masking: VirtualProtect+RC4 → Thread Stack Spoofing → Module Stomping → dll
-- Evasion techniques: Hell's Gate → Halo's Gate → Tartarus Gate → FreshyCalls → SysWhispers3 → dll
-- DB post-exploit: Oracle Java → MySQL UDF → PostgreSQL COPY → MSSQL xp_cmdshell → CLR Assembly → dll
-
-### Event Bus Protocol
-Semua komunikasi antar-modul WAJIB lewat event bus:
-- Topik: `<domain>.<module>.<action>.<version>` (contoh: `c2.implant.registered.v1`)
-- Publisher tidak tahu consumer (publish-and-forget)
-- QoS: at-least-once, retry 3x backoff exponensial
-- Autentikasi: header HMAC `X-Angel-Sign` (HMAC-SHA256)
-- Semua event jenis "result" otomatis dicatat ke evidence ledger
+### Prinsip
+1. "No copy-paste" — tiap baris ditulis sendiri
+2. "If I can't explain every line, it doesn't go in"
+3. "Signature-free" — defender gak kenal
+4. "Modular" — tiap modul jalan sendiri, di-orchestrate
+5. "Evidentiary" — tiap aksi ada bukti
+6. "Clean" — post-engagement, semua hilang
+7. "Resilient" — setiap kegagalan ada fallback
+8. "Adaptive" — beradaptasi dengan environment
+9. "Autonomous" — keputusan tanpa operator jika perlu
+10. "Observable" — tiap aksi log dan terukur
 
 ---
 
-## SECTION 7: TROUBLESHOOTING
+## SECTION 8: TROUBLESHOOTING
 
-### Masalah Umum & Solusi
+**Teamserver tidak start:**
+- Cek `TEAMSERVER_KEY` sudah di-set: `echo $TEAMSERVER_KEY`
+- Cek port 8444 tidak bentrok: `ss -tlnp | grep 8443`
 
-**1. Teamserver tidak start**
-- Cek port 8443 tidak digunakan lain
-- Cek log: `docker logs angel-teamserver`
-- Cek container: `docker compose ps`
-
-**2. Implant tidak terdaftar**
-- Cek network connectivity ke teamserver
+**Implant tidak register:**
+- Cek network ke teamserver: `curl http://localhost:8443/`
 - Cek listener: `docker compose ps angel-teamserver`
 
-**3. Channel tert-block**
-- Gunakan channel rotation (otomatis via rules engine)
-- Cek: `docker logs angel-rules`
+**Dashboard tidak akses:**
+- Cek `JWT_SECRET` sudah di-set
+- Cek port 3000: `curl http://localhost:3000/api/v1/health`
 
-**4. Verifikasi clean**
-- Cek container: `docker compose ps`
-- Hentikan: `docker compose down`
-
-**5. Dashboard tidak bisa diakses**
-- Cek: `docker compose ps angel-console`
-- Cek port 3000
+**Semua panic/exit:**
+- Pastikan env var TEAMSERVER_KEY dan JWT_SECRET sudah di-set sebelum build
 
 ---
 
-## SECTION 8: REFERENCE & RESOURCES
+## SECTION 9: REFERENCE
 
-### Dokumentasi
-- `STRUKTUR_ANGEL.md` — Blueprint lengkap 70 layer
-- `TEST_SCENARIOS.md` — 1.346 test case (TC-001 s.d. TC-1346)
-- `report_template.md` — Template laporan teknis/eksekutif
-
-### Command Reference
-- `make help` — Show semua available targets
-- `go run ./cmd/teamserver/ --help` — Cek bantuan teamserver
-- `go run ./cmd/console/ --help` — Cek bantuan console
-
-### Links Berguna
-- ANGEL GitHub: https://github.com/angel-framework/angel
-- Documentation: lihat `docs/` directory
-- Test Scenarios: lihat `tests/TEST_SCENARIOS.md`
-
----
+- `STRUKTUR_ANGEL.md` — Blueprint 70 layer
+- `TEST_SCENARIOS.md` — 1.346 test case (TC-001..TC-1346)
+- `docs/report_template.md` — Template laporan
