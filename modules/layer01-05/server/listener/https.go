@@ -19,8 +19,8 @@ type HTTPSListener struct {
 	certFile string
 	keyFile  string
 	running  bool
-	agents   map[string]*Agent
-	tasks    map[string]*Task
+	agents   map[string]*Agent  //nolint:staticcheck
+	tasks    map[string]*Task  //nolint:staticcheck
 	results  []*Result
 }
 

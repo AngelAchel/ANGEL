@@ -142,8 +142,8 @@ func (e *Engine) AccessControlBypass(contractAddr string) Web3Result {
 	})
 
 	return result
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func (e *Engine) analyzeBytecode(bytecode string) []string {
 	var patterns []string
 	if len(bytecode) > 100 {

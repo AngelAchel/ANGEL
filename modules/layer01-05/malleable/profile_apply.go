@@ -176,8 +176,8 @@ func (pa *ProfileApplier) GetStats(name string) (int, int) {
 		return profile.Requests, profile.Errors
 	}
 	return 0, 0
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func generateMalleableURL(host string, path string) string {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path

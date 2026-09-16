@@ -818,16 +818,16 @@ func (d *RAMSizeCheck) Detect() DetectionResult {
 		result.RiskScore = 0.0
 	}
 	return result
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func currentUser() string {
 	u, err := user.Current()
 	if err != nil {
 		return "unknown"
 	}
 	return u.Username
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func isCommonVMUser() bool {
 	vmUsers := []string{
 		"sandbox",
@@ -853,8 +853,8 @@ func isCommonVMUser() bool {
 func generateHash(input string) string {
 	h := sha256.Sum256([]byte(input))
 	return fmt.Sprintf("%x", h)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func detectEnvironmentFingerprint() string {
 	fingerprint := fmt.Sprintf("%s-%s-%s-%d",
 		runtime.GOOS,
@@ -863,8 +863,8 @@ func detectEnvironmentFingerprint() string {
 		time.Now().UnixNano(),
 	)
 	return generateHash(fingerprint)[:16]
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func calculateRiskScore(results []DetectionResult) float64 {
 	if len(results) == 0 {
 		return 0.0

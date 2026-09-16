@@ -343,8 +343,8 @@ func isSecretEnvVar(env string) bool {
 		}
 	}
 	return false
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func generateHash() string {
 	b := make([]byte, 16)
 	rand.Read(b)

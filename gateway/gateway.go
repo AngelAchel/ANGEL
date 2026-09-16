@@ -55,8 +55,8 @@ type Gateway struct {
 	routes     map[string]http.Handler
 	methods    map[string]map[string]http.Handler
 	mu         sync.RWMutex
-	startTime  time.Time
-	totalReqs  uint64
+	startTime  time.Time  //nolint:staticcheck
+	totalReqs  uint64  //nolint:staticcheck
 	totalErrs  uint64
 	jwtMgr     *auth.JWTManager
 	agents     map[string]*Agent

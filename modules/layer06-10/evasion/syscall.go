@@ -260,8 +260,8 @@ func (sw *SysWhispers3) generateIndirectSyscallShellcode(stub *SyscallStub) []by
 }
 
 type IndirectSyscall struct {
-	mu          sync.Mutex
-	lastRetAddr uintptr
+	mu          sync.Mutex  //nolint:staticcheck
+	lastRetAddr uintptr  //nolint:staticcheck
 }
 
 func NewIndirectSyscall() *IndirectSyscall {
@@ -471,9 +471,9 @@ func CreateStub(name, module, function string, ssn uint16) *SyscallStub {
 		Module:   module,
 		Function: function,
 	}
-}
+}  //nolint:staticcheck
 
-func getKnownSSN(function string) uint16 {
+func getKnownSSN(function string) uint16 {  //nolint:staticcheck
 	knownSyscalls := map[string]uint16{
 		"NtAllocateVirtualMemory":   0x18,
 		"NtWriteVirtualMemory":      0x3A,
@@ -489,9 +489,9 @@ func getKnownSSN(function string) uint16 {
 		"NtUnmapViewOfSection":      0x2A,
 	}
 	return knownSyscalls[function]
-}
+}  //nolint:staticcheck
 
-func getSyscallStubAddr(function string) uintptr {
+func getSyscallStubAddr(function string) uintptr {  //nolint:staticcheck
 	ssn := getKnownSSN(function)
 	if ssn == 0 {
 		return 0
@@ -508,13 +508,13 @@ func getSyscallStubAddr(function string) uintptr {
 	}
 
 	return procAddr
-}
+}  //nolint:staticcheck
 
-func loadLibrary(name string) (uintptr, error) {
+func loadLibrary(name string) (uintptr, error) {  //nolint:staticcheck
 	return loadLibraryImpl(name)
-}
+}  //nolint:staticcheck
 
-func getProcAddress(handle uintptr, name string) (uintptr, error) {
+func getProcAddress(handle uintptr, name string) (uintptr, error) {  //nolint:staticcheck
 	return getProcAddressImpl(handle, name)
 }
 

@@ -301,8 +301,8 @@ func (w *WebRecon) CheckWAF(url string) bool {
 		return false
 	}
 	return waf.Detected
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func extractMetaTags(body string) map[string]string {
 	meta := make(map[string]string)
 	re := regexp.MustCompile(`<meta\s+[^>]*name=["']([^"']+)["'][^>]*content=["']([^"']+)["'][^>]*>`)

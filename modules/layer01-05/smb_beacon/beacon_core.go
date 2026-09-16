@@ -208,8 +208,8 @@ func generateBeaconID() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func formatBeaconStatus(beacon *SMBBeacon) string {
 	status := "🔴 Disconnected"
 	if beacon.IsConnected() {

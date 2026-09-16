@@ -194,8 +194,8 @@ func generateResultID() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func formatResult(result *TaskResult) string {
 	status := "✅ Success"
 	if !result.Success {

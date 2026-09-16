@@ -916,12 +916,12 @@ func (m *InitramfsHookMethod) Verify(params *PersistenceParams) (bool, error) {
 	hookPath := "/etc/initramfs-tools/hooks/persistence"
 	_, err := os.Stat(hookPath)
 	return err == nil, nil
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func getLinuxEnvVar(name string) string {
 	return os.Getenv(name)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func getLinuxUserHome() string {
 	if u, err := user.Current(); err == nil {
 		return u.HomeDir

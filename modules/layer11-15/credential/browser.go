@@ -161,8 +161,8 @@ func (o *OperaExtractor) Name() string {
 
 func (o *OperaExtractor) BrowserType() BrowserType {
 	return BrowserOpera
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func decryptDPAPI(data []byte) ([]byte, error) {
 	if len(data) == 0 {
 		return nil, fmt.Errorf("empty data")

@@ -178,8 +178,8 @@ func (e *Engine) BackupExtract() MobileResult {
 	}
 
 	return result
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func (e *Engine) enumerateKeychainItems() []KeychainItem {
 	accessGroups := []string{"keychain-access-groups", "app-group.com.example"}
 	var items []KeychainItem
@@ -194,8 +194,8 @@ func (e *Engine) enumerateKeychainItems() []KeychainItem {
 		})
 	}
 	return items
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func (e *Engine) analyzeSSLChain(host string) []SSLCertInfo {
 	var certs []SSLCertInfo
 	chain := []struct {

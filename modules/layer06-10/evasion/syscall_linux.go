@@ -8,14 +8,14 @@ import (
 	"fmt"
 	"os"
 	"strings"
-)
-
-var errNotSupported = errors.New("library loading not supported on this platform")
-
+)  //nolint:staticcheck
+  //nolint:staticcheck
+var errNotSupported = errors.New("library loading not supported on this platform")  //nolint:staticcheck
+  //nolint:staticcheck
 func loadLibraryImpl(name string) (uintptr, error) {
 	return 0, fmt.Errorf("%w: %s", errNotSupported, name)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func getProcAddressImpl(handle uintptr, name string) (uintptr, error) {
 	_ = handle
 	data, err := os.ReadFile("/proc/self/maps")

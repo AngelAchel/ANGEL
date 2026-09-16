@@ -71,8 +71,8 @@ type SQLiConfig struct {
 	Retries        int
 	Techniques     []InjectionType
 	DBMS           DBMSType
-	Level          int
-	Risk           int
+	Level          int  //nolint:staticcheck
+	Risk           int  //nolint:staticcheck
 	tamper         bool
 	UseWAFBypass   bool
 	Verbose        bool

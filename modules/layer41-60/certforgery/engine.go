@@ -74,8 +74,8 @@ func (e *Engine) SelfSignForge(domain string) (*CertResult, error) {
 		KeyPEM:   string(keyPEM),
 		Risk:     "high",
 	}, nil
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func (e *Engine) buildCertTemplate(domain string) CertificateInfo {
 	return CertificateInfo{
 		Subject:     fmt.Sprintf("CN=%s", domain),

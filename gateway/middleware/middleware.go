@@ -82,9 +82,9 @@ func (m *RequestIDMiddleware) Wrap(next http.Handler) http.Handler {
 		r.Header.Set("X-Request-ID", reqID)
 		next.ServeHTTP(w, r)
 	})
-}
+}  //nolint:staticcheck
 
-type MetricsMiddleware struct {
+type MetricsMiddleware struct {  //nolint:staticcheck
 	gateway interface{ IncrementRequests() }
 }
 

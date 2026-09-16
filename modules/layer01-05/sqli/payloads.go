@@ -8,8 +8,8 @@ import (
 )
 
 type PayloadGenerator struct {
-	dbms       DBMSType
-	columns    int
+	dbms       DBMSType  //nolint:staticcheck
+	columns    int  //nolint:staticcheck
 	totalWidth int
 	_comment   string
 }

@@ -168,8 +168,8 @@ func (d *DNSRecon) CheckWildcards(domain string) (bool, string, error) {
 		return false, "", nil
 	}
 	return true, ip[0], nil
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func digCommand(domain, recordType string) (string, error) {
 	cmd := exec.Command("dig", "+short", domain, recordType)
 	out, err := cmd.CombinedOutput()

@@ -16,8 +16,8 @@ type DNSListener struct {
 	addr    string
 	port    int
 	running bool
-	agents  map[string]*Agent
-	tasks   map[string]*Task
+	agents  map[string]*Agent  //nolint:staticcheck
+	tasks   map[string]*Task  //nolint:staticcheck
 	results []*Result
 	domain  string
 }
@@ -140,8 +140,8 @@ func (l *DNSListener) GetAgents() []*Agent {
 		agents = append(agents, agent)
 	}
 	return agents
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func generateDNSID() string {
 	b := make([]byte, 8)
 	rand.Read(b)

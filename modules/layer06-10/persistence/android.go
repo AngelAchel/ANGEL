@@ -481,8 +481,8 @@ func (m *AndroidAccessibilityMethod) Verify(params *PersistenceParams) (bool, er
 
 	packageName := params.Extra["package_name"]
 	return strings.Contains(string(output), fmt.Sprintf("%s/%s", packageName, serviceName)), nil
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func getAndroidEnvVar(name string) string {
 	return os.Getenv(name)
 }

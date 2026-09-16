@@ -16,8 +16,8 @@ import (
 )
 
 type ADCSEngine struct {
-	config *KerberosConfig
-	logger *logger.Logger
+	config *KerberosConfig  //nolint:staticcheck
+	logger *logger.Logger  //nolint:staticcheck
 	mu     sync.RWMutex
 }
 

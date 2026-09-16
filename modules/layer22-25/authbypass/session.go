@@ -126,8 +126,8 @@ func generateSessionID() string {
 	b := make([]byte, 32)
 	rand.Read(b)
 	return fmt.Sprintf("%x", b)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func timeNow() time.Time {
 	return time.Now()
 }

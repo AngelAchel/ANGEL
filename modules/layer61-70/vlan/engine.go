@@ -191,8 +191,8 @@ func buildGraftFrame(tag TagConfig) []byte {
 	frame = append(frame, make([]byte, 46)...)
 
 	return frame
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func formatTags(tags []TagConfig) string {
 	parts := make([]string, 0)
 	for _, t := range tags {

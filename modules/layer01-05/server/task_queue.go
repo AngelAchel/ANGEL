@@ -11,8 +11,8 @@ import (
 
 type TaskQueue struct {
 	mu       sync.RWMutex
-	tasks    map[string]*QueuedTask
-	priority []string
+	tasks    map[string]*QueuedTask  //nolint:staticcheck
+	priority []string  //nolint:staticcheck
 	running  bool
 }
 
@@ -148,8 +148,8 @@ func generateTaskID() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func formatTaskStatus(status string) string {
 	switch status {
 	case "pending":

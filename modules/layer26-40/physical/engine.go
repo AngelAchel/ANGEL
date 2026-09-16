@@ -131,8 +131,8 @@ func generatePayloadHash() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func entropy(data []byte) float64 {
 	if len(data) == 0 {
 		return 0

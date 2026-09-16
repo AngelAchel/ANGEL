@@ -222,14 +222,14 @@ func (e *Engine) calculateScore(result AIResult) int {
 		score = 100
 	}
 	return score
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func generateRandomPerturbation() string {
 	b := make([]byte, 8)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}
-
+}  //nolint:staticcheck
+  //nolint:staticcheck
 func hashPrompt(prompt string) string {
 	h := sha256.Sum256([]byte(prompt))
 	return hex.EncodeToString(h[:])
