@@ -201,7 +201,7 @@ func (e *Engine) OAuthTokenLeak(oauthDomain string, clientID string, redirectURI
 
 	attackVectors := []string{
 		fmt.Sprintf("Intercept code at: %s", redirectURI),
-		fmt.Sprintf("Replay state with stolen code"),
+		"Replay state with stolen code",
 		fmt.Sprintf("Manipulate redirect_uri to: %s", redirectURI),
 	}
 

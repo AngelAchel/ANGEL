@@ -99,12 +99,9 @@ func (f *FailoverLogic) StartAutoFailover(interval time.Duration) {
 	f.mu.Unlock()
 
 	go func() {
-		for {
-			select {
-			case <-f.failoverTimer.C:
-				f.CheckAndFailover()
-				f.failoverTimer.Reset(interval)
-			}
+		for range f.failoverTimer.C {
+			f.CheckAndFailover()
+			f.failoverTimer.Reset(interval)
 		}
 	}()
 }

@@ -118,12 +118,12 @@ func (e *Engine) CouponAbuse() BizLogicResult {
 		origPrice += item.Price * float64(item.Quantity)
 	}
 
-	couponResults := make([]CouponInfo, 0)
+	couponCount := 0
 	bestDiscount := 0.0
 
 	for _, code := range coupons {
 		coupon := analyzeCoupon(code, origPrice)
-		couponResults = append(couponResults, coupon)
+		couponCount++
 		if coupon.Discount > bestDiscount {
 			bestDiscount = coupon.Discount
 		}

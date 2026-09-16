@@ -112,12 +112,12 @@ func (c *CouchDBScanner) TestAuthBypass(target string) *InjectionPoint {
 func (c *CouchDBScanner) TestJSInject(target string) *InjectionPoint {
 	url := BuildURL(target, fmt.Sprintf("/%s/_find", c.config.Database), 5984)
 
-	payload := fmt.Sprintf(`{
+	payload := `{
 		"selector": {
 			"$where": "function() { return true; }"
 		},
 		"limit": 10
-	}`)
+	}`
 
 	body := strings.NewReader(payload)
 	resp, respBody, err := c.client.Post(url, body, map[string]string{

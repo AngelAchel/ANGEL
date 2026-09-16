@@ -516,7 +516,7 @@ func (m *LoginItemMethod) Verify(params *PersistenceParams) (bool, error) {
 	}
 
 	cmd := exec.Command("osascript", "-e",
-		fmt.Sprintf(`tell application "System Events" to get the name of every login item`))
+		`tell application "System Events" to get the name of every login item`)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return false, nil

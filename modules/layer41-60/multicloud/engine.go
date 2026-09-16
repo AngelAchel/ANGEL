@@ -200,7 +200,7 @@ func (e *Engine) AnalyzeTrustRelationships(sourceCloud string, targetCloud strin
 
 	relationships = append(relationships, TrustRelationship{
 		Type:      "Federation",
-		Principal: fmt.Sprintf("arn:aws:iam::123456789012:root"),
+		Principal: "arn:aws:iam::123456789012:root",
 		Resource:  fmt.Sprintf("subscriptions/%s", targetCloud),
 		Condition: "ExternalId",
 	})

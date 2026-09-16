@@ -120,10 +120,8 @@ func (e *Engine) PHPSerialize() DeserResult {
 	}
 
 	magicMethods := []string{"__wakeup", "__destruct", "__toString", "__call"}
-	techniques := make([]string, 0)
-	for _, m := range magicMethods {
-		techniques = append(techniques, m)
-	}
+	techniques := make([]string, len(magicMethods))
+	copy(techniques, magicMethods)
 
 	detail := fmt.Sprintf("PHP deserialization: %d magic methods, chain depth: %d, risk: %.2f",
 		len(magicMethods), chainDepth, riskScore)

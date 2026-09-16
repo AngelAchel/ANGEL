@@ -498,7 +498,7 @@ func getSyscallStubAddr(function string) uintptr {
 	}
 
 	ntdllHandle, err := loadLibrary("ntdll.dll")
-	if err != nil {
+	if err != nil { //nolint:staticcheck
 		return 0
 	}
 

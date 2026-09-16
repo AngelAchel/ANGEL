@@ -2,7 +2,7 @@ package destruction
 
 import (
 	"fmt"
-	"math/rand"
+	"crypto/rand"
 	"time"
 
 	"github.com/angel-platform/angel/pkg/logger"

@@ -60,7 +60,7 @@ func NewWebClient() *WebClient {
 
 func (c *WebClient) CreateStripeCheckout(amount float64, currency, productID, userID string) (*StripeCheckout, error) {
 	if c.StripeKey == "" {
-		return nil, fmt.Errorf("Stripe key not configured")
+		return nil, fmt.Errorf("stripe key not configured")
 	}
 
 	url := "https://api.stripe.com/v1/checkout/sessions"
@@ -88,7 +88,7 @@ func (c *WebClient) CreateStripeCheckout(amount float64, currency, productID, us
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Stripe returned status %d: %s", resp.StatusCode, string(body))
+		return nil, fmt.Errorf("stripe returned status %d: %s", resp.StatusCode, string(body))
 	}
 
 	var result struct {
@@ -107,7 +107,7 @@ func (c *WebClient) CreateStripeCheckout(amount float64, currency, productID, us
 
 func (c *WebClient) CreateMidtransToken(amount float64, orderID, userID string) (*MidtransToken, error) {
 	if c.MidtransKey == "" {
-		return nil, fmt.Errorf("Midtrans key not configured")
+		return nil, fmt.Errorf("midtrans key not configured")
 	}
 
 	url := "https://api.sandbox.midtrans.com/v2/gesn"
@@ -143,7 +143,7 @@ func (c *WebClient) CreateMidtransToken(amount float64, orderID, userID string) 
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Midtrans returned status %d: %s", resp.StatusCode, string(body))
+		return nil, fmt.Errorf("midtrans returned status %d: %s", resp.StatusCode, string(body))
 	}
 
 	var result struct {
@@ -164,7 +164,7 @@ func (c *WebClient) CreateMidtransToken(amount float64, orderID, userID string) 
 
 func (c *WebClient) CreateXenditInvoice(amount float64, orderID, userID string) (*XenditInvoice, error) {
 	if c.XenditKey == "" {
-		return nil, fmt.Errorf("Xendit key not configured")
+		return nil, fmt.Errorf("xendit key not configured")
 	}
 
 	url := "https://api.xendit.co/v2/invoices"
@@ -197,7 +197,7 @@ func (c *WebClient) CreateXenditInvoice(amount float64, orderID, userID string) 
 	}
 
 	if resp.StatusCode != http.StatusCreated {
-		return nil, fmt.Errorf("Xendit returned status %d: %s", resp.StatusCode, string(body))
+		return nil, fmt.Errorf("xendit returned status %d: %s", resp.StatusCode, string(body))
 	}
 
 	var result struct {

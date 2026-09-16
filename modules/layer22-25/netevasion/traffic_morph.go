@@ -1,6 +1,7 @@
 package netevasion
 
 import (
+	cryptorand "crypto/rand"
 	"math/rand"
 	"net"
 	"net/http"
@@ -86,7 +87,7 @@ func (tm *TrafficMorpher) MorphPacketSizes(packets [][]byte) [][]byte {
 		if rand.Float64() < 0.3 && len(newPkt) > 0 {
 			padSize := rand.Intn(16) + 1
 			pad := make([]byte, padSize)
-			rand.Read(pad)
+			cryptorand.Read(pad)
 			newPkt = append(newPkt, pad...)
 		}
 

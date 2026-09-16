@@ -100,7 +100,7 @@ func (c *IOSClient) GetTransactionHistory(transactionID string) ([]IOSReceipt, e
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Apple API returned status %d: %s", resp.StatusCode, string(body))
+		return nil, fmt.Errorf("apple API returned status %d: %s", resp.StatusCode, string(body))
 	}
 
 	var result struct {
@@ -146,7 +146,7 @@ func (c *IOSClient) VerifyReceipt(receiptData string) (*IOSReceipt, error) {
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Apple API returned status %d: %s", resp.StatusCode, string(body))
+		return nil, fmt.Errorf("apple API returned status %d: %s", resp.StatusCode, string(body))
 	}
 
 	var result struct {

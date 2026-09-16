@@ -123,12 +123,9 @@ func (cr *ChannelRotation) StartHealthCheck(interval time.Duration) {
 	cr.mu.Unlock()
 
 	go func() {
-		for {
-			select {
-			case <-cr.failoverTimer.C:
-				cr.performHealthCheck()
-				cr.failoverTimer.Reset(interval)
-			}
+		for range cr.failoverTimer.C {
+			cr.performHealthCheck()
+			cr.failoverTimer.Reset(interval)
 		}
 	}()
 }

