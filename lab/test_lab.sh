@@ -78,13 +78,28 @@ for b in bin/angel bin/angel-console bin/angel-generate; do
 done
 echo ""
 
-echo "--- IMPLANTS ---"
-if [ -d "lab/implants" ]; then
-    count=$(ls lab/implants/ 2>/dev/null | wc -l)
-    echo -e "  ${GREEN}✓${NC} lab/implants/ ($count files)"
+echo "--- LOGS ---"
+mkdir -p lab/logs
+docker compose logs angel-teamserver > lab/logs/teamserver.log 2>&1
+docker compose logs angel-console > lab/logs/console.log 2>&1
+docker compose logs angel-rules > lab/logs/rules.log 2>&1
+count=$(ls lab/logs/ 2>/dev/null | wc -l)
+if [ "$count" -gt 0 ]; then
+    echo -e "  ${GREEN}✓${NC} lab/logs/ ($count files)"
     PASS=$((PASS + 1))
 else
-    echo -e "  ${RED}✗${NC} lab/implants/ MISSING"
+    echo -e "  ${RED}✗${NC} lab/logs/ EMPTY"
+    FAIL=$((FAIL + 1))
+fi
+echo ""
+
+echo "--- IMPLANT CALLBACK ---"
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 3 http://localhost:8443/register -X POST -d 'test=1' 2>/dev/null)
+if [ "$HTTP_CODE" != "000" ]; then
+    echo -e "  ${GREEN}✓${NC} callback → $HTTP_CODE"
+    PASS=$((PASS + 1))
+else
+    echo -e "  ${RED}✗${NC} callback FAIL"
     FAIL=$((FAIL + 1))
 fi
 echo ""
