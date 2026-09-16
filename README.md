@@ -1,4 +1,4 @@
-# 🛡️ ANGEL Platform v3.3
+# 🛡️ ANGEL Platform
 
 > **STATUS:** FINAL & OPERATIONAL
 > **CLASS:** Offensive Security — P0/P1 Hard/Expert Full Attack
