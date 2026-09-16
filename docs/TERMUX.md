@@ -34,7 +34,9 @@ ANGEL **TIDAK didukung** di Termux saat ini. Berikut analisis kompatibilitas:
 
 ### What Would Be Needed for Termux Support
 
-1. **Go binary** — cross-compile static binary untuk Android arm64
+1. **Go binary** — cross-compile static binary untuk Android arm64  
+   ✓ Cross-compile succeeded (CGO_ENABLED=0, static ELF)
+   ✗ Runtime on Android NOT TESTED
 2. **No Docker** — jalankan semua service sebagai process lokal
 3. **No iptables** — gunakan tcpdump/traffic sniffing alternatif
 4. **Storage** — gunakan ~/storage/shared untuk lab/data

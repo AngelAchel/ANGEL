@@ -105,6 +105,20 @@ bash scripts/health-check.sh
 ./aegis/angel doctor
 ```
 
+### Runtime Proof (Actual Execution)
+
+Date: 2026-09-16  
+Environment: Ubuntu 24.04 amd64, CGO_ENABLED=0  
+Binary: static ELF, no shared library dependency
+
+| Service | Command | Output | Status |
+|---------|---------|--------|--------|
+| Teamserver | `./bin/angel-cgo0 -bind 127.0.0.1 -port 9443` | "Teamserver started successfully", HTTP listener 127.0.0.1:9443, DNS listener 127.0.0.1:9444 | RUNNING |
+| Console | `./bin/angel-console-cgo0 -addr 127.0.0.1 -port 9445` | "API Gateway starting on 127.0.0.1:9445", GET / 15µs | RUNNING |
+| Rules Loader | `./bin/angel-rules-cgo0` | Daemon mode, 60s reload ticker | RUNNING |
+
+All services started and responded to requests before SIGTERM.
+
 ### Native vs Docker
 
 | Feature | Native | Docker |

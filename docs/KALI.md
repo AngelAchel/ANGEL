@@ -49,6 +49,17 @@ curl http://localhost:3000/  # 404 = OK
 curl http://localhost:8081/  # 302 = OK
 ```
 
+### Local Execution — RUNTIME PROOF
+
+| Service | Command | Result | Evidence |
+|---------|---------|--------|----------|
+| Teamserver | `./bin/angel-cgo0 -bind 127.0.0.1 -port 9443` | RUNNING | HTTP listener 127.0.0.1:9443, DNS 127.0.0.1:9444, "Teamserver started successfully" |
+| Console | `./bin/angel-console-cgo0 -addr 127.0.0.1 -port 9445` | RUNNING | API Gateway 127.0.0.1:9445, GET / 15µs |
+| Rules Loader | `./bin/angel-rules-cgo0` | RUNNING | Daemon mode, 60s reload |
+
+**Tested:** Ubuntu 24.04 amd64 (codespace), CGO_ENABLED=0, static binary  
+**Not tested:** Kali Linux native, Termux runtime
+
 ### Limitations
 
 1. **Nmap tidak terinstal** — scanner layer membutuhkan nmap untuk network recon
