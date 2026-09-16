@@ -133,5 +133,9 @@ func generateDeviceCode() string {
 }
 
 func generateUserCode() string {
-	return "XXXX-YYYY"
+	b := make([]byte, 8)
+	for i := range b {
+		b[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[i%36]
+	}
+	return string(b)
 }

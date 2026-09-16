@@ -92,7 +92,7 @@ func (e *Engine) Eradication(findings []Finding) IRResult {
 	result.Actions = []IRAction{
 		{Phase: IRPhaseEradication, Action: "Remove malware artifacts", Result: "Malware binaries quarantined from 3 hosts", Automated: false, Timestamp: time.Now()},
 		{Phase: IRPhaseEradication, Action: "Clean persistence mechanisms", Result: "Scheduled tasks and registry keys removed", Automated: false, Timestamp: time.Now()},
-		{Phase: IRPhaseEradication, Action: "Patch exploited vulnerabilities", Result: "CVE-2024-XXXXX patched on all affected systems", Automated: true, Timestamp: time.Now()},
+		{Phase: IRPhaseEradication, Action: "Patch exploited vulnerabilities", Result: "Vulnerabilities patched (CVE IDs per assessment)", Automated: true, Timestamp: time.Now()},
 		{Phase: IRPhaseEradication, Action: "Verify eradication", Result: "Full system scan clean on all affected hosts", Automated: true, Timestamp: time.Now()},
 	}
 

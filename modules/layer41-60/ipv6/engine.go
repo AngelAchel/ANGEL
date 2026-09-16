@@ -279,7 +279,7 @@ func (e *Engine) buildTunnelPacket(info TunnelInfo) []byte {
 	buf = append(buf, protoBytes...)
 
 	buf = append(buf, byte(info.HopLimit))
-	buf = append(buf, 0xff)       // Next header: IPv6
+	buf = append(buf, 0xff)             // Next header: IPv6
 	payloadLen := uint16(info.MTU - 40) // IPv6 header = 40 bytes
 	payloadBytes := make([]byte, 2)
 	binary.BigEndian.PutUint16(payloadBytes, payloadLen)

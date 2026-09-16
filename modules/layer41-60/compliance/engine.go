@@ -15,9 +15,9 @@ type DataDeletionRecord struct {
 }
 
 type Engine struct {
-	config       ComplianceConfig
-	mu           sync.Mutex
-	dataDeleted  []DataDeletionRecord
+	config      ComplianceConfig
+	mu          sync.Mutex
+	dataDeleted []DataDeletionRecord
 }
 
 func NewEngine(cfg ComplianceConfig) *Engine {
@@ -315,24 +315,24 @@ func (e *Engine) DeleteData(category string) error {
 	switch category {
 	case "personal":
 		e.dataDeleted = append(e.dataDeleted, DataDeletionRecord{
-			Category:   "personal",
-			DeletedAt:  time.Now(),
-			Method:     "gdpr_art_17",
-			Success:    true,
+			Category:  "personal",
+			DeletedAt: time.Now(),
+			Method:    "gdpr_art_17",
+			Success:   true,
 		})
 	case "session":
 		e.dataDeleted = append(e.dataDeleted, DataDeletionRecord{
-			Category:   "session",
-			DeletedAt:  time.Now(),
-			Method:     "session_cleanup",
-			Success:    true,
+			Category:  "session",
+			DeletedAt: time.Now(),
+			Method:    "session_cleanup",
+			Success:   true,
 		})
 	case "logs":
 		e.dataDeleted = append(e.dataDeleted, DataDeletionRecord{
-			Category:   "logs",
-			DeletedAt:  time.Now(),
-			Method:     "log_purge",
-			Success:    true,
+			Category:  "logs",
+			DeletedAt: time.Now(),
+			Method:    "log_purge",
+			Success:   true,
 		})
 	default:
 		return fmt.Errorf("unknown data category: %s", category)
