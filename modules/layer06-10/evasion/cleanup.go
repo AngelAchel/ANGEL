@@ -170,10 +170,10 @@ func (lc *LogCleanup) ClearShellHistory() error {
 }
 
 func (lc *LogCleanup) clearBashSessionHistory() {
-	os.Unsetenv("HISTFILE")
-	os.Unsetenv("HISTSIZE")
-	os.Unsetenv("HISTFILESIZE")
-	os.Setenv("HISTCONTROL", "ignoreboth")
+	_ = os.Unsetenv("HISTFILE")
+	_ = os.Unsetenv("HISTSIZE")
+	_ = os.Unsetenv("HISTFILESIZE")
+	_ = os.Setenv("HISTCONTROL", "ignoreboth")
 }
 
 func (lc *LogCleanup) ClearForensicArtifacts() error {

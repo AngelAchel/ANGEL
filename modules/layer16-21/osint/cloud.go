@@ -46,7 +46,7 @@ func (c *CloudRecon) AWSBucketEnum(region string) ([]BucketInfo, error) {
 		bucketURL := fmt.Sprintf("https://%s.s3.%s.amazonaws.com", name, region)
 		resp, err := c.client.Head(bucketURL)
 		if err == nil {
-			resp.Body.Close()
+			_ = resp.Body.Close()
 			if resp.StatusCode == 200 || resp.StatusCode == 403 {
 				buckets = append(buckets, BucketInfo{
 					Name:   name,
@@ -100,7 +100,7 @@ func (c *CloudRecon) GCPBucketEnum(project string) ([]BucketInfo, error) {
 		bucketURL := fmt.Sprintf("https://storage.googleapis.com/%s", name)
 		resp, err := c.client.Head(bucketURL)
 		if err == nil {
-			resp.Body.Close()
+			_ = resp.Body.Close()
 			if resp.StatusCode == 200 {
 				buckets = append(buckets, BucketInfo{
 					Name:   name,

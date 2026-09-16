@@ -153,7 +153,7 @@ func (e *AuthBypassEngine) testSQLiAuth(target string, start time.Time) (*Bypass
 		}
 
 		body, _ := io.ReadAll(resp.Body)
-		resp.Body.Close()
+		_ = resp.Body.Close()
 
 		bodyStr := string(body)
 
@@ -229,7 +229,7 @@ func (e *AuthBypassEngine) testNoSQLAuth(target string, start time.Time) (*Bypas
 		}
 
 		body, _ := io.ReadAll(resp.Body)
-		resp.Body.Close()
+		_ = resp.Body.Close()
 
 		bodyStr := string(body)
 
@@ -304,7 +304,7 @@ func (e *AuthBypassEngine) testJWTBypass(target string, start time.Time) (*Bypas
 		}
 
 		body, _ := io.ReadAll(resp.Body)
-		resp.Body.Close()
+		_ = resp.Body.Close()
 
 		// Check if response contains a JWT token in JSON body
 		var respBody map[string]interface{}
@@ -453,7 +453,7 @@ func (e *AuthBypassEngine) testJSONTampering(target string, start time.Time) (*B
 		}
 
 		body, _ := io.ReadAll(resp.Body)
-		resp.Body.Close()
+		_ = resp.Body.Close()
 
 		bodyStr := string(body)
 
@@ -540,7 +540,7 @@ func (e *AuthBypassEngine) testDefaultCred(target string, start time.Time) (*Byp
 		}
 
 		body, _ := io.ReadAll(resp.Body)
-		resp.Body.Close()
+		_ = resp.Body.Close()
 		bodyStr := string(body)
 
 		if e.isAuthBypassResponse(resp, bodyStr) {
@@ -626,7 +626,7 @@ func (e *AuthBypassEngine) testOAuthBypass(target string, start time.Time) (*Byp
 			continue
 		}
 		body, _ := io.ReadAll(resp.Body)
-		resp.Body.Close()
+		_ = resp.Body.Close()
 
 		bodyStr := string(body)
 

@@ -89,7 +89,7 @@ func (s *Server) handleAgents(w http.ResponseWriter, r *http.Request) {
 	}
 	s.mu.RUnlock()
 
-	json.NewEncoder(w).Encode(agents)
+	_ = json.NewEncoder(w).Encode(agents)
 }
 
 func (s *Server) handleTasks(w http.ResponseWriter, r *http.Request) {
@@ -102,7 +102,7 @@ func (s *Server) handleTasks(w http.ResponseWriter, r *http.Request) {
 	}
 	s.mu.RUnlock()
 
-	json.NewEncoder(w).Encode(tasks)
+	_ = json.NewEncoder(w).Encode(tasks)
 }
 
 func (s *Server) handleResults(w http.ResponseWriter, r *http.Request) {
@@ -113,7 +113,7 @@ func (s *Server) handleResults(w http.ResponseWriter, r *http.Request) {
 	copy(results, s.results)
 	s.mu.RUnlock()
 
-	json.NewEncoder(w).Encode(results)
+	_ = json.NewEncoder(w).Encode(results)
 }
 
 func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {

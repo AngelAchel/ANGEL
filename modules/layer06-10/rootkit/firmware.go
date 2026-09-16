@@ -257,7 +257,7 @@ done
 	}
 
 	cmd = exec.Command("sh", scriptPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return &RootkitResult{
 		Success:   true,

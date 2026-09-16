@@ -189,8 +189,8 @@ func (m *BootCompletedMethod) Remove(params *PersistenceParams) error {
 		return fmt.Errorf("boot completed method only available on Android")
 	}
 
-	os.Remove("/data/local/tmp/receiver.xml")
-	os.Remove("/data/local/tmp/start_service.sh")
+	_ = os.Remove("/data/local/tmp/receiver.xml")
+	_ = os.Remove("/data/local/tmp/start_service.sh")
 	return nil
 }
 
@@ -262,8 +262,8 @@ func (m *ForegroundServiceMethod) Remove(params *PersistenceParams) error {
 		return fmt.Errorf("foreground service method only available on Android")
 	}
 
-	os.Remove("/data/local/tmp/start_foreground.sh")
-	os.Remove("/data/local/tmp/show_notification.sh")
+	_ = os.Remove("/data/local/tmp/start_foreground.sh")
+	_ = os.Remove("/data/local/tmp/show_notification.sh")
 	return nil
 }
 
@@ -353,7 +353,7 @@ func (m *DeviceAdminMethod) Remove(params *PersistenceParams) error {
 		fmt.Sprintf("%s/%s", params.Extra["package_name"], adminName))
 	_, err := cmd.CombinedOutput()
 
-	os.Remove("/data/local/tmp/device_admin.xml")
+	_ = os.Remove("/data/local/tmp/device_admin.xml")
 	return err
 }
 
@@ -457,8 +457,8 @@ settings put secure accessibility_enabled 0
 	cmd := exec.Command("sh", scriptPath)
 	_, err := cmd.CombinedOutput()
 
-	os.Remove("/data/local/tmp/accessibility.xml")
-	os.Remove(scriptPath)
+	_ = os.Remove("/data/local/tmp/accessibility.xml")
+	_ = os.Remove(scriptPath)
 	return err
 }
 

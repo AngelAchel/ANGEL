@@ -60,7 +60,7 @@ func (l *WebSocketListener) Stop() {
 	l.running = false
 
 	for id, conn := range l.connections {
-		conn.Close()
+		_ = conn.Close()
 		delete(l.connections, id)
 	}
 }
@@ -81,7 +81,7 @@ func (l *WebSocketListener) handleWebSocket(w http.ResponseWriter, r *http.Reque
 		l.mu.Lock()
 		delete(l.connections, connID)
 		l.mu.Unlock()
-		conn.Close()
+		_ = conn.Close()
 	}()
 
 	log.Printf("New WebSocket connection: %s", connID)
@@ -124,7 +124,7 @@ func (l *WebSocketListener) Broadcast(message []byte) {
 	defer l.mu.RUnlock()
 
 	for _, conn := range l.connections {
-		conn.WriteMessage(websocket.TextMessage, message)
+		_ = conn.WriteMessage(websocket.TextMessage, message)
 	}
 }
 

@@ -66,7 +66,7 @@ func (b *SMBBeacon) Start() {
 	b.running = true
 	b.mu.Unlock()
 
-	b.namePipe.Create()
+	_ = b.namePipe.Create()
 	b.p2p.Start()
 
 	go b.checkinLoop()

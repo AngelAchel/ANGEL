@@ -21,7 +21,7 @@ func main() {
 
 	if err := engine.LoadAllRules(); err != nil {
 		log.Printf("Warning: Supabase rules unavailable, loading local fallback: %v", err)
-		engine.LoadLocalRules("/app/data/rules.json")
+		_ = engine.LoadLocalRules("/app/data/rules.json")
 	}
 
 	categories := []string{"c2", "exploit", "auth", "network"}
@@ -49,7 +49,7 @@ func main() {
 			log.Println("Reloading rules...")
 			if err := engine.LoadAllRules(); err != nil {
 				log.Printf("Warning: Supabase rules unavailable, loading local fallback: %v", err)
-				engine.LoadLocalRules("/app/data/rules.json")
+				_ = engine.LoadLocalRules("/app/data/rules.json")
 			}
 			log.Println("Rules reloaded successfully.")
 		case <-sigChan:

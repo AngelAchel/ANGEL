@@ -64,7 +64,7 @@ func (l *Logger) log(level Level, format string, args ...interface{}) {
 	}
 	ts := time.Now().UTC().Format("2006-01-02T15:04:05Z")
 	line := fmt.Sprintf("[%s] [%s] [%s] %s\n", ts, level, l.module, msg)
-	fmt.Fprint(l.output, line)
+	_, _ = fmt.Fprint(l.output, line)
 }
 
 func (l *Logger) Debug(format string, args ...interface{}) {

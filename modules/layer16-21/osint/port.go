@@ -59,7 +59,7 @@ func (p *PortScanner) TCPScan(host string, ports []int) ([]OpenPort, error) {
 				addr := net.JoinHostPort(host, fmt.Sprintf("%d", port))
 				conn, err := net.DialTimeout("tcp", addr, p.config.Timeout)
 				if err == nil {
-					conn.Close()
+					_ = conn.Close()
 					service := guessService(port)
 					resultCh <- OpenPort{
 						Port:    port,
@@ -120,7 +120,7 @@ func (p *PortScanner) BannerGrab(host string, port int) (string, error) {
 	}
 	defer func() { _ = conn.Close() }()
 
-	conn.SetReadDeadline(time.Now().Add(p.config.Timeout))
+	_ = conn.SetReadDeadline(time.Now().Add(p.config.Timeout))
 
 	buffer := make([]byte, 1024)
 	n, err := conn.Read(buffer)
@@ -146,7 +146,7 @@ func (p *PortScanner) IsPortOpen(host string, port int) bool {
 	if err != nil {
 		return false
 	}
-	conn.Close()
+	_ = conn.Close()
 	return true
 }
 
