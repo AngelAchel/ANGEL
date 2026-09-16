@@ -78,11 +78,21 @@ layer61-70  ==========  10 modul
 
 ---
 
-## >> STATUS
+## >> IMPACT
 
-| Build | Test | Layer | Lab | Docker | Secret |
-|:-----:|:----:|:-----:|:---:|:------:|:------:|
-| ✅ OK | ✅ 92 PASS | ✅ 83/83 | ✅ 25/0 | ✅ 3/3 | ✅ Env |
+| Capability | Detail |
+|------------|--------|
+| 🎯 70 Layer Attack Surface | Full offensive stack |
+| ⚔️ 700+ Techniques | Fallback chains, anti-analysis |
+| 🧬 83 Modules | C2, Evasion, Credential, Exploit, Malware |
+| 🔌 Event Bus | Real-time cross-layer orchestration |
+| 🛡️ 92 Tests | All passing — zero regressions |
+| 💀 Signature-Free | Defender gak kenal |
+| 🔥 Privilege Escalation | Auto escalate |
+| 🕵️ OSINT + Recon | Passive & active intel |
+| 💀 Exfiltration | Data out, no trace |
+| 🧹 Cleanup | Leave zero evidence |
+
 
 ---
 
