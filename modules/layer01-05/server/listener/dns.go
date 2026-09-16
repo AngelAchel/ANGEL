@@ -78,7 +78,6 @@ func (l *DNSListener) handleDNSPacket(packet []byte, remoteAddr net.Addr) {
 		}
 
 		qtype := uint16(packet[offset])<<8 | uint16(packet[offset+1])
-		offset += 4
 
 		log.Printf("DNS query: %s (type: %d) from %s", name, qtype, remoteAddr)
 

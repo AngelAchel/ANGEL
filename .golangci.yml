@@ -1,0 +1,66 @@
+# ANGEL Platform golangci-lint configuration
+# v2.13.2 compatible
+
+version: "2"
+
+run:
+  timeout: 30m
+  modules-download-mode: readonly
+
+linters:
+  enable:
+    - errcheck
+    - ineffassign
+    - staticcheck
+  disable:
+    - unused
+
+issues:
+  exclude-rules:
+    # Exclude errcheck dari semua test files
+    - path: "_test\\.go"
+      linters:
+        - errcheck
+
+    # Exclude errcheck dari file non-test yang error-nya tidak kritis
+    - path: "c2/generate/generator\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/resilience/self_destruct\\.go"
+      linters:
+        - errcheck
+    - path: "pkg/logger/logger\\.go"
+      linters:
+        - errcheck
+
+    # Exclude staticcheck deprecated API di crypto module
+    - path: "modules/layer01-05/c2implant/crypto\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer01-05/c2implant/implant_test\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer01-05/server/crypto/crypto\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer11-15/destruction/wiper\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer22-25/netevasion/traffic_morph\\.go"
+      linters:
+        - staticcheck
+
+    # Exclude staticcheck di purchase module (error string capitalization)
+    - path: "pkg/purchase/"
+      linters:
+        - staticcheck
+
+    # Exclude staticcheck di deser engine (append result unused)
+    - path: "modules/layer61-70/deser/engine\\.go"
+      linters:
+        - staticcheck
+
+    # Exclude staticcheck di bizlogic engine
+    - path: "modules/layer61-70/bizlogic/engine\\.go"
+      linters:
+        - staticcheck

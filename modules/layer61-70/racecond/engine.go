@@ -51,11 +51,6 @@ func (e *Engine) TOCTOUExploit() RaceCondResult {
 	successRate := float64(winCount) / float64(totalAttempts) * 100.0
 	exploitable := successRate > 10.0
 
-	techniques := []string{"race_condition"}
-	if exploitable {
-		techniques = append(techniques, "file_symlink", "timing_attack")
-	}
-
 	detail := fmt.Sprintf("TOCTOU: %d vectors, %d total attempts, %d wins, window: %dms, rate: %.2f%%",
 		len(vectors), totalAttempts, winCount, windowSize, successRate)
 
@@ -97,11 +92,6 @@ func (e *Engine) DoubleFetch() RaceCondResult {
 
 	exploitable := successRate > 5.0
 
-	techniques := []string{"double_fetch", "user_space_check"}
-	if exploitable {
-		techniques = append(techniques, "time_of_check", "conditional_race")
-	}
-
 	detail := fmt.Sprintf("Double fetch: %d fetches, %d wins, rate: %.2f%%, window: %dms",
 		totalFetches, winCount, successRate, windowSize)
 
@@ -142,11 +132,6 @@ func (e *Engine) SymlinkRace() RaceCondResult {
 	windowSize := int64(2)
 	exploitable := successRate > 3.0
 
-	techniques := []string{"symlink_race", "temp_file_hijack"}
-	if exploitable {
-		techniques = append(techniques, "predictable_path", "race_to_root")
-	}
-
 	detail := fmt.Sprintf("Symlink race on %s: %d attempts, %d wins, rate: %.2f%%",
 		filePath, totalAttempts, winCount, successRate)
 
@@ -181,11 +166,6 @@ func (e *Engine) TimeWindow() RaceCondResult {
 	successRate := float64(winCount) / float64(totalAttempts) * 100.0
 	windowSize := int64(3)
 	exploitable := successRate > 8.0
-
-	techniques := []string{"timing_analysis", "race_window"}
-	if exploitable {
-		techniques = append(techniques, "precision_timing", "cpu_affinity")
-	}
 
 	parts := []string{"Window analysis", fmt.Sprintf("attempts=%d", totalAttempts), fmt.Sprintf("wins=%d", winCount)}
 	detail := strings.Join(parts, ", ")
