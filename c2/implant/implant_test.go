@@ -9,7 +9,7 @@ func TestImplantNew(t *testing.T) {
 	if implant == nil {
 		t.Fatal("expected non-nil implant")
 	}
-	if implant.config.ServerURL != "https://teamserver.example.com" {
+	if implant.config.ServerURL != "https://teamserver.angel.local" {
 		t.Errorf("expected default server URL")
 	}
 }

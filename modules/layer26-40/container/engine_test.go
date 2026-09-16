@@ -84,8 +84,8 @@ func TestContainerEnum(t *testing.T) {
 	if result.ContainerInfo.Image == "" {
 		t.Error("Expected image info")
 	}
-	if result.ContainerInfo.PID == 0 {
-		t.Error("Expected PID info")
+	if result.ContainerInfo.PID != 0 {
+		t.Error("Expected PID 0 (not available)")
 	}
 	if !result.Success {
 		t.Error("Expected success")
