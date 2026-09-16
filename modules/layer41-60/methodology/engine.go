@@ -8,9 +8,9 @@ import (
 )
 
 type Engine struct {
-	config  MethodologyConfig
-	phases  []TestPhase
-	mu      sync.Mutex
+	config MethodologyConfig
+	phases []TestPhase
+	mu     sync.Mutex
 }
 
 func NewEngine(cfg MethodologyConfig) *Engine {

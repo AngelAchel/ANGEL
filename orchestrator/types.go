@@ -27,10 +27,10 @@ type Task struct {
 }
 
 type Decision struct {
-	Intent     string  `json:"intent"`
-	Confidence float64 `json:"confidence"`
-	RiskScore  int     `json:"risk_score"`
-	Action     string  `json:"action"`
+	Intent     string   `json:"intent"`
+	Confidence float64  `json:"confidence"`
+	RiskScore  int      `json:"risk_score"`
+	Action     string   `json:"action"`
 	Modules    []string `json:"modules"`
 }
 

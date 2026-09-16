@@ -22,9 +22,9 @@ func NewEngine(cfg IoTConfig) *Engine {
 	return &Engine{
 		config: cfg,
 		results: &FirmwareAnalysis{
-			Credentials:   make([]CredentialInfo, 0),
-			HardcodedKeys: make([]HardcodedKey, 0),
-			Backdoors:     make([]BackdoorInfo, 0),
+			Credentials:     make([]CredentialInfo, 0),
+			HardcodedKeys:   make([]HardcodedKey, 0),
+			Backdoors:       make([]BackdoorInfo, 0),
 			Vulnerabilities: make([]string, 0),
 		},
 	}

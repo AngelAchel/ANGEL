@@ -24,8 +24,8 @@ func NewLinuxCronJobMethod() *LinuxCronJobMethod {
 	return &LinuxCronJobMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "cron_job",
-				platform:         types.PlatformLinux,
+				name:              "cron_job",
+				platform:          types.PlatformLinux,
 				requiresElevation: false,
 			},
 		},
@@ -114,8 +114,8 @@ func NewSystemdServiceMethod() *SystemdServiceMethod {
 	return &SystemdServiceMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "systemd_service",
-				platform:         types.PlatformLinux,
+				name:              "systemd_service",
+				platform:          types.PlatformLinux,
 				requiresElevation: true,
 			},
 		},
@@ -221,8 +221,8 @@ func NewRCLocalMethod() *RCLocalMethod {
 	return &RCLocalMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "rc_local",
-				platform:         types.PlatformLinux,
+				name:              "rc_local",
+				platform:          types.PlatformLinux,
 				requiresElevation: true,
 			},
 		},
@@ -313,8 +313,8 @@ func NewProfileScriptMethod() *ProfileScriptMethod {
 	return &ProfileScriptMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "profile_script",
-				platform:         types.PlatformLinux,
+				name:              "profile_script",
+				platform:          types.PlatformLinux,
 				requiresElevation: false,
 			},
 		},
@@ -417,8 +417,8 @@ func NewBashrcMethod() *BashrcMethod {
 	return &BashrcMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "bashrc",
-				platform:         types.PlatformLinux,
+				name:              "bashrc",
+				platform:          types.PlatformLinux,
 				requiresElevation: false,
 			},
 		},
@@ -521,8 +521,8 @@ func NewLinuxSSHKeysMethod() *LinuxSSHKeysMethod {
 	return &LinuxSSHKeysMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "ssh_keys",
-				platform:         types.PlatformLinux,
+				name:              "ssh_keys",
+				platform:          types.PlatformLinux,
 				requiresElevation: false,
 			},
 		},
@@ -643,8 +643,8 @@ func NewPAMModuleMethod() *PAMModuleMethod {
 	return &PAMModuleMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "pam_module",
-				platform:         types.PlatformLinux,
+				name:              "pam_module",
+				platform:          types.PlatformLinux,
 				requiresElevation: true,
 			},
 		},
@@ -732,8 +732,8 @@ func NewUdevRuleMethod() *UdevRuleMethod {
 	return &UdevRuleMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "udev_rule",
-				platform:         types.PlatformLinux,
+				name:              "udev_rule",
+				platform:          types.PlatformLinux,
 				requiresElevation: true,
 			},
 		},
@@ -818,8 +818,8 @@ func NewInitramfsHookMethod() *InitramfsHookMethod {
 	return &InitramfsHookMethod{
 		LinuxBaseMethod: LinuxBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "initramfs_hook",
-				platform:         types.PlatformLinux,
+				name:              "initramfs_hook",
+				platform:          types.PlatformLinux,
 				requiresElevation: true,
 			},
 		},

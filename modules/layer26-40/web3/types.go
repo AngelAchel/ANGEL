@@ -3,21 +3,21 @@ package web3
 import "time"
 
 type SmartContract struct {
-	Address     string   `json:"address"`
-	ABI         string   `json:"abi"`
-	Compiler    string   `json:"compiler"`
-	Version     string   `json:"version"`
-	SourceCode  string   `json:"source_code"`
-	Balance     string   `json:"balance"`
-	Functions   []string `json:"functions"`
+	Address    string   `json:"address"`
+	ABI        string   `json:"abi"`
+	Compiler   string   `json:"compiler"`
+	Version    string   `json:"version"`
+	SourceCode string   `json:"source_code"`
+	Balance    string   `json:"balance"`
+	Functions  []string `json:"functions"`
 }
 
 type DeFiProtocol struct {
-	Name     string `json:"name"`
-	Type     string `json:"type"`
-	Address  string `json:"address"`
-	TVL      string `json:"tvl"`
-	Chains   []string `json:"chains"`
+	Name    string   `json:"name"`
+	Type    string   `json:"type"`
+	Address string   `json:"address"`
+	TVL     string   `json:"tvl"`
+	Chains  []string `json:"chains"`
 }
 
 type Web3Config struct {
@@ -31,26 +31,26 @@ type Web3Config struct {
 }
 
 type Web3Result struct {
-	ID                string              `json:"id"`
-	Contracts         []ContractAnalysis  `json:"contracts"`
-	Vulns             []ContractVuln      `json:"vulnerabilities"`
-	DeFiExploits      []DeFiExploit       `json:"defi_exploits"`
-	FlashLoanPaths    []FlashLoanPath     `json:"flash_loan_paths"`
-	Timestamp         time.Time           `json:"timestamp"`
+	ID             string             `json:"id"`
+	Contracts      []ContractAnalysis `json:"contracts"`
+	Vulns          []ContractVuln     `json:"vulnerabilities"`
+	DeFiExploits   []DeFiExploit      `json:"defi_exploits"`
+	FlashLoanPaths []FlashLoanPath    `json:"flash_loan_paths"`
+	Timestamp      time.Time          `json:"timestamp"`
 }
 
 type ContractAnalysis struct {
-	Address       string   `json:"address"`
-	Functions     []FuncInfo `json:"functions"`
-	VulnCount     int      `json:"vuln_count"`
-	RiskScore     int      `json:"risk_score"`
+	Address   string     `json:"address"`
+	Functions []FuncInfo `json:"functions"`
+	VulnCount int        `json:"vuln_count"`
+	RiskScore int        `json:"risk_score"`
 }
 
 type FuncInfo struct {
-	Name      string   `json:"name"`
-	Selector  string   `json:"selector"`
+	Name       string `json:"name"`
+	Selector   string `json:"selector"`
 	Mutability string `json:"mutability"`
-	Payable    bool    `json:"payable"`
+	Payable    bool   `json:"payable"`
 }
 
 type ContractVuln struct {
@@ -62,17 +62,17 @@ type ContractVuln struct {
 }
 
 type DeFiExploit struct {
-	Protocol    string   `json:"protocol"`
-	Type        string   `json:"type"`
-	Amount      string   `json:"amount"`
-	Payload     string   `json:"payload"`
-	Steps       []string `json:"steps"`
+	Protocol string   `json:"protocol"`
+	Type     string   `json:"type"`
+	Amount   string   `json:"amount"`
+	Payload  string   `json:"payload"`
+	Steps    []string `json:"steps"`
 }
 
 type FlashLoanPath struct {
-	Source      string   `json:"source"`
-	Target      string   `json:"target"`
-	Steps       []string `json:"steps"`
-	Profit      string   `json:"profit"`
-	GasCost     string   `json:"gas_cost"`
+	Source  string   `json:"source"`
+	Target  string   `json:"target"`
+	Steps   []string `json:"steps"`
+	Profit  string   `json:"profit"`
+	GasCost string   `json:"gas_cost"`
 }

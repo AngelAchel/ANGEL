@@ -40,38 +40,38 @@ func (e EscapeMethod) String() string {
 }
 
 type ContainerEscapeConfig struct {
-	ContainerType   ContainerType
-	EscapeMethods   []EscapeMethod
-	TargetPath      string
-	DockerSocket    string
-	Kubeconfig      string
-	Timeout         time.Duration
-	Verbose         bool
+	ContainerType ContainerType
+	EscapeMethods []EscapeMethod
+	TargetPath    string
+	DockerSocket  string
+	Kubeconfig    string
+	Timeout       time.Duration
+	Verbose       bool
 }
 
 type KubernetesConfig struct {
-	APIServer       string
-	Token           string
-	CACert          string
-	Namespace       string
-	ServiceAccount  string
-	RBACEnum        bool
-	PodEscape       bool
-	NodeEnum        bool
-	WorkerNodes     []string
+	APIServer      string
+	Token          string
+	CACert         string
+	Namespace      string
+	ServiceAccount string
+	RBACEnum       bool
+	PodEscape      bool
+	NodeEnum       bool
+	WorkerNodes    []string
 }
 
 type ContainerResult struct {
-	ID              string          `json:"id"`
-	ContainerName   string          `json:"container_name"`
-	ContainerType   ContainerType  `json:"container_type"`
-	EscapeMethod    EscapeMethod   `json:"escape_method"`
-	Success         bool           `json:"success"`
-	Details         string         `json:"details"`
-	Vulns           []string       `json:"vulns"`
-	SecretsFound    []SecretEntry  `json:"secrets_found"`
-	ContainerInfo   ContainerInfo  `json:"container_info"`
-	Timestamp       time.Time      `json:"timestamp"`
+	ID            string        `json:"id"`
+	ContainerName string        `json:"container_name"`
+	ContainerType ContainerType `json:"container_type"`
+	EscapeMethod  EscapeMethod  `json:"escape_method"`
+	Success       bool          `json:"success"`
+	Details       string        `json:"details"`
+	Vulns         []string      `json:"vulns"`
+	SecretsFound  []SecretEntry `json:"secrets_found"`
+	ContainerInfo ContainerInfo `json:"container_info"`
+	Timestamp     time.Time     `json:"timestamp"`
 }
 
 type SecretEntry struct {
@@ -93,16 +93,16 @@ type ContainerInfo struct {
 }
 
 type KubernetesResult struct {
-	ID            string            `json:"id"`
-	APIServer     string            `json:"api_server"`
-	Namespaces    []NamespaceInfo   `json:"namespaces"`
-	Services      []ServiceInfo     `json:"services"`
-	Secrets       []SecretEntry     `json:"secrets"`
-	Pods          []PodInfo         `json:"pods"`
-	Roles         []RoleInfo        `json:"roles"`
-	Nodes         []NodeInfo        `json:"nodes"`
-	EscapePaths   []string          `json:"escape_paths"`
-	Timestamp     time.Time         `json:"timestamp"`
+	ID          string          `json:"id"`
+	APIServer   string          `json:"api_server"`
+	Namespaces  []NamespaceInfo `json:"namespaces"`
+	Services    []ServiceInfo   `json:"services"`
+	Secrets     []SecretEntry   `json:"secrets"`
+	Pods        []PodInfo       `json:"pods"`
+	Roles       []RoleInfo      `json:"roles"`
+	Nodes       []NodeInfo      `json:"nodes"`
+	EscapePaths []string        `json:"escape_paths"`
+	Timestamp   time.Time       `json:"timestamp"`
 }
 
 type NamespaceInfo struct {
@@ -134,8 +134,8 @@ type RoleInfo struct {
 }
 
 type NodeInfo struct {
-	Name     string   `json:"name"`
-	Status   string   `json:"status"`
-	Roles    []string `json:"roles"`
-	InternalIP string `json:"internal_ip"`
+	Name       string   `json:"name"`
+	Status     string   `json:"status"`
+	Roles      []string `json:"roles"`
+	InternalIP string   `json:"internal_ip"`
 }

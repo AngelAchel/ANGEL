@@ -13,9 +13,9 @@ import (
 )
 
 type Engine struct {
-	config   SAMLConfig
+	config    SAMLConfig
 	responses []SAMLResponse
-	mu       sync.Mutex
+	mu        sync.Mutex
 }
 
 func NewEngine(cfg SAMLConfig) *Engine {

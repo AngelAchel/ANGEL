@@ -3,9 +3,9 @@ package evidence
 import "regexp"
 
 type Redactor struct {
-	piiPatterns     []*regexp.Regexp
-	secretPatterns  []*regexp.Regexp
-	certPatterns    []*regexp.Regexp
+	piiPatterns    []*regexp.Regexp
+	secretPatterns []*regexp.Regexp
+	certPatterns   []*regexp.Regexp
 }
 
 func NewRedactor() *Redactor {

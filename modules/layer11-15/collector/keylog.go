@@ -75,8 +75,8 @@ func (k *Keylogger) captureLoop() {
 		default:
 			k.mu.Lock()
 			k.entries = append(k.entries, KeylogEntry{
-				Process:  "unknown",
-				Key:      "captured_key",
+				Process:   "unknown",
+				Key:       "captured_key",
 				Timestamp: time.Now(),
 			})
 			k.mu.Unlock()

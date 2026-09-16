@@ -834,9 +834,9 @@ func TestTargetMetadata(t *testing.T) {
 
 func TestCredentialsTypes(t *testing.T) {
 	tests := []struct {
-		name     string
-		creds    *Credentials
-		wantErr  bool
+		name    string
+		creds   *Credentials
+		wantErr bool
 	}{
 		{
 			name: "password auth",

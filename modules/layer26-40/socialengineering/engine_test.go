@@ -68,8 +68,8 @@ func TestSmishing(t *testing.T) {
 	engine := NewEngine(PhishingConfig{})
 
 	result := engine.Smishing(SmishingConfig{
-		Message:      "Your account is locked",
-		TrackingURL:  "https://phish.example.com/track",
+		Message:     "Your account is locked",
+		TrackingURL: "https://phish.example.com/track",
 	})
 
 	if len(result.Templates) == 0 {

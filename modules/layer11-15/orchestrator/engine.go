@@ -26,12 +26,12 @@ func NewOrchestrator(bus *eventbus.EventBus) *Orchestrator {
 	config := DefaultOrchestratorConfig()
 
 	o := &Orchestrator{
-		bus:        bus,
-		config:     config,
-		state:      NewStateManager(),
-		log:        logger.New("orchestrator", logger.LevelInfo),
-		agents:     make(map[string]*AgentInfo),
-		running:    false,
+		bus:     bus,
+		config:  config,
+		state:   NewStateManager(),
+		log:     logger.New("orchestrator", logger.LevelInfo),
+		agents:  make(map[string]*AgentInfo),
+		running: false,
 	}
 
 	o.classifier = NewIntentClassifier()

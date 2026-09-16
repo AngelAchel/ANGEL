@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/angel-platform/angel/pkg/supabase"
+	"github.com/joho/godotenv"
 )
 
 func main() {

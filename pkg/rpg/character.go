@@ -12,19 +12,19 @@ type CharacterManager struct {
 }
 
 type Character struct {
-	ID          string    `json:"id"`
-	UserID      string    `json:"user_id"`
-	Name        string    `json:"name"`
-	Level       int       `json:"level"`
-	Faction     string    `json:"faction"`
-	Money       int       `json:"money"`
-	Inventory   []Item    `json:"inventory"`
-	Vehicles    []string  `json:"vehicles"`
-	Properties  []string  `json:"properties"`
-	CreatedAt   time.Time `json:"created_at"`
-	LastLogin   time.Time `json:"last_login"`
-	IsBanned    bool      `json:"is_banned"`
-	BanReason   string    `json:"ban_reason,omitempty"`
+	ID         string    `json:"id"`
+	UserID     string    `json:"user_id"`
+	Name       string    `json:"name"`
+	Level      int       `json:"level"`
+	Faction    string    `json:"faction"`
+	Money      int       `json:"money"`
+	Inventory  []Item    `json:"inventory"`
+	Vehicles   []string  `json:"vehicles"`
+	Properties []string  `json:"properties"`
+	CreatedAt  time.Time `json:"created_at"`
+	LastLogin  time.Time `json:"last_login"`
+	IsBanned   bool      `json:"is_banned"`
+	BanReason  string    `json:"ban_reason,omitempty"`
 }
 
 type Item struct {

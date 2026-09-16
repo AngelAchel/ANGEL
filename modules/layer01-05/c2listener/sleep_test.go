@@ -7,11 +7,11 @@ import (
 
 func TestNewSleepMasker(t *testing.T) {
 	sm := NewSleepMasker(SleepConfig{
-		Jitter:     0.2,
-		MinSleep:   100 * time.Millisecond,
-		MaxSleep:   500 * time.Millisecond,
+		Jitter:      0.2,
+		MinSleep:    100 * time.Millisecond,
+		MaxSleep:    500 * time.Millisecond,
 		SleepMethod: "standard",
-		Encrypted:  true,
+		Encrypted:   true,
 	})
 	if sm == nil {
 		t.Fatal("expected non-nil SleepMasker")

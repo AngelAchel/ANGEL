@@ -87,8 +87,8 @@ func (c *CassandraScanner) TestCQLInject(target string) *InjectionPoint {
 	url := BuildURL(target, "/", 9042)
 
 	payloads := []struct {
-		query   string
-		desc    string
+		query string
+		desc  string
 	}{
 		{"SELECT * FROM system.users", "system_users_access"},
 		{"SELECT * FROM system_schema.tables", "schema_enumeration"},

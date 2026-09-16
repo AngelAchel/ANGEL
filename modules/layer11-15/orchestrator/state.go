@@ -9,9 +9,9 @@ import (
 )
 
 type StateManager struct {
-	state  map[string]*StateEntry
-	log    *logger.Logger
-	mu     sync.RWMutex
+	state map[string]*StateEntry
+	log   *logger.Logger
+	mu    sync.RWMutex
 }
 
 func NewStateManager() *StateManager {

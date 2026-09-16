@@ -9,10 +9,10 @@ import (
 )
 
 type GenericListener struct {
-	mu        sync.RWMutex
-	addr      string
-	port      int
-	running   bool
+	mu          sync.RWMutex
+	addr        string
+	port        int
+	running     bool
 	connections map[string]net.Conn
 }
 

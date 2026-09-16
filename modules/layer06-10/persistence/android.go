@@ -23,8 +23,8 @@ func NewMagiskModuleMethod() *MagiskModuleMethod {
 	return &MagiskModuleMethod{
 		AndroidBaseMethod: AndroidBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "magisk_module",
-				platform:         types.PlatformAndroid,
+				name:              "magisk_module",
+				platform:          types.PlatformAndroid,
 				requiresElevation: true,
 			},
 		},
@@ -135,8 +135,8 @@ func NewBootCompletedMethod() *BootCompletedMethod {
 	return &BootCompletedMethod{
 		AndroidBaseMethod: AndroidBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "boot_completed",
-				platform:         types.PlatformAndroid,
+				name:              "boot_completed",
+				platform:          types.PlatformAndroid,
 				requiresElevation: false,
 			},
 		},
@@ -211,8 +211,8 @@ func NewForegroundServiceMethod() *ForegroundServiceMethod {
 	return &ForegroundServiceMethod{
 		AndroidBaseMethod: AndroidBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "foreground_service",
-				platform:         types.PlatformAndroid,
+				name:              "foreground_service",
+				platform:          types.PlatformAndroid,
 				requiresElevation: false,
 			},
 		},
@@ -284,8 +284,8 @@ func NewDeviceAdminMethod() *DeviceAdminMethod {
 	return &DeviceAdminMethod{
 		AndroidBaseMethod: AndroidBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "device_admin",
-				platform:         types.PlatformAndroid,
+				name:              "device_admin",
+				platform:          types.PlatformAndroid,
 				requiresElevation: true,
 			},
 		},
@@ -378,8 +378,8 @@ func NewAndroidAccessibilityMethod() *AndroidAccessibilityMethod {
 	return &AndroidAccessibilityMethod{
 		AndroidBaseMethod: AndroidBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "android_accessibility",
-				platform:         types.PlatformAndroid,
+				name:              "android_accessibility",
+				platform:          types.PlatformAndroid,
 				requiresElevation: false,
 			},
 		},

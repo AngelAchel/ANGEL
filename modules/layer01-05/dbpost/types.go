@@ -22,18 +22,18 @@ const (
 type ExploitTechnique string
 
 const (
-	TechniqueJavaObject     ExploitTechnique = "java_object_inject"
-	TechniqueKhuntCmd       ExploitTechnique = "khunt_cmd"
-	TechniqueKhuntHash      ExploitTechnique = "khunt_hash"
-	TechniqueRegistryDump   ExploitTechnique = "registry_dump"
-	TechniqueUDFInstall     ExploitTechnique = "udf_install"
-	TechniqueUserExtract    ExploitTechnique = "user_extract"
-	TechniqueFSAccess       ExploitTechnique = "fs_access"
-	TechniqueCopyProgram    ExploitTechnique = "copy_program"
-	TechniquePGShadow       ExploitTechnique = "pg_shadow"
-	TechniqueXPCmdShell     ExploitTechnique = "xp_cmdshell"
-	TechniqueCLRAssembly    ExploitTechnique = "clr_assembly"
-	TechniqueSQLLogins      ExploitTechnique = "sql_logins"
+	TechniqueJavaObject   ExploitTechnique = "java_object_inject"
+	TechniqueKhuntCmd     ExploitTechnique = "khunt_cmd"
+	TechniqueKhuntHash    ExploitTechnique = "khunt_hash"
+	TechniqueRegistryDump ExploitTechnique = "registry_dump"
+	TechniqueUDFInstall   ExploitTechnique = "udf_install"
+	TechniqueUserExtract  ExploitTechnique = "user_extract"
+	TechniqueFSAccess     ExploitTechnique = "fs_access"
+	TechniqueCopyProgram  ExploitTechnique = "copy_program"
+	TechniquePGShadow     ExploitTechnique = "pg_shadow"
+	TechniqueXPCmdShell   ExploitTechnique = "xp_cmdshell"
+	TechniqueCLRAssembly  ExploitTechnique = "clr_assembly"
+	TechniqueSQLLogins    ExploitTechnique = "sql_logins"
 )
 
 type Severity int
@@ -105,15 +105,15 @@ type DBCreds struct {
 }
 
 type PostExploitResult struct {
-	Success       bool                 `json:"success"`
-	DBMS          DBMS                 `json:"dbms"`
-	Technique     ExploitTechnique     `json:"technique"`
-	Credentials   []CredentialEntry    `json:"credentials"`
-	CmdOutput     string               `json:"cmd_output"`
-	Files         []FileEntry          `json:"files"`
-	Data          map[string]interface{} `json:"data"`
-	Error         string               `json:"error"`
-	Timestamp     time.Time            `json:"timestamp"`
+	Success     bool                   `json:"success"`
+	DBMS        DBMS                   `json:"dbms"`
+	Technique   ExploitTechnique       `json:"technique"`
+	Credentials []CredentialEntry      `json:"credentials"`
+	CmdOutput   string                 `json:"cmd_output"`
+	Files       []FileEntry            `json:"files"`
+	Data        map[string]interface{} `json:"data"`
+	Error       string                 `json:"error"`
+	Timestamp   time.Time              `json:"timestamp"`
 }
 
 type CredentialEntry struct {
@@ -133,14 +133,14 @@ type FileEntry struct {
 }
 
 type ExploitResult struct {
-	Success     bool                 `json:"success"`
-	Technique   ExploitTechnique     `json:"technique"`
-	Credentials []CredentialEntry    `json:"credentials"`
-	CmdOutput   string               `json:"cmd_output"`
-	Files       []FileEntry          `json:"files"`
+	Success     bool                   `json:"success"`
+	Technique   ExploitTechnique       `json:"technique"`
+	Credentials []CredentialEntry      `json:"credentials"`
+	CmdOutput   string                 `json:"cmd_output"`
+	Files       []FileEntry            `json:"files"`
 	Data        map[string]interface{} `json:"data"`
-	Error       string               `json:"error"`
-	Timestamp   time.Time            `json:"timestamp"`
+	Error       string                 `json:"error"`
+	Timestamp   time.Time              `json:"timestamp"`
 }
 
 type HTTPClient struct {

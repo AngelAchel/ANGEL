@@ -444,8 +444,8 @@ func TestRePersist_ReinstallFunc_Called(t *testing.T) {
 	var reinstallCalled int32
 	rp := NewRePersist(10 * time.Millisecond)
 	rp.AddMethod(PersistenceMethod{
-		ID:       "m1",
-		Active:   false,
+		ID:     "m1",
+		Active: false,
 		ReinstallFunc: func() error {
 			atomic.StoreInt32(&reinstallCalled, 1)
 			return nil
@@ -465,8 +465,8 @@ func TestRePersist_ReinstallFunc_Error(t *testing.T) {
 	var reinstallCalled int32
 	rp := NewRePersist(10 * time.Millisecond)
 	rp.AddMethod(PersistenceMethod{
-		ID:       "m1",
-		Active:   false,
+		ID:     "m1",
+		Active: false,
 		ReinstallFunc: func() error {
 			atomic.StoreInt32(&reinstallCalled, 1)
 			return nil // returning nil; even on error the method should not crash
@@ -494,8 +494,8 @@ func TestRePersist_AllActive_NoReinstall(t *testing.T) {
 	var reinstallCalled int32
 	rp := NewRePersist(10 * time.Millisecond)
 	rp.AddMethod(PersistenceMethod{
-		ID:       "m1",
-		Active:   true,
+		ID:     "m1",
+		Active: true,
 		ReinstallFunc: func() error {
 			atomic.StoreInt32(&reinstallCalled, 1)
 			return nil

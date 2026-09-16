@@ -9,11 +9,11 @@ import (
 )
 
 type PeerToPeer struct {
-	mu        sync.RWMutex
-	id        string
-	peers     map[string]*Peer
-	messages  chan *P2PMessage
-	running   bool
+	mu       sync.RWMutex
+	id       string
+	peers    map[string]*Peer
+	messages chan *P2PMessage
+	running  bool
 }
 
 type Peer struct {

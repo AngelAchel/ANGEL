@@ -14,12 +14,12 @@ func (a ARPAttack) String() string {
 }
 
 type DHCPServer struct {
-	IP       string `json:"ip"`
-	MAC      string `json:"mac"`
-	Gateway  string `json:"gateway"`
-	DNS      string `json:"dns"`
-	Lease    int    `json:"lease_time"`
-	Range    string `json:"pool_range"`
+	IP      string `json:"ip"`
+	MAC     string `json:"mac"`
+	Gateway string `json:"gateway"`
+	DNS     string `json:"dns"`
+	Lease   int    `json:"lease_time"`
+	Range   string `json:"pool_range"`
 }
 
 type ARPPacket struct {
@@ -31,25 +31,25 @@ type ARPPacket struct {
 }
 
 type ARPDHCPConfig struct {
-	Interface   string      `json:"interface"`
-	LocalIP     string      `json:"local_ip"`
-	LocalMAC    string      `json:"local_mac"`
-	TargetIPs   []string    `json:"target_ips"`
-	GatewayIP   string      `json:"gateway_ip"`
-	ARPAttack   ARPAttack   `json:"arp_attack"`
-	DHCPServer  *DHCPServer `json:"dhcp_server,omitempty"`
-	NumSpoof    int         `json:"num_spoof"`
-	Timeout     int         `json:"timeout"`
+	Interface  string      `json:"interface"`
+	LocalIP    string      `json:"local_ip"`
+	LocalMAC   string      `json:"local_mac"`
+	TargetIPs  []string    `json:"target_ips"`
+	GatewayIP  string      `json:"gateway_ip"`
+	ARPAttack  ARPAttack   `json:"arp_attack"`
+	DHCPServer *DHCPServer `json:"dhcp_server,omitempty"`
+	NumSpoof   int         `json:"num_spoof"`
+	Timeout    int         `json:"timeout"`
 }
 
 type ARPDHCPResult struct {
-	Attack       ARPAttack  `json:"attack"`
-	Success      bool       `json:"success"`
-	TargetsPoisoned int     `json:"targets_poisoned"`
-	RogueDHCP    bool       `json:"rogue_dhcp"`
-	Details      string     `json:"details"`
-	PacketsSent  int        `json:"packets_sent"`
-	TrafficIntercepted int64 `json:"traffic_intercepted_bytes"`
+	Attack             ARPAttack `json:"attack"`
+	Success            bool      `json:"success"`
+	TargetsPoisoned    int       `json:"targets_poisoned"`
+	RogueDHCP          bool      `json:"rogue_dhcp"`
+	Details            string    `json:"details"`
+	PacketsSent        int       `json:"packets_sent"`
+	TrafficIntercepted int64     `json:"traffic_intercepted_bytes"`
 }
 
 type DHCPLease struct {

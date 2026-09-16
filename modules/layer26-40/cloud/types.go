@@ -17,55 +17,55 @@ func (c CloudProvider) String() string {
 }
 
 type CloudConfig struct {
-	Provider    CloudProvider
-	AccessKey   string
-	SecretKey   string
+	Provider     CloudProvider
+	AccessKey    string
+	SecretKey    string
 	SessionToken string
-	Region      string
-	ProjectID   string
-	TenantID    string
-	ClientID    string
+	Region       string
+	ProjectID    string
+	TenantID     string
+	ClientID     string
 	ClientSecret string
-	Profile     string
-	Endpoint    string
+	Profile      string
+	Endpoint     string
 }
 
 type CloudResult struct {
-	ID          string        `json:"id"`
-	Provider    CloudProvider `json:"provider"`
-	AccountID   string        `json:"account_id"`
-	IAMPolicies []IAMPolicy   `json:"iam_policies"`
-	PrivPaths   []PrivescPath `json:"privilege_escalation_paths"`
-	Lambdas     []LambdaInfo  `json:"lambdas"`
-	Buckets     []BucketInfo  `json:"buckets"`
+	ID          string         `json:"id"`
+	Provider    CloudProvider  `json:"provider"`
+	AccountID   string         `json:"account_id"`
+	IAMPolicies []IAMPolicy    `json:"iam_policies"`
+	PrivPaths   []PrivescPath  `json:"privilege_escalation_paths"`
+	Lambdas     []LambdaInfo   `json:"lambdas"`
+	Buckets     []BucketInfo   `json:"buckets"`
 	Instances   []InstanceInfo `json:"instances"`
-	Secrets     []SecretEntry `json:"secrets"`
-	Timestamp   time.Time     `json:"timestamp"`
+	Secrets     []SecretEntry  `json:"secrets"`
+	Timestamp   time.Time      `json:"timestamp"`
 }
 
 type IAMPolicy struct {
-	Name       string   `json:"name"`
-	ARN        string   `json:"arn"`
-	Effect     string   `json:"effect"`
-	Actions    []string `json:"actions"`
-	Resources  []string `json:"resources"`
-	Condition  string   `json:"condition,omitempty"`
+	Name      string   `json:"name"`
+	ARN       string   `json:"arn"`
+	Effect    string   `json:"effect"`
+	Actions   []string `json:"actions"`
+	Resources []string `json:"resources"`
+	Condition string   `json:"condition,omitempty"`
 }
 
 type IAMConfig struct {
-	RoleEnum      bool
-	UserEnum      bool
+	RoleEnum       bool
+	UserEnum       bool
 	PolicyAnalysis bool
-	PrivescDetect bool
-	ServiceEnum   []string
+	PrivescDetect  bool
+	ServiceEnum    []string
 }
 
 type PrivescPath struct {
-	From      string   `json:"from"`
-	To        string   `json:"to"`
-	Method    string   `json:"method"`
-	Risk      string   `json:"risk"`
-	Actions   []string `json:"actions"`
+	From    string   `json:"from"`
+	To      string   `json:"to"`
+	Method  string   `json:"method"`
+	Risk    string   `json:"risk"`
+	Actions []string `json:"actions"`
 }
 
 type LambdaConfig struct {
@@ -78,14 +78,14 @@ type LambdaConfig struct {
 }
 
 type LambdaInfo struct {
-	Name      string            `json:"name"`
-	ARN       string            `json:"arn"`
-	Runtime   string            `json:"runtime"`
-	Role      string            `json:"role"`
-	EnvVars   map[string]string `json:"env_vars"`
-	Memory    int               `json:"memory"`
-	Timeout   int               `json:"timeout"`
-	ManagedPolicies []string    `json:"managed_policies"`
+	Name            string            `json:"name"`
+	ARN             string            `json:"arn"`
+	Runtime         string            `json:"runtime"`
+	Role            string            `json:"role"`
+	EnvVars         map[string]string `json:"env_vars"`
+	Memory          int               `json:"memory"`
+	Timeout         int               `json:"timeout"`
+	ManagedPolicies []string          `json:"managed_policies"`
 }
 
 type BucketInfo struct {
@@ -97,13 +97,13 @@ type BucketInfo struct {
 }
 
 type InstanceInfo struct {
-	ID        string            `json:"id"`
-	Name      string            `json:"name"`
-	State     string            `json:"state"`
-	Type      string            `json:"type"`
-	PublicIP  string            `json:"public_ip"`
-	IAMRole   string            `json:"iam_role"`
-	Metadata  map[string]string `json:"metadata"`
+	ID       string            `json:"id"`
+	Name     string            `json:"name"`
+	State    string            `json:"state"`
+	Type     string            `json:"type"`
+	PublicIP string            `json:"public_ip"`
+	IAMRole  string            `json:"iam_role"`
+	Metadata map[string]string `json:"metadata"`
 }
 
 type SecretEntry struct {

@@ -13,15 +13,15 @@ import (
 )
 
 type Orchestrator struct {
-	graph       *langgraph.Graph
-	classifier  *intent.IntentClassifier
-	fireteam    *fireteam.Fireteam
-	mcpServer   *mcp.MCPServer
-	state       *State
-	config      *Config
-	mu          sync.RWMutex
-	running     bool
-	startTime   time.Time
+	graph      *langgraph.Graph
+	classifier *intent.IntentClassifier
+	fireteam   *fireteam.Fireteam
+	mcpServer  *mcp.MCPServer
+	state      *State
+	config     *Config
+	mu         sync.RWMutex
+	running    bool
+	startTime  time.Time
 }
 
 type Config struct {
@@ -34,11 +34,11 @@ type Config struct {
 }
 
 type State struct {
-CurrentTask string
-LastDecision string
-RiskScore    int
-	Actions     []string
-	mu          sync.RWMutex
+	CurrentTask  string
+	LastDecision string
+	RiskScore    int
+	Actions      []string
+	mu           sync.RWMutex
 }
 
 func New(cfg *Config) *Orchestrator {
@@ -195,11 +195,11 @@ func (o *Orchestrator) GetStatus() map[string]interface{} {
 	defer o.mu.RUnlock()
 
 	return map[string]interface{}{
-		"running":        o.running,
-		"uptime":         time.Since(o.startTime).String(),
-		"fireteam":       o.fireteam.GetStatus(),
-		"mcp":            o.mcpServer.GetStatus(),
-		"graph_state":    o.graph.GetStateSnapshot(),
+		"running":     o.running,
+		"uptime":      time.Since(o.startTime).String(),
+		"fireteam":    o.fireteam.GetStatus(),
+		"mcp":         o.mcpServer.GetStatus(),
+		"graph_state": o.graph.GetStateSnapshot(),
 	}
 }
 

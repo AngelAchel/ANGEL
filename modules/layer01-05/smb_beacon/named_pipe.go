@@ -9,10 +9,10 @@ import (
 )
 
 type NamedPipe struct {
-	mu       sync.RWMutex
-	name     string
+	mu        sync.RWMutex
+	name      string
 	connected bool
-	lastIO   time.Time
+	lastIO    time.Time
 }
 
 type PipeMessage struct {

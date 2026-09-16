@@ -3,14 +3,14 @@ package ldap
 import "time"
 
 type LDAPConfig struct {
-	Host       string        `json:"host"`
-	Port       int           `json:"port"`
-	BaseDN     string        `json:"base_dn"`
-	BindDN     string        `json:"bind_dn"`
-	BindPass   string        `json:"bind_pass"`
-	UseTLS     bool          `json:"use_tls"`
-	Timeout    time.Duration `json:"timeout"`
-	PageSize   int           `json:"page_size"`
+	Host     string        `json:"host"`
+	Port     int           `json:"port"`
+	BaseDN   string        `json:"base_dn"`
+	BindDN   string        `json:"bind_dn"`
+	BindPass string        `json:"bind_pass"`
+	UseTLS   bool          `json:"use_tls"`
+	Timeout  time.Duration `json:"timeout"`
+	PageSize int           `json:"page_size"`
 }
 
 type LDAPResult struct {
@@ -23,24 +23,24 @@ type LDAPResult struct {
 }
 
 type LDAPAttack struct {
-	Filter    string `json:"filter"`
-	BaseDN    string `json:"base_dn"`
-	Scope     int    `json:"scope"`
+	Filter     string   `json:"filter"`
+	BaseDN     string   `json:"base_dn"`
+	Scope      int      `json:"scope"`
 	Attributes []string `json:"attributes"`
 }
 
 type LDAPEnum struct {
-	Domain    string   `json:"domain"`
-	DC        string   `json:"dc"`
-	Forest    string   `json:"forest"`
-	Users     []string `json:"users"`
-	Groups    []string `json:"groups"`
-	Servers   []string `json:"servers"`
-	SPNs       []string `json:"spns"`
+	Domain  string   `json:"domain"`
+	DC      string   `json:"dc"`
+	Forest  string   `json:"forest"`
+	Users   []string `json:"users"`
+	Groups  []string `json:"groups"`
+	Servers []string `json:"servers"`
+	SPNs    []string `json:"spns"`
 }
 
 type LDAPEntry struct {
-	DN         string            `json:"dn"`
+	DN         string              `json:"dn"`
 	Attributes map[string][]string `json:"attributes"`
 }
 
@@ -70,8 +70,8 @@ type SPNEntry struct {
 }
 
 type LDAPResponse struct {
-	Entries  []LDAPEntry `json:"entries"`
-	Referrals []string   `json:"referrals"`
-	ResultCode int       `json:"result_code"`
-	ErrorMessage string  `json:"error_message"`
+	Entries      []LDAPEntry `json:"entries"`
+	Referrals    []string    `json:"referrals"`
+	ResultCode   int         `json:"result_code"`
+	ErrorMessage string      `json:"error_message"`
 }

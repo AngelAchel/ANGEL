@@ -133,8 +133,8 @@ func TestDecideNextActionEmpty(t *testing.T) {
 	b := NewBrain(nil)
 
 	context := &DecisionContext{
-		State:             &EnvironmentState{},
-		AvailableActions:  []Action{},
+		State:            &EnvironmentState{},
+		AvailableActions: []Action{},
 	}
 
 	action, err := b.DecideNextAction(context)

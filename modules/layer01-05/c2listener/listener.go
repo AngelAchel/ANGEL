@@ -11,12 +11,12 @@ import (
 )
 
 type C2Listener struct {
-	mu          sync.RWMutex
-	addr        string
-	port        int
-	running     bool
-	agents      map[string]*Agent
-	tasks       map[string]*Task
+	mu      sync.RWMutex
+	addr    string
+	port    int
+	running bool
+	agents  map[string]*Agent
+	tasks   map[string]*Task
 }
 
 type Agent struct {

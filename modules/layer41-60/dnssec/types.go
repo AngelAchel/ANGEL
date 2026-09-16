@@ -51,25 +51,25 @@ type RRSIGRecord struct {
 }
 
 type ZoneInfo struct {
-	Domain    string        `json:"domain"`
-	Serial    int           `json:"serial"`
-	SOA       string        `json:"soa"`
-	NameServers []string    `json:"name_servers"`
-	DNSKEY    []DNSKEYRecord `json:"dnskey"`
-	RRSIG     []RRSIGRecord  `json:"rrsig"`
-	NSEC      []NSECRecord   `json:"nsec"`
+	Domain      string         `json:"domain"`
+	Serial      int            `json:"serial"`
+	SOA         string         `json:"soa"`
+	NameServers []string       `json:"name_servers"`
+	DNSKEY      []DNSKEYRecord `json:"dnskey"`
+	RRSIG       []RRSIGRecord  `json:"rrsig"`
+	NSEC        []NSECRecord   `json:"nsec"`
 }
 
 type ZoneWalkResult struct {
-	Domain    string   `json:"domain"`
-	Records   []string `json:"records"`
+	Domain     string   `json:"domain"`
+	Records    []string `json:"records"`
 	Subdomains []string `json:"subdomains"`
-	Total     int      `json:"total"`
+	Total      int      `json:"total"`
 }
 
 type KeyRollResult struct {
-	OldKeyTag  int    `json:"old_key_tag"`
-	NewKeyTag  int    `json:"new_key_tag"`
-	Algorithm  int    `json:"algorithm"`
-	Rolled     bool   `json:"rolled"`
+	OldKeyTag int  `json:"old_key_tag"`
+	NewKeyTag int  `json:"new_key_tag"`
+	Algorithm int  `json:"algorithm"`
+	Rolled    bool `json:"rolled"`
 }

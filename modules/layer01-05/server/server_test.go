@@ -64,21 +64,21 @@ func TestTaskQueue_AddGetTask(t *testing.T) {
 
 func TestTaskQueue_AddTaskOverflow(t *testing.T) {
 	q := NewTaskQueue(TaskQueueConfig{MaxTasks: 2})
-	q.AddTask("a", "t", "{}") 
-	q.AddTask("b", "t", "{}") 
-	q.AddTask("c", "t", "{}") 
+	q.AddTask("a", "t", "{}")
+	q.AddTask("b", "t", "{}")
+	q.AddTask("c", "t", "{}")
 	// Queue accepts tasks; overflow behavior depends on config
 }
 
 func TestTaskQueue_CompleteTask(t *testing.T) {
 	q := NewTaskQueue(TaskQueueConfig{MaxTasks: 100})
-	q.AddTask("t", "recon", "{}") 
+	q.AddTask("t", "recon", "{}")
 	q.CompleteTask("t")
 }
 
 func TestTaskQueue_FailTask(t *testing.T) {
 	q := NewTaskQueue(TaskQueueConfig{MaxTasks: 100})
-	q.AddTask("t", "recon", "{}") 
+	q.AddTask("t", "recon", "{}")
 	q.FailTask("t")
 }
 
@@ -102,10 +102,10 @@ func TestNewResultHandler(t *testing.T) {
 func TestResultHandler_HandleAndGetResult(t *testing.T) {
 	rh := NewResultHandler(ResultHandlerConfig{BufferSize: 100})
 	result := &TaskResult{
-		ID:       "t1",
-		TaskID:   "t1",
-		AgentID:  "a1",
-		Data:     "test-result",
+		ID:        "t1",
+		TaskID:    "t1",
+		AgentID:   "a1",
+		Data:      "test-result",
 		Timestamp: time.Now(),
 	}
 	rh.HandleResult(result)
@@ -146,11 +146,11 @@ func TestResultHandler_RegisterHandler(t *testing.T) {
 		called = true
 	})
 	result := &TaskResult{
-		ID:       "t1",
-		TaskID:   "t1",
-		AgentID:  "a1",
-		Data:     "d",
-		Type:     "recon",
+		ID:        "t1",
+		TaskID:    "t1",
+		AgentID:   "a1",
+		Data:      "d",
+		Type:      "recon",
 		Timestamp: time.Now(),
 	}
 	rh.HandleResult(result)
@@ -183,7 +183,7 @@ func TestScheduler_AddRemoveTask(t *testing.T) {
 		Interval: 1 * time.Second,
 	})
 	task := &ScheduledTask{
-		ID:      "job1",
+		ID:       "job1",
 		Interval: 1 * time.Hour,
 	}
 	s.AddTask(task)

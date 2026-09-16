@@ -207,10 +207,10 @@ func buildNegativePayload(items []CartItem) string {
 
 func analyzeCoupon(code string, origPrice float64) CouponInfo {
 	coupon := CouponInfo{
-		Code:     code,
-		MaxUses:  1,
+		Code:      code,
+		MaxUses:   1,
 		UsedCount: 0,
-		Valid:    true,
+		Valid:     true,
 	}
 
 	codeUpper := strings.ToUpper(code)

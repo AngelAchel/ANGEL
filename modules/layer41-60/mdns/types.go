@@ -35,12 +35,12 @@ type WPADConfig struct {
 }
 
 type MDNSRecord struct {
-	Name    string        `json:"name"`
-	Type    uint16        `json:"type"`
-	Class   uint16        `json:"class"`
-	TTL     uint32        `json:"ttl"`
-	Data    []byte        `json:"data"`
-	Created time.Time     `json:"created"`
+	Name    string    `json:"name"`
+	Type    uint16    `json:"type"`
+	Class   uint16    `json:"class"`
+	TTL     uint32    `json:"ttl"`
+	Data    []byte    `json:"data"`
+	Created time.Time `json:"created"`
 }
 
 type ServiceEntry struct {
@@ -60,9 +60,9 @@ type LLMNRQuery struct {
 }
 
 type NBTNSName struct {
-	Name     string `json:"name"`
-	Suffix   string `json:"suffix"`
-	Type     byte   `json:"type"`
+	Name   string `json:"name"`
+	Suffix string `json:"suffix"`
+	Type   byte   `json:"type"`
 }
 
 type PoisonResult struct {

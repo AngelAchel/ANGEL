@@ -86,10 +86,10 @@ func (e *SSHExec) ExecuteShell() (*SSHShell, error) {
 }
 
 type SSHShell struct {
-	target   *Target
-	creds    *Credentials
-	session  string
-	active   bool
+	target  *Target
+	creds   *Credentials
+	session string
+	active  bool
 }
 
 func NewSSHShell(target *Target, creds *Credentials) *SSHShell {

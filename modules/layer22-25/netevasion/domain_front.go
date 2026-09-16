@@ -7,9 +7,9 @@ import (
 )
 
 type DomainFronter struct {
-	mu       sync.RWMutex
-	configs  map[string]*DomainFrontConfig
-	results  []*DomainFrontResult
+	mu      sync.RWMutex
+	configs map[string]*DomainFrontConfig
+	results []*DomainFrontResult
 }
 
 func NewDomainFronter() *DomainFronter {

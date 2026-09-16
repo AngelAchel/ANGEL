@@ -20,12 +20,12 @@ type TCPListener struct {
 }
 
 type TCPConn struct {
-	ID        string
-	Conn      net.Conn
+	ID         string
+	Conn       net.Conn
 	RemoteAddr string
-	StartTime time.Time
-	BytesIn   int64
-	BytesOut  int64
+	StartTime  time.Time
+	BytesIn    int64
+	BytesOut   int64
 }
 
 type TCPAgent struct {

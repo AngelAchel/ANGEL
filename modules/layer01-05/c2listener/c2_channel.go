@@ -9,18 +9,18 @@ import (
 )
 
 type C2Channel struct {
-	mu          sync.RWMutex
-	id          string
-	protocol    string
-	addr        string
-	port        int
-	encrypted   bool
-	compressor  bool
-	key         []byte
-	connected   bool
-	lastIO      time.Time
-	reconnects  int
-	maxRetries  int
+	mu         sync.RWMutex
+	id         string
+	protocol   string
+	addr       string
+	port       int
+	encrypted  bool
+	compressor bool
+	key        []byte
+	connected  bool
+	lastIO     time.Time
+	reconnects int
+	maxRetries int
 }
 
 type ChannelConfig struct {

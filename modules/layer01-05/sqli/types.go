@@ -9,12 +9,12 @@ import (
 type DBMSType string
 
 const (
-	DBMSMySQL     DBMSType = "mysql"
-	DBMSPostgres  DBMSType = "postgresql"
-	DBMSMSSQL     DBMSType = "mssql"
-	DBMSOracle    DBMSType = "oracle"
-	DBMSSQLite    DBMSType = "sqlite"
-	DBMSUnknown   DBMSType = "unknown"
+	DBMSMySQL    DBMSType = "mysql"
+	DBMSPostgres DBMSType = "postgresql"
+	DBMSMSSQL    DBMSType = "mssql"
+	DBMSOracle   DBMSType = "oracle"
+	DBMSSQLite   DBMSType = "sqlite"
+	DBMSUnknown  DBMSType = "unknown"
 )
 
 type InjectionType string
@@ -25,9 +25,9 @@ const (
 	InjectionErrorBased   InjectionType = "error_based"
 	InjectionUnionBased   InjectionType = "union_based"
 	InjectionStacked      InjectionType = "stacked"
-	InjectionOOBDNS      InjectionType = "oob_dns"
-	InjectionOOBHTTP     InjectionType = "oob_http"
-	InjectionOOBICMP     InjectionType = "oob_icmp"
+	InjectionOOBDNS       InjectionType = "oob_dns"
+	InjectionOOBHTTP      InjectionType = "oob_http"
+	InjectionOOBICMP      InjectionType = "oob_icmp"
 )
 
 type Severity string
@@ -53,33 +53,33 @@ const (
 type ParameterLocation string
 
 const (
-	ParamQuery    ParameterLocation = "query"
-	ParamBody     ParameterLocation = "body"
-	ParamCookie   ParameterLocation = "cookie"
-	ParamHeader   ParameterLocation = "header"
-	ParamJSON     ParameterLocation = "json"
-	ParamXML      ParameterLocation = "xml"
-	ParamGraphQL  ParameterLocation = "graphql"
+	ParamQuery     ParameterLocation = "query"
+	ParamBody      ParameterLocation = "body"
+	ParamCookie    ParameterLocation = "cookie"
+	ParamHeader    ParameterLocation = "header"
+	ParamJSON      ParameterLocation = "json"
+	ParamXML       ParameterLocation = "xml"
+	ParamGraphQL   ParameterLocation = "graphql"
 	ParamMultipart ParameterLocation = "multipart"
 )
 
 type SQLiConfig struct {
-	Target          string
-	Timeout         time.Duration
-	MaxConcurrency  int
-	Retries         int
-	Techniques      []InjectionType
-	DBMS            DBMSType
-	Level           int
-	Risk            int
-	 tamper         bool
-	UseWAFBypass    bool
-	Verbose         bool
-	ProxyURL        string
-	CustomHeaders   map[string]string
-	Cookies         map[string]string
-	Params          []string
-	HTTPClient      *http.Client
+	Target         string
+	Timeout        time.Duration
+	MaxConcurrency int
+	Retries        int
+	Techniques     []InjectionType
+	DBMS           DBMSType
+	Level          int
+	Risk           int
+	tamper         bool
+	UseWAFBypass   bool
+	Verbose        bool
+	ProxyURL       string
+	CustomHeaders  map[string]string
+	Cookies        map[string]string
+	Params         []string
+	HTTPClient     *http.Client
 }
 
 func DefaultConfig() *SQLiConfig {
@@ -97,35 +97,35 @@ func DefaultConfig() *SQLiConfig {
 			InjectionOOBHTTP,
 			InjectionOOBICMP,
 		},
-		DBMS:       DBMSUnknown,
-		Level:      1,
-		Risk:       1,
+		DBMS:         DBMSUnknown,
+		Level:        1,
+		Risk:         1,
 		UseWAFBypass: true,
-		Verbose:    false,
+		Verbose:      false,
 	}
 }
 
 type Technique struct {
-	Name        string         `json:"name"`
-	Type        InjectionType  `json:"type"`
-	Priority    int            `json:"priority"`
-	Status      TechniqueStatus `json:"status"`
-	Error       string         `json:"error,omitempty"`
-	Duration    time.Duration  `json:"duration"`
-	Result      *InjectionResult `json:"result,omitempty"`
+	Name     string           `json:"name"`
+	Type     InjectionType    `json:"type"`
+	Priority int              `json:"priority"`
+	Status   TechniqueStatus  `json:"status"`
+	Error    string           `json:"error,omitempty"`
+	Duration time.Duration    `json:"duration"`
+	Result   *InjectionResult `json:"result,omitempty"`
 }
 
 type InjectionPoint struct {
-	URL          string            `json:"url"`
-	Parameter    string            `json:"parameter"`
-	Location     ParameterLocation `json:"location"`
-	InjectionType InjectionType    `json:"injection_type"`
-	DBMS         DBMSType          `json:"dbms"`
-	Payload      string            `json:"payload"`
-	Evidence     string            `json:"evidence"`
-	Confidence   float64           `json:"confidence"`
-	Severity     Severity          `json:"severity"`
-	Details      map[string]string `json:"details,omitempty"`
+	URL           string            `json:"url"`
+	Parameter     string            `json:"parameter"`
+	Location      ParameterLocation `json:"location"`
+	InjectionType InjectionType     `json:"injection_type"`
+	DBMS          DBMSType          `json:"dbms"`
+	Payload       string            `json:"payload"`
+	Evidence      string            `json:"evidence"`
+	Confidence    float64           `json:"confidence"`
+	Severity      Severity          `json:"severity"`
+	Details       map[string]string `json:"details,omitempty"`
 }
 
 type InjectionResult struct {

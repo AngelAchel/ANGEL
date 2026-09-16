@@ -29,13 +29,13 @@ func TestNewAuthBypassEngine(t *testing.T) {
 
 func TestNewAuthBypassEngineWithConfig(t *testing.T) {
 	config := &AuthBypassConfig{
-		Target:          "https://example.com",
-		Timeout:         10 * time.Second,
-		Methods:         []AuthBypassMethod{MethodSQLiAuth},
-		UsernameField:   "user",
-		PasswordField:   "pass",
-		LoginEndpoint:   "/auth",
-		Verbose:         true,
+		Target:        "https://example.com",
+		Timeout:       10 * time.Second,
+		Methods:       []AuthBypassMethod{MethodSQLiAuth},
+		UsernameField: "user",
+		PasswordField: "pass",
+		LoginEndpoint: "/auth",
+		Verbose:       true,
 	}
 	engine := NewAuthBypassEngine(config)
 	if engine.config.Target != "https://example.com" {

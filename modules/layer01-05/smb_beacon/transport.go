@@ -9,15 +9,15 @@ import (
 )
 
 type SMBTransport struct {
-	mu          sync.RWMutex
-	id          string
-	namePipe    string
-	connected   bool
-	encrypted   bool
-	compressed  bool
-	key         []byte
-	peers       map[string]*TransportPeer
-	lastIO      time.Time
+	mu         sync.RWMutex
+	id         string
+	namePipe   string
+	connected  bool
+	encrypted  bool
+	compressed bool
+	key        []byte
+	peers      map[string]*TransportPeer
+	lastIO     time.Time
 }
 
 type TransportPeer struct {

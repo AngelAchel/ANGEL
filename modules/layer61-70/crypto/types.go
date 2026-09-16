@@ -33,31 +33,31 @@ func (p PaddingType) String() string {
 }
 
 type CryptoConfig struct {
-	TargetURL   string       `json:"target_url"`
-	Cipher      string       `json:"cipher"`
-	PaddingType PaddingType  `json:"padding_type"`
-	BlockSize   int          `json:"block_size"`
-	KeySize     int          `json:"key_size"`
-	IV          []byte       `json:"iv"`
-	Ciphertext  []byte       `json:"ciphertext"`
-	Plaintext   []byte       `json:"plaintext"`
+	TargetURL   string      `json:"target_url"`
+	Cipher      string      `json:"cipher"`
+	PaddingType PaddingType `json:"padding_type"`
+	BlockSize   int         `json:"block_size"`
+	KeySize     int         `json:"key_size"`
+	IV          []byte      `json:"iv"`
+	Ciphertext  []byte      `json:"ciphertext"`
+	Plaintext   []byte      `json:"plaintext"`
 }
 
 type CryptoResult struct {
-	Attack       CryptoAttack `json:"attack"`
-	Vulnerable   bool         `json:"vulnerable"`
-	BlockSize    int          `json:"block_size"`
-	BytesLeaked  int          `json:"bytes_leaked"`
-	RiskScore    float64      `json:"risk_score"`
-	Details      string       `json:"details"`
-	Payload      string       `json:"payload"`
+	Attack      CryptoAttack `json:"attack"`
+	Vulnerable  bool         `json:"vulnerable"`
+	BlockSize   int          `json:"block_size"`
+	BytesLeaked int          `json:"bytes_leaked"`
+	RiskScore   float64      `json:"risk_score"`
+	Details     string       `json:"details"`
+	Payload     string       `json:"payload"`
 }
 
 type PaddingAnalysis struct {
-	ValidPadding    bool   `json:"valid_padding"`
-	PaddingType     PaddingType `json:"padding_type"`
-	PaddingLength   int    `json:"padding_length"`
-	Corrupted       bool   `json:"corrupted"`
+	ValidPadding  bool        `json:"valid_padding"`
+	PaddingType   PaddingType `json:"padding_type"`
+	PaddingLength int         `json:"padding_length"`
+	Corrupted     bool        `json:"corrupted"`
 }
 
 type ECBAnalysis struct {

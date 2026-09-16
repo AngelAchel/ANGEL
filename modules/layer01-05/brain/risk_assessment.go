@@ -6,8 +6,8 @@ import (
 )
 
 type RiskAssessment struct {
-	mu        sync.RWMutex
-	profiles  map[string]*RiskProfile
+	mu       sync.RWMutex
+	profiles map[string]*RiskProfile
 }
 
 type RiskProfile struct {
@@ -18,9 +18,9 @@ type RiskProfile struct {
 }
 
 type RiskFactor struct {
-	Name     string
-	Weight   float64
-	Score    float64
+	Name   string
+	Weight float64
+	Score  float64
 }
 
 func NewRiskAssessment() *RiskAssessment {

@@ -279,5 +279,3 @@ func containsSubstr(s, substr string) bool {
 	}
 	return false
 }
-
-

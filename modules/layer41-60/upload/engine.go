@@ -46,58 +46,58 @@ func (e *Engine) generateExtensionBypasses(filename string) []ExtensionBypass {
 	bypasses := make([]ExtensionBypass, 0)
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + "." + strings.ToUpper(ext),
-		Technique: "case_change",
+		Original:   filename,
+		Bypass:     name + "." + strings.ToUpper(ext),
+		Technique:  "case_change",
 		CaseChange: true,
 	})
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + "." + ext + ".",
+		Original:  filename,
+		Bypass:    name + "." + ext + ".",
 		Technique: "trailing_dot",
 	})
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + "." + ext + "%20",
+		Original:  filename,
+		Bypass:    name + "." + ext + "%20",
 		Technique: "trailing_space",
 	})
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + "." + ext + "%00",
+		Original:  filename,
+		Bypass:    name + "." + ext + "%00",
 		Technique: "null_byte",
 	})
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + ".php.jpg",
+		Original:  filename,
+		Bypass:    name + ".php.jpg",
 		Technique: "double_extension",
 	})
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + ".pHp",
-		Technique: "mixed_case",
+		Original:   filename,
+		Bypass:     name + ".pHp",
+		Technique:  "mixed_case",
 		CaseChange: true,
 	})
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + ".php5",
+		Original:  filename,
+		Bypass:    name + ".php5",
 		Technique: "alternative_ext",
 	})
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + ".php;.jpg",
+		Original:  filename,
+		Bypass:    name + ".php;.jpg",
 		Technique: "semicolon",
 	})
 
 	bypasses = append(bypasses, ExtensionBypass{
-		Original: filename,
-		Bypass:   name + ".php%00.jpg",
+		Original:  filename,
+		Bypass:    name + ".php%00.jpg",
 		Technique: "null_byte_middle",
 	})
 

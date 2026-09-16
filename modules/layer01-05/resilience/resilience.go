@@ -7,11 +7,11 @@ import (
 )
 
 type ResilienceManager struct {
-	mu              sync.RWMutex
+	mu               sync.RWMutex
 	heartbeatTimeout time.Duration
-	lastHeartbeat   time.Time
-	running         bool
-	stopCh          chan struct{}
+	lastHeartbeat    time.Time
+	running          bool
+	stopCh           chan struct{}
 }
 
 func NewResilienceManager(heartbeatTimeout time.Duration) *ResilienceManager {

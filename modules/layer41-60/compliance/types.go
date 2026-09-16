@@ -3,9 +3,9 @@ package compliance
 import "time"
 
 type ComplianceConfig struct {
-	Framework  string        `json:"framework"`
-	Scope      []string      `json:"scope"`
-	Timeout    time.Duration `json:"timeout"`
+	Framework string        `json:"framework"`
+	Scope     []string      `json:"scope"`
+	Timeout   time.Duration `json:"timeout"`
 }
 
 type ComplianceResult struct {
@@ -18,10 +18,10 @@ type ComplianceResult struct {
 }
 
 type ComplianceFramework struct {
-	Name        string   `json:"name"`
-	Version     string   `json:"version"`
-	Categories  []string `json:"categories"`
-	TotalControls int    `json:"total_controls"`
+	Name          string   `json:"name"`
+	Version       string   `json:"version"`
+	Categories    []string `json:"categories"`
+	TotalControls int      `json:"total_controls"`
 }
 
 type ControlCheck struct {
@@ -45,9 +45,9 @@ type ComplianceReport struct {
 }
 
 type GapAnalysis struct {
-	CurrentState string         `json:"current_state"`
-	RequiredState string        `json:"required_state"`
-	Gaps         []string       `json:"gaps"`
-	Recommendations []string    `json:"recommendations"`
-	Priority     string         `json:"priority"`
+	CurrentState    string   `json:"current_state"`
+	RequiredState   string   `json:"required_state"`
+	Gaps            []string `json:"gaps"`
+	Recommendations []string `json:"recommendations"`
+	Priority        string   `json:"priority"`
 }

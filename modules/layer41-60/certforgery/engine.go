@@ -49,11 +49,11 @@ func (e *Engine) SelfSignForge(domain string) (*CertResult, error) {
 			CommonName:   domain,
 			Organization: []string{domain},
 		},
-		NotBefore:    time.Now(),
-		NotAfter:     time.Now().Add(time.Duration(e.config.ValidDays) * 24 * time.Hour),
-		KeyUsage:     x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
-		ExtKeyUsage:  []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
-		DNSNames:     []string{domain},
+		NotBefore:   time.Now(),
+		NotAfter:    time.Now().Add(time.Duration(e.config.ValidDays) * 24 * time.Hour),
+		KeyUsage:    x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
+		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+		DNSNames:    []string{domain},
 	}
 
 	certDER, err := x509.CreateCertificate(rand.Reader, certTemplate, certTemplate, &privateKey.PublicKey, privateKey)
@@ -77,14 +77,14 @@ func (e *Engine) SelfSignForge(domain string) (*CertResult, error) {
 
 func (e *Engine) buildCertTemplate(domain string) CertificateInfo {
 	return CertificateInfo{
-		Subject:    fmt.Sprintf("CN=%s", domain),
-		Issuer:     fmt.Sprintf("CN=%s Self-Signed", domain),
-		Serial:     e.generateSerial(),
-		NotBefore:  time.Now(),
-		NotAfter:   time.Now().Add(time.Duration(e.config.ValidDays) * 24 * time.Hour),
-		KeyUsage:   []string{"Key Encipherment", "Digital Signature"},
+		Subject:     fmt.Sprintf("CN=%s", domain),
+		Issuer:      fmt.Sprintf("CN=%s Self-Signed", domain),
+		Serial:      e.generateSerial(),
+		NotBefore:   time.Now(),
+		NotAfter:    time.Now().Add(time.Duration(e.config.ValidDays) * 24 * time.Hour),
+		KeyUsage:    []string{"Key Encipherment", "Digital Signature"},
 		ExtKeyUsage: []string{"Server Auth"},
-		DNSNames:   []string{domain},
+		DNSNames:    []string{domain},
 	}
 }
 
@@ -203,12 +203,12 @@ func (e *Engine) AnalyzeCert(certPEM string) (*CertificateInfo, error) {
 	}
 
 	info := &CertificateInfo{
-		Subject:    cert.Subject.CommonName,
-		Issuer:     cert.Issuer.CommonName,
-		Serial:     cert.SerialNumber.String(),
-		NotBefore:  cert.NotBefore,
-		NotAfter:   cert.NotAfter,
-		DNSNames:   cert.DNSNames,
+		Subject:   cert.Subject.CommonName,
+		Issuer:    cert.Issuer.CommonName,
+		Serial:    cert.SerialNumber.String(),
+		NotBefore: cert.NotBefore,
+		NotAfter:  cert.NotAfter,
+		DNSNames:  cert.DNSNames,
 	}
 
 	for usage := x509.KeyUsage(1); usage <= x509.KeyUsageDecipherOnly; usage <<= 1 {
@@ -239,8 +239,8 @@ func keyUsageToString(usage x509.KeyUsage) string {
 
 func extKeyUsageToString(usage x509.ExtKeyUsage) string {
 	usages := map[x509.ExtKeyUsage]string{
-		x509.ExtKeyUsageServerAuth: "Server Auth",
-		x509.ExtKeyUsageClientAuth: "Client Auth",
+		x509.ExtKeyUsageServerAuth:  "Server Auth",
+		x509.ExtKeyUsageClientAuth:  "Client Auth",
 		x509.ExtKeyUsageCodeSigning: "Code Signing",
 	}
 	if s, ok := usages[usage]; ok {

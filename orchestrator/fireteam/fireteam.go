@@ -16,54 +16,54 @@ type Fireteam struct {
 }
 
 type Agent struct {
-	ID        string
-	Name      string
-	Type      AgentType
-	Status    AgentStatus
+	ID           string
+	Name         string
+	Type         AgentType
+	Status       AgentStatus
 	Capabilities []string
 	CurrentTask  *Task
-	mu        sync.Mutex
+	mu           sync.Mutex
 }
 
 type AgentType string
 
 const (
-	AgentRecon      AgentType = "recon"
-	AgentExploit    AgentType = "exploit"
+	AgentRecon       AgentType = "recon"
+	AgentExploit     AgentType = "exploit"
 	AgentPostExploit AgentType = "post_exploit"
-	AgentLateral    AgentType = "lateral"
+	AgentLateral     AgentType = "lateral"
 	AgentDestruction AgentType = "destruction"
 )
 
 type AgentStatus string
 
 const (
-	StatusIdle     AgentStatus = "idle"
-	StatusBusy     AgentStatus = "busy"
-	StatusFailed   AgentStatus = "failed"
-	StatusOffline  AgentStatus = "offline"
+	StatusIdle    AgentStatus = "idle"
+	StatusBusy    AgentStatus = "busy"
+	StatusFailed  AgentStatus = "failed"
+	StatusOffline AgentStatus = "offline"
 )
 
 type Task struct {
-	ID        string
-	Type      string
-	Payload   map[string]interface{}
-	Priority  int
-	Status    TaskStatus
-	AgentID   string
-	CreatedAt time.Time
-	StartedAt *time.Time
+	ID          string
+	Type        string
+	Payload     map[string]interface{}
+	Priority    int
+	Status      TaskStatus
+	AgentID     string
+	CreatedAt   time.Time
+	StartedAt   *time.Time
 	CompletedAt *time.Time
-	Error     string
+	Error       string
 }
 
 type TaskStatus string
 
 const (
-	TaskPending  TaskStatus = "pending"
-	TaskRunning  TaskStatus = "running"
-	TaskDone     TaskStatus = "done"
-	TaskFailed   TaskStatus = "failed"
+	TaskPending TaskStatus = "pending"
+	TaskRunning TaskStatus = "running"
+	TaskDone    TaskStatus = "done"
+	TaskFailed  TaskStatus = "failed"
 )
 
 type Result struct {
@@ -277,12 +277,12 @@ func (ft *Fireteam) GetStatus() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"total_agents":   len(ft.agents),
-		"idle_agents":    idleCount,
-		"busy_agents":    busyCount,
-		"total_tasks":    len(ft.tasks),
-		"total_results":  len(ft.results),
-		"running":        ft.running,
+		"total_agents":  len(ft.agents),
+		"idle_agents":   idleCount,
+		"busy_agents":   busyCount,
+		"total_tasks":   len(ft.tasks),
+		"total_results": len(ft.results),
+		"running":       ft.running,
 	}
 }
 

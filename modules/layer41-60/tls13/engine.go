@@ -192,11 +192,11 @@ func (e *Engine) AnalyzeCipherSuites(suites []CipherSuite) map[string]string {
 	analysis := make(map[string]string)
 
 	weakCiphers := map[string]bool{
-		"RC4":            true,
-		"DES":            true,
-		"3DES":           true,
-		"NULL":           true,
-		"EXPORT":         true,
+		"RC4":    true,
+		"DES":    true,
+		"3DES":   true,
+		"NULL":   true,
+		"EXPORT": true,
 	}
 
 	for _, suite := range suites {

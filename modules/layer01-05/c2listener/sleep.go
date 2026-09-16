@@ -6,14 +6,14 @@ import (
 )
 
 type SleepMasker struct {
-	mu            sync.RWMutex
-	jitter        float64
-	minSleep      time.Duration
-	maxSleep      time.Duration
-	sleepMethod   string
-	encrypted     bool
-	masked        bool
-	sleepHistory  []SleepEntry
+	mu           sync.RWMutex
+	jitter       float64
+	minSleep     time.Duration
+	maxSleep     time.Duration
+	sleepMethod  string
+	encrypted    bool
+	masked       bool
+	sleepHistory []SleepEntry
 }
 
 type SleepEntry struct {

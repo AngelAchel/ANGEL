@@ -10,7 +10,7 @@ import (
 )
 
 type TechnicalReportGen struct {
-	config  *ReportConfig
+	config   *ReportConfig
 	sections []Section
 }
 

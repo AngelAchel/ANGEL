@@ -26,20 +26,20 @@ func (e *Engine) CommChannelSetup(channelType string) (*OPSECResult, error) {
 	profile := e.analyzeChannel(channelType)
 
 	return &OPSECResult{
-		Success:  true,
-		Method:   "Comm_Channel_Setup",
-		Message:  fmt.Sprintf("Channel '%s' analyzed: %s (risk: %s)", channelType, profile.Name, profile.OPSECLevel),
-		Duration: time.Since(start),
+		Success:   true,
+		Method:    "Comm_Channel_Setup",
+		Message:   fmt.Sprintf("Channel '%s' analyzed: %s (risk: %s)", channelType, profile.Name, profile.OPSECLevel),
+		Duration:  time.Since(start),
 		RiskScore: e.calculateChannelRisk(profile),
-		Details:  profile.Recommendations,
+		Details:   profile.Recommendations,
 	}, nil
 }
 
 func (e *Engine) analyzeChannel(channelType string) CommunicationProfile {
 	profile := CommunicationProfile{
-		Name:         channelType,
-		Channels:     make([]CommChannel, 0),
-		OPSECLevel:   "medium",
+		Name:            channelType,
+		Channels:        make([]CommChannel, 0),
+		OPSECLevel:      "medium",
 		Recommendations: make([]string, 0),
 	}
 
@@ -94,12 +94,12 @@ func (e *Engine) TrafficAnalysis(sourceIP string, destIP string) (*OPSECResult, 
 	analysis := e.analyzeTraffic(sourceIP, destIP)
 
 	return &OPSECResult{
-		Success:  true,
-		Method:   "Traffic_Analysis",
-		Message:  fmt.Sprintf("Traffic analysis: %d signatures detected", len(analysis)),
-		Duration: time.Since(start),
+		Success:   true,
+		Method:    "Traffic_Analysis",
+		Message:   fmt.Sprintf("Traffic analysis: %d signatures detected", len(analysis)),
+		Duration:  time.Since(start),
 		RiskScore: e.calculateTrafficRisk(analysis),
-		Details:  e.formatTrafficAnalysis(analysis),
+		Details:   e.formatTrafficAnalysis(analysis),
 	}, nil
 }
 
@@ -161,12 +161,12 @@ func (e *Engine) RiskAssessment(scope []string) (*OPSECResult, error) {
 	risks := e.assessRisks(scope)
 
 	return &OPSECResult{
-		Success:  true,
-		Method:   "Risk_Assessment",
-		Message:  fmt.Sprintf("Risk assessment: %d risks identified", len(risks)),
-		Duration: time.Since(start),
+		Success:   true,
+		Method:    "Risk_Assessment",
+		Message:   fmt.Sprintf("Risk assessment: %d risks identified", len(risks)),
+		Duration:  time.Since(start),
 		RiskScore: e.calculateOverallRisk(risks),
-		Details:  e.formatRisks(risks),
+		Details:   e.formatRisks(risks),
 	}, nil
 }
 
@@ -240,12 +240,12 @@ func (e *Engine) CleanupVerify(actions []string) (*OPSECResult, error) {
 	results := e.verifyCleanup(actions)
 
 	return &OPSECResult{
-		Success:  true,
-		Method:   "Cleanup_Verify",
-		Message:  fmt.Sprintf("Cleanup verification: %d actions processed", len(results)),
-		Duration: time.Since(start),
+		Success:   true,
+		Method:    "Cleanup_Verify",
+		Message:   fmt.Sprintf("Cleanup verification: %d actions processed", len(results)),
+		Duration:  time.Since(start),
 		RiskScore: e.calculateCleanupRisk(results),
-		Details:  e.formatCleanupResults(results),
+		Details:   e.formatCleanupResults(results),
 	}, nil
 }
 

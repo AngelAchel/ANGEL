@@ -3,10 +3,10 @@ package webmisc
 import "time"
 
 type WebMiscConfig struct {
-	TargetURL    string        `json:"target_url"`
-	BackendURL   string        `json:"backend_url"`
-	HostHeader   string        `json:"host_header"`
-	Timeout      time.Duration `json:"timeout"`
+	TargetURL  string        `json:"target_url"`
+	BackendURL string        `json:"backend_url"`
+	HostHeader string        `json:"host_header"`
+	Timeout    time.Duration `json:"timeout"`
 }
 
 type WebMiscResult struct {
@@ -40,19 +40,19 @@ type CachePoisonResult struct {
 }
 
 type TakeoverResult struct {
-	Vulnerable   bool   `json:"vulnerable"`
-	CNAME        string `json:"cname"`
-	Platform     string `json:"platform"`
-	Status       string `json:"status"`
-	TakeoverURL  string `json:"takeover_url"`
+	Vulnerable  bool   `json:"vulnerable"`
+	CNAME       string `json:"cname"`
+	Platform    string `json:"platform"`
+	Status      string `json:"status"`
+	TakeoverURL string `json:"takeover_url"`
 }
 
 type SmuggleRequest struct {
-	Method   string            `json:"method"`
-	Path     string            `json:"path"`
-	Headers  map[string]string `json:"headers"`
-	Body     string            `json:"body"`
-	Payload  string            `json:"payload"`
+	Method  string            `json:"method"`
+	Path    string            `json:"path"`
+	Headers map[string]string `json:"headers"`
+	Body    string            `json:"body"`
+	Payload string            `json:"payload"`
 }
 
 type CLTEResult struct {
@@ -63,9 +63,9 @@ type CLTEResult struct {
 }
 
 type WebFingerprint struct {
-	Server      string            `json:"server"`
-	Technology  []string          `json:"technology"`
-	Headers     map[string]string `json:"headers"`
-	Cookies     []string          `json:"cookies"`
-	Paths       []string          `json:"paths"`
+	Server     string            `json:"server"`
+	Technology []string          `json:"technology"`
+	Headers    map[string]string `json:"headers"`
+	Cookies    []string          `json:"cookies"`
+	Paths      []string          `json:"paths"`
 }

@@ -10,7 +10,7 @@ type PayloadGenerator struct {
 	dbms       DBMSType
 	columns    int
 	totalWidth int
-_comment   string
+	_comment   string
 }
 
 func NewPayloadGenerator(dbms DBMSType) *PayloadGenerator {

@@ -7,26 +7,26 @@ import (
 )
 
 type ReHarvest struct {
-	mu            sync.RWMutex
+	mu             sync.RWMutex
 	harvestTargets map[string]HarvestTarget
-	running       bool
-	stopCh        chan struct{}
-	interval      time.Duration
+	running        bool
+	stopCh         chan struct{}
+	interval       time.Duration
 }
 
 type HarvestTarget struct {
-	ID           string
-	Type         string
-	Location     string
-	LastHarvest  time.Time
-	HarvestFunc  func() ([]byte, error)
+	ID          string
+	Type        string
+	Location    string
+	LastHarvest time.Time
+	HarvestFunc func() ([]byte, error)
 }
 
 func NewReHarvest(interval time.Duration) *ReHarvest {
 	return &ReHarvest{
 		harvestTargets: make(map[string]HarvestTarget),
-		stopCh:        make(chan struct{}),
-		interval:      interval,
+		stopCh:         make(chan struct{}),
+		interval:       interval,
 	}
 }
 

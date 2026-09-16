@@ -6,9 +6,9 @@ import (
 )
 
 type BehaviorLearning struct {
-	mu         sync.RWMutex
-	patterns   map[string]*Pattern
-	history    []BehaviorEvent
+	mu       sync.RWMutex
+	patterns map[string]*Pattern
+	history  []BehaviorEvent
 }
 
 type Pattern struct {

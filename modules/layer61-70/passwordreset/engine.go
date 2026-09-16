@@ -100,11 +100,11 @@ func (e *Engine) ResetTokenLeak() PasswordResetResult {
 		len(leaked), len(vectors), strings.Join(leaked, ", "))
 
 	return PasswordResetResult{
-		Flow:      ResetFlowEmailToken,
+		Flow:       ResetFlowEmailToken,
 		Vulnerable: vulnerable,
-		TokenLeak: vulnerable,
-		Details:   detail,
-		RiskScore: 0.6,
+		TokenLeak:  vulnerable,
+		Details:    detail,
+		RiskScore:  0.6,
 	}
 }
 
@@ -124,10 +124,10 @@ func (e *Engine) PasswordReuse() PasswordResetResult {
 		len(commonPasswords), reuseRisk)
 
 	return PasswordResetResult{
-		Flow:      ResetFlowEmailToken,
-		Vulnerable: true,
-		Details:   detail,
-		RiskScore: reuseRisk,
+		Flow:        ResetFlowEmailToken,
+		Vulnerable:  true,
+		Details:     detail,
+		RiskScore:   reuseRisk,
 		Remediation: "Enforce password history, implement breach database checks, require MFA",
 	}
 }
@@ -138,7 +138,7 @@ func analyzeTokens(tokens []string) TokenAnalysis {
 	}
 
 	analysis := TokenAnalysis{
-		TokenLength: len(tokens[0]),
+		TokenLength:  len(tokens[0]),
 		CharacterSet: "0123456789",
 	}
 

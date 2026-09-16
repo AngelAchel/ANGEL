@@ -42,26 +42,26 @@ type DeserConfig struct {
 }
 
 type DeserResult struct {
-	Format       DeserFormat `json:"format"`
-	Attack       DeserAttack `json:"attack"`
-	Vulnerable   bool        `json:"vulnerable"`
-	Payload      string      `json:"payload"`
-	ChainDepth   int         `json:"chain_depth"`
-	Details      string      `json:"details"`
-	RiskScore    float64     `json:"risk_score"`
+	Format     DeserFormat `json:"format"`
+	Attack     DeserAttack `json:"attack"`
+	Vulnerable bool        `json:"vulnerable"`
+	Payload    string      `json:"payload"`
+	ChainDepth int         `json:"chain_depth"`
+	Details    string      `json:"details"`
+	RiskScore  float64     `json:"risk_score"`
 }
 
 type Gadget struct {
-	Class      string   `json:"class"`
-	Methods    []string `json:"methods"`
-	Library    string   `json:"library"`
-	RiskLevel  int      `json:"risk_level"`
+	Class     string   `json:"class"`
+	Methods   []string `json:"methods"`
+	Library   string   `json:"library"`
+	RiskLevel int      `json:"risk_level"`
 }
 
 type PayloadTemplate struct {
-	Name       string      `json:"name"`
-	Format     DeserFormat `json:"format"`
-	Attack     DeserAttack `json:"attack"`
-	Template   string      `json:"template"`
-	Variables  []string    `json:"variables"`
+	Name      string      `json:"name"`
+	Format    DeserFormat `json:"format"`
+	Attack    DeserAttack `json:"attack"`
+	Template  string      `json:"template"`
+	Variables []string    `json:"variables"`
 }

@@ -9,14 +9,14 @@ import (
 )
 
 type Brain struct {
-	config    *BrainConfig
-	state     *EnvironmentState
-	history   []Outcome
-	risk      *RiskAssessor
-	learner   *BehaviorLearner
-	timing    *TimingController
-	log       *logger.Logger
-	mu        sync.RWMutex
+	config  *BrainConfig
+	state   *EnvironmentState
+	history []Outcome
+	risk    *RiskAssessor
+	learner *BehaviorLearner
+	timing  *TimingController
+	log     *logger.Logger
+	mu      sync.RWMutex
 }
 
 func NewBrain(config *BrainConfig) *Brain {

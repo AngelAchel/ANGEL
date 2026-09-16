@@ -6,8 +6,8 @@ import (
 )
 
 type ChannelHealth struct {
-	mu        sync.RWMutex
-	channels  map[string]*HealthStatus
+	mu       sync.RWMutex
+	channels map[string]*HealthStatus
 }
 
 type HealthStatus struct {
@@ -42,7 +42,7 @@ func (ch *ChannelHealth) Update(channelID string, healthy bool, latency time.Dur
 
 		totalChecks := float64(status.ErrorCount + 1)
 		if healthy {
-			status.SuccessRate = (status.SuccessRate * (totalChecks - 1) + 1) / totalChecks
+			status.SuccessRate = (status.SuccessRate*(totalChecks-1) + 1) / totalChecks
 		} else {
 			status.SuccessRate = (status.SuccessRate * (totalChecks - 1)) / totalChecks
 		}

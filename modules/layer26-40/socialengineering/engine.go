@@ -60,9 +60,9 @@ func (e *Engine) Vishing(config VishingConfig) PhishingResult {
 
 	scripts := e.generateVishingScript(config)
 	result.Templates = append(result.Templates, EmailTemplate{
-		Name:    "vishing_script",
-		Subject: "Phone Call Script",
-		Pretext: PretextTypeTechSupport,
+		Name:     "vishing_script",
+		Subject:  "Phone Call Script",
+		Pretext:  PretextTypeTechSupport,
 		TextBody: scripts,
 	})
 
@@ -115,7 +115,7 @@ func (e *Engine) generateTemplate(pretext PretextType, target TargetInfo) EmailT
 		subject = "Your Account Has Been Compromised"
 		body = fmt.Sprintf("Dear %s,\n\nWe detected unauthorized access. Click here to secure your account.", target.Name)
 	case PretextTypeVendorImpersonation:
-		subject = "Invoice %d - Payment Due" 
+		subject = "Invoice %d - Payment Due"
 		body = fmt.Sprintf("Hello %s,\n\nPlease review the attached invoice for immediate payment.", target.Name)
 	case PretextTypeJobOffer:
 		subject = "Exciting Opportunity at TechCorp"

@@ -3,9 +3,9 @@ package cachesmuggle
 import "time"
 
 type CacheSmuggleConfig struct {
-	TargetURL  string        `json:"target_url"`
-	CDNType    string        `json:"cdn_type"`
-	Timeout    time.Duration `json:"timeout"`
+	TargetURL string        `json:"target_url"`
+	CDNType   string        `json:"cdn_type"`
+	Timeout   time.Duration `json:"timeout"`
 }
 
 type CacheSmuggleResult struct {
@@ -31,10 +31,10 @@ type CacheHeader struct {
 }
 
 type RequestSmuggleResult struct {
-	Variant    string `json:"variant"`
-	CLValue    string `json:"cl_value"`
-	TEValue    string `json:"te_value"`
-	Payload    string `json:"payload"`
+	Variant string `json:"variant"`
+	CLValue string `json:"cl_value"`
+	TEValue string `json:"te_value"`
+	Payload string `json:"payload"`
 }
 
 type ResponseSplitResult struct {
@@ -44,10 +44,10 @@ type ResponseSplitResult struct {
 }
 
 type CacheKeyPoisonResult struct {
-	Key         string `json:"key"`
-	Value       string `json:"value"`
+	Key          string `json:"key"`
+	Value        string `json:"value"`
 	UnkeyedParam string `json:"unkeyed_param"`
-	Affected    bool   `json:"affected"`
+	Affected     bool   `json:"affected"`
 }
 
 type CDNInfo struct {

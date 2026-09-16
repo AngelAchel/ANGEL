@@ -157,7 +157,7 @@ func (e *Engine) HashLengthExt() CryptoResult {
 	}
 
 	extension := []byte("; admin=true")
-伪造MAC := make([]byte, 32)
+	伪造MAC := make([]byte, 32)
 	copy(伪造MAC, originalMAC)
 
 	riskScore := 0.85

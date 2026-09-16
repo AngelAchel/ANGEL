@@ -10,7 +10,7 @@ import (
 )
 
 type DomainFronting struct {
-	mu          sync.RWMutex
+	mu           sync.RWMutex
 	frontDomains []FrontDomain
 	currentIndex int
 }

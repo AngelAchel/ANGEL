@@ -11,10 +11,10 @@ import (
 )
 
 type WebClient struct {
-	StripeKey    string
-	MidtransKey  string
-	XenditKey    string
-	HTTPClient   *http.Client
+	StripeKey   string
+	MidtransKey string
+	XenditKey   string
+	HTTPClient  *http.Client
 }
 
 type WebPayment struct {
@@ -42,9 +42,9 @@ type MidtransToken struct {
 }
 
 type XenditInvoice struct {
-	ID          string `json:"id"`
-	Status      string `json:"status"`
-	PaymentURL  string `json:"payment_url"`
+	ID         string `json:"id"`
+	Status     string `json:"status"`
+	PaymentURL string `json:"payment_url"`
 }
 
 func NewWebClient() *WebClient {

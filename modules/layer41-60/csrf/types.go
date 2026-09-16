@@ -20,35 +20,35 @@ type CSRFResult struct {
 }
 
 type CSRFMethod struct {
-	Name         string `json:"name"`
-	Description  string `json:"description"`
-	Complexity   string `json:"complexity"`
-	Reliability  string `json:"reliability"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Complexity  string `json:"complexity"`
+	Reliability string `json:"reliability"`
 }
 
 type CSRFTarget struct {
-	URL         string            `json:"url"`
-	Method      string            `json:"method"`
-	Parameters  map[string]string `json:"parameters"`
-	Headers     map[string]string `json:"headers"`
-	Cookies     map[string]string `json:"cookies"`
-	TokenField  string            `json:"token_field"`
+	URL        string            `json:"url"`
+	Method     string            `json:"method"`
+	Parameters map[string]string `json:"parameters"`
+	Headers    map[string]string `json:"headers"`
+	Cookies    map[string]string `json:"cookies"`
+	TokenField string            `json:"token_field"`
 }
 
 type CSRFToken struct {
-	Name     string `json:"name"`
-	Value    string `json:"value"`
-	Length   int    `json:"length"`
-	Entropy  int    `json:"entropy"`
-	Pattern  string `json:"pattern"`
+	Name    string `json:"name"`
+	Value   string `json:"value"`
+	Length  int    `json:"length"`
+	Entropy int    `json:"entropy"`
+	Pattern string `json:"pattern"`
 }
 
 type SameSiteConfig struct {
-	CookieName   string `json:"cookie_name"`
-	SameSite     string `json:"samesite"`
-	Secure       bool   `json:"secure"`
-	HttpOnly     bool   `json:"http_only"`
-	Path         string `json:"path"`
+	CookieName string `json:"cookie_name"`
+	SameSite   string `json:"samesite"`
+	Secure     bool   `json:"secure"`
+	HttpOnly   bool   `json:"http_only"`
+	Path       string `json:"path"`
 }
 
 type RefererCheck struct {
@@ -59,15 +59,15 @@ type RefererCheck struct {
 }
 
 type CSRFHTML struct {
-	Action    string            `json:"action"`
-	Method    string            `json:"method"`
-	Fields    map[string]string `json:"fields"`
-	AutoSubmit bool             `json:"auto_submit"`
+	Action     string            `json:"action"`
+	Method     string            `json:"method"`
+	Fields     map[string]string `json:"fields"`
+	AutoSubmit bool              `json:"auto_submit"`
 }
 
 type JSONCSRFPayload struct {
-	URL       string            `json:"url"`
-	ContentType string          `json:"content_type"`
-	Body      map[string]string `json:"body"`
-	Method    string            `json:"method"`
+	URL         string            `json:"url"`
+	ContentType string            `json:"content_type"`
+	Body        map[string]string `json:"body"`
+	Method      string            `json:"method"`
 }

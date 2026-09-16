@@ -14,18 +14,18 @@ import (
 )
 
 type AntiAnalysisEngine struct {
-	debuggers  []AntiDetector
-	vms        []AntiDetector
-	sandboxes  []AntiDetector
-	mu         sync.RWMutex
-	config     *AntiAnalysisConfig
+	debuggers []AntiDetector
+	vms       []AntiDetector
+	sandboxes []AntiDetector
+	mu        sync.RWMutex
+	config    *AntiAnalysisConfig
 }
 
 type AntiAnalysisConfig struct {
-	EnableDebuggerChecks  bool
-	EnableVMChecks        bool
-	EnableSandboxChecks   bool
-	StrictMode            bool
+	EnableDebuggerChecks bool
+	EnableVMChecks       bool
+	EnableSandboxChecks  bool
+	StrictMode           bool
 }
 
 func NewAntiAnalysisEngine() *AntiAnalysisEngine {
@@ -142,7 +142,7 @@ func (e *AntiAnalysisEngine) GenerateReport() *EvasionReport {
 
 type IsDebuggerPresent struct{}
 
-func (d *IsDebuggerPresent) Name() string       { return "IsDebuggerPresent" }
+func (d *IsDebuggerPresent) Name() string            { return "IsDebuggerPresent" }
 func (d *IsDebuggerPresent) Category() DetectionType { return DetectionDebugger }
 
 func (d *IsDebuggerPresent) Detect() DetectionResult {
@@ -191,7 +191,7 @@ func isDebuggerPresentLow() bool {
 
 type CheckRemoteDebugger struct{}
 
-func (d *CheckRemoteDebugger) Name() string       { return "CheckRemoteDebugger" }
+func (d *CheckRemoteDebugger) Name() string            { return "CheckRemoteDebugger" }
 func (d *CheckRemoteDebugger) Category() DetectionType { return DetectionDebugger }
 
 func (d *CheckRemoteDebugger) Detect() DetectionResult {
@@ -231,7 +231,7 @@ func checkRemoteDebuggerLow() bool {
 
 type NtGlobalFlag struct{}
 
-func (d *NtGlobalFlag) Name() string       { return "NtGlobalFlag" }
+func (d *NtGlobalFlag) Name() string            { return "NtGlobalFlag" }
 func (d *NtGlobalFlag) Category() DetectionType { return DetectionDebugger }
 
 func (d *NtGlobalFlag) Detect() DetectionResult {
@@ -270,7 +270,7 @@ func ntGlobalFlagCheck() bool {
 
 type HardwareBPCheck struct{}
 
-func (d *HardwareBPCheck) Name() string       { return "HardwareBPCheck" }
+func (d *HardwareBPCheck) Name() string            { return "HardwareBPCheck" }
 func (d *HardwareBPCheck) Category() DetectionType { return DetectionDebugger }
 
 func (d *HardwareBPCheck) Detect() DetectionResult {
@@ -314,7 +314,7 @@ func getDebugRegister(reg int) uintptr {
 
 type TimingRDTSC struct{}
 
-func (d *TimingRDTSC) Name() string       { return "TimingRDTSC" }
+func (d *TimingRDTSC) Name() string            { return "TimingRDTSC" }
 func (d *TimingRDTSC) Category() DetectionType { return DetectionDebugger }
 
 func (d *TimingRDTSC) Detect() DetectionResult {
@@ -325,7 +325,7 @@ func (d *TimingRDTSC) Detect() DetectionResult {
 	}
 
 	start := time.Now()
-busyWork := 0
+	busyWork := 0
 	for i := 0; i < 1000000; i++ {
 		busyWork += i
 	}
@@ -346,7 +346,7 @@ busyWork := 0
 
 type CPUIDHypervisor struct{}
 
-func (d *CPUIDHypervisor) Name() string       { return "CPUIDHypervisor" }
+func (d *CPUIDHypervisor) Name() string            { return "CPUIDHypervisor" }
 func (d *CPUIDHypervisor) Category() DetectionType { return DetectionVM }
 
 func (d *CPUIDHypervisor) Detect() DetectionResult {
@@ -408,7 +408,7 @@ func cpuidHypervisorCheck() bool {
 
 type MACAddressPrefix struct{}
 
-func (d *MACAddressPrefix) Name() string       { return "MACAddressPrefix" }
+func (d *MACAddressPrefix) Name() string            { return "MACAddressPrefix" }
 func (d *MACAddressPrefix) Category() DetectionType { return DetectionVM }
 
 func (d *MACAddressPrefix) Detect() DetectionResult {
@@ -461,7 +461,7 @@ func (d *MACAddressPrefix) Detect() DetectionResult {
 
 type RegistryKeys struct{}
 
-func (d *RegistryKeys) Name() string       { return "RegistryKeys" }
+func (d *RegistryKeys) Name() string            { return "RegistryKeys" }
 func (d *RegistryKeys) Category() DetectionType { return DetectionVM }
 
 func (d *RegistryKeys) Detect() DetectionResult {
@@ -517,7 +517,7 @@ func (d *RegistryKeys) Detect() DetectionResult {
 
 type DeviceDrivers struct{}
 
-func (d *DeviceDrivers) Name() string       { return "DeviceDrivers" }
+func (d *DeviceDrivers) Name() string            { return "DeviceDrivers" }
 func (d *DeviceDrivers) Category() DetectionType { return DetectionVM }
 
 func (d *DeviceDrivers) Detect() DetectionResult {
@@ -575,7 +575,7 @@ func (d *DeviceDrivers) Detect() DetectionResult {
 
 type ProcessCheck struct{}
 
-func (d *ProcessCheck) Name() string       { return "ProcessCheck" }
+func (d *ProcessCheck) Name() string            { return "ProcessCheck" }
 func (d *ProcessCheck) Category() DetectionType { return DetectionVM }
 
 func (d *ProcessCheck) Detect() DetectionResult {
@@ -642,7 +642,7 @@ func (d *ProcessCheck) Detect() DetectionResult {
 
 type UptimeCheck struct{}
 
-func (d *UptimeCheck) Name() string       { return "UptimeCheck" }
+func (d *UptimeCheck) Name() string            { return "UptimeCheck" }
 func (d *UptimeCheck) Category() DetectionType { return DetectionSandbox }
 
 func (d *UptimeCheck) Detect() DetectionResult {
@@ -677,7 +677,7 @@ func (d *UptimeCheck) Detect() DetectionResult {
 
 type MouseNoMovement struct{}
 
-func (d *MouseNoMovement) Name() string       { return "MouseNoMovement" }
+func (d *MouseNoMovement) Name() string            { return "MouseNoMovement" }
 func (d *MouseNoMovement) Category() DetectionType { return DetectionSandbox }
 
 func (d *MouseNoMovement) Detect() DetectionResult {
@@ -713,7 +713,7 @@ func (d *MouseNoMovement) Detect() DetectionResult {
 
 type DiskSizeCheck struct{}
 
-func (d *DiskSizeCheck) Name() string       { return "DiskSizeCheck" }
+func (d *DiskSizeCheck) Name() string            { return "DiskSizeCheck" }
 func (d *DiskSizeCheck) Category() DetectionType { return DetectionSandbox }
 
 func (d *DiskSizeCheck) Detect() DetectionResult {
@@ -755,7 +755,7 @@ func getDiskTotalBytes(path string) (uint64, error) {
 
 type CoreCountCheck struct{}
 
-func (d *CoreCountCheck) Name() string       { return "CoreCountCheck" }
+func (d *CoreCountCheck) Name() string            { return "CoreCountCheck" }
 func (d *CoreCountCheck) Category() DetectionType { return DetectionSandbox }
 
 func (d *CoreCountCheck) Detect() DetectionResult {
@@ -780,7 +780,7 @@ func (d *CoreCountCheck) Detect() DetectionResult {
 
 type RAMSizeCheck struct{}
 
-func (d *RAMSizeCheck) Name() string       { return "RAMSizeCheck" }
+func (d *RAMSizeCheck) Name() string            { return "RAMSizeCheck" }
 func (d *RAMSizeCheck) Category() DetectionType { return DetectionSandbox }
 
 func (d *RAMSizeCheck) Detect() DetectionResult {

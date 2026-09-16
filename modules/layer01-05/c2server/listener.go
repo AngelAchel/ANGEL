@@ -253,8 +253,8 @@ func (l *DNSListener) handleDNSQuery(data []byte, remoteAddr net.Addr) {
 		return
 	}
 	l.eb.Publish("agent.dns", "dns_listener", "query", map[string]interface{}{
-		"data":      string(decrypted),
-		"remote":    remoteAddr.String(),
+		"data":   string(decrypted),
+		"remote": remoteAddr.String(),
 	})
 	response, err := l.crypto.EncryptPayload([]byte("ok"))
 	if err != nil {
@@ -287,15 +287,15 @@ func (l *DNSListener) Status() string {
 }
 
 type WSSListener struct {
-	mu       sync.RWMutex
-	status   string
-	addr     string
-	port     int
-	server   *http.Server
-	crypto   *ServerCrypto
-	eb       *eventbus.EventBus
-	log      *logger.Logger
-	clients  map[string]net.Conn
+	mu        sync.RWMutex
+	status    string
+	addr      string
+	port      int
+	server    *http.Server
+	crypto    *ServerCrypto
+	eb        *eventbus.EventBus
+	log       *logger.Logger
+	clients   map[string]net.Conn
 	clientsMu sync.RWMutex
 }
 
@@ -385,7 +385,7 @@ func (l *WSSListener) upgradeConnection(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		return nil, err
 	}
-handshake := "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n\r\n"
+	handshake := "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n\r\n"
 	conn.Write([]byte(handshake))
 	_ = bufrw
 	return conn, nil

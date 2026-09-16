@@ -31,10 +31,10 @@ type Implant struct {
 type ImplantState string
 
 const (
-	StateIdle       ImplantState = "idle"
-	StateRunning    ImplantState = "running"
-	StateError      ImplantState = "error"
-	StateShutdown   ImplantState = "shutdown"
+	StateIdle     ImplantState = "idle"
+	StateRunning  ImplantState = "running"
+	StateError    ImplantState = "error"
+	StateShutdown ImplantState = "shutdown"
 )
 
 func NewImplant(config *ImplantConfig) *Implant {
@@ -162,14 +162,14 @@ func (i *Implant) Register() error {
 	hostname, _ := os.Hostname()
 
 	data := map[string]interface{}{
-		"agent_id":  agentID,
-		"hostname":  hostname,
-		"os":        runtimeOS,
-		"arch":      runtime.GOARCH,
-		"pid":       os.Getpid(),
-		"process":   os.Args[0],
-		"team_id":   cfg.TeamID,
-		"operator":  cfg.OperatorID,
+		"agent_id":   agentID,
+		"hostname":   hostname,
+		"os":         runtimeOS,
+		"arch":       runtime.GOARCH,
+		"pid":        os.Getpid(),
+		"process":    os.Args[0],
+		"team_id":    cfg.TeamID,
+		"operator":   cfg.OperatorID,
 		"first_seen": time.Now().UTC().Format(time.RFC3339),
 	}
 

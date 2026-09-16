@@ -127,8 +127,8 @@ func (e *Engine) analyzeTakeoverRisk(fp WebFingerprint) TakeoverResult {
 	result := TakeoverResult{
 		Vulnerable: false,
 		CNAME:      "",
-		Platform:    "",
-		Status:      "not_vulnerable",
+		Platform:   "",
+		Status:     "not_vulnerable",
 	}
 
 	platforms := map[string]bool{
@@ -197,8 +197,8 @@ func (e *Engine) generateSmugglePayloads(targetURL string) []SmuggleRequest {
 		Method: "POST",
 		Path:   "/",
 		Headers: map[string]string{
-			"Host":           targetURL,
-			"Content-Length":  "6",
+			"Host":              targetURL,
+			"Content-Length":    "6",
 			"Transfer-Encoding": "chunked",
 		},
 		Body:    "0\r\n\r\nG",
@@ -209,9 +209,9 @@ func (e *Engine) generateSmugglePayloads(targetURL string) []SmuggleRequest {
 		Method: "POST",
 		Path:   "/",
 		Headers: map[string]string{
-			"Host":           targetURL,
+			"Host":              targetURL,
 			"Transfer-Encoding": "chunked",
-			"Content-Length":  "0",
+			"Content-Length":    "0",
 		},
 		Body:    "0\r\n\r\nSMUGGLED",
 		Payload: "TE-CL smuggling",
@@ -221,8 +221,8 @@ func (e *Engine) generateSmugglePayloads(targetURL string) []SmuggleRequest {
 		Method: "POST",
 		Path:   "/",
 		Headers: map[string]string{
-			"Host":               targetURL,
-			"Transfer-Encoding":  "chunked",
+			"Host":                targetURL,
+			"Transfer-Encoding":   "chunked",
 			"X-Transfer-Encoding": "identity",
 		},
 		Body:    "0\r\n\r\nGET /admin HTTP/1.1\r\nHost: localhost\r\n\r\n",
@@ -316,16 +316,16 @@ func (e *Engine) DetectTech(headers http.Header, body string) []string {
 	}
 
 	bodyIndicators := map[string]string{
-		"wp-content":  "WordPress",
-		"drupal":      "Drupal",
-		"joomla":      "Joomla",
-		"laravel":     "Laravel",
-		"django":      "Django",
-		"rails":       "Ruby on Rails",
-		"express":     "Express.js",
-		"nginx":       "Nginx",
-		"apache":      "Apache",
-		"cloudflare":  "Cloudflare",
+		"wp-content": "WordPress",
+		"drupal":     "Drupal",
+		"joomla":     "Joomla",
+		"laravel":    "Laravel",
+		"django":     "Django",
+		"rails":      "Ruby on Rails",
+		"express":    "Express.js",
+		"nginx":      "Nginx",
+		"apache":     "Apache",
+		"cloudflare": "Cloudflare",
 	}
 
 	lowerBody := strings.ToLower(body)

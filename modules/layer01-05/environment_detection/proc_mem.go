@@ -7,9 +7,9 @@ import (
 )
 
 type ProcMem struct {
-	mu       sync.RWMutex
-	pid      int
-	running  bool
+	mu      sync.RWMutex
+	pid     int
+	running bool
 }
 
 func NewProcMem(pid int) *ProcMem {

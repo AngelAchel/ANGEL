@@ -7,8 +7,8 @@ import (
 )
 
 type TeamserverConfig struct {
-	BindAddr string `json:"bind_addr"`
-	BindPort int    `json:"bind_port"`
+	BindAddr  string `json:"bind_addr"`
+	BindPort  int    `json:"bind_port"`
 	CryptoKey string `json:"crypto_key"`
 	MaxAgents int    `json:"max_agents"`
 	DBPath    string `json:"db_path"`

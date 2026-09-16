@@ -20,7 +20,7 @@ func NewServerCrypto() (*ServerCrypto, error) {
 	encKey := crypto.GenerateAESKey()
 	return &ServerCrypto{
 		keyPair: keyPair,
-		encKey: encKey,
+		encKey:  encKey,
 	}, nil
 }
 

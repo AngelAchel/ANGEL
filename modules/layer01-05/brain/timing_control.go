@@ -8,18 +8,18 @@ import (
 )
 
 type TimingControl struct {
-	mu            sync.RWMutex
-	baseSleep     time.Duration
-	jitter        float64
-	lastActivity  time.Time
+	mu             sync.RWMutex
+	baseSleep      time.Duration
+	jitter         float64
+	lastActivity   time.Time
 	suspicionLevel float64
 }
 
 func NewTimingControl(baseSleep time.Duration, jitter float64) *TimingControl {
 	return &TimingControl{
-		baseSleep:     baseSleep,
-		jitter:        jitter,
-		lastActivity:  time.Now(),
+		baseSleep:      baseSleep,
+		jitter:         jitter,
+		lastActivity:   time.Now(),
 		suspicionLevel: 0,
 	}
 }

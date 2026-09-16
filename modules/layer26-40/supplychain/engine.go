@@ -209,7 +209,7 @@ func min3(a, b, c int) int {
 }
 
 func generateDownloadCount() int {
-	return int(math.Abs(float64(time.Now().UnixNano()%50000)))
+	return int(math.Abs(float64(time.Now().UnixNano() % 50000)))
 }
 
 func (e *Engine) calculateRiskScore(result SupplyChainResult) int {

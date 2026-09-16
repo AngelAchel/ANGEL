@@ -23,8 +23,8 @@ func NewLaunchDaemonMethod() *LaunchDaemonMethod {
 	return &LaunchDaemonMethod{
 		DarwinBaseMethod: DarwinBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "launch_daemon",
-				platform:         types.PlatformDarwin,
+				name:              "launch_daemon",
+				platform:          types.PlatformDarwin,
 				requiresElevation: true,
 			},
 		},
@@ -125,8 +125,8 @@ func NewLaunchAgentMethod() *LaunchAgentMethod {
 	return &LaunchAgentMethod{
 		DarwinBaseMethod: DarwinBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "launch_agent",
-				platform:         types.PlatformDarwin,
+				name:              "launch_agent",
+				platform:          types.PlatformDarwin,
 				requiresElevation: false,
 			},
 		},
@@ -246,8 +246,8 @@ func NewDarwinCronJobMethod() *DarwinCronJobMethod {
 	return &DarwinCronJobMethod{
 		DarwinBaseMethod: DarwinBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "darwin_cron_job",
-				platform:         types.PlatformDarwin,
+				name:              "darwin_cron_job",
+				platform:          types.PlatformDarwin,
 				requiresElevation: false,
 			},
 		},
@@ -336,8 +336,8 @@ func NewDarwinSSHKeysMethod() *DarwinSSHKeysMethod {
 	return &DarwinSSHKeysMethod{
 		DarwinBaseMethod: DarwinBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "darwin_ssh_keys",
-				platform:         types.PlatformDarwin,
+				name:              "darwin_ssh_keys",
+				platform:          types.PlatformDarwin,
 				requiresElevation: false,
 			},
 		},
@@ -455,8 +455,8 @@ func NewLoginItemMethod() *LoginItemMethod {
 	return &LoginItemMethod{
 		DarwinBaseMethod: DarwinBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "login_item",
-				platform:         types.PlatformDarwin,
+				name:              "login_item",
+				platform:          types.PlatformDarwin,
 				requiresElevation: false,
 			},
 		},
@@ -532,8 +532,8 @@ func NewKernelExtensionMethod() *KernelExtensionMethod {
 	return &KernelExtensionMethod{
 		DarwinBaseMethod: DarwinBaseMethod{
 			BaseMethod: BaseMethod{
-				name:             "kernel_extension",
-				platform:         types.PlatformDarwin,
+				name:              "kernel_extension",
+				platform:          types.PlatformDarwin,
 				requiresElevation: true,
 			},
 		},

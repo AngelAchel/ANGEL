@@ -8,9 +8,9 @@ import (
 )
 
 type Engine struct {
-	config LDAPConfig
+	config  LDAPConfig
 	entries []LDAPEntry
-	mu     sync.Mutex
+	mu      sync.Mutex
 }
 
 func NewEngine(cfg LDAPConfig) *Engine {
@@ -21,7 +21,7 @@ func NewEngine(cfg LDAPConfig) *Engine {
 		cfg.PageSize = 100
 	}
 	return &Engine{
-		config: cfg,
+		config:  cfg,
 		entries: make([]LDAPEntry, 0),
 	}
 }
@@ -34,11 +34,11 @@ func (e *Engine) FilterInjection(username string, filterTemplate string) (*LDAPR
 	injected := e.buildInjectionFilter(username, filterTemplate)
 
 	searchReq := LDAPSearchRequest{
-		BaseDN:       e.config.BaseDN,
-		Scope:        2, // subtree
-		Filter:       injected,
-		Attributes:   []string{"dn", "cn", "memberOf"},
-		SizeLimit:    1000,
+		BaseDN:     e.config.BaseDN,
+		Scope:      2, // subtree
+		Filter:     injected,
+		Attributes: []string{"dn", "cn", "memberOf"},
+		SizeLimit:  1000,
 	}
 
 	entries := e.simulateSearch(searchReq)

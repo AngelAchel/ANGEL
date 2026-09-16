@@ -17,9 +17,9 @@ import (
 )
 
 type TerraformManager struct {
-	config *InfraConfig
-	log    *logger.Logger
-	mu     sync.RWMutex
+	config  *InfraConfig
+	log     *logger.Logger
+	mu      sync.RWMutex
 	workdir string
 }
 
@@ -28,8 +28,8 @@ func NewTerraformManager(config *InfraConfig) *TerraformManager {
 		config = DefaultInfraConfig()
 	}
 	return &TerraformManager{
-		config: config,
-		log:    logger.New("terraform-mgr", logger.LevelInfo),
+		config:  config,
+		log:     logger.New("terraform-mgr", logger.LevelInfo),
 		workdir: "/tmp/tf-workspace",
 	}
 }
@@ -261,16 +261,16 @@ func (t *TerraformManager) PlanTF(workdir string) (*TFPlan, error) {
 
 		// Try to parse each line as a JSON object (Terraform JSON output emits one JSON per line)
 		var event struct {
-			Type string `json:"@level"`
+			Type    string `json:"@level"`
 			Message string `json:"@message"`
 			Changes *struct {
-				Add int `json:"add"`
-				Change int `json:"change"`
-				Destroy int `json:"destroy"`
+				Add             int `json:"add"`
+				Change          int `json:"change"`
+				Destroy         int `json:"destroy"`
 				ResourceChanges []struct {
 					Address string `json:"address"`
-					Change struct {
-						Action string `json:"actions"`
+					Change  struct {
+						Action string          `json:"actions"`
 						Before json.RawMessage `json:"before"`
 						After  json.RawMessage `json:"after"`
 					} `json:"change"`

@@ -7,10 +7,10 @@ import (
 )
 
 type MCPServer struct {
-	tools     map[string]*Tool
-	sessions  map[string]*Session
-	mu        sync.RWMutex
-	maxSess   int
+	tools    map[string]*Tool
+	sessions map[string]*Session
+	mu       sync.RWMutex
+	maxSess  int
 }
 
 type Tool struct {
@@ -173,8 +173,8 @@ func (s *MCPServer) GetStatus() map[string]interface{} {
 	defer s.mu.RUnlock()
 
 	return map[string]interface{}{
-		"total_tools":    len(s.tools),
+		"total_tools":     len(s.tools),
 		"active_sessions": len(s.sessions),
-		"max_sessions":   s.maxSess,
+		"max_sessions":    s.maxSess,
 	}
 }

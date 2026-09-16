@@ -56,7 +56,12 @@ func (l *Logger) log(level Level, format string, args ...interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
 
-	msg := fmt.Sprintf(format, args...)
+	var msg string
+	if len(args) == 0 {
+		msg = format
+	} else {
+		msg = fmt.Sprintf(format, args...)
+	}
 	ts := time.Now().UTC().Format("2006-01-02T15:04:05Z")
 	line := fmt.Sprintf("[%s] [%s] [%s] %s\n", ts, level, l.module, msg)
 	fmt.Fprint(l.output, line)
@@ -80,6 +85,19 @@ func (l *Logger) Error(format string, args ...interface{}) {
 
 func (l *Logger) Fatal(format string, args ...interface{}) {
 	l.log(LevelFatal, format, args...)
+	os.Exit(1)
+}
+
+func (l *Logger) FatalErr(err error) {
+	if err == nil {
+		os.Exit(1)
+	}
+	l.log(LevelFatal, "fatal: %v", err)
+	os.Exit(1)
+}
+
+func (l *Logger) FatalMsg(msg string) {
+	l.log(LevelFatal, "fatal: %s", msg)
 	os.Exit(1)
 }
 

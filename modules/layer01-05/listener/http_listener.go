@@ -11,14 +11,14 @@ import (
 )
 
 type HTTPListener struct {
-	mu          sync.RWMutex
-	addr        string
-	port        int
-	running     bool
-	agents      map[string]*AgentInfo
-	ssl         bool
-	certFile    string
-	keyFile     string
+	mu       sync.RWMutex
+	addr     string
+	port     int
+	running  bool
+	agents   map[string]*AgentInfo
+	ssl      bool
+	certFile string
+	keyFile  string
 }
 
 type AgentInfo struct {
@@ -41,12 +41,12 @@ type HTTPListenerConfig struct {
 
 func NewHTTPListener(config HTTPListenerConfig) *HTTPListener {
 	return &HTTPListener{
-		addr:   config.Addr,
-		port:   config.Port,
-		ssl:    config.SSL,
+		addr:     config.Addr,
+		port:     config.Port,
+		ssl:      config.SSL,
 		certFile: config.CertFile,
 		keyFile:  config.KeyFile,
-		agents: make(map[string]*AgentInfo),
+		agents:   make(map[string]*AgentInfo),
 	}
 }
 

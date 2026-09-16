@@ -9,14 +9,14 @@ import (
 )
 
 type DestructionEngine struct {
-	config    *DestructionConfig
-	log       *logger.Logger
-	database  *DatabaseDestroyer
-	ransom    *RansomwareEngine
-	wiper     *WiperEngine
-	impact    *ImpactAssessor
-	mu        sync.RWMutex
-	results   []*DestructionResult
+	config   *DestructionConfig
+	log      *logger.Logger
+	database *DatabaseDestroyer
+	ransom   *RansomwareEngine
+	wiper    *WiperEngine
+	impact   *ImpactAssessor
+	mu       sync.RWMutex
+	results  []*DestructionResult
 }
 
 func NewDestructionEngine(config *DestructionConfig) *DestructionEngine {

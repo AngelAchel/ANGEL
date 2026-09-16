@@ -47,7 +47,7 @@ func (e *CollectorEngine) Collect(category string) (*CollectResult, error) {
 	e.log.Info("Starting collection for category: %s", category)
 
 	result := &CollectResult{
-		Category: CollectCategory(category),
+		Category:  CollectCategory(category),
 		Timestamp: time.Now(),
 	}
 

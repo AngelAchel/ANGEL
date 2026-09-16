@@ -7,8 +7,8 @@ import (
 
 func newTestEngine() *Engine {
 	return NewEngine(RedirectConfig{
-		TargetURL:     "https://target.com/login",
-		RedirectParam: "next",
+		TargetURL:      "https://target.com/login",
+		RedirectParam:  "next",
 		AllowedDomains: []string{"target.com", "app.target.com"},
 	})
 }

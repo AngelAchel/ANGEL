@@ -5,15 +5,15 @@ import (
 )
 
 type OSINTConfig struct {
-	Target        string            `json:"target"`
-	Timeout       time.Duration     `json:"timeout"`
-	MaxConcurrency int              `json:"max_concurrency"`
-	Ports         []int             `json:"ports"`
-	Wordlist      []string          `json:"wordlist"`
-	APIKeys       map[string]string `json:"api_keys"`
-	ProxyURL      string            `json:"proxy_url"`
-	FollowRedirects bool           `json:"follow_redirects"`
-	Verbose       bool              `json:"verbose"`
+	Target          string            `json:"target"`
+	Timeout         time.Duration     `json:"timeout"`
+	MaxConcurrency  int               `json:"max_concurrency"`
+	Ports           []int             `json:"ports"`
+	Wordlist        []string          `json:"wordlist"`
+	APIKeys         map[string]string `json:"api_keys"`
+	ProxyURL        string            `json:"proxy_url"`
+	FollowRedirects bool              `json:"follow_redirects"`
+	Verbose         bool              `json:"verbose"`
 }
 
 func DefaultOSINTConfig() *OSINTConfig {
@@ -35,23 +35,23 @@ func commonPorts() []int {
 }
 
 type ReconResult struct {
-	Target    string         `json:"target"`
-	DNS       *DNSResult     `json:"dns,omitempty"`
-	Ports     []OpenPort     `json:"ports,omitempty"`
-	Services  []ServiceInfo  `json:"services,omitempty"`
-	Web       *WebResult     `json:"web,omitempty"`
-	Timestamp time.Time      `json:"timestamp"`
+	Target    string        `json:"target"`
+	DNS       *DNSResult    `json:"dns,omitempty"`
+	Ports     []OpenPort    `json:"ports,omitempty"`
+	Services  []ServiceInfo `json:"services,omitempty"`
+	Web       *WebResult    `json:"web,omitempty"`
+	Timestamp time.Time     `json:"timestamp"`
 }
 
 type FullReconResult struct {
-	Target    string         `json:"target"`
-	DNS       *DNSResult     `json:"dns,omitempty"`
-	Ports     []OpenPort     `json:"ports,omitempty"`
-	Services  []ServiceInfo  `json:"services,omitempty"`
-	Web       *WebResult     `json:"web,omitempty"`
-	Person    *PersonResult  `json:"person,omitempty"`
-	Cloud     *CloudResult   `json:"cloud,omitempty"`
-	Timestamp time.Time      `json:"timestamp"`
+	Target    string        `json:"target"`
+	DNS       *DNSResult    `json:"dns,omitempty"`
+	Ports     []OpenPort    `json:"ports,omitempty"`
+	Services  []ServiceInfo `json:"services,omitempty"`
+	Web       *WebResult    `json:"web,omitempty"`
+	Person    *PersonResult `json:"person,omitempty"`
+	Cloud     *CloudResult  `json:"cloud,omitempty"`
+	Timestamp time.Time     `json:"timestamp"`
 }
 
 type DNSResult struct {
@@ -65,20 +65,20 @@ type DNSResult struct {
 }
 
 type OpenPort struct {
-	Port     int    `json:"port"`
-	State    string `json:"state"`
-	Service  string `json:"service"`
-	Version  string `json:"version"`
-	Banner   string `json:"banner,omitempty"`
+	Port    int    `json:"port"`
+	State   string `json:"state"`
+	Service string `json:"service"`
+	Version string `json:"version"`
+	Banner  string `json:"banner,omitempty"`
 }
 
 type ServiceInfo struct {
-	Port     int    `json:"port"`
-	Service  string `json:"service"`
-	Version  string `json:"version"`
-	Product  string `json:"product"`
-	OS       string `json:"os"`
-	Extra    string `json:"extra,omitempty"`
+	Port    int    `json:"port"`
+	Service string `json:"service"`
+	Version string `json:"version"`
+	Product string `json:"product"`
+	OS      string `json:"os"`
+	Extra   string `json:"extra,omitempty"`
 }
 
 type WebResult struct {
@@ -109,31 +109,31 @@ type WAFInfo struct {
 }
 
 type CertInfo struct {
-	Issuer    string    `json:"issuer"`
-	Subject   string    `json:"subject"`
-	NotBefore time.Time `json:"not_before"`
-	NotAfter  time.Time `json:"not_after"`
-	DNSNames  []string  `json:"dns_names"`
-	Serial    string    `json:"serial"`
-	KeySize   int       `json:"key_size"`
-	SelfSigned bool     `json:"self_signed"`
+	Issuer     string    `json:"issuer"`
+	Subject    string    `json:"subject"`
+	NotBefore  time.Time `json:"not_before"`
+	NotAfter   time.Time `json:"not_after"`
+	DNSNames   []string  `json:"dns_names"`
+	Serial     string    `json:"serial"`
+	KeySize    int       `json:"key_size"`
+	SelfSigned bool      `json:"self_signed"`
 }
 
 type PersonResult struct {
-	Emails    []string        `json:"emails"`
-	Social    *SocialProfile  `json:"social,omitempty"`
-	Repos     []GitRepo       `json:"repos,omitempty"`
+	Emails []string       `json:"emails"`
+	Social *SocialProfile `json:"social,omitempty"`
+	Repos  []GitRepo      `json:"repos,omitempty"`
 }
 
 type SocialProfile struct {
-	Username   string            `json:"username"`
-	Platform   string            `json:"platform"`
-	Bio        string            `json:"bio,omitempty"`
-	Followers  int               `json:"followers"`
-	Following  int               `json:"following"`
-	Repos      int               `json:"repos"`
-	URLs       []string          `json:"urls,omitempty"`
-	Metadata   map[string]string `json:"metadata,omitempty"`
+	Username  string            `json:"username"`
+	Platform  string            `json:"platform"`
+	Bio       string            `json:"bio,omitempty"`
+	Followers int               `json:"followers"`
+	Following int               `json:"following"`
+	Repos     int               `json:"repos"`
+	URLs      []string          `json:"urls,omitempty"`
+	Metadata  map[string]string `json:"metadata,omitempty"`
 }
 
 type GitRepo struct {
@@ -154,12 +154,12 @@ type CloudResult struct {
 }
 
 type BucketInfo struct {
-	Name      string    `json:"name"`
-	Region    string    `json:"region"`
-	Visible   bool      `json:"visible"`
-	Public    bool      `json:"public"`
-	Size      int64     `json:"size"`
-	Modified  time.Time `json:"modified"`
+	Name     string    `json:"name"`
+	Region   string    `json:"region"`
+	Visible  bool      `json:"visible"`
+	Public   bool      `json:"public"`
+	Size     int64     `json:"size"`
+	Modified time.Time `json:"modified"`
 }
 
 type AWSResult struct {

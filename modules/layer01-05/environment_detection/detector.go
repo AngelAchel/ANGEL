@@ -7,25 +7,25 @@ import (
 )
 
 type EnvironmentDetector struct {
-	mu           sync.RWMutex
-环境信息      *EnvironmentInfo
-	detected     bool
+	mu       sync.RWMutex
+	环境信息     *EnvironmentInfo
+	detected bool
 }
 
 type EnvironmentInfo struct {
-	OS           string
-	Arch         string
-	Hostname     string
-	IsVM         bool
-	IsSandbox    bool
-	IsDebugged   bool
-	IsContainer  bool
-	VMType       string
-	SandboxType  string
-	CPUCores     int
-	RAMMB        int
-	DiskGB       int
-	UptimeMin    int
+	OS          string
+	Arch        string
+	Hostname    string
+	IsVM        bool
+	IsSandbox   bool
+	IsDebugged  bool
+	IsContainer bool
+	VMType      string
+	SandboxType string
+	CPUCores    int
+	RAMMB       int
+	DiskGB      int
+	UptimeMin   int
 }
 
 func NewEnvironmentDetector() *EnvironmentDetector {

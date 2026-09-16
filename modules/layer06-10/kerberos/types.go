@@ -13,7 +13,7 @@ import (
 type TicketEncoding int
 
 const (
-	EncodingDER    TicketEncoding = iota
+	EncodingDER TicketEncoding = iota
 	EncodingASN1
 	EncodingRaw
 )
@@ -21,66 +21,66 @@ const (
 type EncryptionType int
 
 const (
-	EncRC4HMAC   EncryptionType = 23
-	EncAES128    EncryptionType = 17
-	EncAES256    EncryptionType = 18
-	EncDES_CRC   EncryptionType = 1
-	EncDES_MD4   EncryptionType = 3
-	EncDES_MD5   EncryptionType = 4
+	EncRC4HMAC EncryptionType = 23
+	EncAES128  EncryptionType = 17
+	EncAES256  EncryptionType = 18
+	EncDES_CRC EncryptionType = 1
+	EncDES_MD4 EncryptionType = 3
+	EncDES_MD5 EncryptionType = 4
 )
 
 type MessageType int
 
 const (
-	MSGASREQ     MessageType = 10
-	MSGASREP     MessageType = 11
-	MSGTGSREQ    MessageType = 12
-	MSGTGSREP    MessageType = 13
-	MSGAPREQ     MessageType = 14
-	MSGAPREP     MessageType = 15
+	MSGASREQ  MessageType = 10
+	MSGASREP  MessageType = 11
+	MSGTGSREQ MessageType = 12
+	MSGTGSREP MessageType = 13
+	MSGAPREQ  MessageType = 14
+	MSGAPREP  MessageType = 15
 )
 
 type KerberosConfig struct {
-	Domain       string
+	Domain           string
 	DomainController string
-	KDCPort      int
-	KerberosPort int
-	Realm        string
-	Timeout      time.Duration
-	EncType      EncryptionType
-	RoastFormat  string
+	KDCPort          int
+	KerberosPort     int
+	Realm            string
+	Timeout          time.Duration
+	EncType          EncryptionType
+	RoastFormat      string
 }
 
 func DefaultKerberosConfig() *KerberosConfig {
 	return &KerberosConfig{
-		Domain:       "CORP.LOCAL",
+		Domain:           "CORP.LOCAL",
 		DomainController: "dc01.corp.local",
-		KDCPort:      88,
-		KerberosPort: 88,
-		Realm:        "CORP.LOCAL",
-		Timeout:      30 * time.Second,
-		EncType:      EncRC4HMAC,
-		RoastFormat:  "hashcat",
+		KDCPort:          88,
+		KerberosPort:     88,
+		Realm:            "CORP.LOCAL",
+		Timeout:          30 * time.Second,
+		EncType:          EncRC4HMAC,
+		RoastFormat:      "hashcat",
 	}
 }
 
 type Ticket struct {
-	MsgType       MessageType
-	TicketVNO     int
-	Realm         string
-	SName         []string
-	EncPart       *EncryptedPart
-	DecPart       *TicketDecPart
-	RawTicket     []byte
-	SessionKey    []byte
-	RawEncPart    []byte
-	Flags         TicketFlags
-	AuthTime      time.Time
-	StartTime     time.Time
-	EndTime       time.Time
-	RenewTill     time.Time
-	CName         []string
-	CAData        []byte
+	MsgType    MessageType
+	TicketVNO  int
+	Realm      string
+	SName      []string
+	EncPart    *EncryptedPart
+	DecPart    *TicketDecPart
+	RawTicket  []byte
+	SessionKey []byte
+	RawEncPart []byte
+	Flags      TicketFlags
+	AuthTime   time.Time
+	StartTime  time.Time
+	EndTime    time.Time
+	RenewTill  time.Time
+	CName      []string
+	CAData     []byte
 }
 
 type EncryptedPart struct {
@@ -90,41 +90,41 @@ type EncryptedPart struct {
 }
 
 type TicketDecPart struct {
-	Flags        TicketFlags
-	AuthTime     time.Time
-	StartTime    time.Time
-	EndTime      time.Time
-	RenewTill    time.Time
-	SName        []string
-	Realm        string
-	CName        []string
-	Transited    *TransitedEncoding
-	EncEText     []byte
-	EncEType2    EncryptionType
+	Flags         TicketFlags
+	AuthTime      time.Time
+	StartTime     time.Time
+	EndTime       time.Time
+	RenewTill     time.Time
+	SName         []string
+	Realm         string
+	CName         []string
+	Transited     *TransitedEncoding
+	EncEText      []byte
+	EncEType2     EncryptionType
 	HostAddresses []HostAddress
-	PACData      *PACData
+	PACData       *PACData
 }
 
 type TicketFlags uint32
 
 const (
-	TicketFlagInitial     TicketFlags = 0x40000000
-	TicketFlagInvalid     TicketFlags = 0x20000000
-	TicketFlagMayPostDate TicketFlags = 0x10000000
-	TicketFlagPostDated   TicketFlags = 0x08000000
-	TicketFlagRenewable   TicketFlags = 0x04000000
-	TicketFlagForwardable TicketFlags = 0x02000000
-	TicketFlagForwarded   TicketFlags = 0x01000000
-	TicketFlagProxiable   TicketFlags = 0x00800000
-	TicketFlagProxy       TicketFlags = 0x00400000
-	TicketFlagOptHardware TicketFlags = 0x00200000
-	TicketFlagHWAUTH      TicketFlags = 0x00100000
-	TicketFlagPreAuth     TicketFlags = 0x00080000
+	TicketFlagInitial       TicketFlags = 0x40000000
+	TicketFlagInvalid       TicketFlags = 0x20000000
+	TicketFlagMayPostDate   TicketFlags = 0x10000000
+	TicketFlagPostDated     TicketFlags = 0x08000000
+	TicketFlagRenewable     TicketFlags = 0x04000000
+	TicketFlagForwardable   TicketFlags = 0x02000000
+	TicketFlagForwarded     TicketFlags = 0x01000000
+	TicketFlagProxiable     TicketFlags = 0x00800000
+	TicketFlagProxy         TicketFlags = 0x00400000
+	TicketFlagOptHardware   TicketFlags = 0x00200000
+	TicketFlagHWAUTH        TicketFlags = 0x00100000
+	TicketFlagPreAuth       TicketFlags = 0x00080000
 	TicketFlagMandatoryPost TicketFlags = 0x00040000
 )
 
 type TransitedEncoding struct {
-	EncType EncryptionType
+	EncType  EncryptionType
 	Contents []byte
 }
 
@@ -134,12 +134,12 @@ type HostAddress struct {
 }
 
 type PACData struct {
-	InfoBuffer        []PACInfoBuffer
-	SignatureKDC      []byte
-	SignatureServer    []byte
-	SignatureKDCR     []byte
-	SignatureServerR  []byte
-	PacType           int
+	InfoBuffer       []PACInfoBuffer
+	SignatureKDC     []byte
+	SignatureServer  []byte
+	SignatureKDCR    []byte
+	SignatureServerR []byte
+	PacType          int
 }
 
 type PACInfoBuffer struct {
@@ -165,35 +165,35 @@ type ASREPResult struct {
 	Hash        string
 	EncType     EncryptionType
 	Timestamp   time.Time
-	NTLMHash   string
+	NTLMHash    string
 	Certificate string
 }
 
 type CertResult struct {
-	Success    bool
-	CertPEM    []byte
-	KeyPEM     []byte
-	CACert     []byte
-	Template   string
-	CA         string
-	Serial     string
-	Error      string
-	IssuedAt   time.Time
-	ExpiresAt  time.Time
-	DNSNames   []string
-	UPN        string
+	Success   bool
+	CertPEM   []byte
+	KeyPEM    []byte
+	CACert    []byte
+	Template  string
+	CA        string
+	Serial    string
+	Error     string
+	IssuedAt  time.Time
+	ExpiresAt time.Time
+	DNSNames  []string
+	UPN       string
 }
 
 type DomainInfo struct {
-	Name          string
-	DNSName       string
-	DomainSID     string
-	DCIP          string
-	DCName        string
-	Forest        string
+	Name            string
+	DNSName         string
+	DomainSID       string
+	DCIP            string
+	DCName          string
+	Forest          string
 	FunctionalLevel string
-	OSVersion     string
-	Timestamp     time.Time
+	OSVersion       string
+	Timestamp       time.Time
 }
 
 type UserInfo struct {
@@ -213,11 +213,11 @@ type UserInfo struct {
 }
 
 type GroupInfo struct {
-	Name     string
-	DN       string
-	SID      string
-	Members  []string
-	Type     int
+	Name      string
+	DN        string
+	SID       string
+	Members   []string
+	Type      int
 	WellKnown bool
 }
 
@@ -232,27 +232,27 @@ type SPNInfo struct {
 }
 
 type GPOInfo struct {
-	Name       string
-	GUID       string
-	DN         string
-	Path       string
-	Version    int
+	Name        string
+	GUID        string
+	DN          string
+	Path        string
+	Version     int
 	FileSysPath string
-	Timestamp  time.Time
+	Timestamp   time.Time
 }
 
 type DCSyncResult struct {
-	Success      bool
-	DomainName   string
-	DomainSID    string
-	NTLMHash     string
-	AES256Key    string
-	AES128Key    string
-	KRBTGT       string
-	MachineAcct  string
-	DCNames      []string
-	Timestamp    time.Time
-	Error        string
+	Success     bool
+	DomainName  string
+	DomainSID   string
+	NTLMHash    string
+	AES256Key   string
+	AES128Key   string
+	KRBTGT      string
+	MachineAcct string
+	DCNames     []string
+	Timestamp   time.Time
+	Error       string
 }
 
 func ComputeMD5(data []byte) []byte {

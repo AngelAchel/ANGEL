@@ -8,8 +8,8 @@ import (
 )
 
 type DebuggerDetector struct {
-	mu       sync.RWMutex
-	detected bool
+	mu           sync.RWMutex
+	detected     bool
 	debuggerType string
 }
 

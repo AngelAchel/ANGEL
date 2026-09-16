@@ -15,7 +15,7 @@ type Middleware interface {
 type Gateway struct {
 	config     *Config
 	server     *http.Server
-	middleware  []Middleware
+	middleware []Middleware
 	routes     map[string]http.Handler
 	methods    map[string]map[string]http.Handler
 	mu         sync.RWMutex
@@ -25,21 +25,21 @@ type Gateway struct {
 }
 
 type Config struct {
-	Addr            string        `json:"addr"`
-	Port            int           `json:"port"`
-	ReadTimeout     time.Duration `json:"read_timeout"`
-	WriteTimeout    time.Duration `json:"write_timeout"`
-	MaxHeaderBytes  int           `json:"max_header_bytes"`
-	EnableTLS       bool          `json:"enable_tls"`
-	TLSCertFile     string        `json:"tls_cert_file"`
-	TLSKeyFile      string        `json:"tls_key_file"`
-	RateLimit       int           `json:"rate_limit"`
-	MaxConns        int           `json:"max_conns"`
-	CORSOrigin      string        `json:"cors_origin"`
-	JWTSecret       string        `json:"jwt_secret"`
-	JWTExpiry       time.Duration `json:"jwt_expiry"`
-	EnableRBAC      bool          `json:"enable_rbac"`
-	EnableMetrics   bool          `json:"enable_metrics"`
+	Addr           string        `json:"addr"`
+	Port           int           `json:"port"`
+	ReadTimeout    time.Duration `json:"read_timeout"`
+	WriteTimeout   time.Duration `json:"write_timeout"`
+	MaxHeaderBytes int           `json:"max_header_bytes"`
+	EnableTLS      bool          `json:"enable_tls"`
+	TLSCertFile    string        `json:"tls_cert_file"`
+	TLSKeyFile     string        `json:"tls_key_file"`
+	RateLimit      int           `json:"rate_limit"`
+	MaxConns       int           `json:"max_conns"`
+	CORSOrigin     string        `json:"cors_origin"`
+	JWTSecret      string        `json:"jwt_secret"`
+	JWTExpiry      time.Duration `json:"jwt_expiry"`
+	EnableRBAC     bool          `json:"enable_rbac"`
+	EnableMetrics  bool          `json:"enable_metrics"`
 }
 
 func DefaultConfig() *Config {

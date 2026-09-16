@@ -42,28 +42,28 @@ type GeneratorConfig struct {
 }
 
 type GenerateParams struct {
-	Name           string            `json:"name"`
-	Arch           Arch              `json:"arch"`
-	OS             OSType            `json:"os"`
-	Format         string            `json:"format"`
-	Config         *BeaconConfig     `json:"config,omitempty"`
-	Encrypt        bool              `json:"encrypt"`
-	Key            []byte            `json:"key,omitempty"`
-	Obfuscate      int               `json:"obfuscate"`
-	Shellcode      bool              `json:"shellcode"`
-	ShellcodeArch  Arch              `json:"shellcode_arch"`
-	Metadata       map[string]string `json:"metadata,omitempty"`
+	Name          string            `json:"name"`
+	Arch          Arch              `json:"arch"`
+	OS            OSType            `json:"os"`
+	Format        string            `json:"format"`
+	Config        *BeaconConfig     `json:"config,omitempty"`
+	Encrypt       bool              `json:"encrypt"`
+	Key           []byte            `json:"key,omitempty"`
+	Obfuscate     int               `json:"obfuscate"`
+	Shellcode     bool              `json:"shellcode"`
+	ShellcodeArch Arch              `json:"shellcode_arch"`
+	Metadata      map[string]string `json:"metadata,omitempty"`
 }
 
 type BeaconConfig struct {
-	ID           string        `json:"id"`
-	CallbackURLs []string      `json:"callback_urls"`
-	SleepTime    time.Duration `json:"sleep_time"`
-	Jitter       float64       `json:"jitter"`
-	MaxRetries   int           `json:"max_retries"`
-	NoiseLevel   int           `json:"noise_level"`
-	EncKey       []byte        `json:"enc_key,omitempty"`
-	Cookie       string        `json:"cookie,omitempty"`
+	ID           string            `json:"id"`
+	CallbackURLs []string          `json:"callback_urls"`
+	SleepTime    time.Duration     `json:"sleep_time"`
+	Jitter       float64           `json:"jitter"`
+	MaxRetries   int               `json:"max_retries"`
+	NoiseLevel   int               `json:"noise_level"`
+	EncKey       []byte            `json:"enc_key,omitempty"`
+	Cookie       string            `json:"cookie,omitempty"`
 	Metadata     map[string]string `json:"metadata,omitempty"`
 }
 

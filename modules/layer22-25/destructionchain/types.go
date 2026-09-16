@@ -31,15 +31,15 @@ const (
 type StepType string
 
 const (
-	StepTypeRecon     StepType = "recon"
-	StepTypeScan      StepType = "scan"
-	StepTypeExploit   StepType = "exploit"
-	StepTypePivot     StepType = "pivot"
-	StepTypeEscalate  StepType = "escalate"
-	StepTypeExfil     StepType = "exfil"
-	StepTypeDestroy   StepType = "destroy"
-	StepTypeCleanup   StepType = "cleanup"
-	StepTypeReport    StepType = "report"
+	StepTypeRecon    StepType = "recon"
+	StepTypeScan     StepType = "scan"
+	StepTypeExploit  StepType = "exploit"
+	StepTypePivot    StepType = "pivot"
+	StepTypeEscalate StepType = "escalate"
+	StepTypeExfil    StepType = "exfil"
+	StepTypeDestroy  StepType = "destroy"
+	StepTypeCleanup  StepType = "cleanup"
+	StepTypeReport   StepType = "report"
 )
 
 type DestructionChain struct {
@@ -78,25 +78,25 @@ type StepResult struct {
 }
 
 type ChainResult struct {
-	ChainID    string                 `json:"chain_id"`
-	Success    bool                   `json:"success"`
-	Results    map[string]*StepResult `json:"results"`
-	StartedAt  time.Time              `json:"started_at"`
-	CompletedAt time.Time             `json:"completed_at"`
-	Duration   time.Duration          `json:"duration"`
-	Error      string                 `json:"error,omitempty"`
+	ChainID     string                 `json:"chain_id"`
+	Success     bool                   `json:"success"`
+	Results     map[string]*StepResult `json:"results"`
+	StartedAt   time.Time              `json:"started_at"`
+	CompletedAt time.Time              `json:"completed_at"`
+	Duration    time.Duration          `json:"duration"`
+	Error       string                 `json:"error,omitempty"`
 }
 
 type FullScopeTarget struct {
-	Host       string                 `json:"host"`
-	IP         string                 `json:"ip"`
-	OS         types.Platform         `json:"os"`
-	Arch       string                 `json:"arch"`
-	Ports      []int                  `json:"ports,omitempty"`
-	Services   []ServiceInfo          `json:"services,omitempty"`
-	Vulns      []types.Vulnerability  `json:"vulns,omitempty"`
-	Creds      []types.Credential     `json:"creds,omitempty"`
-	Metadata   map[string]interface{} `json:"metadata,omitempty"`
+	Host     string                 `json:"host"`
+	IP       string                 `json:"ip"`
+	OS       types.Platform         `json:"os"`
+	Arch     string                 `json:"arch"`
+	Ports    []int                  `json:"ports,omitempty"`
+	Services []ServiceInfo          `json:"services,omitempty"`
+	Vulns    []types.Vulnerability  `json:"vulns,omitempty"`
+	Creds    []types.Credential     `json:"creds,omitempty"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 }
 
 type ServiceInfo struct {
@@ -107,15 +107,15 @@ type ServiceInfo struct {
 }
 
 type FullScopeResult struct {
-	ChainID     string                 `json:"chain_id"`
-	Target      *FullScopeTarget       `json:"target"`
-	Recon       *ReconResult           `json:"recon"`
-	Attack      *AttackResult          `json:"attack"`
-	Destroy     *DestroyResult         `json:"destroy"`
-	Report      *types.ModuleResult    `json:"report"`
+	ChainID        string              `json:"chain_id"`
+	Target         *FullScopeTarget    `json:"target"`
+	Recon          *ReconResult        `json:"recon"`
+	Attack         *AttackResult       `json:"attack"`
+	Destroy        *DestroyResult      `json:"destroy"`
+	Report         *types.ModuleResult `json:"report"`
 	OverallSuccess bool                `json:"overall_success"`
-	Duration    time.Duration          `json:"duration"`
-	Timestamp   time.Time              `json:"timestamp"`
+	Duration       time.Duration       `json:"duration"`
+	Timestamp      time.Time           `json:"timestamp"`
 }
 
 type ReconResult struct {
@@ -127,11 +127,11 @@ type ReconResult struct {
 }
 
 type AttackResult struct {
-	Exploited  bool                   `json:"exploited"`
-	Access     string                 `json:"access"`
-	Creds      []types.Credential     `json:"creds"`
-	Shells     []ShellInfo            `json:"shells"`
-	Data       map[string]interface{} `json:"data"`
+	Exploited bool                   `json:"exploited"`
+	Access    string                 `json:"access"`
+	Creds     []types.Credential     `json:"creds"`
+	Shells    []ShellInfo            `json:"shells"`
+	Data      map[string]interface{} `json:"data"`
 }
 
 type ShellInfo struct {
@@ -141,20 +141,20 @@ type ShellInfo struct {
 }
 
 type DestroyResult struct {
-	Target      string   `json:"target"`
-	Method      string   `json:"method"`
-	Artifacts   []string `json:"artifacts"`
-	Verified    bool     `json:"verified"`
+	Target    string   `json:"target"`
+	Method    string   `json:"method"`
+	Artifacts []string `json:"artifacts"`
+	Verified  bool     `json:"verified"`
 }
 
 type ImpactReport struct {
-	Target        string        `json:"target"`
-	Scope         string        `json:"scope"`
-	Criticality   types.Severity `json:"criticality"`
-	AffectedHosts int           `json:"affected_hosts"`
-	EstimatedTime time.Duration `json:"estimated_time"`
-	RiskScore     float64      `json:"risk_score"`
-	Recommendations []string    `json:"recommendations"`
+	Target          string         `json:"target"`
+	Scope           string         `json:"scope"`
+	Criticality     types.Severity `json:"criticality"`
+	AffectedHosts   int            `json:"affected_hosts"`
+	EstimatedTime   time.Duration  `json:"estimated_time"`
+	RiskScore       float64        `json:"risk_score"`
+	Recommendations []string       `json:"recommendations"`
 }
 
 type DestructionChainConfig struct {
@@ -167,22 +167,22 @@ type DestructionChainConfig struct {
 }
 
 type ChainProgress struct {
-	ChainID       string        `json:"chain_id"`
-	Status        ChainStatus   `json:"status"`
-	TotalSteps    int           `json:"total_steps"`
-	CompletedSteps int          `json:"completed_steps"`
-	FailedSteps   int           `json:"failed_steps"`
-	CurrentStep   string        `json:"current_step,omitempty"`
-	Elapsed       time.Duration `json:"elapsed"`
-	ETA           time.Duration `json:"eta,omitempty"`
-	Percentage    float64      `json:"percentage"`
+	ChainID        string        `json:"chain_id"`
+	Status         ChainStatus   `json:"status"`
+	TotalSteps     int           `json:"total_steps"`
+	CompletedSteps int           `json:"completed_steps"`
+	FailedSteps    int           `json:"failed_steps"`
+	CurrentStep    string        `json:"current_step,omitempty"`
+	Elapsed        time.Duration `json:"elapsed"`
+	ETA            time.Duration `json:"eta,omitempty"`
+	Percentage     float64       `json:"percentage"`
 }
 
 type TimingConfig struct {
-	MinDelay     time.Duration
-	MaxDelay     time.Duration
-	Jitter       float64
-	SyncEnabled  bool
+	MinDelay    time.Duration
+	MaxDelay    time.Duration
+	Jitter      float64
+	SyncEnabled bool
 }
 
 type TimingCoordinator struct {
@@ -193,10 +193,10 @@ type TimingCoordinator struct {
 }
 
 type ScheduledStep struct {
-	Step      *ChainStep
+	Step       *ChainStep
 	ScheduleAt time.Time
-	Delay     time.Duration
-	Cancelled bool
+	Delay      time.Duration
+	Cancelled  bool
 }
 
 func NewDefaultChainConfig() *DestructionChainConfig {

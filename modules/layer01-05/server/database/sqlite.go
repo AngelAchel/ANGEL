@@ -11,9 +11,9 @@ import (
 )
 
 type Database struct {
-	mu     sync.RWMutex
-	db     *sql.DB
-	path   string
+	mu   sync.RWMutex
+	db   *sql.DB
+	path string
 }
 
 type AgentRecord struct {

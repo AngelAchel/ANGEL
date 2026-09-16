@@ -76,7 +76,7 @@ func (m *Manager) SyncIOSPurchases(userID string, receiptData string) (*Purchase
 }
 
 func (m *Manager) GetUserPurchases(userID string) ([]PurchaseRecord, error) {
-	url := fmt.Sprintf("%s/rest/v1/purchases?user_id=eq.%s&select=*&order=created_at.desc", 
+	url := fmt.Sprintf("%s/rest/v1/purchases?user_id=eq.%s&select=*&order=created_at.desc",
 		m.supabaseClient.URL, userID)
 
 	req, err := createRequest("GET", url, nil, m.supabaseClient.Key)

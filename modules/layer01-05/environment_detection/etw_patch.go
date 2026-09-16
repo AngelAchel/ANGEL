@@ -6,8 +6,8 @@ import (
 )
 
 type ETWPatch struct {
-	mu       sync.RWMutex
-	patched  bool
+	mu      sync.RWMutex
+	patched bool
 }
 
 func NewETWPatch() *ETWPatch {

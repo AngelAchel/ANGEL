@@ -7,21 +7,21 @@ import (
 type CloudProvider string
 
 const (
-	ProviderAWS   CloudProvider = "aws"
-	ProviderGCP   CloudProvider = "gcp"
-	ProviderAzure CloudProvider = "azure"
-	ProviderDO    CloudProvider = "digitalocean"
+	ProviderAWS    CloudProvider = "aws"
+	ProviderGCP    CloudProvider = "gcp"
+	ProviderAzure  CloudProvider = "azure"
+	ProviderDO     CloudProvider = "digitalocean"
 	ProviderLinode CloudProvider = "linode"
 )
 
 type InfraConfig struct {
-	Provider      CloudProvider      `json:"provider"`
-	Region        string             `json:"region"`
-	SSHKeyPath    string             `json:"ssh_key_path"`
-	SubnetID      string             `json:"subnet_id"`
-	VPCID         string             `json:"vpc_id"`
-	SecurityGroup string             `json:"security_group"`
-	Metadata      map[string]string  `json:"metadata"`
+	Provider      CloudProvider     `json:"provider"`
+	Region        string            `json:"region"`
+	SSHKeyPath    string            `json:"ssh_key_path"`
+	SubnetID      string            `json:"subnet_id"`
+	VPCID         string            `json:"vpc_id"`
+	SecurityGroup string            `json:"security_group"`
+	Metadata      map[string]string `json:"metadata"`
 }
 
 func DefaultInfraConfig() *InfraConfig {
@@ -33,26 +33,26 @@ func DefaultInfraConfig() *InfraConfig {
 }
 
 type VPSInstance struct {
-	ID         string            `json:"id"`
-	Provider   CloudProvider     `json:"provider"`
-	Region     string            `json:"region"`
-	PublicIP   string            `json:"public_ip"`
-	PrivateIP  string            `json:"private_ip"`
-	Hostname   string            `json:"hostname"`
-	Status     string            `json:"status"`
-	OS         string            `json:"os"`
-	SSHKey     string            `json:"ssh_key"`
-	CreatedAt  time.Time         `json:"created_at"`
-	Metadata   map[string]string `json:"metadata"`
+	ID        string            `json:"id"`
+	Provider  CloudProvider     `json:"provider"`
+	Region    string            `json:"region"`
+	PublicIP  string            `json:"public_ip"`
+	PrivateIP string            `json:"private_ip"`
+	Hostname  string            `json:"hostname"`
+	Status    string            `json:"status"`
+	OS        string            `json:"os"`
+	SSHKey    string            `json:"ssh_key"`
+	CreatedAt time.Time         `json:"created_at"`
+	Metadata  map[string]string `json:"metadata"`
 }
 
 type TFPlan struct {
-	Changes  []TFChange `json:"changes"`
-	Add      int        `json:"add"`
-	Change   int        `json:"change"`
-	Destroy  int        `json:"destroy"`
-	Errored  bool       `json:"errored"`
-	Raw      string     `json:"raw"`
+	Changes []TFChange `json:"changes"`
+	Add     int        `json:"add"`
+	Change  int        `json:"change"`
+	Destroy int        `json:"destroy"`
+	Errored bool       `json:"errored"`
+	Raw     string     `json:"raw"`
 }
 
 type TFChange struct {
@@ -65,9 +65,9 @@ type TFChange struct {
 type TFProvider string
 
 const (
-	TFProviderAWS       TFProvider = "aws"
-	TFProviderGCP       TFProvider = "gcp"
-	TFProviderAzure     TFProvider = "azure"
+	TFProviderAWS          TFProvider = "aws"
+	TFProviderGCP          TFProvider = "gcp"
+	TFProviderAzure        TFProvider = "azure"
 	TFProviderDigitalOcean TFProvider = "digitalocean"
 )
 
@@ -84,15 +84,15 @@ const (
 )
 
 type RedirectorConfig struct {
-	ListenAddr  string            `json:"listen_addr"`
-	ListenPort  int               `json:"listen_port"`
-	Routes      map[string]string `json:"routes"`
-	SSL         bool              `json:"ssl"`
-	SSLCert     string            `json:"ssl_cert"`
-	SSLKey      string            `json:"ssl_key"`
-	UpstreamTimeout time.Duration `json:"upstream_timeout"`
-	RateLimit   int               `json:"rate_limit"`
-	Headers     map[string]string `json:"headers"`
+	ListenAddr      string            `json:"listen_addr"`
+	ListenPort      int               `json:"listen_port"`
+	Routes          map[string]string `json:"routes"`
+	SSL             bool              `json:"ssl"`
+	SSLCert         string            `json:"ssl_cert"`
+	SSLKey          string            `json:"ssl_key"`
+	UpstreamTimeout time.Duration     `json:"upstream_timeout"`
+	RateLimit       int               `json:"rate_limit"`
+	Headers         map[string]string `json:"headers"`
 }
 
 func DefaultRedirectorConfig() *RedirectorConfig {
@@ -117,19 +117,19 @@ type VPNConfig struct {
 }
 
 type IPRotation struct {
-	Proxies     []string `json:"proxies"`
-	CurrentIdx  int      `json:"current_idx"`
-	MaxRetries  int      `json:"max_retries"`
-	Timeout     time.Duration `json:"timeout"`
+	Proxies    []string      `json:"proxies"`
+	CurrentIdx int           `json:"current_idx"`
+	MaxRetries int           `json:"max_retries"`
+	Timeout    time.Duration `json:"timeout"`
 }
 
 type WireGuardConfig struct {
-	Interface  string `json:"interface"`
-	PrivateKey string `json:"private_key"`
-	Address    string `json:"address"`
-	ListenPort int    `json:"listen_port"`
-	PeerPubKey string `json:"peer_pub_key"`
-	PeerAddr   string `json:"peer_addr"`
+	Interface   string `json:"interface"`
+	PrivateKey  string `json:"private_key"`
+	Address     string `json:"address"`
+	ListenPort  int    `json:"listen_port"`
+	PeerPubKey  string `json:"peer_pub_key"`
+	PeerAddr    string `json:"peer_addr"`
 	PeerAllowed string `json:"peer_allowed"`
 }
 

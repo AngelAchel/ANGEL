@@ -6,21 +6,21 @@ import (
 )
 
 type Scheduler struct {
-	mu        sync.RWMutex
-	tasks     map[string]*ScheduledTask
-	running   bool
-	interval  time.Duration
-	stopCh    chan struct{}
+	mu       sync.RWMutex
+	tasks    map[string]*ScheduledTask
+	running  bool
+	interval time.Duration
+	stopCh   chan struct{}
 }
 
 type ScheduledTask struct {
-	ID        string
-	Task      *QueuedTask
-	Schedule  string
-	Interval  time.Duration
-	NextRun   time.Time
-	LastRun   time.Time
-	Enabled   bool
+	ID       string
+	Task     *QueuedTask
+	Schedule string
+	Interval time.Duration
+	NextRun  time.Time
+	LastRun  time.Time
+	Enabled  bool
 }
 
 type SchedulerConfig struct {

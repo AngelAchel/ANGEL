@@ -20,18 +20,18 @@ type UDPListener struct {
 }
 
 type UDPConn struct {
-	ID        string
+	ID         string
 	RemoteAddr string
-	StartTime time.Time
-	LastSeen  time.Time
-	Packets   int64
+	StartTime  time.Time
+	LastSeen   time.Time
+	Packets    int64
 }
 
 type PacketLog struct {
-	Timestamp time.Time
+	Timestamp  time.Time
 	RemoteAddr string
-	Size      int
-	Direction string
+	Size       int
+	Direction  string
 }
 
 type UDPListenerConfig struct {

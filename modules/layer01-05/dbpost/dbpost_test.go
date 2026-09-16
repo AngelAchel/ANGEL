@@ -166,13 +166,13 @@ func TestExploitResultSuccess(t *testing.T) {
 
 func TestDBCredsStructure(t *testing.T) {
 	creds := &DBCreds{
-		Username:    "admin",
-		Password:    "password",
-		Database:    "test",
-		Host:        "localhost",
-		Port:        3306,
-		IsAdmin:     true,
-		Role:        "DBA",
+		Username: "admin",
+		Password: "password",
+		Database: "test",
+		Host:     "localhost",
+		Port:     3306,
+		IsAdmin:  true,
+		Role:     "DBA",
 	}
 
 	if creds.Username != "admin" {

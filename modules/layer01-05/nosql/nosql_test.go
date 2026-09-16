@@ -90,10 +90,10 @@ func TestGenerateID(t *testing.T) {
 
 func TestScanResultSummary(t *testing.T) {
 	result := &ScanResult{
-		Target:    "localhost",
-		DBType:    NoSQLDBMongoDB,
+		Target:     "localhost",
+		DBType:     NoSQLDBMongoDB,
 		Vulnerable: true,
-		Version:   "4.4.0",
+		Version:    "4.4.0",
 		Injections: []InjectionPoint{
 			{ID: "test"},
 		},

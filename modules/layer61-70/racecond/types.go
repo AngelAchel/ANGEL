@@ -24,30 +24,30 @@ type TOCTOUVector struct {
 }
 
 type RaceCondConfig struct {
-	TargetURL    string          `json:"target_url"`
-	RaceType     RaceType        `json:"race_type"`
-	NumThreads  int             `json:"num_threads"`
-	Iterations   int             `json:"iterations"`
+	TargetURL     string         `json:"target_url"`
+	RaceType      RaceType       `json:"race_type"`
+	NumThreads    int            `json:"num_threads"`
+	Iterations    int            `json:"iterations"`
 	TOCTOUVectors []TOCTOUVector `json:"toctou_vectors"`
-	FilePath     string          `json:"file_path"`
+	FilePath      string         `json:"file_path"`
 }
 
 type RaceCondResult struct {
-	RaceType      RaceType     `json:"race_type"`
-	Vulnerable    bool         `json:"vulnerable"`
-	WindowSize    int64        `json:"window_size_ms"`
-	SuccessRate   float64      `json:"success_rate"`
-	Attempts      int          `json:"attempts"`
-	WinCount      int          `json:"win_count"`
-	Details       string       `json:"details"`
-	Remediation   string       `json:"remediation"`
+	RaceType    RaceType `json:"race_type"`
+	Vulnerable  bool     `json:"vulnerable"`
+	WindowSize  int64    `json:"window_size_ms"`
+	SuccessRate float64  `json:"success_rate"`
+	Attempts    int      `json:"attempts"`
+	WinCount    int      `json:"win_count"`
+	Details     string   `json:"details"`
+	Remediation string   `json:"remediation"`
 }
 
 type RaceWindow struct {
-	OpenTime   int64  `json:"open_time"`
-	CloseTime  int64  `json:"close_time"`
-	WindowMs   int64  `json:"window_ms"`
-	Trigger    string `json:"trigger"`
+	OpenTime  int64  `json:"open_time"`
+	CloseTime int64  `json:"close_time"`
+	WindowMs  int64  `json:"window_ms"`
+	Trigger   string `json:"trigger"`
 }
 
 type FetchPair struct {

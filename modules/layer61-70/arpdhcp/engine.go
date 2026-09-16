@@ -46,12 +46,12 @@ func (e *Engine) ARPSpoof() ARPDHCPResult {
 		len(targets), packetsSent, gateway, poisoned)
 
 	return ARPDHCPResult{
-		Attack:            ARPAttackSpoof,
-		Success:           poisoned > 0,
-		TargetsPoisoned:   poisoned,
-		PacketsSent:       packetsSent,
+		Attack:             ARPAttackSpoof,
+		Success:            poisoned > 0,
+		TargetsPoisoned:    poisoned,
+		PacketsSent:        packetsSent,
 		TrafficIntercepted: int64(poisoned * 1024),
-		Details:           detail,
+		Details:            detail,
 	}
 }
 
@@ -165,7 +165,7 @@ func resolveMAC(ip string) string {
 func randomMAC() string {
 	b := make([]byte, 6)
 	for i := range b {
-		b[i] = byte(i*17 + 3) & 0xfe | 0x02
+		b[i] = byte(i*17+3)&0xfe | 0x02
 	}
 	return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", b[0], b[1], b[2], b[3], b[4], b[5])
 }

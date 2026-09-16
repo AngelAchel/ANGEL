@@ -7,10 +7,10 @@ import (
 )
 
 type AutonomousDecision struct {
-	mu          sync.RWMutex
-	riskLevel   float64
-	history     []Decision
-	thresholds  Thresholds
+	mu         sync.RWMutex
+	riskLevel  float64
+	history    []Decision
+	thresholds Thresholds
 }
 
 type Decision struct {
@@ -22,19 +22,19 @@ type Decision struct {
 }
 
 type Thresholds struct {
-	AutoExecute float64
+	AutoExecute     float64
 	RequestApproval float64
-	BlockAlert float64
+	BlockAlert      float64
 }
 
 func NewAutonomousDecision() *AutonomousDecision {
 	return &AutonomousDecision{
 		riskLevel: 0.0,
-		history: make([]Decision, 0),
+		history:   make([]Decision, 0),
 		thresholds: Thresholds{
-			AutoExecute: 30,
+			AutoExecute:     30,
 			RequestApproval: 70,
-			BlockAlert: 70,
+			BlockAlert:      70,
 		},
 	}
 }

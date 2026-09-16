@@ -3,10 +3,10 @@ package iot
 import "time"
 
 type IoTConfig struct {
-	TargetIP    string        `json:"target_ip"`
-	TargetPort  int           `json:"target_port"`
-	FirmwarePath string       `json:"firmware_path"`
-	Timeout     time.Duration `json:"timeout"`
+	TargetIP     string        `json:"target_ip"`
+	TargetPort   int           `json:"target_port"`
+	FirmwarePath string        `json:"firmware_path"`
+	Timeout      time.Duration `json:"timeout"`
 }
 
 type IoTResult struct {
@@ -19,15 +19,15 @@ type IoTResult struct {
 }
 
 type FirmwareInfo struct {
-	Vendor    string            `json:"vendor"`
-	Product   string            `json:"product"`
-	Version   string            `json:"version"`
-	Arch      string            `json:"arch"`
-	OS        string            `json:"os"`
-	Size      int64             `json:"size"`
-	Checksum  string            `json:"checksum"`
-	Files     []string          `json:"files"`
-	Metadata  map[string]string `json:"metadata"`
+	Vendor   string            `json:"vendor"`
+	Product  string            `json:"product"`
+	Version  string            `json:"version"`
+	Arch     string            `json:"arch"`
+	OS       string            `json:"os"`
+	Size     int64             `json:"size"`
+	Checksum string            `json:"checksum"`
+	Files    []string          `json:"files"`
+	Metadata map[string]string `json:"metadata"`
 }
 
 type IoTAttack struct {
@@ -46,10 +46,10 @@ type CredentialInfo struct {
 }
 
 type HardcodedKey struct {
-	Name     string `json:"name"`
-	Type     string `json:"type"`
-	Key      string `json:"key"`
-	Location string `json:"location"`
+	Name      string `json:"name"`
+	Type      string `json:"type"`
+	Key       string `json:"key"`
+	Location  string `json:"location"`
 	Algorithm string `json:"algorithm"`
 }
 

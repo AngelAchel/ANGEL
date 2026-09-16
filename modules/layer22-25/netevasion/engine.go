@@ -43,7 +43,7 @@ func (e *NetEvasionEngine) Evade(method string) (*EvasionResult, error) {
 	e.log.Info("Executing evasion method: %s", method)
 	start := time.Now()
 
- evadeMethod := EvasionMethod(method)
+	evadeMethod := EvasionMethod(method)
 
 	switch evadeMethod {
 	case MethodIPRotation:

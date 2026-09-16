@@ -7,8 +7,8 @@ import (
 
 func newTestEngine() *Engine {
 	return NewEngine(IoTConfig{
-		TargetIP:    "192.168.1.50",
-		TargetPort:  80,
+		TargetIP:     "192.168.1.50",
+		TargetPort:   80,
 		FirmwarePath: "/tmp/firmware.bin",
 	})
 }

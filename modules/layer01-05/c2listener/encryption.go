@@ -12,12 +12,12 @@ import (
 )
 
 type C2Encryption struct {
-	mu       sync.RWMutex
-	key      []byte
-	iv       []byte
-	cipher   cipher.Block
-	gcm      cipher.AEAD
-	alg      string
+	mu     sync.RWMutex
+	key    []byte
+	iv     []byte
+	cipher cipher.Block
+	gcm    cipher.AEAD
+	alg    string
 }
 
 type EncryptionConfig struct {

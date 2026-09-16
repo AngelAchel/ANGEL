@@ -42,19 +42,19 @@ const (
 type EventType string
 
 const (
-	EventCommand  EventType = "command"
-	EventResult   EventType = "result"
-	EventSync     EventType = "sync"
-	EventAlert    EventType = "alert"
+	EventCommand EventType = "command"
+	EventResult  EventType = "result"
+	EventSync    EventType = "sync"
+	EventAlert   EventType = "alert"
 )
 
 type TaskStatus string
 
 const (
-	TaskStatusPending    TaskStatus = "pending"
-	TaskStatusRunning    TaskStatus = "running"
-	TaskStatusCompleted  TaskStatus = "completed"
-	TaskStatusFailed     TaskStatus = "failed"
+	TaskStatusPending   TaskStatus = "pending"
+	TaskStatusRunning   TaskStatus = "running"
+	TaskStatusCompleted TaskStatus = "completed"
+	TaskStatusFailed    TaskStatus = "failed"
 )
 
 type TaskType string
@@ -71,17 +71,17 @@ const (
 )
 
 type Agent struct {
-	ID         string
-	Hostname   string
-	IP         string
-	OS         Platform
-	Arch       string
-	User       string
-	PID        int
-	Process    string
-	LastCheck  time.Time
-	FirstSeen  time.Time
-	Metadata   map[string]string
+	ID        string
+	Hostname  string
+	IP        string
+	OS        Platform
+	Arch      string
+	User      string
+	PID       int
+	Process   string
+	LastCheck time.Time
+	FirstSeen time.Time
+	Metadata  map[string]string
 }
 
 type Task struct {
@@ -107,15 +107,15 @@ type Listener struct {
 }
 
 type Evidence struct {
-	ID          string
-	TaskID      string
-	AgentID     string
-	Type        string
-	Data        []byte
-	Hash        string
-	Timestamp   time.Time
-	ChainHash   string
-	Signature   []byte
+	ID        string
+	TaskID    string
+	AgentID   string
+	Type      string
+	Data      []byte
+	Hash      string
+	Timestamp time.Time
+	ChainHash string
+	Signature []byte
 }
 
 type ModuleResult struct {
@@ -145,12 +145,12 @@ type ScanResult struct {
 }
 
 type Vulnerability struct {
-	CVE       string
-	Severity  Severity
-	Title     string
-	Desc      string
-	Exploit   bool
-	CVSS      float64
+	CVE      string
+	Severity Severity
+	Title    string
+	Desc     string
+	Exploit  bool
+	CVSS     float64
 }
 
 type Credential struct {
@@ -165,12 +165,12 @@ type Credential struct {
 }
 
 type NetworkInterface struct {
-	Name      string
-	IP        string
-	MAC       string
-	Gateway   string
-	DNS       []string
-	IsUp      bool
+	Name    string
+	IP      string
+	MAC     string
+	Gateway string
+	DNS     []string
+	IsUp    bool
 }
 
 type ShellResult struct {

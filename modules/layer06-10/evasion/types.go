@@ -18,11 +18,11 @@ const (
 type DetectionType string
 
 const (
-	DetectionDebugger  DetectionType = "debugger"
-	DetectionVM        DetectionType = "virtual_machine"
-	DetectionSandbox   DetectionType = "sandbox"
-	DetectionHook      DetectionType = "hook"
-	DetectionAnalysis  DetectionType = "analysis"
+	DetectionDebugger DetectionType = "debugger"
+	DetectionVM       DetectionType = "virtual_machine"
+	DetectionSandbox  DetectionType = "sandbox"
+	DetectionHook     DetectionType = "hook"
+	DetectionAnalysis DetectionType = "analysis"
 )
 
 type DetectionResult struct {
@@ -59,21 +59,21 @@ type InjectionConfig struct {
 }
 
 type CleanupConfig struct {
-	ClearEventLogs     bool
-	ClearPrefetch      bool
-	ClearShellHistory  bool
-	ClearForensics     bool
-	MaxAge             time.Duration
-	DryRun             bool
+	ClearEventLogs    bool
+	ClearPrefetch     bool
+	ClearShellHistory bool
+	ClearForensics    bool
+	MaxAge            time.Duration
+	DryRun            bool
 }
 
 type NetworkEvasionConfig struct {
-	IPPool            []string
-	UserAgents        []string
-	TLSFingerprints   []string
-	DNSEncodingType   string
-	TrafficMorphing   bool
-	JitterPercent     float64
+	IPPool          []string
+	UserAgents      []string
+	TLSFingerprints []string
+	DNSEncodingType string
+	TrafficMorphing bool
+	JitterPercent   float64
 }
 
 type SyscallMethod interface {
@@ -98,11 +98,11 @@ type AntiDetector interface {
 }
 
 type EvasionReport struct {
-	Module      string             `json:"module"`
-	Results     []DetectionResult  `json:"results"`
-	Timestamp   time.Time          `json:"timestamp"`
-	RiskScore   float64            `json:"risk_score"`
-	StealthMode bool               `json:"stealth_mode"`
+	Module      string            `json:"module"`
+	Results     []DetectionResult `json:"results"`
+	Timestamp   time.Time         `json:"timestamp"`
+	RiskScore   float64           `json:"risk_score"`
+	StealthMode bool              `json:"stealth_mode"`
 }
 
 func (r *EvasionReport) AddResult(result DetectionResult) {

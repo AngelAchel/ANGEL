@@ -10,12 +10,12 @@ import (
 )
 
 type DestructionChainEngine struct {
-	mu          sync.Mutex
-	config      *DestructionChainConfig
+	mu           sync.Mutex
+	config       *DestructionChainConfig
 	orchestrator *ChainOrchestrator
-	timing      *TimingCoordinator
-	log         *logger.Logger
-	chains      map[string]*DestructionChain
+	timing       *TimingCoordinator
+	log          *logger.Logger
+	chains       map[string]*DestructionChain
 }
 
 func NewDestructionChainEngine(config *DestructionChainConfig) *DestructionChainEngine {
@@ -565,8 +565,8 @@ func (e *DestructionChainEngine) verifyDestructionReadiness(attack *AttackResult
 
 func (e *DestructionChainEngine) generateReport(target *FullScopeTarget, recon *ReconResult, attack *AttackResult, destroy *DestroyResult) *types.ModuleResult {
 	return &types.ModuleResult{
-		Module:    "destructionchain",
-		Success:   attack.Exploited,
+		Module:  "destructionchain",
+		Success: attack.Exploited,
 		Data: map[string]interface{}{
 			"target":  target.Host,
 			"recon":   recon,

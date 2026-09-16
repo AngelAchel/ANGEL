@@ -26,8 +26,8 @@ func NewEngine(config APIConfig) *Engine {
 
 func (e *Engine) OAuthRedirectAttack(oauthConfig OAuthConfig) APIResult {
 	result := APIResult{
-		ID:      uuid.New().String(),
-		BaseURL: e.config.BaseURL,
+		ID:        uuid.New().String(),
+		BaseURL:   e.config.BaseURL,
 		Timestamp: time.Now(),
 	}
 
@@ -58,8 +58,8 @@ func (e *Engine) OAuthRedirectAttack(oauthConfig OAuthConfig) APIResult {
 
 func (e *Engine) JWTAlgorithmBypass(token string) APIResult {
 	result := APIResult{
-		ID:      uuid.New().String(),
-		BaseURL: e.config.BaseURL,
+		ID:        uuid.New().String(),
+		BaseURL:   e.config.BaseURL,
 		Timestamp: time.Now(),
 	}
 
@@ -75,8 +75,8 @@ func (e *Engine) JWTAlgorithmBypass(token string) APIResult {
 
 func (e *Engine) RateLimitBypass(path string) APIResult {
 	result := APIResult{
-		ID:      uuid.New().String(),
-		BaseURL: e.config.BaseURL,
+		ID:        uuid.New().String(),
+		BaseURL:   e.config.BaseURL,
 		Timestamp: time.Now(),
 	}
 
@@ -88,8 +88,8 @@ func (e *Engine) RateLimitBypass(path string) APIResult {
 
 func (e *Engine) IDOREnum(basePath string) APIResult {
 	result := APIResult{
-		ID:      uuid.New().String(),
-		BaseURL: e.config.BaseURL,
+		ID:        uuid.New().String(),
+		BaseURL:   e.config.BaseURL,
 		Timestamp: time.Now(),
 	}
 
@@ -255,10 +255,10 @@ func (e *Engine) detectIDORPatterns(basePath string) []IDORFinding {
 	var findings []IDORFinding
 
 	patterns := []struct {
-		path      string
-		param     string
-		pattern   string
-		detail    string
+		path    string
+		param   string
+		pattern string
+		detail  string
 	}{
 		{basePath + "/users/{id}", "id", "sequential_id", "User ID is sequential integer"},
 		{basePath + "/documents/{uuid}", "uuid", "uuid", "Document accessible with any UUID"},

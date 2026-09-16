@@ -93,9 +93,9 @@ func (e *Engine) SharedPreferencesExtract() MobileResult {
 			Path:   "/data/data/com.example.app/shared_prefs/settings.xml",
 			Format: "XML",
 			Content: map[string]string{
-				"theme":       "dark",
+				"theme":         "dark",
 				"notifications": "true",
-				"debug_mode":  "true",
+				"debug_mode":    "true",
 			},
 			Contains: false,
 		},
@@ -208,9 +208,9 @@ func (e *Engine) analyzeSSLChain(host string) []SSLCertInfo {
 
 	for _, c := range chain {
 		certs = append(certs, SSLCertInfo{
-			Host:      host,
-			Issuer:    c.issuer,
-			Algorithm: c.algorithm,
+			Host:       host,
+			Issuer:     c.issuer,
+			Algorithm:  c.algorithm,
 			Bypassable: strings.Contains(c.issuer, "Intermediate"),
 		})
 	}

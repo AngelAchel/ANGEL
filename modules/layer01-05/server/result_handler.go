@@ -53,8 +53,25 @@ func (rh *ResultHandler) HandleResult(result *TaskResult) {
 
 	rh.results[result.ID] = result
 
-	for _, handler := range rh.handlers {
-		go handler(result)
+	handlersCopy := make(map[string]ResultCallback, len(rh.handlers))
+	for k, v := range rh.handlers {
+		handlersCopy[k] = v
+	}
+
+	for _, handler := range handlersCopy {
+		r := &TaskResult{
+			ID:        result.ID,
+			TaskID:    result.TaskID,
+			AgentID:   result.AgentID,
+			Success:   result.Success,
+			Output:    result.Output,
+			Error:     result.Error,
+			Timestamp: result.Timestamp,
+			Duration:  result.Duration,
+			Data:      result.Data,
+			Type:      result.Type,
+		}
+		handler(r)
 	}
 }
 

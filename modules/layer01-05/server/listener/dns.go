@@ -11,14 +11,14 @@ import (
 )
 
 type DNSListener struct {
-	mu        sync.RWMutex
-	addr      string
-	port      int
-	running   bool
-	agents    map[string]*Agent
-	tasks     map[string]*Task
-	results   []*Result
-	domain    string
+	mu      sync.RWMutex
+	addr    string
+	port    int
+	running bool
+	agents  map[string]*Agent
+	tasks   map[string]*Task
+	results []*Result
+	domain  string
 }
 
 func NewDNSListener(addr string, port int, domain string) *DNSListener {

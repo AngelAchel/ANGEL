@@ -113,7 +113,7 @@ func (tc *TimingCoordinator) GetDelayForStep(stepIndex, totalSteps int) time.Dur
 	defer tc.mu.Unlock()
 
 	base := tc.config.MinDelay
-	multiplier := time.Duration(stepIndex+1)
+	multiplier := time.Duration(stepIndex + 1)
 	delay := base * multiplier
 
 	jitter := time.Duration(float64(delay) * tc.config.Jitter * (rand.Float64()*2 - 1))

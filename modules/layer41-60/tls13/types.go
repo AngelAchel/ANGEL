@@ -32,10 +32,10 @@ type CipherSuite struct {
 }
 
 type TLSVersion struct {
-	Version     uint16 `json:"version"`
-	Name        string `json:"name"`
-	Support     bool   `json:"support"`
-	Vulnerable  bool   `json:"vulnerable"`
+	Version    uint16 `json:"version"`
+	Name       string `json:"name"`
+	Support    bool   `json:"support"`
+	Vulnerable bool   `json:"vulnerable"`
 }
 
 type TicketInfo struct {
@@ -60,8 +60,8 @@ type DowngradeInfo struct {
 }
 
 type PaddingOracleInfo struct {
-	Vulnerable  bool   `json:"vulnerable"`
-	BlockSize   int    `json:"block_size"`
-	Technique   string `json:"technique"`
-	Confidence  string `json:"confidence"`
+	Vulnerable bool   `json:"vulnerable"`
+	BlockSize  int    `json:"block_size"`
+	Technique  string `json:"technique"`
+	Confidence string `json:"confidence"`
 }

@@ -10,38 +10,38 @@ import (
 )
 
 type TrafficGenerator struct {
-	mu          sync.RWMutex
-	config      TrafficConfig
-	patterns    []TrafficPattern
-	running     bool
-	stopCh      chan struct{}
-	totalSent   int64
-	totalRecv   int64
+	mu        sync.RWMutex
+	config    TrafficConfig
+	patterns  []TrafficPattern
+	running   bool
+	stopCh    chan struct{}
+	totalSent int64
+	totalRecv int64
 }
 
 type TrafficConfig struct {
-	Rate        float64
-	BurstSize   int
-	Pattern     string
-	Protocol    string
-	TargetIP    string
-	TargetPort  int
+	Rate       float64
+	BurstSize  int
+	Pattern    string
+	Protocol   string
+	TargetIP   string
+	TargetPort int
 }
 
 type TrafficPattern struct {
-	Name      string
-	Rate      float64
-	Burst     bool
-	Duration  time.Duration
-	Variance  float64
+	Name     string
+	Rate     float64
+	Burst    bool
+	Duration time.Duration
+	Variance float64
 }
 
 type TrafficStats struct {
-	TotalSent   int64
-	TotalRecv   int64
-	AvgRate     float64
-	PeakRate    float64
-	Timestamp   time.Time
+	TotalSent int64
+	TotalRecv int64
+	AvgRate   float64
+	PeakRate  float64
+	Timestamp time.Time
 }
 
 func NewTrafficGenerator(config TrafficConfig) *TrafficGenerator {
@@ -145,11 +145,11 @@ func (tg *TrafficGenerator) GetStats() TrafficStats {
 	defer tg.mu.RUnlock()
 
 	return TrafficStats{
-		TotalSent:  tg.totalSent,
-		TotalRecv:  tg.totalRecv,
-		AvgRate:    float64(tg.totalSent) / time.Since(time.Now()).Seconds(),
-		PeakRate:   float64(tg.config.Rate) * 1.5,
-		Timestamp:  time.Now(),
+		TotalSent: tg.totalSent,
+		TotalRecv: tg.totalRecv,
+		AvgRate:   float64(tg.totalSent) / time.Since(time.Now()).Seconds(),
+		PeakRate:  float64(tg.config.Rate) * 1.5,
+		Timestamp: time.Now(),
 	}
 }
 

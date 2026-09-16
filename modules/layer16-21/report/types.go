@@ -7,10 +7,10 @@ import (
 )
 
 type ReportConfig struct {
-	Title       string
-	Engagement  string
-	Author      string
-	OutputDir   string
+	Title      string
+	Engagement string
+	Author     string
+	OutputDir  string
 }
 
 type Finding struct {
@@ -37,12 +37,12 @@ type Engagement struct {
 }
 
 type Report struct {
-	ID        string    `json:"id"`
-	Title     string    `json:"title"`
-	Engagement string  `json:"engagement"`
-	CreatedAt time.Time `json:"created_at"`
-	Author    string    `json:"author"`
-	Sections  []Section `json:"sections"`
+	ID         string    `json:"id"`
+	Title      string    `json:"title"`
+	Engagement string    `json:"engagement"`
+	CreatedAt  time.Time `json:"created_at"`
+	Author     string    `json:"author"`
+	Sections   []Section `json:"sections"`
 }
 
 type Section struct {
@@ -52,18 +52,18 @@ type Section struct {
 
 type TechnicalReport struct {
 	Report
-	Findings  []Finding `json:"findings"`
-	Evidence  []string  `json:"evidence"`
+	Findings []Finding `json:"findings"`
+	Evidence []string  `json:"evidence"`
 }
 
 type ExecutiveSummary struct {
-	TotalFindings  int     `json:"total_findings"`
-	CriticalCount  int     `json:"critical_count"`
-	HighCount      int     `json:"high_count"`
-	MediumCount    int     `json:"medium_count"`
-	LowCount       int     `json:"low_count"`
-	RiskScore      float64 `json:"risk_score"`
-	Summary        string  `json:"summary"`
+	TotalFindings int     `json:"total_findings"`
+	CriticalCount int     `json:"critical_count"`
+	HighCount     int     `json:"high_count"`
+	MediumCount   int     `json:"medium_count"`
+	LowCount      int     `json:"low_count"`
+	RiskScore     float64 `json:"risk_score"`
+	Summary       string  `json:"summary"`
 }
 
 type SeverityBreakdown struct {
@@ -74,8 +74,8 @@ type SeverityBreakdown struct {
 }
 
 type Metrics struct {
-	Breakdown    SeverityBreakdown `json:"breakdown"`
-	Total        int               `json:"total"`
-	RiskScore    float64           `json:"risk_score"`
-	Categories   map[string]int    `json:"categories"`
+	Breakdown  SeverityBreakdown `json:"breakdown"`
+	Total      int               `json:"total"`
+	RiskScore  float64           `json:"risk_score"`
+	Categories map[string]int    `json:"categories"`
 }

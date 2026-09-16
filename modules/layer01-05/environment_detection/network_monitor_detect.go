@@ -9,8 +9,8 @@ import (
 )
 
 type NetworkMonitorDetector struct {
-	mu       sync.RWMutex
-	detected bool
+	mu          sync.RWMutex
+	detected    bool
 	monitorType string
 }
 

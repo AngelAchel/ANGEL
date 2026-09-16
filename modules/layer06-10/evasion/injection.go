@@ -11,13 +11,13 @@ import (
 )
 
 var (
-	ErrInjectionFailed     = errors.New("injection failed")
-	ErrInvalidConfig       = errors.New("invalid injection config")
-	ErrProcessNotFound     = errors.New("target process not found")
-	ErrAccessDenied        = errors.New("access denied to target process")
-	ErrMethodNotSupported  = errors.New("injection method not supported")
-	ErrPayloadEmpty        = errors.New("payload is empty")
-	ErrInvalidPID          = errors.New("invalid process ID")
+	ErrInjectionFailed    = errors.New("injection failed")
+	ErrInvalidConfig      = errors.New("invalid injection config")
+	ErrProcessNotFound    = errors.New("target process not found")
+	ErrAccessDenied       = errors.New("access denied to target process")
+	ErrMethodNotSupported = errors.New("injection method not supported")
+	ErrPayloadEmpty       = errors.New("payload is empty")
+	ErrInvalidPID         = errors.New("invalid process ID")
 )
 
 type CreateRemoteThread struct{}
@@ -26,7 +26,7 @@ func NewCreateRemoteThread() *CreateRemoteThread {
 	return &CreateRemoteThread{}
 }
 
-func (c *CreateRemoteThread) Name() string        { return "CreateRemoteThread" }
+func (c *CreateRemoteThread) Name() string              { return "CreateRemoteThread" }
 func (c *CreateRemoteThread) Category() EvasionCategory { return CategoryInjection }
 func (c *CreateRemoteThread) Description() string {
 	return "Classic remote thread injection via CreateRemoteThread API"
@@ -73,7 +73,7 @@ func NewQueueUserAPC() *QueueUserAPC {
 	return &QueueUserAPC{}
 }
 
-func (q *QueueUserAPC) Name() string        { return "QueueUserAPC" }
+func (q *QueueUserAPC) Name() string              { return "QueueUserAPC" }
 func (q *QueueUserAPC) Category() EvasionCategory { return CategoryInjection }
 func (q *QueueUserAPC) Description() string {
 	return "Asynchronous Procedure Call injection via QueueUserAPC"
@@ -107,7 +107,7 @@ func NewProcessHollowing() *ProcessHollowing {
 	return &ProcessHollowing{}
 }
 
-func (p *ProcessHollowing) Name() string        { return "ProcessHollowing" }
+func (p *ProcessHollowing) Name() string              { return "ProcessHollowing" }
 func (p *ProcessHollowing) Category() EvasionCategory { return CategoryInjection }
 func (p *ProcessHollowing) Description() string {
 	return "Process hollowing: create suspended process, hollow it, and inject payload"
@@ -141,7 +141,7 @@ func NewThreadHijacking() *ThreadHijacking {
 	return &ThreadHijacking{}
 }
 
-func (t *ThreadHijacking) Name() string        { return "ThreadHijacking" }
+func (t *ThreadHijacking) Name() string              { return "ThreadHijacking" }
 func (t *ThreadHijacking) Category() EvasionCategory { return CategoryInjection }
 func (t *ThreadHijacking) Description() string {
 	return "Hijack existing thread context to redirect execution"
@@ -175,7 +175,7 @@ func NewModuleStomping() *ModuleStomping {
 	return &ModuleStomping{}
 }
 
-func (m *ModuleStomping) Name() string        { return "ModuleStomping" }
+func (m *ModuleStomping) Name() string              { return "ModuleStomping" }
 func (m *ModuleStomping) Category() EvasionCategory { return CategoryInjection }
 func (m *ModuleStomping) Description() string {
 	return "Overwrite legitimate module in memory with malicious payload"
@@ -209,7 +209,7 @@ func NewReflectiveDLL() *ReflectiveDLL {
 	return &ReflectiveDLL{}
 }
 
-func (r *ReflectiveDLL) Name() string        { return "ReflectiveDLL" }
+func (r *ReflectiveDLL) Name() string              { return "ReflectiveDLL" }
 func (r *ReflectiveDLL) Category() EvasionCategory { return CategoryInjection }
 func (r *ReflectiveDLL) Description() string {
 	return "Reflective DLL injection: manually load DLL from memory"
@@ -243,7 +243,7 @@ func NewSectionMapping() *SectionMapping {
 	return &SectionMapping{}
 }
 
-func (s *SectionMapping) Name() string        { return "SectionMapping" }
+func (s *SectionMapping) Name() string              { return "SectionMapping" }
 func (s *SectionMapping) Category() EvasionCategory { return CategoryInjection }
 func (s *SectionMapping) Description() string {
 	return "Section mapping injection via shared memory sections"
@@ -278,10 +278,10 @@ type InjectionEngine struct {
 }
 
 type InjectionStats struct {
-	Attempts   int
-	Successes  int
-	Failures   int
-	LastUsed   time.Time
+	Attempts  int
+	Successes int
+	Failures  int
+	LastUsed  time.Time
 }
 
 func NewInjectionEngine() *InjectionEngine {

@@ -8,7 +8,7 @@ import (
 )
 
 type TrafficMorpher struct {
-	userAgents    []string
+	userAgents      []string
 	tlsFingerprints []string
 }
 

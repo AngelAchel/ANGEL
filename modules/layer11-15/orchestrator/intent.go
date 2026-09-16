@@ -9,8 +9,8 @@ import (
 )
 
 type IntentClassifier struct {
-	log     *logger.Logger
-	rules   []ClassificationRule
+	log   *logger.Logger
+	rules []ClassificationRule
 }
 
 type ClassificationRule struct {
@@ -109,12 +109,12 @@ func (ic *IntentClassifier) SelectAction(intent *Intent) (*Action, error) {
 	}
 
 	action := &Action{
-		ID:          fmt.Sprintf("action_%d", time.Now().UnixNano()),
-		Intent:      intent,
-		Module:      intent.Module,
-		Method:      intent.Action,
-		Params:      intent.Params,
-		RiskScore:   intent.Confidence,
+		ID:               fmt.Sprintf("action_%d", time.Now().UnixNano()),
+		Intent:           intent,
+		Module:           intent.Module,
+		Method:           intent.Action,
+		Params:           intent.Params,
+		RiskScore:        intent.Confidence,
 		RequiresApproval: intent.RiskLevel == RiskLevelRequestApproval,
 	}
 

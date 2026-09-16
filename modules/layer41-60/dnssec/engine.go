@@ -8,9 +8,9 @@ import (
 )
 
 type Engine struct {
-	config    DNSSECConfig
-	zoneInfo  ZoneInfo
-	mu        sync.Mutex
+	config   DNSSECConfig
+	zoneInfo ZoneInfo
+	mu       sync.Mutex
 }
 
 func NewEngine(cfg DNSSECConfig) *Engine {
@@ -68,7 +68,7 @@ func (e *Engine) simulateNSECRecord(name string, zone string) NSECRecord {
 		next = "ftp." + zone
 	} else if name == "ftp."+zone {
 		next = "ns1." + zone
-	} else if name == "ns1." +zone {
+	} else if name == "ns1."+zone {
 		next = zone
 	}
 

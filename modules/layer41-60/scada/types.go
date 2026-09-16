@@ -3,10 +3,10 @@ package scada
 import "time"
 
 type SCADAConfig struct {
-	TargetIP    string        `json:"target_ip"`
-	TargetPort  int           `json:"target_port"`
-	Protocol    string        `json:"protocol"`
-	Timeout     time.Duration `json:"timeout"`
+	TargetIP   string        `json:"target_ip"`
+	TargetPort int           `json:"target_port"`
+	Protocol   string        `json:"protocol"`
+	Timeout    time.Duration `json:"timeout"`
 }
 
 type SCADAResult struct {
@@ -19,10 +19,10 @@ type SCADAResult struct {
 }
 
 type ICSProtocol struct {
-	Name      string `json:"name"`
-	Port      int    `json:"port"`
-	Version   string `json:"version"`
-	Binary    bool   `json:"binary"`
+	Name    string `json:"name"`
+	Port    int    `json:"port"`
+	Version string `json:"version"`
+	Binary  bool   `json:"binary"`
 }
 
 type SCADAAttack struct {
@@ -33,18 +33,18 @@ type SCADAAttack struct {
 }
 
 type ModbusDevice struct {
-	UnitID      byte   `json:"unit_id"`
-	FunctionCode byte  `json:"function_code"`
-	Address     uint16 `json:"address"`
-	Value       uint16 `json:"value"`
+	UnitID       byte   `json:"unit_id"`
+	FunctionCode byte   `json:"function_code"`
+	Address      uint16 `json:"address"`
+	Value        uint16 `json:"value"`
 }
 
 type OPCNode struct {
-	NodeID    string `json:"node_id"`
-	Name      string `json:"name"`
-	DataType  string `json:"data_type"`
-	Access    string `json:"access"`
-	Value     string `json:"value"`
+	NodeID   string `json:"node_id"`
+	Name     string `json:"name"`
+	DataType string `json:"data_type"`
+	Access   string `json:"access"`
+	Value    string `json:"value"`
 }
 
 type S7Function struct {
@@ -55,18 +55,18 @@ type S7Function struct {
 }
 
 type DNP3Frame struct {
-	Start    byte   `json:"start"`
-	Length   byte   `json:"length"`
-	Control  byte   `json:"control"`
-	Dest     byte   `json:"dest"`
-	Source   byte   `json:"source"`
-	CRC      uint16 `json:"crc"`
+	Start   byte   `json:"start"`
+	Length  byte   `json:"length"`
+	Control byte   `json:"control"`
+	Dest    byte   `json:"dest"`
+	Source  byte   `json:"source"`
+	CRC     uint16 `json:"crc"`
 }
 
 type PLCInfo struct {
-	Vendor    string `json:"vendor"`
-	Product   string `json:"product"`
-	Firmware  string `json:"firmware"`
-	IP        string `json:"ip"`
-	Protocol  string `json:"protocol"`
+	Vendor   string `json:"vendor"`
+	Product  string `json:"product"`
+	Firmware string `json:"firmware"`
+	IP       string `json:"ip"`
+	Protocol string `json:"protocol"`
 }

@@ -7,10 +7,10 @@ import (
 )
 
 type EDRDetector struct {
-	mu          sync.RWMutex
-	edrNames    []string
-	detected    bool
-	edrType     string
+	mu       sync.RWMutex
+	edrNames []string
+	detected bool
+	edrType  string
 }
 
 func NewEDRDetector() *EDRDetector {

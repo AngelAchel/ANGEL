@@ -21,10 +21,10 @@ type JWTClaims struct {
 }
 
 type JWTManager struct {
-	secret     []byte
-	expiry     time.Duration
-	issuer     string
-	blacklist  map[string]time.Time
+	secret    []byte
+	expiry    time.Duration
+	issuer    string
+	blacklist map[string]time.Time
 }
 
 func NewJWTManager(secret string, expiry time.Duration) *JWTManager {
@@ -110,10 +110,10 @@ type RBACManager struct {
 func NewRBACManager() *RBACManager {
 	return &RBACManager{
 		roles: map[string][]string{
-			"admin":   {"read", "write", "delete", "execute", "manage"},
+			"admin":    {"read", "write", "delete", "execute", "manage"},
 			"operator": {"read", "write", "execute"},
-			"viewer":  {"read"},
-			"guest":   {},
+			"viewer":   {"read"},
+			"guest":    {},
 		},
 	}
 }

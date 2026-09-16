@@ -13,12 +13,12 @@ import (
 )
 
 type BaseDetector struct {
-	engine  *SQLiEngine
-	name    string
-	itype   InjectionType
+	engine *SQLiEngine
+	name   string
+	itype  InjectionType
 }
 
-func (d *BaseDetector) Name() string       { return d.name }
+func (d *BaseDetector) Name() string        { return d.name }
 func (d *BaseDetector) Type() InjectionType { return d.itype }
 
 func (d *BaseDetector) makeRequest(targetURL string, params map[string]string, cookies map[string]string) (*HTTPResponse, error) {
@@ -89,9 +89,9 @@ type BooleanBlindDetector struct {
 func NewBooleanBlindDetector(engine *SQLiEngine) *BooleanBlindDetector {
 	return &BooleanBlindDetector{
 		BaseDetector: BaseDetector{
-			engine:  engine,
-			name:    "boolean_blind",
-			itype:   InjectionBooleanBlind,
+			engine: engine,
+			name:   "boolean_blind",
+			itype:  InjectionBooleanBlind,
 		},
 	}
 }
@@ -165,9 +165,9 @@ type TimeBasedDetector struct {
 func NewTimeBasedDetector(engine *SQLiEngine) *TimeBasedDetector {
 	return &TimeBasedDetector{
 		BaseDetector: BaseDetector{
-			engine:  engine,
-			name:    "time_based",
-			itype:   InjectionTimeBased,
+			engine: engine,
+			name:   "time_based",
+			itype:  InjectionTimeBased,
 		},
 	}
 }
@@ -225,9 +225,9 @@ type ErrorBasedDetector struct {
 func NewErrorBasedDetector(engine *SQLiEngine) *ErrorBasedDetector {
 	return &ErrorBasedDetector{
 		BaseDetector: BaseDetector{
-			engine:  engine,
-			name:    "error_based",
-			itype:   InjectionErrorBased,
+			engine: engine,
+			name:   "error_based",
+			itype:  InjectionErrorBased,
 		},
 	}
 }
@@ -299,9 +299,9 @@ type UnionBasedDetector struct {
 func NewUnionBasedDetector(engine *SQLiEngine) *UnionBasedDetector {
 	return &UnionBasedDetector{
 		BaseDetector: BaseDetector{
-			engine:  engine,
-			name:    "union_based",
-			itype:   InjectionUnionBased,
+			engine: engine,
+			name:   "union_based",
+			itype:  InjectionUnionBased,
 		},
 	}
 }
@@ -358,8 +358,8 @@ func (d *UnionBasedDetector) Detect(url string, params []string) (*InjectionResu
 								Severity:   SeverityCritical,
 								Response:   unionResp,
 								Details: map[string]string{
-									"columns":  strconv.Itoa(numCols),
-									"marker":   marker,
+									"columns":          strconv.Itoa(numCols),
+									"marker":           marker,
 									"reflected_marker": markerPayload,
 								},
 							}, nil
@@ -380,9 +380,9 @@ type StackedDetector struct {
 func NewStackedDetector(engine *SQLiEngine) *StackedDetector {
 	return &StackedDetector{
 		BaseDetector: BaseDetector{
-			engine:  engine,
-			name:    "stacked",
-			itype:   InjectionStacked,
+			engine: engine,
+			name:   "stacked",
+			itype:  InjectionStacked,
 		},
 	}
 }
@@ -411,13 +411,13 @@ func (d *StackedDetector) Detect(url string, params []string) (*InjectionResult,
 
 			if resp.StatusCode == baseline.StatusCode {
 				return &InjectionResult{
-					Found:      true,
-					Type:       d.itype,
-					Payload:    payload,
-					Evidence:   fmt.Sprintf("Stacked query accepted, response code: %d", resp.StatusCode),
-					Confidence: 0.7,
-					Severity:   SeverityCritical,
-					Response:   resp,
+					Found:       true,
+					Type:        d.itype,
+					Payload:     payload,
+					Evidence:    fmt.Sprintf("Stacked query accepted, response code: %d", resp.StatusCode),
+					Confidence:  0.7,
+					Severity:    SeverityCritical,
+					Response:    resp,
 					TimingDelta: elapsed,
 					Details: map[string]string{
 						"elapsed": elapsed.String(),
@@ -436,9 +436,9 @@ type OOBDNSDetector struct {
 func NewOOBDNSDetector(engine *SQLiEngine) *OOBDNSDetector {
 	return &OOBDNSDetector{
 		BaseDetector: BaseDetector{
-			engine:  engine,
-			name:    "oob_dns",
-			itype:   InjectionOOBDNS,
+			engine: engine,
+			name:   "oob_dns",
+			itype:  InjectionOOBDNS,
 		},
 	}
 }
@@ -483,9 +483,9 @@ type OOBHTTPDetector struct {
 func NewOOBHTTPDetector(engine *SQLiEngine) *OOBHTTPDetector {
 	return &OOBHTTPDetector{
 		BaseDetector: BaseDetector{
-			engine:  engine,
-			name:    "oob_http",
-			itype:   InjectionOOBHTTP,
+			engine: engine,
+			name:   "oob_http",
+			itype:  InjectionOOBHTTP,
 		},
 	}
 }
@@ -529,9 +529,9 @@ type OOBICMPDetector struct {
 func NewOOBICMPDetector(engine *SQLiEngine) *OOBICMPDetector {
 	return &OOBICMPDetector{
 		BaseDetector: BaseDetector{
-			engine:  engine,
-			name:    "oob_icmp",
-			itype:   InjectionOOBICMP,
+			engine: engine,
+			name:   "oob_icmp",
+			itype:  InjectionOOBICMP,
 		},
 	}
 }

@@ -38,39 +38,39 @@ func (n NetworkBypass) String() string {
 }
 
 type ZeroTrustConfig struct {
-	TargetDomain    string
-	IDPProvider     string
-	SSOEndpoint     string
-	MFAMethod       string
-	NetworkRange    string
-	PolicyEngine    string
-	TokenFile       string
-	SSOToken        string
-	AccessPolicies  []AccessPolicy
+	TargetDomain   string
+	IDPProvider    string
+	SSOEndpoint    string
+	MFAMethod      string
+	NetworkRange   string
+	PolicyEngine   string
+	TokenFile      string
+	SSOToken       string
+	AccessPolicies []AccessPolicy
 }
 
 type ZTResult struct {
 	ID              string                `json:"id"`
 	IdentityResults []IdentityResult      `json:"identity_results"`
-	NetworkResults  []NetworkBypassResult  `json:"network_results"`
+	NetworkResults  []NetworkBypassResult `json:"network_results"`
 	PolicyFindings  []PolicyFinding       `json:"policy_findings"`
-	Score           int                    `json:"score"`
-	Timestamp       time.Time              `json:"timestamp"`
+	Score           int                   `json:"score"`
+	Timestamp       time.Time             `json:"timestamp"`
 }
 
 type IdentityResult struct {
-	Attack     IdentityAttack `json:"attack"`
-	Success    bool           `json:"success"`
-	Details    string         `json:"details"`
-	Token      string         `json:"token,omitempty"`
-	Session    string         `json:"session,omitempty"`
+	Attack  IdentityAttack `json:"attack"`
+	Success bool           `json:"success"`
+	Details string         `json:"details"`
+	Token   string         `json:"token,omitempty"`
+	Session string         `json:"session,omitempty"`
 }
 
 type NetworkBypassResult struct {
-	Type       NetworkBypass `json:"type"`
-	Success    bool          `json:"success"`
-	Details    string        `json:"details"`
-	Segment    string        `json:"segment"`
+	Type    NetworkBypass `json:"type"`
+	Success bool          `json:"success"`
+	Details string        `json:"details"`
+	Segment string        `json:"segment"`
 }
 
 type PolicyFinding struct {
@@ -81,10 +81,10 @@ type PolicyFinding struct {
 }
 
 type AccessPolicy struct {
-	Name    string   `json:"name"`
-	Effect  string   `json:"effect"`
+	Name       string   `json:"name"`
+	Effect     string   `json:"effect"`
 	Principals []string `json:"principals"`
-	Resources []string `json:"resources"`
+	Resources  []string `json:"resources"`
 	Conditions []string `json:"conditions"`
 }
 
@@ -96,8 +96,8 @@ type MFAConfig struct {
 }
 
 type SSOConfig struct {
-	Issuer      string
-	Audience    string
-	TokenFile   string
+	Issuer       string
+	Audience     string
+	TokenFile    string
 	RefreshToken string
 }

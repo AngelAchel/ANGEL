@@ -30,12 +30,12 @@ type PhysicalConfig struct {
 }
 
 type PhysicalResult struct {
-	ID            string            `json:"id"`
-	USBDrops      []USBDropResult   `json:"usb_drops"`
-	BadgeClones   []BadgeCloneResult `json:"badge_clones"`
-	LockResults   []LockResult      `json:"lock_results"`
-	NetworkTaps   []NetworkTapResult `json:"network_taps"`
-	Timestamp     time.Time         `json:"timestamp"`
+	ID          string             `json:"id"`
+	USBDrops    []USBDropResult    `json:"usb_drops"`
+	BadgeClones []BadgeCloneResult `json:"badge_clones"`
+	LockResults []LockResult       `json:"lock_results"`
+	NetworkTaps []NetworkTapResult `json:"network_taps"`
+	Timestamp   time.Time          `json:"timestamp"`
 }
 
 type USBDropResult struct {
@@ -58,25 +58,25 @@ type BadgeCloneResult struct {
 }
 
 type BadgeConfig struct {
-	ReaderType    string
-	WriterType    string
-	CloneAll      bool
-	FacilityCode  int
-	BitLength     int
+	ReaderType   string
+	WriterType   string
+	CloneAll     bool
+	FacilityCode int
+	BitLength    int
 }
 
 type LockResult struct {
-	LockType      string `json:"lock_type"`
-	Method        string `json:"method"`
-	Success       bool   `json:"success"`
-	TimeSeconds   int    `json:"time_seconds"`
-	Details       string `json:"details"`
+	LockType    string `json:"lock_type"`
+	Method      string `json:"method"`
+	Success     bool   `json:"success"`
+	TimeSeconds int    `json:"time_seconds"`
+	Details     string `json:"details"`
 }
 
 type NetworkTapResult struct {
-	Type          string `json:"type"`
-	Location      string `json:"location"`
-	Active        bool   `json:"active"`
-	PacketsCaptured int  `json:"packets_captured"`
-	Interfaces    []string `json:"interfaces"`
+	Type            string   `json:"type"`
+	Location        string   `json:"location"`
+	Active          bool     `json:"active"`
+	PacketsCaptured int      `json:"packets_captured"`
+	Interfaces      []string `json:"interfaces"`
 }

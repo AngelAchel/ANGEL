@@ -6,10 +6,10 @@ import (
 
 func TestNewC2Channel(t *testing.T) {
 	ch := NewC2Channel(ChannelConfig{
-		Protocol: "https",
-		Addr:     "127.0.0.1",
-		Port:     443,
-		Encrypted: true,
+		Protocol:   "https",
+		Addr:       "127.0.0.1",
+		Port:       443,
+		Encrypted:  true,
 		MaxRetries: 3,
 	})
 	if ch == nil {

@@ -48,25 +48,25 @@ type OAuthAttack struct {
 }
 
 type SAMLAssertion struct {
-	ID           string    `json:"id"`
-	IssueInstant time.Time `json:"issue_instant"`
-	Issuer       string    `json:"issuer"`
-	NameID       string    `json:"name_id"`
-	NameIDFormat string    `json:"name_id_format"`
-	SessionIndex string    `json:"session_index"`
-	Conditions   []string  `json:"conditions"`
+	ID           string            `json:"id"`
+	IssueInstant time.Time         `json:"issue_instant"`
+	Issuer       string            `json:"issuer"`
+	NameID       string            `json:"name_id"`
+	NameIDFormat string            `json:"name_id_format"`
+	SessionIndex string            `json:"session_index"`
+	Conditions   []string          `json:"conditions"`
 	Attributes   map[string]string `json:"attributes"`
 }
 
 type SAMLResponse struct {
-	ID              string            `json:"id"`
-	IssueInstant    time.Time         `json:"issue_instant"`
-	Destination     string            `json:"destination"`
-	AssertionID     string            `json:"assertion_id"`
-	Status          string            `json:"status"`
-	Assertions      []SAMLAssertion   `json:"assertions"`
-	SignatureValue  string            `json:"signature_value"`
-	CertThumbprint  string            `json:"cert_thumbprint"`
+	ID             string          `json:"id"`
+	IssueInstant   time.Time       `json:"issue_instant"`
+	Destination    string          `json:"destination"`
+	AssertionID    string          `json:"assertion_id"`
+	Status         string          `json:"status"`
+	Assertions     []SAMLAssertion `json:"assertions"`
+	SignatureValue string          `json:"signature_value"`
+	CertThumbprint string          `json:"cert_thumbprint"`
 }
 
 type OIDCCodeFlow struct {

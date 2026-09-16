@@ -51,44 +51,44 @@ func (e *Engine) checkPCIControls(scope []string) []ControlCheck {
 	controls := make([]ControlCheck, 0)
 
 	controls = append(controls, ControlCheck{
-		ID:       "PCI-DSS-1.1",
-		Name:     "Firewall Configuration",
-		Status:   "pass",
-		Severity: "high",
+		ID:          "PCI-DSS-1.1",
+		Name:        "Firewall Configuration",
+		Status:      "pass",
+		Severity:    "high",
 		Description: "Firewall configuration reviewed",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "PCI-DSS-2.1",
-		Name:     "Default Passwords",
-		Status:   "fail",
-		Severity: "critical",
+		ID:          "PCI-DSS-2.1",
+		Name:        "Default Passwords",
+		Status:      "fail",
+		Severity:    "critical",
 		Description: "Default passwords not changed",
 		Remediation: "Change all default passwords",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "PCI-DSS-3.1",
-		Name:     "Data Retention",
-		Status:   "pass",
-		Severity: "medium",
+		ID:          "PCI-DSS-3.1",
+		Name:        "Data Retention",
+		Status:      "pass",
+		Severity:    "medium",
 		Description: "Data retention policy in place",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "PCI-DSS-4.1",
-		Name:     "Encryption",
-		Status:   "fail",
-		Severity: "high",
+		ID:          "PCI-DSS-4.1",
+		Name:        "Encryption",
+		Status:      "fail",
+		Severity:    "high",
 		Description: "Weak encryption detected",
 		Remediation: "Upgrade to TLS 1.2+",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "PCI-DSS-6.1",
-		Name:     "Patch Management",
-		Status:   "warning",
-		Severity: "medium",
+		ID:          "PCI-DSS-6.1",
+		Name:        "Patch Management",
+		Status:      "warning",
+		Severity:    "medium",
 		Description: "Some patches missing",
 		Remediation: "Apply latest security patches",
 	})
@@ -129,36 +129,36 @@ func (e *Engine) checkGDPRControls(scope []string) []ControlCheck {
 	controls := make([]ControlCheck, 0)
 
 	controls = append(controls, ControlCheck{
-		ID:       "GDPR-5.1",
-		Name:     "Data Processing",
-		Status:   "pass",
-		Severity: "high",
+		ID:          "GDPR-5.1",
+		Name:        "Data Processing",
+		Status:      "pass",
+		Severity:    "high",
 		Description: "Data processing activities documented",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "GDPR-17",
-		Name:     "Right to Erasure",
-		Status:   "fail",
-		Severity: "high",
+		ID:          "GDPR-17",
+		Name:        "Right to Erasure",
+		Status:      "fail",
+		Severity:    "high",
 		Description: "Data deletion mechanism not implemented",
 		Remediation: "Implement data deletion API",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "GDPR-25",
-		Name:     "Privacy by Design",
-		Status:   "fail",
-		Severity: "medium",
+		ID:          "GDPR-25",
+		Name:        "Privacy by Design",
+		Status:      "fail",
+		Severity:    "medium",
 		Description: "Privacy controls not embedded in design",
 		Remediation: "Implement privacy by design principles",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "GDPR-33",
-		Name:     "Breach Notification",
-		Status:   "pass",
-		Severity: "high",
+		ID:          "GDPR-33",
+		Name:        "Breach Notification",
+		Status:      "pass",
+		Severity:    "high",
 		Description: "Breach notification process in place",
 	})
 
@@ -198,35 +198,35 @@ func (e *Engine) checkNISTControls(scope []string) []ControlCheck {
 	controls := make([]ControlCheck, 0)
 
 	controls = append(controls, ControlCheck{
-		ID:       "AC-2",
-		Name:     "Account Management",
-		Status:   "pass",
-		Severity: "high",
+		ID:          "AC-2",
+		Name:        "Account Management",
+		Status:      "pass",
+		Severity:    "high",
 		Description: "Account management procedures in place",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "AC-6",
-		Name:     "Least Privilege",
-		Status:   "fail",
-		Severity: "high",
+		ID:          "AC-6",
+		Name:        "Least Privilege",
+		Status:      "fail",
+		Severity:    "high",
 		Description: "Excessive privileges detected",
 		Remediation: "Implement least privilege access",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "AU-2",
-		Name:     "Audit Events",
-		Status:   "pass",
-		Severity: "medium",
+		ID:          "AU-2",
+		Name:        "Audit Events",
+		Status:      "pass",
+		Severity:    "medium",
 		Description: "Audit logging enabled",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "CA-7",
-		Name:     "Continuous Monitoring",
-		Status:   "warning",
-		Severity: "medium",
+		ID:          "CA-7",
+		Name:        "Continuous Monitoring",
+		Status:      "warning",
+		Severity:    "medium",
 		Description: "Monitoring gaps identified",
 		Remediation: "Implement continuous monitoring",
 	})
@@ -267,35 +267,35 @@ func (e *Engine) checkCISControls(scope []string) []ControlCheck {
 	controls := make([]ControlCheck, 0)
 
 	controls = append(controls, ControlCheck{
-		ID:       "CIS-1.1.1",
-		Name:     "File System Configuration",
-		Status:   "pass",
-		Severity: "medium",
+		ID:          "CIS-1.1.1",
+		Name:        "File System Configuration",
+		Status:      "pass",
+		Severity:    "medium",
 		Description: "File system permissions verified",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "CIS-2.1",
-		Name:     "SSH Configuration",
-		Status:   "fail",
-		Severity: "high",
+		ID:          "CIS-2.1",
+		Name:        "SSH Configuration",
+		Status:      "fail",
+		Severity:    "high",
 		Description: "SSH root login enabled",
 		Remediation: "Disable SSH root login",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "CIS-3.1",
-		Name:     "Network Parameters",
-		Status:   "pass",
-		Severity: "medium",
+		ID:          "CIS-3.1",
+		Name:        "Network Parameters",
+		Status:      "pass",
+		Severity:    "medium",
 		Description: "Network parameters configured",
 	})
 
 	controls = append(controls, ControlCheck{
-		ID:       "CIS-4.1",
-		Name:     "Logging and Auditing",
-		Status:   "fail",
-		Severity: "high",
+		ID:          "CIS-4.1",
+		Name:        "Logging and Auditing",
+		Status:      "fail",
+		Severity:    "high",
 		Description: "Audit logging incomplete",
 		Remediation: "Enable comprehensive audit logging",
 	})

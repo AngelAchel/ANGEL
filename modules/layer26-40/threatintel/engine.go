@@ -78,13 +78,13 @@ func (e *Engine) IntelReport(target string) IntelResult {
 	result.IOCs = iocs
 
 	report := IntelReport{
-		Title: fmt.Sprintf("Threat Intelligence Report: %s", target),
-		Summary: fmt.Sprintf("Analysis of threat landscape targeting %s. Identified %d indicators of compromise.", target, len(iocs)),
-		IOCs:   iocs,
-		TTPs:   []string{"T1566", "T1059.001", "T1003", "T1041"},
-		Severity: "high",
+		Title:       fmt.Sprintf("Threat Intelligence Report: %s", target),
+		Summary:     fmt.Sprintf("Analysis of threat landscape targeting %s. Identified %d indicators of compromise.", target, len(iocs)),
+		IOCs:        iocs,
+		TTPs:        []string{"T1566", "T1059.001", "T1003", "T1041"},
+		Severity:    "high",
 		PublishedAt: time.Now(),
-		Source:  "ANGEL Platform",
+		Source:      "ANGEL Platform",
 	}
 	result.Reports = append(result.Reports, report)
 

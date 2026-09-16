@@ -12,9 +12,9 @@ import (
 )
 
 type AnsibleManager struct {
-	config *InfraConfig
-	log    *logger.Logger
-	mu     sync.RWMutex
+	config      *InfraConfig
+	log         *logger.Logger
+	mu          sync.RWMutex
 	playbookDir string
 }
 

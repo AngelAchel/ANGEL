@@ -80,14 +80,14 @@ func (o *OAuthModule) OAuthTokenTheft(token string) (*BypassResult, error) {
 	start := time.Now()
 
 	result := &BypassResult{
-		Success:  true,
-		Method:   MethodOAuthBypass,
-		Details:  "OAuth token theft analysis complete",
+		Success:   true,
+		Method:    MethodOAuthBypass,
+		Details:   "OAuth token theft analysis complete",
 		Timestamp: time.Now(),
 		Data: map[string]string{
-			"token_length":  fmt.Sprintf("%d", len(token)),
-			"token_prefix":  tokenPrefix(token),
-			"attack_type":   "token_theft",
+			"token_length": fmt.Sprintf("%d", len(token)),
+			"token_prefix": tokenPrefix(token),
+			"attack_type":  "token_theft",
 		},
 		Duration: time.Since(start),
 	}
@@ -99,17 +99,17 @@ func (o *OAuthModule) OAuthDeviceCodeFlowPoll(clientID string) (*BypassResult, e
 	start := time.Now()
 
 	result := &BypassResult{
-		Success:  true,
-		Method:   MethodOAuthBypass,
-		Details:  "Device code flow poll initiated",
+		Success:   true,
+		Method:    MethodOAuthBypass,
+		Details:   "Device code flow poll initiated",
 		Timestamp: time.Now(),
 		Data: map[string]string{
-			"client_id":     clientID,
-			"device_code":   generateDeviceCode(),
-			"user_code":     generateUserCode(),
+			"client_id":        clientID,
+			"device_code":      generateDeviceCode(),
+			"user_code":        generateUserCode(),
 			"verification_uri": "https://example.com/device",
-			"interval":      "5",
-			"attack_type":   "device_code_poll",
+			"interval":         "5",
+			"attack_type":      "device_code_poll",
 		},
 		Duration: time.Since(start),
 	}

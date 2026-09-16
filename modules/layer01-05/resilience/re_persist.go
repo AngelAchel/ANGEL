@@ -7,27 +7,27 @@ import (
 )
 
 type RePersist struct {
-	mu            sync.RWMutex
+	mu             sync.RWMutex
 	persistenceMap map[string]PersistenceMethod
-	running       bool
-	stopCh        chan struct{}
-	checkInterval time.Duration
+	running        bool
+	stopCh         chan struct{}
+	checkInterval  time.Duration
 }
 
 type PersistenceMethod struct {
-	ID          string
-	Type        string
-	Location    string
-	Active      bool
-	LastCheck   time.Time
+	ID            string
+	Type          string
+	Location      string
+	Active        bool
+	LastCheck     time.Time
 	ReinstallFunc func() error
 }
 
 func NewRePersist(checkInterval time.Duration) *RePersist {
 	return &RePersist{
 		persistenceMap: make(map[string]PersistenceMethod),
-		stopCh:        make(chan struct{}),
-		checkInterval: checkInterval,
+		stopCh:         make(chan struct{}),
+		checkInterval:  checkInterval,
 	}
 }
 

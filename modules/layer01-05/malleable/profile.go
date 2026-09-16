@@ -16,21 +16,21 @@ type Profile struct {
 }
 
 type HTTPGetConfig struct {
-	Method     string
-	URI        []string
-	Port       []int
-	Headers    map[string]string
-	PipeNames  []string
-	Jitter     float64
+	Method    string
+	URI       []string
+	Port      []int
+	Headers   map[string]string
+	PipeNames []string
+	Jitter    float64
 }
 
 type HTTPPostConfig struct {
-	Method     string
-	URI        string
-	Port       []int
-	Headers    map[string]string
-	Output     string
-	Jitter     float64
+	Method  string
+	URI     string
+	Port    []int
+	Headers map[string]string
+	Output  string
+	Jitter  float64
 }
 
 type MetadataConfig struct {
@@ -63,8 +63,8 @@ func LoadProfile(name string) (*Profile, error) {
 				URI:    []string{"/api/v1/meetings", "/api/v1/chats", "/api/v1/calls"},
 				Port:   []int{443},
 				Headers: map[string]string{
-					"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-					"Accept":     "application/json",
+					"User-Agent":  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+					"Accept":      "application/json",
 					"X-MS-Client": "TeamsDesktop",
 				},
 			},

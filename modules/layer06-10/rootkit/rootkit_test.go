@@ -243,9 +243,9 @@ func TestUEFIBackup(t *testing.T) {
 
 func TestSMMRegion(t *testing.T) {
 	region := &SMMRegion{
-		Start:   0xA0000,
-		Size:    0x20000,
-		Access:  "rw",
+		Start:    0xA0000,
+		Size:     0x20000,
+		Access:   "rw",
 		Modified: true,
 	}
 

@@ -10,12 +10,12 @@ import (
 )
 
 type PersistenceEngine struct {
-	config      *PersistenceConfig
-	methods     map[PersistenceMethod]PersistenceMethodInterface
-	mu          sync.RWMutex
-	log         *logger.Logger
-	platform    types.Platform
-	installed   map[PersistenceMethod]*PersistenceResult
+	config    *PersistenceConfig
+	methods   map[PersistenceMethod]PersistenceMethodInterface
+	mu        sync.RWMutex
+	log       *logger.Logger
+	platform  types.Platform
+	installed map[PersistenceMethod]*PersistenceResult
 }
 
 func NewPersistenceEngine(config *PersistenceConfig) *PersistenceEngine {

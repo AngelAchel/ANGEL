@@ -7,9 +7,9 @@ import (
 )
 
 type Scheduler struct {
-	engine    *SQLiEngine
+	engine         *SQLiEngine
 	techniqueQueue []*Technique
-	mu        sync.RWMutex
+	mu             sync.RWMutex
 }
 
 func NewScheduler(engine *SQLiEngine) *Scheduler {
@@ -31,9 +31,9 @@ func (s *Scheduler) ScheduleTechniques(target string) []*Technique {
 		InjectionBooleanBlind: 3,
 		InjectionTimeBased:    4,
 		InjectionStacked:      5,
-		InjectionOOBDNS:      6,
-		InjectionOOBHTTP:     7,
-		InjectionOOBICMP:     8,
+		InjectionOOBDNS:       6,
+		InjectionOOBHTTP:      7,
+		InjectionOOBICMP:      8,
 	}
 
 	enabled := make(map[InjectionType]bool)

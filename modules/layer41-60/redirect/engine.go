@@ -43,7 +43,7 @@ func (e *Engine) generateParamManipulationPayloads(targetURL, redirectURL string
 	payloads = append(payloads, BypassPayload{
 		Encoded:   redirectURL,
 		Decoded:   redirectURL,
-		Evasion:  "direct",
+		Evasion:   "direct",
 		Technique: "Direct URL",
 	})
 
@@ -51,7 +51,7 @@ func (e *Engine) generateParamManipulationPayloads(targetURL, redirectURL string
 	payloads = append(payloads, BypassPayload{
 		Encoded:   encoded,
 		Decoded:   redirectURL,
-		Evasion:  "url_encode",
+		Evasion:   "url_encode",
 		Technique: "URL Encoding",
 	})
 
@@ -59,15 +59,15 @@ func (e *Engine) generateParamManipulationPayloads(targetURL, redirectURL string
 	payloads = append(payloads, BypassPayload{
 		Encoded:   doubleEncoded,
 		Decoded:   redirectURL,
-		Evasion:  "double_url_encode",
+		Evasion:   "double_url_encode",
 		Technique: "Double URL Encoding",
 	})
 
-斜杠Bypass := "https:" + "//" + strings.TrimPrefix(redirectURL, "https://")
+	斜杠Bypass := "https:" + "//" + strings.TrimPrefix(redirectURL, "https://")
 	payloads = append(payloads, BypassPayload{
 		Encoded:   斜杠Bypass,
 		Decoded:   redirectURL,
-		Evasion:  "protocol_relative",
+		Evasion:   "protocol_relative",
 		Technique: "Protocol Relative",
 	})
 
@@ -75,7 +75,7 @@ func (e *Engine) generateParamManipulationPayloads(targetURL, redirectURL string
 	payloads = append(payloads, BypassPayload{
 		Encoded:   dotBypass,
 		Decoded:   redirectURL,
-		Evasion:  "path_prefix",
+		Evasion:   "path_prefix",
 		Technique: "Path Prefix",
 	})
 
@@ -83,7 +83,7 @@ func (e *Engine) generateParamManipulationPayloads(targetURL, redirectURL string
 	payloads = append(payloads, BypassPayload{
 		Encoded:   fragmentBypass,
 		Decoded:   redirectURL,
-		Evasion:  "fragment_manipulation",
+		Evasion:   "fragment_manipulation",
 		Technique: "Fragment Manipulation",
 	})
 

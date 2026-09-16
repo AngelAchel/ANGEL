@@ -13,14 +13,14 @@ type ProfileValidator struct {
 }
 
 type ValidationError struct {
-	Field   string
-	Message string
+	Field    string
+	Message  string
 	Severity string
 }
 
 type ValidationWarning struct {
-	Field   string
-	Message string
+	Field      string
+	Message    string
 	Suggestion string
 }
 

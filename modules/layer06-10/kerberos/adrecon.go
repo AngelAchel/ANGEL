@@ -30,15 +30,15 @@ func (r *ADRecon) EnumDomain() (*DomainInfo, error) {
 	r.logger.Info("Enumerating domain: %s", r.config.Domain)
 
 	info := &DomainInfo{
-		Name:          r.config.Domain,
-		DNSName:       strings.ToLower(r.config.Domain),
-		DomainSID:     "S-1-5-21-" + fmt.Sprintf("%d", time.Now().UnixNano()%100000) + "-" + fmt.Sprintf("%d", time.Now().UnixNano()%100000) + "-" + fmt.Sprintf("%d", time.Now().UnixNano()%100000) + "-1000",
-		DCIP:          r.config.DomainController,
-		DCName:        "DC01",
-		Forest:        strings.ToLower(r.config.Domain),
+		Name:            r.config.Domain,
+		DNSName:         strings.ToLower(r.config.Domain),
+		DomainSID:       "S-1-5-21-" + fmt.Sprintf("%d", time.Now().UnixNano()%100000) + "-" + fmt.Sprintf("%d", time.Now().UnixNano()%100000) + "-" + fmt.Sprintf("%d", time.Now().UnixNano()%100000) + "-1000",
+		DCIP:            r.config.DomainController,
+		DCName:          "DC01",
+		Forest:          strings.ToLower(r.config.Domain),
 		FunctionalLevel: "Windows Server 2016",
-		OSVersion:     "10.0.17763",
-		Timestamp:     time.Now(),
+		OSVersion:       "10.0.17763",
+		Timestamp:       time.Now(),
 	}
 
 	r.logger.Info("Domain enumeration complete: %s (SID: %s)", info.Name, info.DomainSID)
@@ -163,20 +163,20 @@ func (r *ADRecon) EnumGPO() ([]GPOInfo, error) {
 
 	gpos := []GPOInfo{
 		{
-			Name:       "Default Domain Policy",
-			GUID:       "31B2F340-016D-11D2-945F-00C04FB984F9",
-			DN:         "CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=" + strings.ReplaceAll(r.config.Domain, ".", ",DC="),
-			Path:       fmt.Sprintf("\\\\%s\\Sysvol\\%s\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}", r.config.DomainController, r.config.Domain),
-			Version:    1,
-			Timestamp:  time.Now().Add(-24 * time.Hour),
+			Name:      "Default Domain Policy",
+			GUID:      "31B2F340-016D-11D2-945F-00C04FB984F9",
+			DN:        "CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=" + strings.ReplaceAll(r.config.Domain, ".", ",DC="),
+			Path:      fmt.Sprintf("\\\\%s\\Sysvol\\%s\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}", r.config.DomainController, r.config.Domain),
+			Version:   1,
+			Timestamp: time.Now().Add(-24 * time.Hour),
 		},
 		{
-			Name:       "Default Domain Controllers Policy",
-			GUID:       "6AC1786C-016F-11D2-945F-00C04FB984F9",
-			DN:         "CN={6AC1786C-016F-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=" + strings.ReplaceAll(r.config.Domain, ".", ",DC="),
-			Path:       fmt.Sprintf("\\\\%s\\Sysvol\\%s\\Policies\\{6AC1786C-016F-11D2-945F-00C04FB984F9}", r.config.DomainController, r.config.Domain),
-			Version:    3,
-			Timestamp:  time.Now().Add(-48 * time.Hour),
+			Name:      "Default Domain Controllers Policy",
+			GUID:      "6AC1786C-016F-11D2-945F-00C04FB984F9",
+			DN:        "CN={6AC1786C-016F-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=" + strings.ReplaceAll(r.config.Domain, ".", ",DC="),
+			Path:      fmt.Sprintf("\\\\%s\\Sysvol\\%s\\Policies\\{6AC1786C-016F-11D2-945F-00C04FB984F9}", r.config.DomainController, r.config.Domain),
+			Version:   3,
+			Timestamp: time.Now().Add(-48 * time.Hour),
 		},
 	}
 

@@ -11,19 +11,19 @@ import (
 )
 
 type NetworkEvasion struct {
-	config         *NetworkEvasionConfig
-	currentIPIdx   int
-	currentUAIdx   int
-	currentTLSIdx  int
-	trafficState   *TrafficState
-	mu             sync.RWMutex
+	config        *NetworkEvasionConfig
+	currentIPIdx  int
+	currentUAIdx  int
+	currentTLSIdx int
+	trafficState  *TrafficState
+	mu            sync.RWMutex
 }
 
 type TrafficState struct {
-	Pattern       []byte
-	LastMorph     time.Time
-	MorphCount    int
-	JitterActive  bool
+	Pattern      []byte
+	LastMorph    time.Time
+	MorphCount   int
+	JitterActive bool
 }
 
 func NewNetworkEvasion(config *NetworkEvasionConfig) *NetworkEvasion {

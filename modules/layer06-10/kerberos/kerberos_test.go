@@ -535,12 +535,12 @@ func TestHexToBytes(t *testing.T) {
 
 func TestKerberosEngineConfig(t *testing.T) {
 	config := &KerberosConfig{
-		Domain:       "TEST.LOCAL",
+		Domain:           "TEST.LOCAL",
 		DomainController: "dc01.test.local",
-		KDCPort:      88,
-		Realm:        "TEST.LOCAL",
-		Timeout:      60 * time.Second,
-		EncType:      EncAES256,
+		KDCPort:          88,
+		Realm:            "TEST.LOCAL",
+		Timeout:          60 * time.Second,
+		EncType:          EncAES256,
 	}
 
 	engine := NewKerberosEngine(config)

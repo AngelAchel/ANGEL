@@ -25,7 +25,7 @@ type Channel struct {
 
 func NewChannelRotation() *ChannelRotation {
 	return &ChannelRotation{
-		channels: make([]Channel, 0),
+		channels:     make([]Channel, 0),
 		healthChecks: make(map[string]bool),
 	}
 }

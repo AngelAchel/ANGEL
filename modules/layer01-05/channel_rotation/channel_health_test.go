@@ -137,7 +137,7 @@ func TestChannelHealth_GetBestChannel(t *testing.T) {
 func TestChannelHealth_GetBestChannel_OnlyHealthy(t *testing.T) {
 	ch := NewChannelHealth()
 	ch.Update("ch1", false, 5*time.Millisecond) // unhealthy
-	ch.Update("ch2", true, 10*time.Millisecond)  // healthy
+	ch.Update("ch2", true, 10*time.Millisecond) // healthy
 
 	best := ch.GetBestChannel()
 	if best != "ch2" {

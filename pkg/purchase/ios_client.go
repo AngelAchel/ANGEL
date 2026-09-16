@@ -13,11 +13,11 @@ import (
 )
 
 type IOSClient struct {
-	IssuerID    string
-	KeyID       string
-	PrivateKey  *ecdsa.PrivateKey
-	HTTPClient  *http.Client
-	BaseURL     string
+	IssuerID   string
+	KeyID      string
+	PrivateKey *ecdsa.PrivateKey
+	HTTPClient *http.Client
+	BaseURL    string
 }
 
 type IOSReceipt struct {
@@ -30,16 +30,16 @@ type IOSReceipt struct {
 }
 
 type IOSPurchase struct {
-	ID          string    `json:"id"`
-	UserID      string    `json:"user_id"`
-	Platform    string    `json:"platform"`
-	ProductID   string    `json:"product_id"`
-	TransactionID string  `json:"transaction_id"`
-	Status      string    `json:"status"`
-	Amount      float64   `json:"amount"`
-	Currency    string    `json:"currency"`
-	PurchasedAt time.Time `json:"purchased_at"`
-	ExpiresAt   *time.Time `json:"expires_at,omitempty"`
+	ID            string     `json:"id"`
+	UserID        string     `json:"user_id"`
+	Platform      string     `json:"platform"`
+	ProductID     string     `json:"product_id"`
+	TransactionID string     `json:"transaction_id"`
+	Status        string     `json:"status"`
+	Amount        float64    `json:"amount"`
+	Currency      string     `json:"currency"`
+	PurchasedAt   time.Time  `json:"purchased_at"`
+	ExpiresAt     *time.Time `json:"expires_at,omitempty"`
 }
 
 func NewIOSClient() (*IOSClient, error) {
@@ -117,8 +117,8 @@ func (c *IOSClient) VerifyReceipt(receiptData string) (*IOSReceipt, error) {
 	url := "https://buy.itunes.apple.com/verifyReceipt"
 
 	payload := map[string]string{
-		"receipt-data":            receiptData,
-		"password":               os.Getenv("APPLE_SHARED_SECRET"),
+		"receipt-data":             receiptData,
+		"password":                 os.Getenv("APPLE_SHARED_SECRET"),
 		"exclude-old-transactions": "true",
 	}
 

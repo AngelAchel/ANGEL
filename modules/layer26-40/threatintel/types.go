@@ -23,36 +23,36 @@ func (i IOCType) String() string {
 }
 
 type ThreatIntelConfig struct {
-	Target        string
-	IOCTypes      []IOCType
-	FeedURLs      []string
-	APIKeys       map[string]string
-	MITREMapping  bool
-	ReportFormat  string
-	LookbackDays  int
-	IncludeHash   bool
+	Target       string
+	IOCTypes     []IOCType
+	FeedURLs     []string
+	APIKeys      map[string]string
+	MITREMapping bool
+	ReportFormat string
+	LookbackDays int
+	IncludeHash  bool
 }
 
 type IntelResult struct {
-	ID            string        `json:"id"`
-	Target        string        `json:"target"`
-	IOCs          []IOC         `json:"iocs"`
-	ThreatActors  []ThreatActor `json:"threat_actors"`
-	MITREMapping  []MITRETechnique `json:"mitre_mapping"`
-	Reports       []IntelReport `json:"reports"`
-	RiskScore     int           `json:"risk_score"`
-	Timestamp     time.Time     `json:"timestamp"`
+	ID           string           `json:"id"`
+	Target       string           `json:"target"`
+	IOCs         []IOC            `json:"iocs"`
+	ThreatActors []ThreatActor    `json:"threat_actors"`
+	MITREMapping []MITRETechnique `json:"mitre_mapping"`
+	Reports      []IntelReport    `json:"reports"`
+	RiskScore    int              `json:"risk_score"`
+	Timestamp    time.Time        `json:"timestamp"`
 }
 
 type IOC struct {
-	Type       IOCType  `json:"type"`
-	Value      string   `json:"value"`
-	Confidence float64  `json:"confidence"`
-	Source     string   `json:"source"`
-	Tags       []string `json:"tags"`
+	Type       IOCType   `json:"type"`
+	Value      string    `json:"value"`
+	Confidence float64   `json:"confidence"`
+	Source     string    `json:"source"`
+	Tags       []string  `json:"tags"`
 	FirstSeen  time.Time `json:"first_seen"`
 	LastSeen   time.Time `json:"last_seen"`
-	Context    string   `json:"context"`
+	Context    string    `json:"context"`
 }
 
 type ThreatActor struct {
@@ -85,10 +85,10 @@ type IntelReport struct {
 }
 
 type ThreatFeed struct {
-	Name     string `json:"name"`
-	URL      string `json:"url"`
-	Format   string `json:"format"`
-	IOCCount int    `json:"ioc_count"`
+	Name     string    `json:"name"`
+	URL      string    `json:"url"`
+	Format   string    `json:"format"`
+	IOCCount int       `json:"ioc_count"`
 	LastSync time.Time `json:"last_sync"`
-	Health   string `json:"health"`
+	Health   string    `json:"health"`
 }

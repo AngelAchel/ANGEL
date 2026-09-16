@@ -36,40 +36,40 @@ type AIConfig struct {
 }
 
 type AIResult struct {
-	ID            string           `json:"id"`
-	TargetURL     string           `json:"target_url"`
-	ModelName     string           `json:"model_name"`
-	Attacks       []AttackResult   `json:"attacks"`
-	Jailbreaks    []JailbreakResult `json:"jailbreaks"`
-	Vulns         []ModelVuln      `json:"vulnerabilities"`
-	Score         int              `json:"score"`
-	Timestamp     time.Time        `json:"timestamp"`
+	ID         string            `json:"id"`
+	TargetURL  string            `json:"target_url"`
+	ModelName  string            `json:"model_name"`
+	Attacks    []AttackResult    `json:"attacks"`
+	Jailbreaks []JailbreakResult `json:"jailbreaks"`
+	Vulns      []ModelVuln       `json:"vulnerabilities"`
+	Score      int               `json:"score"`
+	Timestamp  time.Time         `json:"timestamp"`
 }
 
 type PromptInjection struct {
-	Prompt      string   `json:"prompt"`
-	Type        string   `json:"type"`
-	Payload     string   `json:"payload"`
-	Encoding    string   `json:"encoding"`
-	Techniques  []string `json:"techniques"`
+	Prompt     string   `json:"prompt"`
+	Type       string   `json:"type"`
+	Payload    string   `json:"payload"`
+	Encoding   string   `json:"encoding"`
+	Techniques []string `json:"techniques"`
 }
 
 type AttackResult struct {
-	Type       AttackType `json:"type"`
-	Success    bool       `json:"success"`
-	Prompt     string     `json:"prompt"`
-	Response   string     `json:"response"`
-	Score      float64    `json:"score"`
-	Details    string     `json:"details"`
+	Type     AttackType `json:"type"`
+	Success  bool       `json:"success"`
+	Prompt   string     `json:"prompt"`
+	Response string     `json:"response"`
+	Score    float64    `json:"score"`
+	Details  string     `json:"details"`
 }
 
 type JailbreakResult struct {
-	Name       string   `json:"name"`
-	Category   string   `json:"category"`
-	Prompt     string   `json:"prompt"`
-	Response   string   `json:"response"`
-	Success    bool     `json:"success"`
-	Severity   string   `json:"severity"`
+	Name     string `json:"name"`
+	Category string `json:"category"`
+	Prompt   string `json:"prompt"`
+	Response string `json:"response"`
+	Success  bool   `json:"success"`
+	Severity string `json:"severity"`
 }
 
 type ModelVuln struct {

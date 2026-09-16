@@ -3,11 +3,11 @@ package upload
 import "time"
 
 type UploadConfig struct {
-	TargetURL     string        `json:"target_url"`
-	FieldName     string        `json:"field_name"`
-	AllowedExts   []string      `json:"allowed_exts"`
-	MaxSize       int64         `json:"max_size"`
-	Timeout       time.Duration `json:"timeout"`
+	TargetURL   string        `json:"target_url"`
+	FieldName   string        `json:"field_name"`
+	AllowedExts []string      `json:"allowed_exts"`
+	MaxSize     int64         `json:"max_size"`
+	Timeout     time.Duration `json:"timeout"`
 }
 
 type UploadResult struct {
@@ -26,10 +26,10 @@ type BypassMethod struct {
 }
 
 type FileType struct {
-	MIME        string   `json:"mime"`
-	Extensions  []string `json:"extensions"`
-	MagicBytes  []byte   `json:"magic_bytes"`
-	MaxSize     int64    `json:"max_size"`
+	MIME       string   `json:"mime"`
+	Extensions []string `json:"extensions"`
+	MagicBytes []byte   `json:"magic_bytes"`
+	MaxSize    int64    `json:"max_size"`
 }
 
 type UploadPayload struct {
@@ -56,7 +56,7 @@ type ExtensionBypass struct {
 }
 
 type ContentTypeBypass struct {
-	Original    string `json:"original"`
-	FakeType    string `json:"fake_type"`
-	Header      string `json:"header"`
+	Original string `json:"original"`
+	FakeType string `json:"fake_type"`
+	Header   string `json:"header"`
 }

@@ -4,10 +4,10 @@ import "testing"
 
 func TestTOCTOUExploit(t *testing.T) {
 	config := RaceCondConfig{
-		TargetURL:   "http://target/api/upload",
-		RaceType:    RaceTypeTOCTOU,
-		NumThreads:  10,
-		Iterations:  100,
+		TargetURL:  "http://target/api/upload",
+		RaceType:   RaceTypeTOCTOU,
+		NumThreads: 10,
+		Iterations: 100,
 		TOCTOUVectors: []TOCTOUVector{
 			{CheckPath: "/etc/passwd", UsePath: "/tmp/link", TimeGap: 10},
 		},

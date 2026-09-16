@@ -6,10 +6,10 @@ import (
 )
 
 type CleanupEngine struct {
-	config     *CleanupConfig
-	credClean  *CredentialCleanup
-	artClean   *ArtifactCleanup
-	dbClean    *DatabaseCleanup
+	config    *CleanupConfig
+	credClean *CredentialCleanup
+	artClean  *ArtifactCleanup
+	dbClean   *DatabaseCleanup
 }
 
 func NewCleanupEngine(config *CleanupConfig) *CleanupEngine {

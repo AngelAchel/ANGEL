@@ -36,8 +36,8 @@ func TestWeakKeyDetect(t *testing.T) {
 func TestHashLengthExt(t *testing.T) {
 	config := CryptoConfig{
 		Plaintext: []byte("secret_data"),
-		IV:         make([]byte, 32),
-		BlockSize:  64,
+		IV:        make([]byte, 32),
+		BlockSize: 64,
 	}
 	engine := NewEngine(config)
 	result := engine.HashLengthExt()

@@ -266,13 +266,13 @@ func (e *Engine) BuildS7ConnectionRequest() []byte {
 
 func (e *Engine) DetectPLCProtocol(port int) string {
 	protocols := map[int]string{
-		502:    "Modbus TCP",
-		102:    "S7comm/S7comm-plus",
-		20000:  "DNP3",
-		44818:  "EtherNet/IP",
-		4840:   "OPC UA",
-		1089:   "Fox",
-		1911:   "Tridium Niagara",
+		502:   "Modbus TCP",
+		102:   "S7comm/S7comm-plus",
+		20000: "DNP3",
+		44818: "EtherNet/IP",
+		4840:  "OPC UA",
+		1089:  "Fox",
+		1911:  "Tridium Niagara",
 	}
 	if proto, ok := protocols[port]; ok {
 		return proto

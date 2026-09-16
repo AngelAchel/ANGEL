@@ -10,8 +10,8 @@ import (
 )
 
 type BaseMethod struct {
-	name             string
-	platform         types.Platform
+	name              string
+	platform          types.Platform
 	requiresElevation bool
 }
 
@@ -34,8 +34,8 @@ type RegistryRunMethod struct {
 func NewRegistryRunMethod() *RegistryRunMethod {
 	return &RegistryRunMethod{
 		BaseMethod: BaseMethod{
-			name:             "registry_run",
-			platform:         types.PlatformWindows,
+			name:              "registry_run",
+			platform:          types.PlatformWindows,
 			requiresElevation: false,
 		},
 	}
@@ -63,7 +63,7 @@ func (m *RegistryRunMethod) Install(params *PersistenceParams) (*PersistenceResu
 		Success: true,
 		Method:  MethodRegistryRun,
 		Details: map[string]string{
-			"key_path":  keyPath,
+			"key_path":   keyPath,
 			"value_name": valueName,
 			"value_data": valueData,
 		},
@@ -115,8 +115,8 @@ type ScheduledTaskMethod struct {
 func NewScheduledTaskMethod() *ScheduledTaskMethod {
 	return &ScheduledTaskMethod{
 		BaseMethod: BaseMethod{
-			name:             "scheduled_task",
-			platform:         types.PlatformWindows,
+			name:              "scheduled_task",
+			platform:          types.PlatformWindows,
 			requiresElevation: false,
 		},
 	}
@@ -221,8 +221,8 @@ type ServiceInstallMethod struct {
 func NewServiceInstallMethod() *ServiceInstallMethod {
 	return &ServiceInstallMethod{
 		BaseMethod: BaseMethod{
-			name:             "service_install",
-			platform:         types.PlatformWindows,
+			name:              "service_install",
+			platform:          types.PlatformWindows,
 			requiresElevation: true,
 		},
 	}
@@ -314,8 +314,8 @@ type WMIEventMethod struct {
 func NewWMIEventMethod() *WMIEventMethod {
 	return &WMIEventMethod{
 		BaseMethod: BaseMethod{
-			name:             "wmi_event",
-			platform:         types.PlatformWindows,
+			name:              "wmi_event",
+			platform:          types.PlatformWindows,
 			requiresElevation: true,
 		},
 	}
@@ -419,8 +419,8 @@ type StartupFolderMethod struct {
 func NewStartupFolderMethod() *StartupFolderMethod {
 	return &StartupFolderMethod{
 		BaseMethod: BaseMethod{
-			name:             "startup_folder",
-			platform:         types.PlatformWindows,
+			name:              "startup_folder",
+			platform:          types.PlatformWindows,
 			requiresElevation: false,
 		},
 	}
@@ -505,8 +505,8 @@ type ADSMethod struct {
 func NewADSMethod() *ADSMethod {
 	return &ADSMethod{
 		BaseMethod: BaseMethod{
-			name:             "ads",
-			platform:         types.PlatformWindows,
+			name:              "ads",
+			platform:          types.PlatformWindows,
 			requiresElevation: false,
 		},
 	}
@@ -533,8 +533,8 @@ func (m *ADSMethod) Install(params *PersistenceParams) (*PersistenceResult, erro
 		Success: true,
 		Method:  MethodADS,
 		Details: map[string]string{
-			"target_file":  targetFile,
-			"stream_name":  streamName,
+			"target_file": targetFile,
+			"stream_name": streamName,
 		},
 	}, nil
 }
@@ -579,8 +579,8 @@ type DLLSideloadMethod struct {
 func NewDLLSideloadMethod() *DLLSideloadMethod {
 	return &DLLSideloadMethod{
 		BaseMethod: BaseMethod{
-			name:             "dll_sideload",
-			platform:         types.PlatformWindows,
+			name:              "dll_sideload",
+			platform:          types.PlatformWindows,
 			requiresElevation: false,
 		},
 	}
@@ -655,8 +655,8 @@ type COMHijackMethod struct {
 func NewCOMHijackMethod() *COMHijackMethod {
 	return &COMHijackMethod{
 		BaseMethod: BaseMethod{
-			name:             "com_hijack",
-			platform:         types.PlatformWindows,
+			name:              "com_hijack",
+			platform:          types.PlatformWindows,
 			requiresElevation: true,
 		},
 	}
@@ -688,8 +688,8 @@ Set-ItemProperty -Path "HKLM:\Software\Classes\CLSID\%s\InprocServer32" -Name "T
 		Success: true,
 		Method:  MethodCOMHijack,
 		Details: map[string]string{
-			"clsid":     clsid,
-			"dll_path":  params.AgentPath,
+			"clsid":    clsid,
+			"dll_path": params.AgentPath,
 		},
 	}, nil
 }
@@ -736,8 +736,8 @@ type AppInitMethod struct {
 func NewAppInitMethod() *AppInitMethod {
 	return &AppInitMethod{
 		BaseMethod: BaseMethod{
-			name:             "app_init",
-			platform:         types.PlatformWindows,
+			name:              "app_init",
+			platform:          types.PlatformWindows,
 			requiresElevation: true,
 		},
 	}
@@ -805,8 +805,8 @@ type IFEOMethod struct {
 func NewIFEOMethod() *IFEOMethod {
 	return &IFEOMethod{
 		BaseMethod: BaseMethod{
-			name:             "ifeo",
-			platform:         types.PlatformWindows,
+			name:              "ifeo",
+			platform:          types.PlatformWindows,
 			requiresElevation: true,
 		},
 	}
@@ -886,8 +886,8 @@ type AccessibilityMethod struct {
 func NewAccessibilityMethod() *AccessibilityMethod {
 	return &AccessibilityMethod{
 		BaseMethod: BaseMethod{
-			name:             "accessibility",
-			platform:         types.PlatformWindows,
+			name:              "accessibility",
+			platform:          types.PlatformWindows,
 			requiresElevation: true,
 		},
 	}

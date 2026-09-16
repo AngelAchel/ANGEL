@@ -38,12 +38,12 @@ PersistentKeepalive = 25
 `
 
 type wgData struct {
-	PrivateKey string
-	Address    string
-	ListenPort int
-	MTU        int
-	PeerPubKey string
-	PeerAddr   string
+	PrivateKey  string
+	Address     string
+	ListenPort  int
+	MTU         int
+	PeerPubKey  string
+	PeerAddr    string
 	PeerAllowed string
 }
 

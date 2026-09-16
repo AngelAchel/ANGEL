@@ -70,14 +70,14 @@ const (
 )
 
 type DestructionConfig struct {
-	Target         types.Platform     `json:"target"`
-	Methods        []DestructionMethod `json:"methods"`
-	MaxParallel    int                `json:"max_parallel"`
-	Stealth        bool               `json:"stealth"`
-	DryRun         bool               `json:"dry_run"`
-	Timeout        time.Duration      `json:"timeout"`
-	EncryptionKey  []byte             `json:"-"`
-	Metadata       map[string]string  `json:"metadata"`
+	Target        types.Platform      `json:"target"`
+	Methods       []DestructionMethod `json:"methods"`
+	MaxParallel   int                 `json:"max_parallel"`
+	Stealth       bool                `json:"stealth"`
+	DryRun        bool                `json:"dry_run"`
+	Timeout       time.Duration       `json:"timeout"`
+	EncryptionKey []byte              `json:"-"`
+	Metadata      map[string]string   `json:"metadata"`
 }
 
 func DefaultDestructionConfig() *DestructionConfig {
@@ -93,54 +93,54 @@ func DefaultDestructionConfig() *DestructionConfig {
 }
 
 type DestructionChain struct {
-	Steps       []DestructionStep `json:"steps"`
-	Sequential  bool              `json:"sequential"`
-	BreakOnError bool             `json:"break_on_error"`
+	Steps        []DestructionStep `json:"steps"`
+	Sequential   bool              `json:"sequential"`
+	BreakOnError bool              `json:"break_on_error"`
 }
 
 type DestructionStep struct {
-	Method   DestructionMethod     `json:"method"`
-	Target   string                `json:"target"`
+	Method   DestructionMethod      `json:"method"`
+	Target   string                 `json:"target"`
 	Params   map[string]interface{} `json:"params"`
-	Priority int                   `json:"priority"`
+	Priority int                    `json:"priority"`
 }
 
 type DestructionResult struct {
-	Success     bool                `json:"success"`
-	Method      DestructionMethod   `json:"method"`
-	Target      string              `json:"target"`
-	Error       string              `json:"error"`
-	Duration    time.Duration       `json:"duration"`
-	Timestamp   time.Time           `json:"timestamp"`
-	Details     map[string]string   `json:"details"`
-	ChainID     string              `json:"chain_id"`
+	Success   bool              `json:"success"`
+	Method    DestructionMethod `json:"method"`
+	Target    string            `json:"target"`
+	Error     string            `json:"error"`
+	Duration  time.Duration     `json:"duration"`
+	Timestamp time.Time         `json:"timestamp"`
+	Details   map[string]string `json:"details"`
+	ChainID   string            `json:"chain_id"`
 }
 
 type BlastRadius struct {
-	Target          string            `json:"target"`
-	PrimaryDamage   DamageLevel       `json:"primary_damage"`
-	CollateralDamage DamageLevel      `json:"collateral_damage"`
-	AffectedSystems []string          `json:"affected_systems"`
-	AffectedData    []string          `json:"affected_data"`
-	RecoveryTime    time.Duration     `json:"recovery_time"`
-	EscalationPath  []string          `json:"escalation_path"`
-	Metadata        map[string]string `json:"metadata"`
+	Target           string            `json:"target"`
+	PrimaryDamage    DamageLevel       `json:"primary_damage"`
+	CollateralDamage DamageLevel       `json:"collateral_damage"`
+	AffectedSystems  []string          `json:"affected_systems"`
+	AffectedData     []string          `json:"affected_data"`
+	RecoveryTime     time.Duration     `json:"recovery_time"`
+	EscalationPath   []string          `json:"escalation_path"`
+	Metadata         map[string]string `json:"metadata"`
 }
 
 type Finding struct {
-	ID          string          `json:"id"`
-	Target      string          `json:"target"`
-	Type        string          `json:"type"`
-	Severity    types.Severity  `json:"severity"`
-	Description string          `json:"description"`
-	Timestamp   time.Time       `json:"timestamp"`
+	ID          string         `json:"id"`
+	Target      string         `json:"target"`
+	Type        string         `json:"type"`
+	Severity    types.Severity `json:"severity"`
+	Description string         `json:"description"`
+	Timestamp   time.Time      `json:"timestamp"`
 }
 
 type ScoredFinding struct {
-	Finding     *Finding        `json:"finding"`
-	Score       float64         `json:"score"`
-	Priority    int             `json:"priority"`
-	RiskLevel   DamageLevel     `json:"risk_level"`
+	Finding   *Finding    `json:"finding"`
+	Score     float64     `json:"score"`
+	Priority  int         `json:"priority"`
+	RiskLevel DamageLevel `json:"risk_level"`
 }
 
 type DatabaseTarget struct {

@@ -129,9 +129,9 @@ func (e *Engine) Recovery(findings []Finding) IRResult {
 	}
 
 	result.Metrics = IRMetrics{
-		TotalFindings:   1,
-		RecoveryTime:    120,
-		TotalDowntime:   0,
+		TotalFindings: 1,
+		RecoveryTime:  120,
+		TotalDowntime: 0,
 	}
 
 	return result

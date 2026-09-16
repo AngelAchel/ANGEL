@@ -7,10 +7,10 @@ import (
 )
 
 type ServerConfig struct {
-	Gateway   GatewayConfig `json:"gateway"`
-	Database  DBConfig      `json:"database"`
-	C2        C2Config      `json:"c2"`
-	Auth      AuthConfig    `json:"auth"`
+	Gateway  GatewayConfig `json:"gateway"`
+	Database DBConfig      `json:"database"`
+	C2       C2Config      `json:"c2"`
+	Auth     AuthConfig    `json:"auth"`
 }
 
 type GatewayConfig struct {

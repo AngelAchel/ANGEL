@@ -95,25 +95,25 @@ func (e *Engine) NetworkTap(location string) PhysicalResult {
 
 	taps := []NetworkTapResult{
 		{
-			Type:          "Inline Tap (Network Tap)",
-			Location:      location,
-			Active:        true,
+			Type:            "Inline Tap (Network Tap)",
+			Location:        location,
+			Active:          true,
 			PacketsCaptured: 15000,
-			Interfaces:    []string{"eth0", "eth1"},
+			Interfaces:      []string{"eth0", "eth1"},
 		},
 		{
-			Type:          "ARP Spoofing",
-			Location:      location,
-			Active:        true,
+			Type:            "ARP Spoofing",
+			Location:        location,
+			Active:          true,
 			PacketsCaptured: 8500,
-			Interfaces:    []string{"wlan0"},
+			Interfaces:      []string{"wlan0"},
 		},
 		{
-			Type:          "Span Port Mirror",
-			Location:      location,
-			Active:        true,
+			Type:            "Span Port Mirror",
+			Location:        location,
+			Active:          true,
 			PacketsCaptured: 45000,
-			Interfaces:    []string{"span0"},
+			Interfaces:      []string{"span0"},
 		},
 	}
 

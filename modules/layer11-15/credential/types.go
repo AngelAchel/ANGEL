@@ -9,11 +9,11 @@ import (
 type CredentialCategory string
 
 const (
-	CategoryLSASS     CredentialCategory = "lsass"
-	CategorySAM       CredentialCategory = "sam"
-	CategoryBrowser   CredentialCategory = "browser"
-	CategoryCrypto    CredentialCategory = "crypto_wallet"
-	CategoryToken     CredentialCategory = "token"
+	CategoryLSASS   CredentialCategory = "lsass"
+	CategorySAM     CredentialCategory = "sam"
+	CategoryBrowser CredentialCategory = "browser"
+	CategoryCrypto  CredentialCategory = "crypto_wallet"
+	CategoryToken   CredentialCategory = "token"
 )
 
 type LSASSMethod string
@@ -64,17 +64,17 @@ const (
 )
 
 type CredentialConfig struct {
-	Platform       types.Platform     `json:"platform"`
-	Categories     []CredentialCategory `json:"categories"`
-	LSASSMethods   []LSASSMethod      `json:"lsass_methods"`
-	SAMMethods     []SAMMethod        `json:"sam_methods"`
-	Browsers       []BrowserType      `json:"browsers"`
-	WalletTypes    []WalletType       `json:"wallet_types"`
-	TokenMethods   []TokenMethod      `json:"token_methods"`
-	Stealth        bool               `json:"stealth"`
-	Timeout        time.Duration      `json:"timeout"`
-	OutputPath     string             `json:"output_path"`
-	Metadata       map[string]string  `json:"metadata"`
+	Platform     types.Platform       `json:"platform"`
+	Categories   []CredentialCategory `json:"categories"`
+	LSASSMethods []LSASSMethod        `json:"lsass_methods"`
+	SAMMethods   []SAMMethod          `json:"sam_methods"`
+	Browsers     []BrowserType        `json:"browsers"`
+	WalletTypes  []WalletType         `json:"wallet_types"`
+	TokenMethods []TokenMethod        `json:"token_methods"`
+	Stealth      bool                 `json:"stealth"`
+	Timeout      time.Duration        `json:"timeout"`
+	OutputPath   string               `json:"output_path"`
+	Metadata     map[string]string    `json:"metadata"`
 }
 
 func DefaultCredentialConfig() *CredentialConfig {
@@ -145,13 +145,13 @@ type BrowserResult struct {
 }
 
 type WalletKey struct {
-	Address    string     `json:"address"`
-	PublicKey  string     `json:"public_key"`
-	PrivateKey string     `json:"private_key"`
-	Mnemonic   string     `json:"mnemonic"`
-	WalletType WalletType `json:"wallet_type"`
+	Address    string      `json:"address"`
+	PublicKey  string      `json:"public_key"`
+	PrivateKey string      `json:"private_key"`
+	Mnemonic   string      `json:"mnemonic"`
+	WalletType WalletType  `json:"wallet_type"`
 	Browser    BrowserType `json:"browser"`
-	Timestamp  time.Time  `json:"timestamp"`
+	Timestamp  time.Time   `json:"timestamp"`
 }
 
 type TokenResult struct {
@@ -163,11 +163,11 @@ type TokenResult struct {
 }
 
 type CredentialHarvest struct {
-	Category    CredentialCategory  `json:"category"`
-	LSASS       []*LSASSResult      `json:"lsass,omitempty"`
-	SAM         []*SAMResult        `json:"sam,omitempty"`
-	Browser     []*BrowserResult    `json:"browser,omitempty"`
-	WalletKeys  []WalletKey         `json:"wallet_keys,omitempty"`
-	Token       []*TokenResult      `json:"token,omitempty"`
-	Timestamp   time.Time           `json:"timestamp"`
+	Category   CredentialCategory `json:"category"`
+	LSASS      []*LSASSResult     `json:"lsass,omitempty"`
+	SAM        []*SAMResult       `json:"sam,omitempty"`
+	Browser    []*BrowserResult   `json:"browser,omitempty"`
+	WalletKeys []WalletKey        `json:"wallet_keys,omitempty"`
+	Token      []*TokenResult     `json:"token,omitempty"`
+	Timestamp  time.Time          `json:"timestamp"`
 }

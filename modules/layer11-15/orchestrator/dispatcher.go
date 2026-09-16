@@ -11,10 +11,10 @@ import (
 )
 
 type Dispatcher struct {
-	bus    *eventbus.EventBus
-	log    *logger.Logger
-	tasks  map[string]*TaskStatus
-	mu     sync.RWMutex
+	bus   *eventbus.EventBus
+	log   *logger.Logger
+	tasks map[string]*TaskStatus
+	mu    sync.RWMutex
 }
 
 func NewDispatcher(bus *eventbus.EventBus) *Dispatcher {

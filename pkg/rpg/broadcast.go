@@ -238,11 +238,11 @@ func (b *EventBroadcaster) Publish(event *BroadcastEvent) {
 }
 
 type GameState struct {
-	Players    map[string]*Player
-	Vehicles   map[string]*Vehicle
-	Buildings  map[string]*Building
-	Factions   map[string]*Faction
-	mu         sync.RWMutex
+	Players   map[string]*Player
+	Vehicles  map[string]*Vehicle
+	Buildings map[string]*Building
+	Factions  map[string]*Faction
+	mu        sync.RWMutex
 }
 
 type Vehicle struct {
@@ -273,10 +273,10 @@ type Position struct {
 
 func NewGameState() *GameState {
 	return &GameState{
-		Players:  make(map[string]*Player),
-		Vehicles: make(map[string]*Vehicle),
+		Players:   make(map[string]*Player),
+		Vehicles:  make(map[string]*Vehicle),
 		Buildings: make(map[string]*Building),
-		Factions: make(map[string]*Faction),
+		Factions:  make(map[string]*Faction),
 	}
 }
 

@@ -156,12 +156,12 @@ func (e *Engine) MITREMapping(techniqueIDs []string) []MITREMapping {
 
 	for tactic, techs := range tacticTechs {
 		mappings = append(mappings, MITREMapping{
-			TacticID:       tactic,
-			TacticName:     tacticNames[tactic],
-			TechniqueIDs:   techs,
-			DetectedCount:  len(techs),
-			TotalCount:     len(techs),
-			CoveragePct:    100,
+			TacticID:      tactic,
+			TacticName:    tacticNames[tactic],
+			TechniqueIDs:  techs,
+			DetectedCount: len(techs),
+			TotalCount:    len(techs),
+			CoveragePct:   100,
 		})
 	}
 

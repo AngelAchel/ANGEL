@@ -97,8 +97,8 @@ func (m *MongoDBScanner) ListCollections(target, database string) []string {
 
 func (m *MongoDBScanner) TestAuthBypass(target string) *InjectionPoint {
 	payloads := []struct {
-		field   string
-		payload string
+		field     string
+		payload   string
 		technique string
 	}{
 		{"username", `{"$ne": ""}`, "ne_bypass"},
@@ -267,8 +267,8 @@ func (m *MongoDBScanner) TestJSInject(target string) *InjectionPoint {
 							Field:     "$where",
 							Payload:   payload,
 							Parameters: map[string]string{
-								"method":    "javascript_injection",
-								"delay_ms":  fmt.Sprintf("%d", elapsed.Milliseconds()),
+								"method":   "javascript_injection",
+								"delay_ms": fmt.Sprintf("%d", elapsed.Milliseconds()),
 							},
 							Severity:  SeverityCritical,
 							Verified:  true,

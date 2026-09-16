@@ -18,10 +18,10 @@ func NewEngine(config CloudConfig) *Engine {
 
 func (e *Engine) AWSIAMPrivesc(iamConfig IAMConfig) CloudResult {
 	result := CloudResult{
-		ID:          uuid.New().String(),
-		Provider:    CloudProviderAWS,
-		AccountID:   e.getAccountID(),
-		Timestamp:   time.Now(),
+		ID:        uuid.New().String(),
+		Provider:  CloudProviderAWS,
+		AccountID: e.getAccountID(),
+		Timestamp: time.Now(),
 	}
 
 	if iamConfig.RoleEnum {

@@ -38,8 +38,8 @@ func NewHellsGate() *HellsGate {
 	}
 }
 
-func (h *HellsGate) Name() string                { return "HellsGate" }
-func (h *HellsGate) Category() EvasionCategory   { return CategorySyscall }
+func (h *HellsGate) Name() string              { return "HellsGate" }
+func (h *HellsGate) Category() EvasionCategory { return CategorySyscall }
 
 func (h *HellsGate) Description() string {
 	return "Direct syscall via ntdll export parsing. Walks the export table of ntdll to resolve syscall numbers at runtime."
@@ -201,18 +201,18 @@ func (fc *FreshyCalls) extractFreshSSN(module, function string) uint16 {
 
 func (fc *FreshyCalls) parseNtdllSSN(function string) uint16 {
 	knownSyscalls := map[string]uint16{
-		"NtAllocateVirtualMemory":    0x18,
-		"NtWriteVirtualMemory":       0x3A,
-		"NtProtectVirtualMemory":     0x50,
-		"NtCreateThreadEx":           0xC5,
-		"NtResumeThread":             0x4E,
-		"NtQueueApcThreadEx":         0xC6,
-		"NtOpenProcess":              0x26,
-		"NtQueryInformationProcess":  0x19,
-		"NtClose":                    0x0F,
-		"NtCreateSection":            0x4A,
-		"NtMapViewOfSection":         0x28,
-		"NtUnmapViewOfSection":       0x2A,
+		"NtAllocateVirtualMemory":   0x18,
+		"NtWriteVirtualMemory":      0x3A,
+		"NtProtectVirtualMemory":    0x50,
+		"NtCreateThreadEx":          0xC5,
+		"NtResumeThread":            0x4E,
+		"NtQueueApcThreadEx":        0xC6,
+		"NtOpenProcess":             0x26,
+		"NtQueryInformationProcess": 0x19,
+		"NtClose":                   0x0F,
+		"NtCreateSection":           0x4A,
+		"NtMapViewOfSection":        0x28,
+		"NtUnmapViewOfSection":      0x2A,
 	}
 	return knownSyscalls[function]
 }
@@ -475,18 +475,18 @@ func CreateStub(name, module, function string, ssn uint16) *SyscallStub {
 
 func getKnownSSN(function string) uint16 {
 	knownSyscalls := map[string]uint16{
-		"NtAllocateVirtualMemory":    0x18,
-		"NtWriteVirtualMemory":       0x3A,
-		"NtProtectVirtualMemory":     0x50,
-		"NtCreateThreadEx":           0xC5,
-		"NtResumeThread":             0x4E,
-		"NtQueueApcThreadEx":         0xC6,
-		"NtOpenProcess":              0x26,
-		"NtQueryInformationProcess":  0x19,
-		"NtClose":                    0x0F,
-		"NtCreateSection":            0x4A,
-		"NtMapViewOfSection":         0x28,
-		"NtUnmapViewOfSection":       0x2A,
+		"NtAllocateVirtualMemory":   0x18,
+		"NtWriteVirtualMemory":      0x3A,
+		"NtProtectVirtualMemory":    0x50,
+		"NtCreateThreadEx":          0xC5,
+		"NtResumeThread":            0x4E,
+		"NtQueueApcThreadEx":        0xC6,
+		"NtOpenProcess":             0x26,
+		"NtQueryInformationProcess": 0x19,
+		"NtClose":                   0x0F,
+		"NtCreateSection":           0x4A,
+		"NtMapViewOfSection":        0x28,
+		"NtUnmapViewOfSection":      0x2A,
 	}
 	return knownSyscalls[function]
 }

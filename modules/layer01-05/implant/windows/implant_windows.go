@@ -38,10 +38,10 @@ type Result struct {
 }
 
 var (
-	kernel32      = syscall.NewLazyDLL("kernel32.dll")
-	ntdll         = syscall.NewLazyDLL("ntdll.dll")
-	advapi32      = syscall.NewLazyDLL("advapi32.dll")
-	user32        = syscall.NewLazyDLL("user32.dll")
+	kernel32       = syscall.NewLazyDLL("kernel32.dll")
+	ntdll          = syscall.NewLazyDLL("ntdll.dll")
+	advapi32       = syscall.NewLazyDLL("advapi32.dll")
+	user32         = syscall.NewLazyDLL("user32.dll")
 	getTickCount64 = kernel32.NewProc("GetTickCount64")
 )
 

@@ -13,27 +13,27 @@ import (
 type NoSQLDBType string
 
 const (
-	NoSQLDBMongoDB      NoSQLDBType = "mongodb"
+	NoSQLDBMongoDB       NoSQLDBType = "mongodb"
 	NoSQLDBElasticsearch NoSQLDBType = "elasticsearch"
-	NoSQLDBCouchDB      NoSQLDBType = "couchdb"
-	NoSQLDBRedis        NoSQLDBType = "redis"
-	NoSQLDBCassandra    NoSQLDBType = "cassandra"
+	NoSQLDBCouchDB       NoSQLDBType = "couchdb"
+	NoSQLDBRedis         NoSQLDBType = "redis"
+	NoSQLDBCassandra     NoSQLDBType = "cassandra"
 )
 
 type InjectionTechnique string
 
 const (
-	TechniqueAuthBypass     InjectionTechnique = "auth_bypass"
-	TechniqueBooleanBlind   InjectionTechnique = "boolean_blind"
-	TechniqueTimeBased      InjectionTechnique = "time_based"
-	TechniqueJSInject       InjectionTechnique = "js_inject"
-	TechniqueLookupExfil    InjectionTechnique = "lookup_exfil"
-	TechniqueQueryInject    InjectionTechnique = "query_inject"
-	TechniqueAggregation    InjectionTechnique = "aggregation_exfil"
-	TechniqueScriptInject   InjectionTechnique = "script_inject"
-	TechniqueCommandInject  InjectionTechnique = "command_inject"
-	TechniqueKeyDump        InjectionTechnique = "key_dump"
-	TechniqueCQLInject      InjectionTechnique = "cql_inject"
+	TechniqueAuthBypass    InjectionTechnique = "auth_bypass"
+	TechniqueBooleanBlind  InjectionTechnique = "boolean_blind"
+	TechniqueTimeBased     InjectionTechnique = "time_based"
+	TechniqueJSInject      InjectionTechnique = "js_inject"
+	TechniqueLookupExfil   InjectionTechnique = "lookup_exfil"
+	TechniqueQueryInject   InjectionTechnique = "query_inject"
+	TechniqueAggregation   InjectionTechnique = "aggregation_exfil"
+	TechniqueScriptInject  InjectionTechnique = "script_inject"
+	TechniqueCommandInject InjectionTechnique = "command_inject"
+	TechniqueKeyDump       InjectionTechnique = "key_dump"
+	TechniqueCQLInject     InjectionTechnique = "cql_inject"
 )
 
 type Severity int
@@ -61,22 +61,22 @@ func (s Severity) String() string {
 }
 
 type NoSQLConfig struct {
-	Target        string        `json:"target"`
-	Port          int           `json:"port"`
-	Timeout       time.Duration `json:"timeout"`
-	MaxRetries    int           `json:"max_retries"`
-	Username      string        `json:"username"`
-	Password      string        `json:"password"`
-	Database      string        `json:"database"`
-	Collection    string        `json:"collection"`
-	AuthDB        string        `json:"auth_db"`
-	UserAgent     string        `json:"user_agent"`
-	SSL           bool          `json:"ssl"`
-	VerifySSL     bool          `json:"verify_ssl"`
-	ProxyURL      string        `json:"proxy_url"`
-	DBTypes       []NoSQLDBType `json:"db_types"`
-	Techniques    []InjectionTechnique `json:"techniques"`
-	Verbose       bool          `json:"verbose"`
+	Target     string               `json:"target"`
+	Port       int                  `json:"port"`
+	Timeout    time.Duration        `json:"timeout"`
+	MaxRetries int                  `json:"max_retries"`
+	Username   string               `json:"username"`
+	Password   string               `json:"password"`
+	Database   string               `json:"database"`
+	Collection string               `json:"collection"`
+	AuthDB     string               `json:"auth_db"`
+	UserAgent  string               `json:"user_agent"`
+	SSL        bool                 `json:"ssl"`
+	VerifySSL  bool                 `json:"verify_ssl"`
+	ProxyURL   string               `json:"proxy_url"`
+	DBTypes    []NoSQLDBType        `json:"db_types"`
+	Techniques []InjectionTechnique `json:"techniques"`
+	Verbose    bool                 `json:"verbose"`
 }
 
 func DefaultNoSQLConfig() *NoSQLConfig {
@@ -107,27 +107,27 @@ func DefaultNoSQLConfig() *NoSQLConfig {
 }
 
 type InjectionPoint struct {
-	ID          string            `json:"id"`
-	Target      string            `json:"target"`
-	DBType      NoSQLDBType       `json:"db_type"`
-	Technique   InjectionTechnique `json:"technique"`
-	Field       string            `json:"field"`
-	Payload     string            `json:"payload"`
-	Parameters  map[string]string `json:"parameters"`
-	Severity    Severity          `json:"severity"`
-	Verified    bool              `json:"verified"`
-	Timestamp   time.Time         `json:"timestamp"`
+	ID         string             `json:"id"`
+	Target     string             `json:"target"`
+	DBType     NoSQLDBType        `json:"db_type"`
+	Technique  InjectionTechnique `json:"technique"`
+	Field      string             `json:"field"`
+	Payload    string             `json:"payload"`
+	Parameters map[string]string  `json:"parameters"`
+	Severity   Severity           `json:"severity"`
+	Verified   bool               `json:"verified"`
+	Timestamp  time.Time          `json:"timestamp"`
 }
 
 type ExploitResult struct {
-	Success     bool              `json:"success"`
-	Injection   *InjectionPoint   `json:"injection"`
+	Success     bool                   `json:"success"`
+	Injection   *InjectionPoint        `json:"injection"`
 	Data        map[string]interface{} `json:"data"`
-	Credentials []CredentialEntry `json:"credentials"`
-	CmdOutput   string            `json:"cmd_output"`
-	Files       []FileEntry       `json:"files"`
-	Error       string            `json:"error"`
-	Timestamp   time.Time         `json:"timestamp"`
+	Credentials []CredentialEntry      `json:"credentials"`
+	CmdOutput   string                 `json:"cmd_output"`
+	Files       []FileEntry            `json:"files"`
+	Error       string                 `json:"error"`
+	Timestamp   time.Time              `json:"timestamp"`
 }
 
 type CredentialEntry struct {
@@ -146,32 +146,32 @@ type FileEntry struct {
 }
 
 type ScanResult struct {
-	Target         string           `json:"target"`
-	Ports          []PortResult     `json:"ports"`
-	Injections     []InjectionPoint `json:"injections"`
-	Vulnerable     bool             `json:"vulnerable"`
-	DBType         NoSQLDBType      `json:"db_type"`
-	Version        string           `json:"version"`
-	Databases      []string         `json:"databases"`
-	Collections    []string         `json:"collections"`
-	Timestamp      time.Time        `json:"timestamp"`
+	Target      string           `json:"target"`
+	Ports       []PortResult     `json:"ports"`
+	Injections  []InjectionPoint `json:"injections"`
+	Vulnerable  bool             `json:"vulnerable"`
+	DBType      NoSQLDBType      `json:"db_type"`
+	Version     string           `json:"version"`
+	Databases   []string         `json:"databases"`
+	Collections []string         `json:"collections"`
+	Timestamp   time.Time        `json:"timestamp"`
 }
 
 type PortResult struct {
-	Port     int    `json:"port"`
-	Open     bool   `json:"open"`
-	Service  string `json:"service"`
-	Version  string `json:"version"`
+	Port    int    `json:"port"`
+	Open    bool   `json:"open"`
+	Service string `json:"service"`
+	Version string `json:"version"`
 }
 
 type NoSQLScanResult struct {
-	Success    bool              `json:"success"`
-	DBType     NoSQLDBType       `json:"db_type"`
-	Version    string            `json:"version"`
-	Databases  []string          `json:"databases"`
-	Collections []string         `json:"collections"`
+	Success         bool             `json:"success"`
+	DBType          NoSQLDBType      `json:"db_type"`
+	Version         string           `json:"version"`
+	Databases       []string         `json:"databases"`
+	Collections     []string         `json:"collections"`
 	InjectionPoints []InjectionPoint `json:"injection_points"`
-	Error      string            `json:"error"`
+	Error           string           `json:"error"`
 }
 
 func (r *ScanResult) AddInjection(ip InjectionPoint) {

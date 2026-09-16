@@ -37,10 +37,10 @@ type DNSTask struct {
 }
 
 type DNSConn struct {
-	ID        string
+	ID         string
 	RemoteAddr string
-	Protocol  string
-	StartTime time.Time
+	Protocol   string
+	StartTime  time.Time
 }
 
 type DNSListenerConfig struct {

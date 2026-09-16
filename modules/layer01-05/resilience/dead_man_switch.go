@@ -7,20 +7,20 @@ import (
 )
 
 type DeadManSwitch struct {
-	mu              sync.RWMutex
-	timeout         time.Duration
-	lastHeartbeat   time.Time
-	running         bool
-	stopCh          chan struct{}
-	triggerFunc     func()
+	mu            sync.RWMutex
+	timeout       time.Duration
+	lastHeartbeat time.Time
+	running       bool
+	stopCh        chan struct{}
+	triggerFunc   func()
 }
 
 func NewDeadManSwitch(timeout time.Duration, triggerFunc func()) *DeadManSwitch {
 	return &DeadManSwitch{
-		timeout:     timeout,
+		timeout:       timeout,
 		lastHeartbeat: time.Now(),
-		stopCh:      make(chan struct{}),
-		triggerFunc: triggerFunc,
+		stopCh:        make(chan struct{}),
+		triggerFunc:   triggerFunc,
 	}
 }
 

@@ -71,15 +71,15 @@ func TestHandleIntentBlock(t *testing.T) {
 	o := NewOrchestrator(nil)
 
 	intent := &Intent{
-		ID:        "test-1",
-		Request:   "destroy everything",
-		Category:  "destruction",
-		Module:    ModuleDestruction,
-		Action:    "destroy",
-		RiskLevel: RiskLevelBlock,
+		ID:         "test-1",
+		Request:    "destroy everything",
+		Category:   "destruction",
+		Module:     ModuleDestruction,
+		Action:     "destroy",
+		RiskLevel:  RiskLevelBlock,
 		Confidence: 1.0,
-		Params:    make(map[string]interface{}),
-		Targets:   []string{"all"},
+		Params:     make(map[string]interface{}),
+		Targets:    []string{"all"},
 	}
 
 	_, err := o.HandleIntent(intent)
@@ -92,15 +92,15 @@ func TestHandleIntentApproval(t *testing.T) {
 	o := NewOrchestrator(nil)
 
 	intent := &Intent{
-		ID:        "test-2",
-		Request:   "scan network",
-		Category:  "recon",
-		Module:    ModuleCollector,
-		Action:    "scan",
-		RiskLevel: RiskLevelRequestApproval,
+		ID:         "test-2",
+		Request:    "scan network",
+		Category:   "recon",
+		Module:     ModuleCollector,
+		Action:     "scan",
+		RiskLevel:  RiskLevelRequestApproval,
 		Confidence: 0.5,
-		Params:    make(map[string]interface{}),
-		Targets:   []string{"192.168.1.0/24"},
+		Params:     make(map[string]interface{}),
+		Targets:    []string{"192.168.1.0/24"},
 	}
 
 	result, err := o.HandleIntent(intent)
@@ -196,11 +196,11 @@ func TestIntentClassifierSelectAction(t *testing.T) {
 	ic := NewIntentClassifier()
 
 	intent := &Intent{
-		ID:       "test",
-		Module:   ModuleDestruction,
-		Action:   "encrypt",
-		Targets:  []string{"target1"},
-		Params:   make(map[string]interface{}),
+		ID:      "test",
+		Module:  ModuleDestruction,
+		Action:  "encrypt",
+		Targets: []string{"target1"},
+		Params:  make(map[string]interface{}),
 	}
 
 	action, err := ic.SelectAction(intent)
@@ -223,7 +223,7 @@ func TestIntentClassifierSelectActionNil(t *testing.T) {
 func TestDispatcherDispatch(t *testing.T) {
 	d := NewDispatcher(nil)
 	task := &types.Task{
-		ID:  "task-1",
+		ID:   "task-1",
 		Type: types.TaskTypeShell,
 	}
 

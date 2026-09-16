@@ -9,9 +9,9 @@ import (
 )
 
 type ProfileApplier struct {
-	mu          sync.RWMutex
-	profiles    map[string]*AppliedProfile
-	currentPro  string
+	mu         sync.RWMutex
+	profiles   map[string]*AppliedProfile
+	currentPro string
 }
 
 type AppliedProfile struct {

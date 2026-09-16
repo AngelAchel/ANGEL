@@ -6,25 +6,25 @@ import (
 )
 
 type IntentClassifier struct {
-	rules   []ClassificationRule
+	rules    []ClassificationRule
 	patterns map[string][]string
-	mu      sync.RWMutex
+	mu       sync.RWMutex
 }
 
 type IntentType string
 
 const (
-	IntentRecon         IntentType = "recon"
-	IntentExploit       IntentType = "exploit"
-	IntentPostExploit   IntentType = "post_exploit"
-	IntentLateral       IntentType = "lateral_movement"
-	IntentPersistence   IntentType = "persistence"
-	IntentExfiltration  IntentType = "exfiltration"
-	IntentDestruction   IntentType = "destruction"
-	IntentCredential    IntentType = "credential_access"
-	IntentCollection    IntentType = "collection"
-	IntentDefense       IntentType = "defense_evasion"
-	IntentUnknown       IntentType = "unknown"
+	IntentRecon        IntentType = "recon"
+	IntentExploit      IntentType = "exploit"
+	IntentPostExploit  IntentType = "post_exploit"
+	IntentLateral      IntentType = "lateral_movement"
+	IntentPersistence  IntentType = "persistence"
+	IntentExfiltration IntentType = "exfiltration"
+	IntentDestruction  IntentType = "destruction"
+	IntentCredential   IntentType = "credential_access"
+	IntentCollection   IntentType = "collection"
+	IntentDefense      IntentType = "defense_evasion"
+	IntentUnknown      IntentType = "unknown"
 )
 
 type ClassificationResult struct {

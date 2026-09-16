@@ -12,10 +12,10 @@ import (
 )
 
 type IPRotationManager struct {
-	config    *InfraConfig
-	log       *logger.Logger
-	mu        sync.RWMutex
-	proxies   []string
+	config     *InfraConfig
+	log        *logger.Logger
+	mu         sync.RWMutex
+	proxies    []string
 	currentIdx int
 	maxRetries int
 	timeout    time.Duration
@@ -110,7 +110,7 @@ func (r *IPRotationManager) TestProxyHTTP(proxy string, targetURL string) (int, 
 	}
 
 	transport := &http.Transport{
-		Proxy: http.ProxyURL(proxyURL),
+		Proxy:                 http.ProxyURL(proxyURL),
 		ResponseHeaderTimeout: r.timeout,
 	}
 

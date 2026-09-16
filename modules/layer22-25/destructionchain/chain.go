@@ -10,11 +10,11 @@ import (
 )
 
 type ChainOrchestrator struct {
-	mu      sync.Mutex
-	config  *DestructionChainConfig
-	timing  *TimingCoordinator
-	log     *logger.Logger
-	chains  map[string]*DestructionChain
+	mu     sync.Mutex
+	config *DestructionChainConfig
+	timing *TimingCoordinator
+	log    *logger.Logger
+	chains map[string]*DestructionChain
 }
 
 func NewChainOrchestrator(config *DestructionChainConfig, timing *TimingCoordinator, log *logger.Logger) *ChainOrchestrator {

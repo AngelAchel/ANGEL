@@ -3,10 +3,10 @@ package redirect
 import "time"
 
 type RedirectConfig struct {
-	TargetURL   string        `json:"target_url"`
-	RedirectParam string      `json:"redirect_param"`
-	AllowedDomains []string   `json:"allowed_domains"`
-	Timeout     time.Duration `json:"timeout"`
+	TargetURL      string        `json:"target_url"`
+	RedirectParam  string        `json:"redirect_param"`
+	AllowedDomains []string      `json:"allowed_domains"`
+	Timeout        time.Duration `json:"timeout"`
 }
 
 type RedirectResult struct {
@@ -42,8 +42,8 @@ type RedirectURL struct {
 }
 
 type BypassPayload struct {
-	Encoded    string `json:"encoded"`
-	Decoded    string `json:"decoded"`
+	Encoded   string `json:"encoded"`
+	Decoded   string `json:"decoded"`
 	Evasion   string `json:"evasion"`
 	Technique string `json:"technique"`
 }
@@ -54,8 +54,8 @@ type RedirectChain struct {
 }
 
 type RedirectStep struct {
-	URL         string `json:"url"`
-	StatusCode  int    `json:"status_code"`
-	Location    string `json:"location"`
-	NextStep    int    `json:"next_step"`
+	URL        string `json:"url"`
+	StatusCode int    `json:"status_code"`
+	Location   string `json:"location"`
+	NextStep   int    `json:"next_step"`
 }

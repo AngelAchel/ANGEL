@@ -85,10 +85,10 @@ func (e *WinRMExec) ExecutePSCommand(command string) (string, error) {
 }
 
 type WinRMShell struct {
-	target   *Target
-	creds    *Credentials
-	session  string
-	active   bool
+	target  *Target
+	creds   *Credentials
+	session string
+	active  bool
 }
 
 func NewWinRMShell(target *Target, creds *Credentials) *WinRMShell {

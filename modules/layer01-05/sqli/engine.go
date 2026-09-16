@@ -13,14 +13,14 @@ import (
 )
 
 type SQLiEngine struct {
-	config         *SQLiConfig
-	logger         *logger.Logger
-	httpClient     *http.Client
-	results        chan *InjectionResult
-	detectors      map[InjectionType]Detector
-	wafBypass      *WBypassEngine
-	scheduler      *Scheduler
-	mu             sync.RWMutex
+	config     *SQLiConfig
+	logger     *logger.Logger
+	httpClient *http.Client
+	results    chan *InjectionResult
+	detectors  map[InjectionType]Detector
+	wafBypass  *WBypassEngine
+	scheduler  *Scheduler
+	mu         sync.RWMutex
 }
 
 func NewSQLiEngine(config *SQLiConfig) *SQLiEngine {
@@ -30,12 +30,12 @@ func NewSQLiEngine(config *SQLiConfig) *SQLiEngine {
 
 	log := logger.New("sqli-engine", logger.LevelInfo)
 	engine := &SQLiEngine{
-		config:    config,
-		logger:    log,
+		config:     config,
+		logger:     log,
 		httpClient: config.HTTPClient,
-		results:   make(chan *InjectionResult, 100),
-		detectors: make(map[InjectionType]Detector),
-		wafBypass: NewWAFBypassEngine(),
+		results:    make(chan *InjectionResult, 100),
+		detectors:  make(map[InjectionType]Detector),
+		wafBypass:  NewWAFBypassEngine(),
 	}
 
 	if engine.httpClient == nil {

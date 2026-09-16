@@ -49,9 +49,9 @@ func (s *SessionModule) SessionHijack(sessionID string) (*BypassResult, error) {
 		Details:   "Session hijack analysis complete",
 		Timestamp: time.Now(),
 		Data: map[string]string{
-			"session_id":   sessionID,
-			"session_len":  fmt.Sprintf("%d", len(sessionID)),
-			"attack_type":  "session_hijack",
+			"session_id":  sessionID,
+			"session_len": fmt.Sprintf("%d", len(sessionID)),
+			"attack_type": "session_hijack",
 		},
 		Duration: time.Since(start),
 	}
@@ -76,7 +76,7 @@ func (s *SessionModule) CookieFlags(urlStr string) (*CookieAnalysis, error) {
 	defer resp.Body.Close()
 
 	analysis := &CookieAnalysis{
-		URL:    urlStr,
+		URL:     urlStr,
 		Cookies: []CookieInfo{},
 	}
 

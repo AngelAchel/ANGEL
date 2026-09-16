@@ -12,15 +12,15 @@ import (
 )
 
 type HTTPSListener struct {
-	mu        sync.RWMutex
-	addr      string
-	port      int
-	certFile  string
-	keyFile   string
-	running   bool
-	agents    map[string]*Agent
-	tasks     map[string]*Task
-	results   []*Result
+	mu       sync.RWMutex
+	addr     string
+	port     int
+	certFile string
+	keyFile  string
+	running  bool
+	agents   map[string]*Agent
+	tasks    map[string]*Task
+	results  []*Result
 }
 
 type Agent struct {

@@ -34,13 +34,13 @@ type Subscription struct {
 }
 
 type EventBus struct {
-	mu           sync.RWMutex
-	subscribers  map[string][]*Subscription
-	hmacKey      []byte
-	eventLog     []Event
-	eventMu      sync.Mutex
+	mu          sync.RWMutex
+	subscribers map[string][]*Subscription
+	hmacKey     []byte
+	eventLog    []Event
+	eventMu     sync.Mutex
 	purger      *time.Ticker
-	stopPurger   chan struct{}
+	stopPurger  chan struct{}
 }
 
 func New(hmacKey string) *EventBus {

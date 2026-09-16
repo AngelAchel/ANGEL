@@ -10,19 +10,19 @@ import (
 )
 
 type Generator struct {
-	config *Config
+	config    *Config
 	outputDir string
 }
 
 type Config struct {
-	OS         string `json:"os"`
-	Arch       string `json:"arch"`
-	Format     string `json:"format"`
-	Sleep      int    `json:"sleep"`
+	OS         string  `json:"os"`
+	Arch       string  `json:"arch"`
+	Format     string  `json:"format"`
+	Sleep      int     `json:"sleep"`
 	Jitter     float64 `json:"jitter"`
-	Profile    string `json:"profile"`
-	Encryption string `json:"encryption"`
-	Listener   string `json:"listener"`
+	Profile    string  `json:"profile"`
+	Encryption string  `json:"encryption"`
+	Listener   string  `json:"listener"`
 }
 
 type ImplantConfig struct {

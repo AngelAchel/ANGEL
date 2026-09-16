@@ -18,15 +18,15 @@ const (
 )
 
 type CollectorConfig struct {
-	Platform     types.Platform     `json:"platform"`
-	Categories   []CollectCategory  `json:"categories"`
-	Stealth      bool               `json:"stealth"`
-	Timeout      time.Duration      `json:"timeout"`
-	OutputPath   string             `json:"output_path"`
-	MaxFileSize  int64              `json:"max_file_size"`
-	MaxDepth     int                `json:"max_depth"`
-	FilePatterns []string           `json:"file_patterns"`
-	Metadata     map[string]string  `json:"metadata"`
+	Platform     types.Platform    `json:"platform"`
+	Categories   []CollectCategory `json:"categories"`
+	Stealth      bool              `json:"stealth"`
+	Timeout      time.Duration     `json:"timeout"`
+	OutputPath   string            `json:"output_path"`
+	MaxFileSize  int64             `json:"max_file_size"`
+	MaxDepth     int               `json:"max_depth"`
+	FilePatterns []string          `json:"file_patterns"`
+	Metadata     map[string]string `json:"metadata"`
 }
 
 func DefaultCollectorConfig() *CollectorConfig {
@@ -77,10 +77,10 @@ type WebcamCapture struct {
 }
 
 type WiFiProfile struct {
-	SSID      string `json:"ssid"`
-	Auth      string `json:"auth"`
-	EncType   string `json:"enc_type"`
-	Password  string `json:"password"`
+	SSID     string `json:"ssid"`
+	Auth     string `json:"auth"`
+	EncType  string `json:"enc_type"`
+	Password string `json:"password"`
 }
 
 type FileInfo struct {
@@ -92,15 +92,15 @@ type FileInfo struct {
 }
 
 type CollectResult struct {
-	Success     bool                `json:"success"`
-	Category    CollectCategory     `json:"category"`
-	Screen      *ScreenCapture      `json:"screen,omitempty"`
-	Record      *ScreenRecord       `json:"record,omitempty"`
-	Keylog      []KeylogEntry       `json:"keylog,omitempty"`
-	Clipboard   *ClipboardContent   `json:"clipboard,omitempty"`
-	Webcam      *WebcamCapture      `json:"webcam,omitempty"`
-	WiFi        []WiFiProfile       `json:"wifi,omitempty"`
-	Files       []FileInfo          `json:"files,omitempty"`
-	Error       string              `json:"error"`
-	Timestamp   time.Time           `json:"timestamp"`
+	Success   bool              `json:"success"`
+	Category  CollectCategory   `json:"category"`
+	Screen    *ScreenCapture    `json:"screen,omitempty"`
+	Record    *ScreenRecord     `json:"record,omitempty"`
+	Keylog    []KeylogEntry     `json:"keylog,omitempty"`
+	Clipboard *ClipboardContent `json:"clipboard,omitempty"`
+	Webcam    *WebcamCapture    `json:"webcam,omitempty"`
+	WiFi      []WiFiProfile     `json:"wifi,omitempty"`
+	Files     []FileInfo        `json:"files,omitempty"`
+	Error     string            `json:"error"`
+	Timestamp time.Time         `json:"timestamp"`
 }

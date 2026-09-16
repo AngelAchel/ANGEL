@@ -8,12 +8,12 @@ import (
 )
 
 type OSINTEngine struct {
-	config    *OSINTConfig
-	log       *logger.Logger
-	mu        sync.RWMutex
-	dnsRecon  *DNSRecon
-	portScan  *PortScanner
-	webRecon  *WebRecon
+	config      *OSINTConfig
+	log         *logger.Logger
+	mu          sync.RWMutex
+	dnsRecon    *DNSRecon
+	portScan    *PortScanner
+	webRecon    *WebRecon
 	personRecon *PersonRecon
 	cloudRecon  *CloudRecon
 }

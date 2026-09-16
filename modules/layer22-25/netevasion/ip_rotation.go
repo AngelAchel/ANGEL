@@ -7,10 +7,10 @@ import (
 )
 
 type IPRotator struct {
-	mu          sync.RWMutex
-	proxies     []*ProxyInfo
-	currentIdx  int
-	currentIP   string
+	mu         sync.RWMutex
+	proxies    []*ProxyInfo
+	currentIdx int
+	currentIP  string
 }
 
 func NewIPRotator(proxyList []string) *IPRotator {
