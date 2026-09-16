@@ -108,10 +108,10 @@ func TestEvidenceCollectorDiff(t *testing.T) {
 func TestRedactorPII(t *testing.T) {
 	redactor := NewRedactor()
 
-	input := []byte("Contact john@example.com or call 555-123-4567")
+	input := []byte("Contact john@angel.local or call 555-123-4567")
 	result := redactor.RedactPII(input)
 
-	if contains(string(result), "john@example.com") {
+	if contains(string(result), "john@angel.local") {
 		t.Error("Expected email to be redacted")
 	}
 	if contains(string(result), "555-123-4567") {

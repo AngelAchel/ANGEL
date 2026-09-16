@@ -297,7 +297,7 @@ func TestGenerateWithConfig(t *testing.T) {
 	engine := NewImplantEngine(nil)
 	config := &BeaconConfig{
 		ID:           "beacon-123",
-		CallbackURLs: []string{"https://c2.example.com/beacon"},
+		CallbackURLs: []string{"https://c2.angel.local/beacon"},
 		SleepTime:    30 * time.Second,
 		Jitter:       0.15,
 		MaxRetries:   5,

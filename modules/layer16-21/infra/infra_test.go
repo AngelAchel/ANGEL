@@ -255,7 +255,7 @@ func TestGenerateOpenVPNConfig(t *testing.T) {
 	mgr := NewVPNManager(config)
 
 	vpnConfig := &OpenVPNConfig{
-		Remote: "vpn.example.com",
+		Remote: "vpn.angel.local",
 		Port:   1194,
 		Proto:  "udp",
 		Dev:    "tun",
@@ -286,7 +286,7 @@ func TestGenerateOpenVPNConfigDefaults(t *testing.T) {
 	mgr := NewVPNManager(config)
 
 	vpnConfig := &OpenVPNConfig{
-		Remote: "vpn.example.com",
+		Remote: "vpn.angel.local",
 	}
 
 	result, err := mgr.GenerateOpenVPNConfig(vpnConfig)

@@ -77,7 +77,7 @@ func TestPhishRedirect(t *testing.T) {
 
 func TestOAuthTokenLeak(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.OAuthTokenLeak("auth.example.com", "client-123", "https://evil.com/callback")
+	result, err := eng.OAuthTokenLeak("auth.angel.local", "client-123", "https://evil.com/callback")
 	if err != nil {
 		t.Fatalf("OAuthTokenLeak failed: %v", err)
 	}

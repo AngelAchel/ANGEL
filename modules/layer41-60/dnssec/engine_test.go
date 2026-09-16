@@ -7,7 +7,7 @@ import (
 
 func newTestEngine() *Engine {
 	return NewEngine(DNSSECConfig{
-		Domain:    "example.com",
+		Domain:    "angel.local",
 		DNSServer: "8.8.8.8",
 		Timeout:   5000000000,
 	})
@@ -15,7 +15,7 @@ func newTestEngine() *Engine {
 
 func TestNSECWalking(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.NSECWalking("example.com")
+	result, err := eng.NSECWalking("angel.local")
 	if err != nil {
 		t.Fatalf("NSECWalking failed: %v", err)
 	}
@@ -32,7 +32,7 @@ func TestNSECWalking(t *testing.T) {
 
 func TestNSECWalkingFindsSubdomains(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.NSECWalking("example.com")
+	result, err := eng.NSECWalking("angel.local")
 	if err != nil {
 		t.Fatalf("NSECWalking failed: %v", err)
 	}
@@ -49,7 +49,7 @@ func TestNSECWalkingFindsSubdomains(t *testing.T) {
 
 func TestKeyRollingExploit(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.KeyRollingExploit("example.com", 8, 13)
+	result, err := eng.KeyRollingExploit("angel.local", 8, 13)
 	if err != nil {
 		t.Fatalf("KeyRollingExploit failed: %v", err)
 	}
@@ -63,7 +63,7 @@ func TestKeyRollingExploit(t *testing.T) {
 
 func TestSignatureForge(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.SignatureForge("example.com", 12345)
+	result, err := eng.SignatureForge("angel.local", 12345)
 	if err != nil {
 		t.Fatalf("SignatureForge failed: %v", err)
 	}
@@ -77,7 +77,7 @@ func TestSignatureForge(t *testing.T) {
 
 func TestZoneWalk(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.ZoneWalk("example.com")
+	result, err := eng.ZoneWalk("angel.local")
 	if err != nil {
 		t.Fatalf("ZoneWalk failed: %v", err)
 	}
@@ -91,7 +91,7 @@ func TestZoneWalk(t *testing.T) {
 
 func TestZoneWalkSubdomains(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.ZoneWalk("example.com")
+	result, err := eng.ZoneWalk("angel.local")
 	if err != nil {
 		t.Fatalf("ZoneWalk failed: %v", err)
 	}
@@ -102,8 +102,8 @@ func TestZoneWalkSubdomains(t *testing.T) {
 
 func TestAnalyzeDNSSEC(t *testing.T) {
 	eng := newTestEngine()
-	analysis := eng.AnalyzeDNSSEC("example.com")
-	if analysis["domain"] != "example.com" {
+	analysis := eng.AnalyzeDNSSEC("angel.local")
+	if analysis["domain"] != "angel.local" {
 		t.Error("wrong domain in analysis")
 	}
 	signed, ok := analysis["signed"].(bool)
@@ -114,7 +114,7 @@ func TestAnalyzeDNSSEC(t *testing.T) {
 
 func TestBuildNSEC3Hash(t *testing.T) {
 	eng := newTestEngine()
-	hash := eng.BuildNSEC3Hash("example.com", "salt", 10)
+	hash := eng.BuildNSEC3Hash("angel.local", "salt", 10)
 	if len(hash) == 0 {
 		t.Error("hash should not be empty")
 	}
@@ -122,7 +122,7 @@ func TestBuildNSEC3Hash(t *testing.T) {
 
 func TestEnumerateZone(t *testing.T) {
 	eng := newTestEngine()
-	records := eng.EnumerateZone("example.com")
+	records := eng.EnumerateZone("angel.local")
 	if len(records) == 0 {
 		t.Error("should return records")
 	}
@@ -146,7 +146,7 @@ func TestEnumerateZone(t *testing.T) {
 
 func TestSimulateNSECRecord(t *testing.T) {
 	eng := newTestEngine()
-	nsec := eng.simulateNSECRecord("*.example.com", "example.com")
+	nsec := eng.simulateNSECRecord("*.angel.local", "angel.local")
 	if nsec.NextDomain == "" {
 		t.Error("next domain should not be empty")
 	}

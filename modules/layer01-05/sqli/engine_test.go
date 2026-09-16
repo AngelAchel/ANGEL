@@ -142,7 +142,7 @@ func TestScheduler(t *testing.T) {
 
 	scheduler := NewScheduler(engine)
 
-	techniques := scheduler.ScheduleTechniques("http://example.com/test?id=1")
+	techniques := scheduler.ScheduleTechniques("http://angel.local/test?id=1")
 
 	if len(techniques) == 0 {
 		t.Error("Expected at least one technique")

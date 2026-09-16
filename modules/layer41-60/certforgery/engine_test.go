@@ -7,7 +7,7 @@ import (
 
 func newTestEngine() *Engine {
 	return NewEngine(CertForgeConfig{
-		Domain:    "example.com",
+		Domain:    "angel.local",
 		CA:        "Self-Signed",
 		KeyType:   "RSA",
 		KeySize:   2048,
@@ -17,7 +17,7 @@ func newTestEngine() *Engine {
 
 func TestSelfSignForge(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.SelfSignForge("example.com")
+	result, err := eng.SelfSignForge("angel.local")
 	if err != nil {
 		t.Fatalf("SelfSignForge failed: %v", err)
 	}
@@ -62,7 +62,7 @@ func TestLetEncryptAbuse(t *testing.T) {
 
 func TestCertTransparency(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.CertTransparency("example.com")
+	result, err := eng.CertTransparency("angel.local")
 	if err != nil {
 		t.Fatalf("CertTransparency failed: %v", err)
 	}
@@ -114,9 +114,9 @@ func TestAnalyzeCertInvalid(t *testing.T) {
 
 func TestGenerateCertTemplate(t *testing.T) {
 	eng := newTestEngine()
-	template := eng.GenerateCertTemplate("example.com", "MyCA")
-	if template.CommonName != "example.com" {
-		t.Errorf("expected CN example.com, got %s", template.CommonName)
+	template := eng.GenerateCertTemplate("angel.local", "MyCA")
+	if template.CommonName != "angel.local" {
+		t.Errorf("expected CN angel.local, got %s", template.CommonName)
 	}
 	if len(template.Organization) == 0 || template.Organization[0] != "MyCA" {
 		t.Error("expected org MyCA")
@@ -125,7 +125,7 @@ func TestGenerateCertTemplate(t *testing.T) {
 
 func TestCheckCAARecord(t *testing.T) {
 	eng := newTestEngine()
-	records := eng.CheckCAARecord("example.com")
+	records := eng.CheckCAARecord("angel.local")
 	if len(records) == 0 {
 		t.Error("should return CAA records")
 	}

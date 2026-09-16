@@ -16,7 +16,7 @@ type Engine struct {
 
 func NewEngine(config APIConfig) *Engine {
 	if config.BaseURL == "" {
-		config.BaseURL = "https://api.example.com"
+		config.BaseURL = "https://api.angel.local"
 	}
 	if config.RateLimit == 0 {
 		config.RateLimit = 100

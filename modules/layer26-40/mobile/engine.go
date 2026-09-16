@@ -51,9 +51,9 @@ func (e *Engine) SSLPinningBypass() MobileResult {
 	}
 
 	certs := []SSLCertInfo{
-		{Host: "api.example.com", Pinned: true, Issuer: "DigiCert SHA2 Secure Server CA", Expires: "2025-12-31", Algorithm: "RSA-2048", Bypassable: true},
-		{Host: "auth.example.com", Pinned: false, Issuer: "Let's Encrypt Authority X3", Expires: "2024-06-15", Algorithm: "ECDSA-256", Bypassable: true},
-		{Host: "payments.example.com", Pinned: true, Issuer: "DigiCert SHA2 Extended Validation Server CA", Expires: "2026-03-01", Algorithm: "RSA-4096", Bypassable: false},
+		{Host: "api.angel.local", Pinned: true, Issuer: "DigiCert SHA2 Secure Server CA", Expires: "2025-12-31", Algorithm: "RSA-2048", Bypassable: true},
+		{Host: "auth.angel.local", Pinned: false, Issuer: "Let's Encrypt Authority X3", Expires: "2024-06-15", Algorithm: "ECDSA-256", Bypassable: true},
+		{Host: "payments.angel.local", Pinned: true, Issuer: "DigiCert SHA2 Extended Validation Server CA", Expires: "2026-03-01", Algorithm: "RSA-4096", Bypassable: false},
 	}
 
 	result.SSLCerts = certs

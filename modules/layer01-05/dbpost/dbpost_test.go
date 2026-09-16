@@ -61,10 +61,10 @@ func TestBuildURL(t *testing.T) {
 		port   int
 		want   string
 	}{
-		{"http://example.com", "/test", 0, "http://example.com/test"},
-		{"example.com", "/test", 8080, "http://example.com:8080/test"},
-		{"http://example.com", "/test", 80, "http://example.com/test"},
-		{"http://example.com", "/test", 443, "http://example.com/test"},
+		{"http://angel.local", "/test", 0, "http://angel.local/test"},
+		{"angel.local", "/test", 8080, "http://angel.local:8080/test"},
+		{"http://angel.local", "/test", 80, "http://angel.local/test"},
+		{"http://angel.local", "/test", 443, "http://angel.local/test"},
 	}
 
 	for _, tt := range tests {

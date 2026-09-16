@@ -6,10 +6,10 @@ import (
 
 func TestEmailPhish(t *testing.T) {
 	engine := NewEngine(PhishingConfig{
-		SMTPServer:  "smtp.example.com",
+		SMTPServer:  "smtp.angel.local",
 		SMTPPort:    587,
 		SenderEmail: "hr@company.com",
-		WebhookURL:  "https://track.example.com",
+		WebhookURL:  "https://track.angel.local",
 	})
 
 	campaign := CampaignConfig{
@@ -69,7 +69,7 @@ func TestSmishing(t *testing.T) {
 
 	result := engine.Smishing(SmishingConfig{
 		Message:     "Your account is locked",
-		TrackingURL: "https://phish.example.com/track",
+		TrackingURL: "https://phish.angel.local/track",
 	})
 
 	if len(result.Templates) == 0 {
@@ -81,7 +81,7 @@ func TestQRPhish(t *testing.T) {
 	engine := NewEngine(PhishingConfig{})
 
 	result := engine.QRPhish(QRPhishConfig{
-		URL: "https://phish.example.com/login",
+		URL: "https://phish.angel.local/login",
 	})
 
 	if len(result.Templates) == 0 {

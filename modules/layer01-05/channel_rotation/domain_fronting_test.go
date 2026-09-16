@@ -17,14 +17,14 @@ func TestNewDomainFronting(t *testing.T) {
 
 func TestDomainFronting_AddDomain(t *testing.T) {
 	df := NewDomainFronting()
-	df.AddDomain(FrontDomain{Domain: "cdn.example.com", CDNProvider: "cloudflare", IP: "1.2.3.4", Port: 443})
+	df.AddDomain(FrontDomain{Domain: "cdn.angel.local", CDNProvider: "cloudflare", IP: "1.2.3.4", Port: 443})
 
 	if df.GetDomainCount() != 1 {
 		t.Fatalf("expected 1 domain, got %d", df.GetDomainCount())
 	}
 	d := df.GetDomains()[0]
-	if d.Domain != "cdn.example.com" {
-		t.Errorf("expected cdn.example.com, got %s", d.Domain)
+	if d.Domain != "cdn.angel.local" {
+		t.Errorf("expected cdn.angel.local, got %s", d.Domain)
 	}
 	if !d.Healthy {
 		t.Error("expected domain to be healthy by default")
@@ -36,7 +36,7 @@ func TestDomainFronting_AddDomain(t *testing.T) {
 
 func TestDomainFronting_AddDomain_WithID(t *testing.T) {
 	df := NewDomainFronting()
-	df.AddDomain(FrontDomain{ID: "custom-id", Domain: "cdn.example.com"})
+	df.AddDomain(FrontDomain{ID: "custom-id", Domain: "cdn.angel.local"})
 
 	d := df.GetDomains()[0]
 	if d.ID != "custom-id" {

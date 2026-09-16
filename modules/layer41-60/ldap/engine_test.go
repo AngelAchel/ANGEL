@@ -128,12 +128,12 @@ func TestSPNEnum(t *testing.T) {
 
 func TestParseSPN(t *testing.T) {
 	eng := newTestEngine()
-	service, host, port := eng.ParseSPN("HTTP/webserver.example.com:443")
+	service, host, port := eng.ParseSPN("HTTP/webserver.angel.local:443")
 	if service != "HTTP" {
 		t.Errorf("expected service HTTP, got %s", service)
 	}
-	if host != "webserver.example.com" {
-		t.Errorf("expected host webserver.example.com, got %s", host)
+	if host != "webserver.angel.local" {
+		t.Errorf("expected host webserver.angel.local, got %s", host)
 	}
 	if port != 443 {
 		t.Errorf("expected port 443, got %d", port)
@@ -142,12 +142,12 @@ func TestParseSPN(t *testing.T) {
 
 func TestParseSPNNoPort(t *testing.T) {
 	eng := newTestEngine()
-	service, host, _ := eng.ParseSPN("LDAP/ldap.example.com")
+	service, host, _ := eng.ParseSPN("LDAP/ldap.angel.local")
 	if service != "LDAP" {
 		t.Errorf("expected LDAP, got %s", service)
 	}
-	if host != "ldap.example.com" {
-		t.Errorf("expected ldap.example.com, got %s", host)
+	if host != "ldap.angel.local" {
+		t.Errorf("expected ldap.angel.local, got %s", host)
 	}
 }
 

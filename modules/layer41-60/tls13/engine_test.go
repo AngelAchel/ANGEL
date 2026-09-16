@@ -7,9 +7,9 @@ import (
 
 func newTestEngine() *Engine {
 	return NewEngine(TLS13Config{
-		TargetHost: "example.com",
+		TargetHost: "angel.local",
 		TargetPort: 443,
-		SNI:        "example.com",
+		SNI:        "angel.local",
 	})
 }
 
@@ -32,7 +32,7 @@ func TestDowngradeAttack(t *testing.T) {
 
 func TestPaddingOracle(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.PaddingOracle("example.com")
+	result, err := eng.PaddingOracle("angel.local")
 	if err != nil {
 		t.Fatalf("PaddingOracle failed: %v", err)
 	}
@@ -60,7 +60,7 @@ func TestTicketReuse(t *testing.T) {
 
 func TestMiddlebox(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.Middlebox("example.com")
+	result, err := eng.Middlebox("angel.local")
 	if err != nil {
 		t.Fatalf("Middlebox failed: %v", err)
 	}

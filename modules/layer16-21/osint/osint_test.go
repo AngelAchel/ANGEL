@@ -86,7 +86,7 @@ func TestDNSCheckWildcards(t *testing.T) {
 	config := DefaultOSINTConfig()
 	recon := NewDNSRecon(config)
 
-	_, _, err := recon.CheckWildcards("example.com")
+	_, _, err := recon.CheckWildcards("angel.local")
 	if err != nil {
 		t.Logf("CheckWildcards failed: %v", err)
 	}

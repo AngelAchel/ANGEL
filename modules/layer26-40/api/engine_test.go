@@ -6,15 +6,15 @@ import (
 
 func TestOAuthRedirectAttack(t *testing.T) {
 	engine := NewEngine(APIConfig{
-		BaseURL: "https://api.example.com",
+		BaseURL: "https://api.angel.local",
 	})
 
 	result := engine.OAuthRedirectAttack(OAuthConfig{
 		ClientID:     "client123",
 		ClientSecret: "secret456",
 		RedirectURI:  "http://localhost/callback",
-		AuthURL:      "https://auth.example.com/authorize",
-		TokenURL:     "https://auth.example.com/token",
+		AuthURL:      "https://auth.angel.local/authorize",
+		TokenURL:     "https://auth.angel.local/token",
 		Scope:        "read write",
 		Flow:         OAuthFlowAuthorizationCode,
 	})
@@ -30,7 +30,7 @@ func TestOAuthRedirectAttack(t *testing.T) {
 }
 
 func TestJWTAlgorithmBypass(t *testing.T) {
-	engine := NewEngine(APIConfig{BaseURL: "https://api.example.com"})
+	engine := NewEngine(APIConfig{BaseURL: "https://api.angel.local"})
 
 	result := engine.JWTAlgorithmBypass("")
 
@@ -41,7 +41,7 @@ func TestJWTAlgorithmBypass(t *testing.T) {
 
 func TestRateLimitBypass(t *testing.T) {
 	engine := NewEngine(APIConfig{
-		BaseURL:   "https://api.example.com",
+		BaseURL:   "https://api.angel.local",
 		RateLimit: 100,
 	})
 
@@ -58,7 +58,7 @@ func TestRateLimitBypass(t *testing.T) {
 }
 
 func TestIDOREnum(t *testing.T) {
-	engine := NewEngine(APIConfig{BaseURL: "https://api.example.com"})
+	engine := NewEngine(APIConfig{BaseURL: "https://api.angel.local"})
 
 	result := engine.IDOREnum("/api/v1")
 
@@ -80,7 +80,7 @@ func TestEngineCreation(t *testing.T) {
 	if engine == nil {
 		t.Fatal("Engine should not be nil")
 	}
-	if engine.config.BaseURL != "https://api.example.com" {
+	if engine.config.BaseURL != "https://api.angel.local" {
 		t.Error("Default base URL should be set")
 	}
 }

@@ -33,7 +33,7 @@ type ImplantConfig struct {
 func NewImplant(cfg *ImplantConfig) *Implant {
 	if cfg == nil {
 		cfg = &ImplantConfig{
-			ServerURL:  "https://teamserver.example.com",
+			ServerURL:  "https://teamserver.angel.local",
 			Sleep:      30,
 			Jitter:     0.25,
 			Profile:    "default",

@@ -9,10 +9,10 @@ import (
 
 func newTestEngine() *Engine {
 	return NewEngine(SAMLConfig{
-		Issuer:      "https://idp.example.com",
-		ACSURL:      "https://sp.example.com/acs",
+		Issuer:      "https://idp.angel.local",
+		ACSURL:      "https://sp.angel.local/acs",
 		NameIDFmt:   "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
-		Destination: "https://sp.example.com/acs",
+		Destination: "https://sp.angel.local/acs",
 	})
 }
 
@@ -45,7 +45,7 @@ func TestSAMLAssertionReplay(t *testing.T) {
   <saml:Assertion>
     <saml:Issuer>%s</saml:Issuer>
     <saml:Subject>
-      <saml:NameID>user@example.com</saml:NameID>
+      <saml:NameID>user@angel.local</saml:NameID>
     </saml:Subject>
   </saml:Assertion>
 </samlp:Response>`, eng.config.Destination, eng.config.Issuer, eng.config.Issuer)
@@ -145,9 +145,9 @@ func TestExtractAssertions(t *testing.T) {
 
 func TestAnalyzeRedirectURL(t *testing.T) {
 	eng := newTestEngine()
-	result := eng.AnalyzeRedirectURL("https://auth.example.com/authorize?client_id=abc&redirect_uri=https://evil.com&state=xyz")
-	if result["host"] != "auth.example.com" {
-		t.Errorf("expected host auth.example.com, got %s", result["host"])
+	result := eng.AnalyzeRedirectURL("https://auth.angel.local/authorize?client_id=abc&redirect_uri=https://evil.com&state=xyz")
+	if result["host"] != "auth.angel.local" {
+		t.Errorf("expected host auth.angel.local, got %s", result["host"])
 	}
 	if result["client_id"] != "abc" {
 		t.Errorf("expected client_id abc, got %s", result["client_id"])

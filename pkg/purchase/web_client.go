@@ -65,7 +65,7 @@ func (c *WebClient) CreateStripeCheckout(amount float64, currency, productID, us
 
 	url := "https://api.stripe.com/v1/checkout/sessions"
 
-	payload := fmt.Sprintf("payment_method_types[]=card&line_items[0][price_data][currency]=%s&line_items[0][price_data][product_data][name]=%s&line_items[0][price_data][unit_amount]=%d&mode=payment&success_url=https://example.com/success&cancel_url=https://example.com/cancel&metadata[user_id]=%s",
+	payload := fmt.Sprintf("payment_method_types[]=card&line_items[0][price_data][currency]=%s&line_items[0][price_data][product_data][name]=%s&line_items[0][price_data][unit_amount]=%d&mode=payment&success_url=https://angel.local/success&cancel_url=https://angel.local/cancel&metadata[user_id]=%s",
 		currency, productID, int(amount*100), userID)
 
 	req, err := http.NewRequest("POST", url, strings.NewReader(payload))
@@ -172,7 +172,7 @@ func (c *WebClient) CreateXenditInvoice(amount float64, orderID, userID string) 
 	payload := map[string]interface{}{
 		"external_id": orderID,
 		"amount":      amount,
-		"payer_email": fmt.Sprintf("%s@example.com", userID),
+		"payer_email": fmt.Sprintf("%s@angel.local", userID),
 		"description": fmt.Sprintf("Payment for order %s", orderID),
 	}
 

@@ -12,7 +12,7 @@ func TestPromptInjection(t *testing.T) {
 		Temperature: 0.7,
 	})
 
-	result := engine.PromptInjection("https://api.example.com")
+	result := engine.PromptInjection("https://api.angel.local")
 
 	if len(result.Attacks) == 0 {
 		t.Error("Expected attacks")
@@ -30,7 +30,7 @@ func TestPromptInjection(t *testing.T) {
 func TestModelStealing(t *testing.T) {
 	engine := NewEngine(AIConfig{ModelName: "gpt-4"})
 
-	result := engine.ModelStealing("https://api.example.com")
+	result := engine.ModelStealing("https://api.angel.local")
 
 	if len(result.Attacks) == 0 {
 		t.Error("Expected attacks")
@@ -77,7 +77,7 @@ func TestJailbreak(t *testing.T) {
 func TestScoreCalculation(t *testing.T) {
 	engine := NewEngine(AIConfig{})
 
-	result := engine.PromptInjection("https://api.example.com")
+	result := engine.PromptInjection("https://api.angel.local")
 	if result.Score < 0 || result.Score > 100 {
 		t.Errorf("Score should be 0-100, got %d", result.Score)
 	}

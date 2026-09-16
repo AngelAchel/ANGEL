@@ -204,7 +204,7 @@ func TestTrafficMorpher(t *testing.T) {
 
 func TestTrafficMorpherMorphHTTP(t *testing.T) {
 	morpher := NewTrafficMorpher()
-	req, _ := http.NewRequest("GET", "https://example.com", nil)
+	req, _ := http.NewRequest("GET", "https://angel.local", nil)
 	req.Header.Set("X-Forwarded-For", "1.2.3.4")
 	req.Header.Set("X-Real-IP", "5.6.7.8")
 	req.Header.Set("X-Request-ID", "req-123")

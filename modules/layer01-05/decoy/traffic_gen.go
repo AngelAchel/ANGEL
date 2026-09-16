@@ -124,14 +124,14 @@ func (tg *TrafficGenerator) GenerateHTTPTraffic() string {
 }
 
 func (tg *TrafficGenerator) GenerateDNSTraffic() string {
-	domains := []string{"example.com", "google.com", "github.com", "microsoft.com", "amazon.com"}
+	domains := []string{"angel.local", "google.com", "github.com", "microsoft.com", "amazon.com"}
 	domain := domains[randIntn(len(domains))]
 
 	return fmt.Sprintf("DNS %s A IN", domain)
 }
 
 func (tg *TrafficGenerator) GenerateSMTPTraffic() string {
-	return fmt.Sprintf("EHLO %s\r\nMAIL FROM:<%s>\r\nRCPT TO:<test@example.com>\r\nDATA\r\n.\r\nQUIT",
+	return fmt.Sprintf("EHLO %s\r\nMAIL FROM:<%s>\r\nRCPT TO:<test@angel.local>\r\nDATA\r\n.\r\nQUIT",
 		tg.config.TargetIP, generateRandomEmail())
 }
 
@@ -171,7 +171,7 @@ func (tg *TrafficGenerator) IsRunning() bool {
 
 func generateRandomEmail() string {
 	names := []string{"john", "jane", "bob", "alice", "charlie"}
-	domains := []string{"example.com", "test.com", "demo.com"}
+	domains := []string{"angel.local", "test.com", "demo.com"}
 
 	name := names[randIntn(len(names))]
 	domain := domains[randIntn(len(domains))]

@@ -29,7 +29,7 @@ func TestNewAuthBypassEngine(t *testing.T) {
 
 func TestNewAuthBypassEngineWithConfig(t *testing.T) {
 	config := &AuthBypassConfig{
-		Target:        "https://example.com",
+		Target:        "https://angel.local",
 		Timeout:       10 * time.Second,
 		Methods:       []AuthBypassMethod{MethodSQLiAuth},
 		UsernameField: "user",
@@ -38,14 +38,14 @@ func TestNewAuthBypassEngineWithConfig(t *testing.T) {
 		Verbose:       true,
 	}
 	engine := NewAuthBypassEngine(config)
-	if engine.config.Target != "https://example.com" {
+	if engine.config.Target != "https://angel.local" {
 		t.Error("expected target to be set")
 	}
 }
 
 func TestTestBypassSQLiAuth(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	result, err := engine.TestBypass("https://example.com", "sqli_auth")
+	result, err := engine.TestBypass("https://angel.local", "sqli_auth")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -65,7 +65,7 @@ func TestTestBypassSQLiAuth(t *testing.T) {
 
 func TestTestBypassNoSQLAuth(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	result, err := engine.TestBypass("https://example.com", "nosql_auth")
+	result, err := engine.TestBypass("https://angel.local", "nosql_auth")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -76,7 +76,7 @@ func TestTestBypassNoSQLAuth(t *testing.T) {
 
 func TestTestBypassJWTBypass(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	result, err := engine.TestBypass("https://example.com", "jwt_bypass")
+	result, err := engine.TestBypass("https://angel.local", "jwt_bypass")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -87,7 +87,7 @@ func TestTestBypassJWTBypass(t *testing.T) {
 
 func TestTestBypassJSONTampering(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	result, err := engine.TestBypass("https://example.com", "json_tampering")
+	result, err := engine.TestBypass("https://angel.local", "json_tampering")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -98,7 +98,7 @@ func TestTestBypassJSONTampering(t *testing.T) {
 
 func TestTestBypassDefaultCred(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	result, err := engine.TestBypass("https://example.com", "default_cred")
+	result, err := engine.TestBypass("https://angel.local", "default_cred")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -112,7 +112,7 @@ func TestTestBypassDefaultCred(t *testing.T) {
 
 func TestTestBypassOAuthBypass(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	result, err := engine.TestBypass("https://example.com", "oauth_bypass")
+	result, err := engine.TestBypass("https://angel.local", "oauth_bypass")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -123,7 +123,7 @@ func TestTestBypassOAuthBypass(t *testing.T) {
 
 func TestTestBypassSessionHijack(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	result, err := engine.TestBypass("https://example.com", "session_hijack")
+	result, err := engine.TestBypass("https://angel.local", "session_hijack")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -134,7 +134,7 @@ func TestTestBypassSessionHijack(t *testing.T) {
 
 func TestTestBypassUnknownMethod(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	_, err := engine.TestBypass("https://example.com", "unknown_method")
+	_, err := engine.TestBypass("https://angel.local", "unknown_method")
 	if err == nil {
 		t.Fatal("expected error for unknown method")
 	}
@@ -142,7 +142,7 @@ func TestTestBypassUnknownMethod(t *testing.T) {
 
 func TestFullBypass(t *testing.T) {
 	engine := NewAuthBypassEngine(nil)
-	results, err := engine.FullBypass("https://example.com")
+	results, err := engine.FullBypass("https://angel.local")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -306,7 +306,7 @@ func TestJWTSessionHijack(t *testing.T) {
 func TestOAuthRedirectManip(t *testing.T) {
 	module := NewOAuthModule()
 	manipulated, err := module.OAuthRedirectManip(
-		"https://auth.example.com/oauth?redirect_uri=https://legit.com/callback",
+		"https://auth.angel.local/oauth?redirect_uri=https://legit.com/callback",
 		"attacker.com",
 	)
 	if err != nil {
@@ -375,7 +375,7 @@ func TestOAuthDeviceCodeFlow(t *testing.T) {
 func TestSessionFixation(t *testing.T) {
 	config := DefaultAuthBypassConfig()
 	module := NewSessionModule(config)
-	result, err := module.SessionFixation("https://example.com/login")
+	result, err := module.SessionFixation("https://angel.local/login")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -407,7 +407,7 @@ func TestHTTPBruteforce(t *testing.T) {
 	module := NewBruteforceModule(config)
 
 	bfConfig := &BruteforceConfig{
-		Target:      "https://example.com",
+		Target:      "https://angel.local",
 		Port:        443,
 		Method:      BruteForceHTTP,
 		Username:    "admin",
@@ -433,7 +433,7 @@ func TestHTTPBruteforceMaxAttempts(t *testing.T) {
 	module := NewBruteforceModule(config)
 
 	bfConfig := &BruteforceConfig{
-		Target:      "https://example.com",
+		Target:      "https://angel.local",
 		Wordlist:    []string{"pass1", "pass2", "pass3", "pass4", "pass5"},
 		MaxAttempts: 2,
 		Delay:       0,
@@ -466,7 +466,7 @@ func TestCredentialStuffing(t *testing.T) {
 		{Username: "user", Password: "pass2"},
 	}
 
-	result, err := module.CredentialStuffing("https://example.com", creds)
+	result, err := module.CredentialStuffing("https://angel.local", creds)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -481,7 +481,7 @@ func TestPasswordSpray(t *testing.T) {
 
 	passwords := []string{"pass1", "pass2"}
 
-	result, err := module.PasswordSpray("https://example.com", passwords)
+	result, err := module.PasswordSpray("https://angel.local", passwords)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -494,7 +494,7 @@ func TestRateLimitBypass(t *testing.T) {
 	config := DefaultAuthBypassConfig()
 	module := NewBruteforceModule(config)
 
-	bypassed, err := module.RateLimitBypass("https://example.com")
+	bypassed, err := module.RateLimitBypass("https://angel.local")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}

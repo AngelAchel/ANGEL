@@ -7,14 +7,14 @@ import (
 
 func newTestEngine() *Engine {
 	return NewEngine(MethodologyConfig{
-		Scope: []string{"example.com"},
+		Scope: []string{"angel.local"},
 		Phase: "recon",
 	})
 }
 
 func TestReconPhase(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.ReconPhase([]string{"example.com"})
+	result, err := eng.ReconPhase([]string{"angel.local"})
 	if err != nil {
 		t.Fatalf("ReconPhase failed: %v", err)
 	}
@@ -32,7 +32,7 @@ func TestReconPhase(t *testing.T) {
 func TestDiscoveryPhase(t *testing.T) {
 	eng := newTestEngine()
 	recon := ReconResult{
-		Domains:  []string{"example.com"},
+		Domains:  []string{"angel.local"},
 		IPs:      []string{"10.0.0.1"},
 		Ports:    []int{80, 443},
 		Services: []string{"HTTP"},

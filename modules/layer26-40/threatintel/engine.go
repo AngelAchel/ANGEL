@@ -106,7 +106,7 @@ func (e *Engine) extractIOCs(target string) []IOC {
 
 	iocs = append(iocs, IOC{
 		Type:       IOCTypeDomain,
-		Value:      "malware-c2.example.com",
+		Value:      "malware-c2.angel.local",
 		Confidence: 0.92,
 		Source:     "DNS Analysis",
 		Tags:       []string{"c2", "malware"},
@@ -127,7 +127,7 @@ func (e *Engine) extractIOCs(target string) []IOC {
 
 	iocs = append(iocs, IOC{
 		Type:       IOCTypeURL,
-		Value:      "http://phish.example.com/login/verify",
+		Value:      "http://phish.angel.local/login/verify",
 		Confidence: 0.88,
 		Source:     "Phishing DB",
 		Tags:       []string{"phishing", "credential_harvest"},

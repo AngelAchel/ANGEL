@@ -76,7 +76,7 @@ func TestDADAttack(t *testing.T) {
 
 func TestDNSv6Spoof(t *testing.T) {
 	eng := newTestEngine()
-	result, err := eng.DNSv6Spoof("example.com", "2001:db8::99")
+	result, err := eng.DNSv6Spoof("angel.local", "2001:db8::99")
 	if err != nil {
 		t.Fatalf("DNSv6Spoof failed: %v", err)
 	}
@@ -90,7 +90,7 @@ func TestDNSv6Spoof(t *testing.T) {
 
 func TestDNSv6SpoofInvalidIP(t *testing.T) {
 	eng := newTestEngine()
-	_, err := eng.DNSv6Spoof("example.com", "bad-ip")
+	_, err := eng.DNSv6Spoof("angel.local", "bad-ip")
 	if err == nil {
 		t.Error("expected error for invalid IPv6")
 	}

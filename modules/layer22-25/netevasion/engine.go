@@ -122,7 +122,7 @@ func (e *NetEvasionEngine) evadeIPRotation(start time.Time) (*EvasionResult, err
 
 func (e *NetEvasionEngine) evadeTrafficMorph(start time.Time) (*EvasionResult, error) {
 	// Build a synthetic request and morph it through all traffic morpher stages.
-	sampleReq, err := http.NewRequest("POST", "https://example.com/api/v1/telemetry", nil)
+	sampleReq, err := http.NewRequest("POST", "https://angel.local/api/v1/telemetry", nil)
 	if err != nil {
 		return &EvasionResult{
 			Success:   false,
@@ -247,7 +247,7 @@ func (e *NetEvasionEngine) evadeDomainFronting(start time.Time) (*EvasionResult,
 	_, exists := e.front.GetFront(frontName)
 	if !exists {
 		defaultCfg := &DomainFrontConfig{
-			Target:   "https://example.com",
+			Target:   "https://angel.local",
 			CDN:      "cloudfront.net",
 			Host:     "d111111abcdef8.cloudfront.net",
 			Protocol: "https",

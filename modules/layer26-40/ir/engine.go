@@ -25,9 +25,9 @@ func (e *Engine) BreachSimulate(scope []string) IRResult {
 	}
 
 	findings := []Finding{
-		{ID: uuid.New().String(), Title: "Initial Compromise via Phishing", Severity: "critical", Category: "Initial Access", Details: "User clicked malicious link in email, credentials harvested", IOCs: []string{"185.220.101.45", "phish.example.com"}, AffectedHosts: []string{"ws-finance-01", "ws-finance-02"}},
+		{ID: uuid.New().String(), Title: "Initial Compromise via Phishing", Severity: "critical", Category: "Initial Access", Details: "User clicked malicious link in email, credentials harvested", IOCs: []string{"185.220.101.45", "phish.angel.local"}, AffectedHosts: []string{"ws-finance-01", "ws-finance-02"}},
 		{ID: uuid.New().String(), Title: "Lateral Movement via Pass-the-Hash", Severity: "critical", Category: "Lateral Movement", Details: "Attacker used harvested NTLM hash to move laterally", IOCs: []string{"S-1-5-21-...-1001"}, AffectedHosts: []string{"dc-01", "fileserver-01"}},
-		{ID: uuid.New().String(), Title: "Data Exfiltration", Severity: "high", Category: "Exfiltration", Details: "Sensitive data exfiltrated via encrypted HTTPS channel", IOCs: []string{"exfil.example.com"}, AffectedHosts: []string{"fileserver-01"}},
+		{ID: uuid.New().String(), Title: "Data Exfiltration", Severity: "high", Category: "Exfiltration", Details: "Sensitive data exfiltrated via encrypted HTTPS channel", IOCs: []string{"exfil.angel.local"}, AffectedHosts: []string{"fileserver-01"}},
 	}
 
 	result.Findings = findings
@@ -63,7 +63,7 @@ func (e *Engine) Containment(findingIDs []string) IRResult {
 
 	result.Actions = []IRAction{
 		{Phase: IRPhaseContainment, Action: "Isolate affected host from network", Result: "Host ws-finance-01 isolated via NAC", Automated: false, Timestamp: time.Now()},
-		{Phase: IRPhaseContainment, Action: "Block IOCs at perimeter firewall", Result: "Blocked 185.220.101.45, phish.example.com", Automated: true, Timestamp: time.Now()},
+		{Phase: IRPhaseContainment, Action: "Block IOCs at perimeter firewall", Result: "Blocked 185.220.101.45, phish.angel.local", Automated: true, Timestamp: time.Now()},
 		{Phase: IRPhaseContainment, Action: "Disable compromised user accounts", Result: "Accounts jdoe, asmith disabled", Automated: false, Timestamp: time.Now()},
 		{Phase: IRPhaseContainment, Action: "Reset service account credentials", Result: "svc_backup password rotated", Automated: false, Timestamp: time.Now()},
 		{Phase: IRPhaseContainment, Action: "Enable enhanced logging", Result: "PowerShell module logging enabled", Automated: true, Timestamp: time.Now()},

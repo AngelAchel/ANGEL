@@ -154,7 +154,7 @@ func (e *Engine) OIDCRedirectAttack(clientID string, redirectURI string) (*SAMLR
 	state := e.generateRandomHex(32)
 	nonce := e.generateRandomHex(32)
 
-	oauthURL := fmt.Sprintf("https://authorization.example.com/authorize?response_type=code&client_id=%s&redirect_uri=%s&scope=openid+profile+email&state=%s&nonce=%s",
+	oauthURL := fmt.Sprintf("https://authorization.angel.local/authorize?response_type=code&client_id=%s&redirect_uri=%s&scope=openid+profile+email&state=%s&nonce=%s",
 		url.QueryEscape(clientID),
 		url.QueryEscape(redirectURI),
 		state,

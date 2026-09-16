@@ -107,7 +107,7 @@ func (o *OAuthModule) OAuthDeviceCodeFlowPoll(clientID string) (*BypassResult, e
 			"client_id":        clientID,
 			"device_code":      generateDeviceCode(),
 			"user_code":        generateUserCode(),
-			"verification_uri": "https://example.com/device",
+			"verification_uri": "https://angel.local/device",
 			"interval":         "5",
 			"attack_type":      "device_code_poll",
 		},

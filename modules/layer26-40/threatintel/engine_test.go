@@ -28,8 +28,8 @@ func TestMITREATTACKMapping(t *testing.T) {
 	engine := NewEngine(ThreatIntelConfig{})
 
 	iocs := []IOC{
-		{Type: IOCTypeDomain, Value: "c2.example.com", Confidence: 0.9, Tags: []string{"c2"}},
-		{Type: IOCTypeURL, Value: "http://phish.example.com", Confidence: 0.8, Tags: []string{"phishing"}},
+		{Type: IOCTypeDomain, Value: "c2.angel.local", Confidence: 0.9, Tags: []string{"c2"}},
+		{Type: IOCTypeURL, Value: "http://phish.angel.local", Confidence: 0.8, Tags: []string{"phishing"}},
 	}
 
 	result := engine.MITREATTACKMapping(iocs)
@@ -42,7 +42,7 @@ func TestMITREATTACKMapping(t *testing.T) {
 func TestThreatFeed(t *testing.T) {
 	engine := NewEngine(ThreatIntelConfig{})
 
-	result := engine.ThreatFeed("https://feeds.example.com/threats.json")
+	result := engine.ThreatFeed("https://feeds.angel.local/threats.json")
 
 	if len(result.ThreatActors) == 0 {
 		t.Error("Expected threat actors")
