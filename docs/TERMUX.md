@@ -75,14 +75,24 @@ ANGEL **BISA** berjalan di Termux via proot-distro, berdasarkan bukti runtime.
 | Service | Port | Result |
 |---------|------|--------|
 | Teamserver | 9451 | HTTP 404 — RUNNING |
-| Console | 9454 | HTTP 404 — RUNNING |
-| Rules Loader | 9453 | Daemon mode — RUNNING |
+| Console | 9452 | API Gateway — RUNNING |
+| Rules Loader | 9453 | Daemon — RUNNING (0 rules, fallback) |
+
+Full output:
+```
+Teamserver: "Teamserver started successfully", HTTP + DNS listener
+Console: "API Gateway starting"
+Rules: "Rules loaded successfully!", daemon mode, Ctrl+C to stop
+Warnings (expected): .env not found, Supabase unavailable, rules.json not found
+```
 
 Test conditions:
 - Clean env: `env -i HOME="$HOME" PATH="$PATH" TERM="$TERM"`
 - Env vars: TEAMSERVER_KEY, CRYPTO_KEY, JWT_SECRET set
 - Binary: static ELF, zero deps (ldd confirmed)
 - No root, no Docker, no shared libraries
+- No .env, no Supabase, no rules.json (fallback to empty rules)
+- Warnings expected: .env not found, Supabase unavailable, rules.json not found
 
 This proves proot-distro on Termux CAN run ANGEL if Go is installed via proot-distro.
 
