@@ -23,7 +23,7 @@ func (ec *EvidenceCollector) CaptureRequest(req *http.Request) (*EvidenceCapture
 	if err != nil {
 		return nil, fmt.Errorf("read request body: %w", err)
 	}
-	defer req.Body.Close()
+	defer func() { _ = req.Body.Close() }()
 
 	h := sha256.Sum256(body)
 

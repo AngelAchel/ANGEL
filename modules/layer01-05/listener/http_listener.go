@@ -105,7 +105,7 @@ func (l *HTTPListener) handleRegister(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	fmt.Fprintf(w, `{"agent_id": "%s"}`, agentID)
+	_, _ = fmt.Fprintf(w, `{"agent_id": "%s"}`, agentID)
 }
 
 func (l *HTTPListener) handleTask(w http.ResponseWriter, r *http.Request) {

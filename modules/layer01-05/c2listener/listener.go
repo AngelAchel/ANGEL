@@ -96,7 +96,7 @@ func (l *C2Listener) handleRegister(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	fmt.Fprintf(w, `{"agent_id": "%s"}`, agentID)
+	_, _ = fmt.Fprintf(w, `{"agent_id": "%s"}`, agentID)
 }
 
 func (l *C2Listener) handleTask(w http.ResponseWriter, r *http.Request) {
@@ -125,7 +125,7 @@ func (l *C2Listener) handleTask(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, `{"id": "%s", "type": "%s", "payload": "%s"}`, task.ID, task.Type, task.Payload)
+	_, _ = fmt.Fprintf(w, `{"id": "%s", "type": "%s", "payload": "%s"}`, task.ID, task.Type, task.Payload)
 }
 
 func (l *C2Listener) handleResult(w http.ResponseWriter, r *http.Request) {

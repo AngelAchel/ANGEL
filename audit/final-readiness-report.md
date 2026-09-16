@@ -28,27 +28,25 @@ Total lines: 218
 Non-test, non-decoy: 71 (after fixing 42 deferred closes)
 
 Breakdown by pattern:
-| Pattern | Count | Severity |
-|---------|-------|----------|
-| defer resp.Body.Close() | 34 | LOW (fixed) |
-| defer conn.Close() | 5 | LOW (fixed) |
-| defer rows.Close() | 2 | LOW (fixed) |
-| fmt.Fprintf(w, ...) | 7 | LOW (fixed) |
-| engine.LoadLocalRules | 2 | LOW |
-| json.NewEncoder(w).Encode | 4 | LOW |
-| conn.WriteMessage | 1 | LOW |
-| conn.Close() (non-defer) | 4 | LOW |
-| b.namePipe.Create() | 1 | LOW |
-| os.Unsetenv | 3 | LOW |
-| os.Setenv | 1 | LOW |
-| os.Remove | 12 | LOW |
-| cmd.CombinedOutput() | 12 | LOW |
-| resp.Body.Close() (non-defer) | 14 | LOW |
-| conn.SetReadDeadline | 1 | LOW |
-| fmt.Fprint(l.output, line) | 1 | LOW |
+| Pattern | Count | Severity | Status |
+|---------|-------|----------|--------|
+| defer req.Body.Close() | 1 | LOW | FIXED |
+| fmt.Fprintf(w, ...) | 7 | LOW | 5 FIXED, 2 ALREADY FIXED |
+| engine.LoadLocalRules | 2 | LOW | REMAINING |
+| json.NewEncoder(w).Encode | 4 | LOW | REMAINING |
+| conn.WriteMessage | 1 | LOW | REMAINING |
+| conn.Close() (non-defer) | 4 | LOW | REMAINING |
+| b.namePipe.Create() | 1 | LOW | REMAINING |
+| os.Unsetenv | 3 | LOW | REMAINING |
+| os.Setenv | 1 | LOW | REMAINING |
+| os.Remove | 12 | LOW | REMAINING |
+| cmd.CombinedOutput() | 12 | LOW | REMAINING |
+| resp.Body.Close() (non-defer) | 14 | LOW | REMAINING |
+| conn.SetReadDeadline | 1 | LOW | REMAINING |
+| fmt.Fprint(l.output, line) | 1 | LOW | REMAINING |
 
-Fixed: 42 (deferred closes + fmt.Fprintf)
-Remaining: 71
+Fixed: 6 (deferred close + fmt.Fprintf)
+Remaining: 65
 Blocking: 0
 All remaining are non-critical paths (logging, cleanup, HTTP response)
 
@@ -135,7 +133,7 @@ KALI NETHunter vs TERMUX
 REMAINING LIMITATIONS
 ========================================
 
-1. Errcheck: 71 remaining (non-blocking, non-critical paths) — 42 fixed
+1. Errcheck: 65 remaining (non-blocking, non-critical paths) — 6 fixed
 2. Staticcheck: 114 remaining (all style/deprecated, none blocking)
 3. Nmap: not installed in lab (no root)
 4. Netcat: not installed in lab (no root)
