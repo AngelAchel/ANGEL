@@ -89,7 +89,48 @@ docker compose down
 
 ---
 
-## SECTION 3: OPERASIONAL ENGAGEMENT
+## SECTION 2B: NATIVE RUN (TANPA DOCKER)
+
+Untuk Kali Linux atau environment tanpa Docker.
+
+### Prasyarat
+- Go 1.22+
+- curl, git, make
+
+### Build Static Binary
+```bash
+CGO_ENABLED=0 make build
+# Output: bin/angel-cgo0, bin/angel-console-cgo0, bin/angel-rules-cgo0
+```
+
+### Start Services
+```bash
+bash scripts/start-local.sh
+# Atau manual:
+export TEAMSERVER_KEY=<key> CRYPTO_KEY=<key> JWT_SECRET=<key>
+./bin/angel-cgo0 -bind 127.0.0.1 -port 8443 &
+./bin/angel-console-cgo0 -addr 127.0.0.1 -port 3000 &
+./bin/angel-rules-cgo0 -bind 127.0.0.1 -port 9444 &
+```
+
+### Cek Kesehatan
+```bash
+bash scripts/health-check.sh
+# Atau: ./aegis/angel doctor
+```
+
+### Stop
+```bash
+bash scripts/stop-local.sh
+```
+
+### Dokumentasi Lengkap
+- `docs/NATIVE-RUN.md` — Panduan native run
+- `docs/KALI.md` — Kompatibilitas Kali Linux
+- `docs/TERMUX.md` — Kompatibilitas Termux
+- `docs/DEPENDENCIES.md` — Daftar dependency
+
+---
 
 ### Generate Implant
 ```bash
@@ -228,4 +269,12 @@ ANGEL/
 
 - `STRUKTUR_ANGEL.md` — Blueprint 70 layer
 - `TEST_SCENARIOS.md` — 1.346 test case (TC-001..TC-1346)
-- `docs/report_template.md` — Template laporan
+|- `docs/report_template.md` — Template laporan
+|- `docs/NATIVE-RUN.md` — Native run (tanpa Docker)
+|- `docs/KALI.md` — Kali Linux compatibility
+|- `docs/TERMUX.md` — Termux compatibility
+|- `docs/DEPENDENCIES.md` — Full dependency list
+|- `aegis/angel doctor` — System checker
+|- `scripts/start-local.sh` — Start native services
+|- `scripts/stop-local.sh` — Stop native services
+|- `scripts/health-check.sh` — Health check
