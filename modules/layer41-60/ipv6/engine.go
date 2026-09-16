@@ -11,6 +11,21 @@ import (
 	"time"
 )
 
+func ipv6Checksum(data []byte) []byte {
+	var sum uint32
+	for i := 0; i < len(data)-1; i += 2 {
+		sum += uint32(data[i])<<8 | uint32(data[i+1])
+	}
+	if len(data)%2 == 1 {
+		sum += uint32(data[len(data)-1]) << 8
+	}
+	for sum > 0xffff {
+		sum = (sum >> 16) + (sum & 0xffff)
+	}
+	checksum := uint16(^sum)
+	return []byte{byte(checksum >> 8), byte(checksum & 0xff)}
+}
+
 type Engine struct {
 	config IPv6Config
 	state  NDPState
@@ -53,7 +68,8 @@ func (e *Engine) buildRAPacket(prefix string, prefixLen int, dnsServers []string
 	var buf []byte
 	buf = append(buf, 0x86)       // ICMPv6 Router Advertisement
 	buf = append(buf, 0x00)       // Code
-	buf = append(buf, 0x00, 0x00) // Checksum (calculated by kernel)
+	checksum := ipv6Checksum(buf)
+	buf = append(buf, checksum[0], checksum[1]) // Checksum
 
 	// Hop limit and flags
 	buf = append(buf, 0xff)       // Cur hop limit
@@ -65,8 +81,8 @@ func (e *Engine) buildRAPacket(prefix string, prefixLen int, dnsServers []string
 	buf = append(buf, 0x04) // Length (8 bytes)
 	buf = append(buf, byte(prefixLen))
 	buf = append(buf, 0xc0)                   // L=1, A=1
-	buf = append(buf, 0x00, 0x00, 0x39, 0x30) // Valid lifetime: 2592000s (30d)
-	buf = append(buf, 0x00, 0x00, 0x09, 0x30) // Preferred lifetime: 604800s (7d)
+	buf = append(buf, 0x00, 0x27, 0x7F, 0x00) // Valid lifetime: 2592000s (30d)
+	buf = append(buf, 0x00, 0x09, 0x3A, 0x80) // Preferred lifetime: 604800s (7d)
 
 	parsed := net.ParseIP(prefix)
 	if parsed != nil {
@@ -109,7 +125,8 @@ func (e *Engine) buildNSPacket(target string) []byte {
 	var buf []byte
 	buf = append(buf, 0x87)       // ICMPv6 Neighbor Solicitation
 	buf = append(buf, 0x00)       // Code
-	buf = append(buf, 0x00, 0x00) // Checksum
+	checksum := ipv6Checksum(buf)
+	buf = append(buf, checksum[0], checksum[1]) // Checksum
 
 	targetIP := net.ParseIP(target)
 	if targetIP != nil {
@@ -159,7 +176,8 @@ func (e *Engine) buildDADPacket(target string) []byte {
 	var buf []byte
 	buf = append(buf, 0x87) // ICMPv6 Neighbor Solicitation
 	buf = append(buf, 0x00) // Code
-	buf = append(buf, 0x00, 0x00)
+	checksum := ipv6Checksum(buf)
+	buf = append(buf, checksum[0], checksum[1]) // Checksum
 
 	targetIP := net.ParseIP(target)
 	if targetIP != nil {
