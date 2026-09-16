@@ -39,6 +39,12 @@ services:
       - angel-net
     restart: unless-stopped
     command: ["-bind", "0.0.0.0", "-port", "8443"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-s", "http://localhost:8443/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
   angel-console:
     build:
@@ -62,6 +68,12 @@ services:
     depends_on:
       - angel-teamserver
     command: ["-addr", "0.0.0.0", "-port", "3000"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-s", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
   angel-rules:
     build:
@@ -80,6 +92,12 @@ services:
       - angel-net
     restart: unless-stopped
     command: ["-bind", "0.0.0.0", "-port", "9444"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-s", "http://localhost:9444/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
   dvwa:
     image: vulnerables/web-dvwa:latest

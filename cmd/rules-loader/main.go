@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/angel-platform/angel/pkg/supabase"
 	"github.com/joho/godotenv"
@@ -31,5 +34,28 @@ func main() {
 	}
 
 	fmt.Println("\nRules loaded successfully!")
-	os.Exit(0)
+
+	// Run as daemon — reload rules every 60s
+	ticker := time.NewTicker(60 * time.Second)
+	defer ticker.Stop()
+
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+
+	log.Println("Rules loader running as daemon. Press Ctrl+C to stop.")
+	for {
+		select {
+		case <-ticker.C:
+			log.Println("Reloading rules...")
+			if err := engine.LoadAllRules(); err != nil {
+				log.Printf("Warning: Supabase rules unavailable, loading local fallback: %v", err)
+				engine.LoadLocalRules("/app/data/rules.json")
+			}
+			log.Println("Rules reloaded successfully.")
+		case <-sigChan:
+			log.Println("Shutting down rules loader...")
+			os.Exit(0)
+		}
+	}
+
 }
