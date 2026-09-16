@@ -111,6 +111,3 @@ docker compose logs -f angel-teamserver
 
 Built with 🔥 by Cyber Security Software Engineer
 GitHub: https://github.com/AngelAchel/ANGEL
-
-> *"No copy-paste. No demo. No placeholder. Full attack."*
-
