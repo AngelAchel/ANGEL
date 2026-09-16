@@ -82,6 +82,12 @@ export class ApiService {
     );
   }
 
+  getReport(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/reports/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   generateReport(): Observable<any> {
     return this.http.post(`${this.apiUrl}/reports`, {}).pipe(
       catchError(this.handleError)

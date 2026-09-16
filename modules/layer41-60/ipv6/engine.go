@@ -66,8 +66,8 @@ func (e *Engine) RASpoof(prefix string, prefixLen int, dnsServers []string) (*IP
 
 func (e *Engine) buildRAPacket(prefix string, prefixLen int, dnsServers []string) []byte {
 	var buf []byte
-	buf = append(buf, 0x86)       // ICMPv6 Router Advertisement
-	buf = append(buf, 0x00)       // Code
+	buf = append(buf, 0x86) // ICMPv6 Router Advertisement
+	buf = append(buf, 0x00) // Code
 	checksum := ipv6Checksum(buf)
 	buf = append(buf, checksum[0], checksum[1]) // Checksum
 
@@ -123,8 +123,8 @@ func (e *Engine) NSFlood(targetIPv6 string, count int) (*IPv6Result, error) {
 
 func (e *Engine) buildNSPacket(target string) []byte {
 	var buf []byte
-	buf = append(buf, 0x87)       // ICMPv6 Neighbor Solicitation
-	buf = append(buf, 0x00)       // Code
+	buf = append(buf, 0x87) // ICMPv6 Neighbor Solicitation
+	buf = append(buf, 0x00) // Code
 	checksum := ipv6Checksum(buf)
 	buf = append(buf, checksum[0], checksum[1]) // Checksum
 

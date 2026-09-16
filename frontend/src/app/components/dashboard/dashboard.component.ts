@@ -117,10 +117,10 @@ export class DashboardComponent implements OnInit {
 
   loadStats(): void {
     this.apiService.getStats().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.stats = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to load stats:', err);
       }
     });
@@ -128,10 +128,10 @@ export class DashboardComponent implements OnInit {
 
   loadRecentActivity(): void {
     this.apiService.getRecentActivity().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.recentActivity = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to load activity:', err);
       }
     });

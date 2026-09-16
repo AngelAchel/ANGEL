@@ -180,10 +180,10 @@ export class TasksComponent implements OnInit {
 
   loadAgents(): void {
     this.apiService.getAgents().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.agents = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to load agents:', err);
       }
     });
@@ -191,10 +191,10 @@ export class TasksComponent implements OnInit {
 
   loadTasks(): void {
     this.apiService.getTasks().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.tasks = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to load tasks:', err);
       }
     });
@@ -217,7 +217,7 @@ export class TasksComponent implements OnInit {
         this.loadTasks();
         this.commandArgs = '';
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to create task:', err);
       }
     });
@@ -228,7 +228,7 @@ export class TasksComponent implements OnInit {
       next: () => {
         this.loadTasks();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to cancel task:', err);
       }
     });
