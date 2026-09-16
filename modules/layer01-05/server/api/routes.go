@@ -92,7 +92,7 @@ func (s *Server) handleAgents(w http.ResponseWriter, r *http.Request) {
 			agents = append(agents, agent)
 		}
 		s.mu.RUnlock()
-		json.NewEncoder(w).Encode(agents)
+		_ = json.NewEncoder(w).Encode(agents)
 
 	case http.MethodPost:
 		var agent Agent
@@ -108,7 +108,7 @@ func (s *Server) handleAgents(w http.ResponseWriter, r *http.Request) {
 		s.mu.Unlock()
 
 		w.WriteHeader(http.StatusCreated)
-		json.NewEncoder(w).Encode(agent)
+		_ = json.NewEncoder(w).Encode(agent)
 
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -133,7 +133,7 @@ func (s *Server) handleAgentByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(agent)
+	_ = json.NewEncoder(w).Encode(agent)
 }
 
 func (s *Server) handleTasks(w http.ResponseWriter, r *http.Request) {
@@ -147,7 +147,7 @@ func (s *Server) handleTasks(w http.ResponseWriter, r *http.Request) {
 			tasks = append(tasks, task)
 		}
 		s.mu.RUnlock()
-		json.NewEncoder(w).Encode(tasks)
+		_ = json.NewEncoder(w).Encode(tasks)
 
 	case http.MethodPost:
 		var task Task
@@ -163,7 +163,7 @@ func (s *Server) handleTasks(w http.ResponseWriter, r *http.Request) {
 		s.mu.Unlock()
 
 		w.WriteHeader(http.StatusCreated)
-		json.NewEncoder(w).Encode(task)
+		_ = json.NewEncoder(w).Encode(task)
 
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -188,7 +188,7 @@ func (s *Server) handleTaskByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(task)
+	_ = json.NewEncoder(w).Encode(task)
 }
 
 func (s *Server) handleResults(w http.ResponseWriter, r *http.Request) {
@@ -199,12 +199,12 @@ func (s *Server) handleResults(w http.ResponseWriter, r *http.Request) {
 	copy(results, s.results)
 	s.mu.RUnlock()
 
-	json.NewEncoder(w).Encode(results)
+	_ = json.NewEncoder(w).Encode(results)
 }
 
 func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	_ = json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
 }
 
 func (s *Server) AddAgent(agent *Agent) {

@@ -661,7 +661,7 @@ func (d *UptimeCheck) Detect() DetectionResult {
 	}
 
 	var uptime float64
-	fmt.Sscanf(string(uptimeData), "%f", &uptime)
+	_, _ = fmt.Sscanf(string(uptimeData), "%f", &uptime)
 
 	detected := uptime < 300.0
 	result.Detected = detected
@@ -801,7 +801,7 @@ func (d *RAMSizeCheck) Detect() DetectionResult {
 	var totalMemKB uint64
 	for _, line := range strings.Split(string(memInfo), "\n") {
 		if strings.HasPrefix(line, "MemTotal:") {
-			fmt.Sscanf(strings.TrimPrefix(line, "MemTotal:"), "%d kB", &totalMemKB)
+			_, _ = fmt.Sscanf(strings.TrimPrefix(line, "MemTotal:"), "%d kB", &totalMemKB)
 			break
 		}
 	}

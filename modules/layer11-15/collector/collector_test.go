@@ -117,7 +117,7 @@ func TestKeyloggerDoubleStart(t *testing.T) {
 		t.Fatalf("Double start should not error: %v", err)
 	}
 
-	kl.Stop()
+	_ = kl.Stop()
 }
 
 func TestClipboardMonitor(t *testing.T) {
@@ -154,7 +154,7 @@ func TestClipboardMonitorDoubleStart(t *testing.T) {
 		t.Fatalf("Double start should not error: %v", err)
 	}
 
-	cm.Stop()
+	_ = cm.Stop()
 }
 
 func TestCaptureWebcam(t *testing.T) {
@@ -365,8 +365,8 @@ func TestGetResults(t *testing.T) {
 	config := DefaultCollectorConfig()
 	engine := NewCollectorEngine(config)
 
-	engine.Collect(string(CategoryScreen))
-	engine.Collect(string(CategoryWiFi))
+	_, _ = engine.Collect(string(CategoryScreen))
+	_, _ = engine.Collect(string(CategoryWiFi))
 
 	results := engine.GetResults()
 	if len(results) < 2 {

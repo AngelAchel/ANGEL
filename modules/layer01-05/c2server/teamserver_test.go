@@ -9,7 +9,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	os.Setenv("TEAMSERVER_KEY", "test-key-for-unit-test")
+	_ = os.Setenv("TEAMSERVER_KEY", "test-key-for-unit-test")
 	os.Exit(m.Run())
 }
 

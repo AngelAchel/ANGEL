@@ -39,10 +39,16 @@ func TestDefaultConfig(t *testing.T) {
 }
 
 func TestLoadConfig_EnvOverride(t *testing.T) {
-	os.Setenv("GATEWAY_ADDR", "127.0.0.1")
-	os.Setenv("GATEWAY_SECRET", "my-secret")
-	defer os.Unsetenv("GATEWAY_ADDR")
-	defer os.Unsetenv("GATEWAY_SECRET")
+	if err := os.Setenv("GATEWAY_ADDR", "127.0.0.1"); err != nil {
+		t.Fatalf("Setenv failed: %v", err)
+	}
+	if err := os.Setenv("GATEWAY_SECRET", "my-secret"); err != nil {
+		t.Fatalf("Setenv failed: %v", err)
+	}
+	defer func() {
+		_ = os.Unsetenv("GATEWAY_ADDR")
+		_ = os.Unsetenv("GATEWAY_SECRET")
+	}()
 
 	cfg := LoadConfig()
 

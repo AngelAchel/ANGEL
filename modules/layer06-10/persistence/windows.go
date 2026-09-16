@@ -255,7 +255,7 @@ func (m *ServiceInstallMethod) Install(params *PersistenceParams) (*PersistenceR
 	}
 
 	startCmd := exec.Command("sc", "start", serviceName)
-	startCmd.CombinedOutput()
+	_, _ = startCmd.CombinedOutput()
 
 	return &PersistenceResult{
 		Success: true,
@@ -279,7 +279,7 @@ func (m *ServiceInstallMethod) Remove(params *PersistenceParams) error {
 	}
 
 	stopCmd := exec.Command("sc", "stop", serviceName)
-	stopCmd.CombinedOutput()
+	_, _ = stopCmd.CombinedOutput()
 
 	cmd := exec.Command("sc", "delete", serviceName)
 	output, err := cmd.CombinedOutput()

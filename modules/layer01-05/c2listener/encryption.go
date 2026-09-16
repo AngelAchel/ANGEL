@@ -35,7 +35,7 @@ func NewC2Encryption(config EncryptionConfig) *C2Encryption {
 	}
 
 	if len(config.Key) > 0 {
-		e.SetKey(config.Key)
+		_ = e.SetKey(config.Key)
 	}
 
 	return e

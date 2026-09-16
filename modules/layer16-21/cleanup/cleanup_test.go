@@ -10,9 +10,9 @@ func TestCredentialCleanupRevoke(t *testing.T) {
 	dir := t.TempDir()
 
 	// Create dummy credential files
-	os.WriteFile(filepath.Join(dir, "credentials.json"), []byte("test"), 0600)
-	os.WriteFile(filepath.Join(dir, ".credentials"), []byte("test"), 0600)
-	os.WriteFile(filepath.Join(dir, "creds.tmp"), []byte("test"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "credentials.json"), []byte("test"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, ".credentials"), []byte("test"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "creds.tmp"), []byte("test"), 0600)
 
 	config := &CleanupConfig{BasePath: dir}
 	cc := NewCredentialCleanup(config)
@@ -31,9 +31,9 @@ func TestCredentialCleanupRevoke(t *testing.T) {
 func TestCredentialCleanupRotateTokens(t *testing.T) {
 	dir := t.TempDir()
 
-	os.WriteFile(filepath.Join(dir, ".tokens"), []byte("test"), 0600)
-	os.WriteFile(filepath.Join(dir, "token.json"), []byte("test"), 0600)
-	os.WriteFile(filepath.Join(dir, "session.token"), []byte("test"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, ".tokens"), []byte("test"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "token.json"), []byte("test"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "session.token"), []byte("test"), 0600)
 
 	config := &CleanupConfig{BasePath: dir}
 	cc := NewCredentialCleanup(config)
@@ -53,10 +53,10 @@ func TestCredentialCleanupDeleteSSHKeys(t *testing.T) {
 	dir := t.TempDir()
 
 	sshDir := filepath.Join(dir, ".ssh")
-	os.MkdirAll(sshDir, 0700)
-	os.WriteFile(filepath.Join(sshDir, "id_rsa"), []byte("key"), 0600)
-	os.WriteFile(filepath.Join(sshDir, "id_rsa.pub"), []byte("pub"), 0600)
-	os.WriteFile(filepath.Join(dir, "ssh_key"), []byte("key"), 0600)
+	_ = os.MkdirAll(sshDir, 0700)
+	_ = os.WriteFile(filepath.Join(sshDir, "id_rsa"), []byte("key"), 0600)
+	_ = os.WriteFile(filepath.Join(sshDir, "id_rsa.pub"), []byte("pub"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "ssh_key"), []byte("key"), 0600)
 
 	config := &CleanupConfig{BasePath: dir}
 	cc := NewCredentialCleanup(config)
@@ -73,9 +73,9 @@ func TestCredentialCleanupDeleteSSHKeys(t *testing.T) {
 func TestArtifactCleanupDeleteTools(t *testing.T) {
 	dir := t.TempDir()
 	toolsDir := filepath.Join(dir, "tools")
-	os.MkdirAll(toolsDir, 0700)
-	os.WriteFile(filepath.Join(toolsDir, "tool1"), []byte("data"), 0600)
-	os.WriteFile(filepath.Join(toolsDir, "tool2"), []byte("data"), 0600)
+	_ = os.MkdirAll(toolsDir, 0700)
+	_ = os.WriteFile(filepath.Join(toolsDir, "tool1"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(toolsDir, "tool2"), []byte("data"), 0600)
 
 	config := &CleanupConfig{ToolsDir: toolsDir}
 	ac := NewArtifactCleanup(config)
@@ -93,8 +93,8 @@ func TestArtifactCleanupDeleteTools(t *testing.T) {
 func TestArtifactCleanupDeleteLogs(t *testing.T) {
 	dir := t.TempDir()
 	logsDir := filepath.Join(dir, "logs")
-	os.MkdirAll(logsDir, 0700)
-	os.WriteFile(filepath.Join(logsDir, "app.log"), []byte("data"), 0600)
+	_ = os.MkdirAll(logsDir, 0700)
+	_ = os.WriteFile(filepath.Join(logsDir, "app.log"), []byte("data"), 0600)
 
 	config := &CleanupConfig{LogsDir: logsDir}
 	ac := NewArtifactCleanup(config)
@@ -112,8 +112,8 @@ func TestArtifactCleanupDeleteLogs(t *testing.T) {
 func TestArtifactCleanupDeleteConfigs(t *testing.T) {
 	dir := t.TempDir()
 	configsDir := filepath.Join(dir, "configs")
-	os.MkdirAll(configsDir, 0700)
-	os.WriteFile(filepath.Join(configsDir, "config.json"), []byte("data"), 0600)
+	_ = os.MkdirAll(configsDir, 0700)
+	_ = os.WriteFile(filepath.Join(configsDir, "config.json"), []byte("data"), 0600)
 
 	config := &CleanupConfig{ConfigsDir: configsDir}
 	ac := NewArtifactCleanup(config)
@@ -131,8 +131,8 @@ func TestArtifactCleanupDeleteConfigs(t *testing.T) {
 func TestArtifactCleanupDeleteBackups(t *testing.T) {
 	dir := t.TempDir()
 	backupsDir := filepath.Join(dir, "backups")
-	os.MkdirAll(backupsDir, 0700)
-	os.WriteFile(filepath.Join(backupsDir, "backup.tar.gz"), []byte("data"), 0600)
+	_ = os.MkdirAll(backupsDir, 0700)
+	_ = os.WriteFile(filepath.Join(backupsDir, "backup.tar.gz"), []byte("data"), 0600)
 
 	config := &CleanupConfig{BackupsDir: backupsDir}
 	ac := NewArtifactCleanup(config)
@@ -155,17 +155,17 @@ func TestEngineFullCleanup(t *testing.T) {
 	configsDir := filepath.Join(dir, "configs")
 	backupsDir := filepath.Join(dir, "backups")
 
-	os.MkdirAll(toolsDir, 0700)
-	os.MkdirAll(logsDir, 0700)
-	os.MkdirAll(configsDir, 0700)
-	os.MkdirAll(backupsDir, 0700)
+	_ = os.MkdirAll(toolsDir, 0700)
+	_ = os.MkdirAll(logsDir, 0700)
+	_ = os.MkdirAll(configsDir, 0700)
+	_ = os.MkdirAll(backupsDir, 0700)
 
-	os.WriteFile(filepath.Join(toolsDir, "tool1"), []byte("data"), 0600)
-	os.WriteFile(filepath.Join(logsDir, "app.log"), []byte("data"), 0600)
-	os.WriteFile(filepath.Join(configsDir, "config.json"), []byte("data"), 0600)
-	os.WriteFile(filepath.Join(backupsDir, "backup.tar.gz"), []byte("data"), 0600)
-	os.WriteFile(filepath.Join(dir, "credentials.json"), []byte("creds"), 0600)
-	os.WriteFile(filepath.Join(dir, "token.json"), []byte("token"), 0600)
+	_ = os.WriteFile(filepath.Join(toolsDir, "tool1"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(logsDir, "app.log"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(configsDir, "config.json"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(backupsDir, "backup.tar.gz"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "credentials.json"), []byte("creds"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "token.json"), []byte("token"), 0600)
 
 	config := &CleanupConfig{
 		BasePath:   dir,
@@ -192,10 +192,10 @@ func TestEnginePartialCleanup(t *testing.T) {
 
 	toolsDir := filepath.Join(dir, "tools")
 	logsDir := filepath.Join(dir, "logs")
-	os.MkdirAll(toolsDir, 0700)
-	os.MkdirAll(logsDir, 0700)
-	os.WriteFile(filepath.Join(toolsDir, "tool1"), []byte("data"), 0600)
-	os.WriteFile(filepath.Join(logsDir, "app.log"), []byte("data"), 0600)
+	_ = os.MkdirAll(toolsDir, 0700)
+	_ = os.MkdirAll(logsDir, 0700)
+	_ = os.WriteFile(filepath.Join(toolsDir, "tool1"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(logsDir, "app.log"), []byte("data"), 0600)
 
 	config := &CleanupConfig{
 		BasePath: dir,
@@ -249,8 +249,8 @@ func TestEngineVerifyClean(t *testing.T) {
 func TestManifestGenerateAndVerify(t *testing.T) {
 	dir := t.TempDir()
 	toolsDir := filepath.Join(dir, "tools")
-	os.MkdirAll(toolsDir, 0700)
-	os.WriteFile(filepath.Join(toolsDir, "tool1"), []byte("data"), 0600)
+	_ = os.MkdirAll(toolsDir, 0700)
+	_ = os.WriteFile(filepath.Join(toolsDir, "tool1"), []byte("data"), 0600)
 
 	config := &CleanupConfig{ToolsDir: toolsDir}
 	mg := NewManifestGenerator(config)
@@ -352,8 +352,8 @@ func TestEnginePartialCleanupUnknownCategory(t *testing.T) {
 func TestEnginePartialCleanupDatabase(t *testing.T) {
 	dir := t.TempDir()
 	dbDir := filepath.Join(dir, "db")
-	os.MkdirAll(dbDir, 0700)
-	os.WriteFile(filepath.Join(dbDir, "test.ser"), []byte("data"), 0600)
+	_ = os.MkdirAll(dbDir, 0700)
+	_ = os.WriteFile(filepath.Join(dbDir, "test.ser"), []byte("data"), 0600)
 
 	config := &CleanupConfig{
 		BasePath: dir,
@@ -375,8 +375,8 @@ func TestEnginePartialCleanupDatabase(t *testing.T) {
 func TestEnginePartialCleanupAdminAccounts(t *testing.T) {
 	dir := t.TempDir()
 	dbDir := filepath.Join(dir, "db")
-	os.MkdirAll(dbDir, 0700)
-	os.WriteFile(filepath.Join(dbDir, "admin_accounts.json"), []byte("data"), 0600)
+	_ = os.MkdirAll(dbDir, 0700)
+	_ = os.WriteFile(filepath.Join(dbDir, "admin_accounts.json"), []byte("data"), 0600)
 
 	config := &CleanupConfig{
 		BasePath: dir,
@@ -403,8 +403,8 @@ func TestEnginePartialCleanupRevert(t *testing.T) {
 	dir := t.TempDir()
 	dbDir := filepath.Join(dir, "db")
 	changesDir := filepath.Join(dbDir, "changes")
-	os.MkdirAll(changesDir, 0700)
-	os.WriteFile(filepath.Join(changesDir, "change1.sql"), []byte("data"), 0600)
+	_ = os.MkdirAll(changesDir, 0700)
+	_ = os.WriteFile(filepath.Join(changesDir, "change1.sql"), []byte("data"), 0600)
 
 	config := &CleanupConfig{
 		BasePath: dir,
@@ -425,9 +425,9 @@ func TestEnginePartialCleanupRevert(t *testing.T) {
 
 func TestDatabaseCleanupDeleteJavaObjects(t *testing.T) {
 	dir := t.TempDir()
-	os.WriteFile(filepath.Join(dir, "obj.ser"), []byte("data"), 0600)
-	os.WriteFile(filepath.Join(dir, "Main.class"), []byte("data"), 0600)
-	os.WriteFile(filepath.Join(dir, "lib.jar"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "obj.ser"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "Main.class"), []byte("data"), 0600)
+	_ = os.WriteFile(filepath.Join(dir, "lib.jar"), []byte("data"), 0600)
 
 	config := &CleanupConfig{DBPath: dir}
 	dc := NewDatabaseCleanup(config)
@@ -446,8 +446,8 @@ func TestDatabaseCleanupDeleteJavaObjects(t *testing.T) {
 func TestDatabaseCleanupDeleteStoredProcs(t *testing.T) {
 	dir := t.TempDir()
 	spDir := filepath.Join(dir, "stored_procs")
-	os.MkdirAll(spDir, 0700)
-	os.WriteFile(filepath.Join(spDir, "sp1.sql"), []byte("data"), 0600)
+	_ = os.MkdirAll(spDir, 0700)
+	_ = os.WriteFile(filepath.Join(spDir, "sp1.sql"), []byte("data"), 0600)
 
 	config := &CleanupConfig{DBPath: dir}
 	dc := NewDatabaseCleanup(config)
@@ -464,8 +464,8 @@ func TestDatabaseCleanupDeleteStoredProcs(t *testing.T) {
 func TestDatabaseCleanupRevertChanges(t *testing.T) {
 	dir := t.TempDir()
 	changesDir := filepath.Join(dir, "changes")
-	os.MkdirAll(changesDir, 0700)
-	os.WriteFile(filepath.Join(changesDir, "change1.sql"), []byte("data"), 0600)
+	_ = os.MkdirAll(changesDir, 0700)
+	_ = os.WriteFile(filepath.Join(changesDir, "change1.sql"), []byte("data"), 0600)
 
 	config := &CleanupConfig{DBPath: dir}
 	dc := NewDatabaseCleanup(config)

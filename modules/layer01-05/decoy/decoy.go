@@ -60,7 +60,7 @@ func (d *DecoyServer) handleRoot(w http.ResponseWriter, r *http.Request) {
 	d.logVisitor(r)
 	w.Header().Set("Server", "nginx/1.24.0")
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprintf(w, `<html><head><title>Welcome</title></head>
+	_, _ = fmt.Fprintf(w, `<html><head><title>Welcome</title></head>
 <body><h1>Welcome to our website</h1>
 <p>This page is under construction.</p></body></html>`)
 }
@@ -69,7 +69,7 @@ func (d *DecoyServer) handleLogin(w http.ResponseWriter, r *http.Request) {
 	d.logVisitor(r)
 
 	if r.Method == http.MethodPost {
-		r.ParseForm()
+		_ = r.ParseForm()
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 
@@ -82,7 +82,7 @@ func (d *DecoyServer) handleLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprintf(w, `<html><head><title>Login</title></head>
+	_, _ = fmt.Fprintf(w, `<html><head><title>Login</title></head>
 <body><h1>Login</h1>
 <form method="POST">
 <input type="text" name="username" placeholder="Username">
@@ -99,7 +99,7 @@ func (d *DecoyServer) handleAdmin(w http.ResponseWriter, r *http.Request) {
 func (d *DecoyServer) handleAPI(w http.ResponseWriter, r *http.Request) {
 	d.logVisitor(r)
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"status": "ok"}`)
+	_, _ = fmt.Fprintf(w, `{"status": "ok"}`)
 }
 
 func (d *DecoyServer) logVisitor(r *http.Request) {

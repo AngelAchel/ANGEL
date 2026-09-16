@@ -99,7 +99,7 @@ func (o *Orchestrator) HandleIntent(intent *Intent) (*OrchResult, error) {
 		Timestamp: time.Now(),
 	}
 
-	o.state.SaveState(fmt.Sprintf("intent:%s", intent.ID), intent)
+	_ = o.state.SaveState(fmt.Sprintf("intent:%s", intent.ID), intent)
 
 	switch intent.RiskLevel {
 	case RiskLevelBlock:

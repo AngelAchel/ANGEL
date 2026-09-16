@@ -120,7 +120,7 @@ func (ts *Teamserver) HandleRegistration(agentInfo []byte) (*types.Agent, error)
 		Metadata:  make(map[string]string),
 	}
 	ts.agents[agent.ID] = agent
-	ts.eb.Publish("agent.registered", "teamserver", "registration", map[string]interface{}{
+	_, _ = ts.eb.Publish("agent.registered", "teamserver", "registration", map[string]interface{}{
 		"agent_id": agent.ID,
 		"hostname": agent.Hostname,
 	})
@@ -141,7 +141,7 @@ func (ts *Teamserver) HandleCheckIn(agentID string) (*types.Task, error) {
 	if !ok {
 		return nil, nil
 	}
-	ts.eb.Publish("agent.checkin", "teamserver", "checkin", map[string]interface{}{
+	_, _ = ts.eb.Publish("agent.checkin", "teamserver", "checkin", map[string]interface{}{
 		"agent_id": agentID,
 	})
 	return task, nil
@@ -157,7 +157,7 @@ func (ts *Teamserver) HandleResult(agentID string, taskID string, result []byte)
 	if err := ts.tasks.MarkComplete(taskID); err != nil {
 		return fmt.Errorf("mark task complete: %w", err)
 	}
-	ts.eb.Publish("agent.result", "teamserver", "result", map[string]interface{}{
+	_, _ = ts.eb.Publish("agent.result", "teamserver", "result", map[string]interface{}{
 		"agent_id": agentID,
 		"task_id":  taskID,
 		"result":   string(result),
@@ -196,7 +196,7 @@ func (ts *Teamserver) SendTask(agentID string, task *types.Task) error {
 	if err := ts.tasks.Enqueue(agentID, task); err != nil {
 		return fmt.Errorf("enqueue task: %w", err)
 	}
-	ts.eb.Publish("task.created", "teamserver", "task", map[string]interface{}{
+	_, _ = ts.eb.Publish("task.created", "teamserver", "task", map[string]interface{}{
 		"agent_id": agentID,
 		"task_id":  task.ID,
 		"type":     task.Type,

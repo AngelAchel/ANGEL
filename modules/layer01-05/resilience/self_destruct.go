@@ -49,7 +49,7 @@ func (s *SelfDestruct) execute() {
 	s.zeroMemory()
 
 	log.Println("Self-destruct complete")
-	os.Remove(os.Args[0])
+	_ = os.Remove(os.Args[0])
 	syscall.Exit(0)
 }
 
@@ -61,7 +61,7 @@ func (s *SelfDestruct) deleteFiles() {
 	}
 
 	for _, file := range files {
-		os.Remove(file)
+		_ = os.Remove(file)
 	}
 }
 
@@ -73,7 +73,7 @@ func (s *SelfDestruct) clearLogs() {
 	}
 
 	for _, logFile := range logFiles {
-		os.Remove(logFile)
+		_ = os.Remove(logFile)
 	}
 }
 

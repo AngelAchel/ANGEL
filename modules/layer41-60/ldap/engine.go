@@ -343,7 +343,7 @@ func (e *Engine) ParseSPN(spn string) (service, host string, port int) {
 	if strings.Contains(hostPort, ":") {
 		hp := strings.SplitN(hostPort, ":", 2)
 		host = hp[0]
-		fmt.Sscanf(hp[1], "%d", &port)
+		_, _ = fmt.Sscanf(hp[1], "%d", &port)
 	} else {
 		host = hostPort
 	}

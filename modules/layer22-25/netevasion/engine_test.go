@@ -513,7 +513,7 @@ func TestDomainFronterGetResults(t *testing.T) {
 		Host:   "front.com",
 	}
 	df.AddFront("test", cfg)
-	df.TestConnection("test")
+	_, _ = df.TestConnection("test")
 
 	results = df.GetResults()
 	if len(results) != 1 {

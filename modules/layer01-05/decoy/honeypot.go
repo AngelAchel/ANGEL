@@ -88,7 +88,7 @@ func (h *Honeypot) handleLogin(w http.ResponseWriter, r *http.Request) {
 	h.logActivity(r.RemoteAddr, "login_attempt", "login page", "medium")
 
 	if r.Method == http.MethodPost {
-		r.ParseForm()
+		_ = r.ParseForm()
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 

@@ -59,6 +59,8 @@ func (m *SPIFlashReadMethod) Install(config *RootkitConfig) (*RootkitResult, err
 
 	hashCmd := exec.Command("sha256sum", backupPath)
 	hashOutput, _ := hashCmd.CombinedOutput()
+	_ = hashOutput
+	_ = hashOutput
 	hash := strings.Fields(string(hashOutput))[0]
 
 	return &RootkitResult{

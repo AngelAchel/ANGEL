@@ -128,7 +128,7 @@ func (l *HTTPListener) handleTask(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, `{"status": "ok", "message": "no tasks"}`)
+	_, _ = fmt.Fprintf(w, `{"status": "ok", "message": "no tasks"}`)
 }
 
 func (l *HTTPListener) handleResult(w http.ResponseWriter, r *http.Request) {
@@ -189,7 +189,7 @@ func (l *HTTPListener) handleCheckIn(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, `{"status": "ok"}`)
+	_, _ = fmt.Fprintf(w, `{"status": "ok"}`)
 }
 
 func (l *HTTPListener) GetAgents() []*AgentInfo {

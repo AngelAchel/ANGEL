@@ -115,7 +115,8 @@ func (l *WebSocketListener) SendMessage(connID string, message []byte) error {
 		return fmt.Errorf("connection not found: %s", connID)
 	}
 
-	return conn.WriteMessage(websocket.TextMessage, message)
+	err := conn.WriteMessage(websocket.TextMessage, message)
+	return err
 }
 
 func (l *WebSocketListener) Broadcast(message []byte) {

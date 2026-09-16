@@ -564,7 +564,7 @@ func (e *AuthBypassEngine) testDefaultCred(target string, start time.Time) (*Byp
 		}
 
 		body2, _ := io.ReadAll(resp2.Body)
-		resp2.Body.Close()
+		_ = resp2.Body.Close()
 
 		if e.isAuthBypassResponse(resp2, string(body2)) {
 			result.Success = true
@@ -673,7 +673,7 @@ func (e *AuthBypassEngine) testOAuthBypass(target string, start time.Time) (*Byp
 	probeResp, probeErr := client.Post(tokenProbeURL, "application/x-www-form-urlencoded", strings.NewReader("grant_type=client_credentials"))
 	if probeErr == nil && probeResp != nil {
 		probeBody, _ := io.ReadAll(probeResp.Body)
-		probeResp.Body.Close()
+		_ = probeResp.Body.Close()
 		// Try to extract access_token from response
 		var tokenResp struct {
 			AccessToken string `json:"access_token"`

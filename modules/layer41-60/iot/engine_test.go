@@ -104,9 +104,9 @@ func TestBackdoorDetectFindsDebug(t *testing.T) {
 
 func TestGetAnalysis(t *testing.T) {
 	eng := newTestEngine()
-	eng.CredentialDump("/tmp/firmware.bin")
-	eng.HardcodedKey("/tmp/firmware.bin")
-	eng.BackdoorDetect("/tmp/firmware.bin")
+	_, _ = eng.CredentialDump("/tmp/firmware.bin")
+	_, _ = eng.HardcodedKey("/tmp/firmware.bin")
+	_, _ = eng.BackdoorDetect("/tmp/firmware.bin")
 
 	analysis := eng.GetAnalysis()
 	if len(analysis.Credentials) == 0 {

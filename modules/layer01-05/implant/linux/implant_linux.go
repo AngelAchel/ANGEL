@@ -117,7 +117,7 @@ func checkIn(config *Config) *Task {
 	if err != nil {
 		return nil
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	if resp.StatusCode != http.StatusOK {
 		return nil
 	}
@@ -159,7 +159,7 @@ func sendResult(result *Result, config *Config) {
 	if err != nil {
 		return
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 }
 
 func calculateSleep(config *Config) time.Duration {
@@ -200,7 +200,7 @@ func cleanupLogs() {
 }
 
 func selfDestruct() {
-	os.Remove(os.Args[0])
+	_ = os.Remove(os.Args[0])
 	syscall.Exit(0)
 }
 

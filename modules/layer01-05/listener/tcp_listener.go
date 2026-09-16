@@ -61,7 +61,7 @@ func (l *TCPListener) Start() error {
 	if err != nil {
 		return fmt.Errorf("failed to start TCP listener: %v", err)
 	}
-	defer ln.Close()
+	defer func() { _ = ln.Close() }()
 
 	log.Printf("Starting TCP listener on %s", addr)
 
@@ -82,7 +82,7 @@ func (l *TCPListener) Stop() {
 	l.running = false
 
 	for id, conn := range l.connections {
-		conn.Conn.Close()
+		_ = conn.Conn.Close()
 		delete(l.connections, id)
 	}
 }
@@ -105,7 +105,7 @@ func (l *TCPListener) handleConnection(conn net.Conn) {
 		l.mu.Lock()
 		delete(l.connections, connID)
 		l.mu.Unlock()
-		conn.Close()
+		_ = conn.Close()
 	}()
 
 	log.Printf("New TCP connection: %s from %s", connID, conn.RemoteAddr())

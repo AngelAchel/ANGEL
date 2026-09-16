@@ -79,7 +79,7 @@ func (lc *LogCleanup) clearLogFile(path string) error {
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	lc.log = append(lc.log, fmt.Sprintf("[OK] Truncated %s", path))
 	return nil

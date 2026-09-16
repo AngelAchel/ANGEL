@@ -58,7 +58,7 @@ func (l *UDPListener) Start() error {
 	if err != nil {
 		return fmt.Errorf("failed to start UDP listener: %v", err)
 	}
-	defer ln.Close()
+	defer func() { _ = ln.Close() }()
 
 	log.Printf("Starting UDP listener on %s", addr)
 

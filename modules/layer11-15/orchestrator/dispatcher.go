@@ -49,7 +49,7 @@ func (d *Dispatcher) Dispatch(agentID string, task *types.Task) error {
 	d.log.Info("Dispatching task %s to agent %s", task.ID, agentID)
 
 	if d.bus != nil {
-		d.bus.Publish("task.dispatch", "orchestrator", "command", map[string]interface{}{
+		_, _ = d.bus.Publish("task.dispatch", "orchestrator", "command", map[string]interface{}{
 			"task_id":  task.ID,
 			"agent_id": agentID,
 			"type":     string(task.Type),
@@ -81,7 +81,7 @@ func (d *Dispatcher) DispatchAll(task *types.Task) error {
 	d.tasks[task.ID] = status
 
 	if d.bus != nil {
-		d.bus.Publish("task.dispatch_all", "orchestrator", "command", map[string]interface{}{
+		_, _ = d.bus.Publish("task.dispatch_all", "orchestrator", "command", map[string]interface{}{
 			"task_id": task.ID,
 			"type":    string(task.Type),
 			"payload": task.Payload,

@@ -10,7 +10,7 @@ import (
 )
 
 func TestDefaultConfig(t *testing.T) {
-	os.Setenv("TEAMSERVER_KEY", "test-key-for-unit-test")
+	_ = os.Setenv("TEAMSERVER_KEY", "test-key-for-unit-test")
 	config := DefaultConfig()
 	if config.BindAddr != "0.0.0.0" {
 		t.Errorf("Expected bind addr 0.0.0.0, got %s", config.BindAddr)
@@ -24,7 +24,7 @@ func TestDefaultConfig(t *testing.T) {
 }
 
 func TestConfigValidation(t *testing.T) {
-	os.Setenv("TEAMSERVER_KEY", "test-key-for-unit-test")
+	_ = os.Setenv("TEAMSERVER_KEY", "test-key-for-unit-test")
 	config := DefaultConfig()
 	if err := config.Validate(); err != nil {
 		t.Errorf("Default config should be valid: %v", err)
@@ -133,7 +133,7 @@ func TestTaskQueuePeek(t *testing.T) {
 		ID:   "task-1",
 		Type: types.TaskTypeShell,
 	}
-	q.Enqueue("agent-1", task)
+	_ = q.Enqueue("agent-1", task)
 	peeked, ok := q.Peek("agent-1")
 	if !ok {
 		t.Fatal("Failed to peek")
@@ -152,7 +152,7 @@ func TestTaskQueueMarkComplete(t *testing.T) {
 		ID:   "task-1",
 		Type: types.TaskTypeShell,
 	}
-	q.Enqueue("agent-1", task)
+	_ = q.Enqueue("agent-1", task)
 	if err := q.MarkComplete("task-1"); err != nil {
 		t.Fatalf("Failed to mark complete: %v", err)
 	}
@@ -167,7 +167,7 @@ func TestTaskQueueMarkFailed(t *testing.T) {
 		ID:   "task-1",
 		Type: types.TaskTypeShell,
 	}
-	q.Enqueue("agent-1", task)
+	_ = q.Enqueue("agent-1", task)
 	if err := q.MarkFailed("task-1", nil); err != nil {
 		t.Fatalf("Failed to mark failed: %v", err)
 	}

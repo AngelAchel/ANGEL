@@ -50,7 +50,7 @@ func (m *MSSQLExploit) XPCmdShell(creds *DBCreds, result *PostExploitResult) (*P
 		`EXEC sp_configure 'show advanced options', 0; RECONFIGURE`,
 	}
 	for _, q := range disableQueries {
-		m.executeQuery(creds, q)
+		_, _ = m.executeQuery(creds, q)
 	}
 
 	if output.Len() > 0 {

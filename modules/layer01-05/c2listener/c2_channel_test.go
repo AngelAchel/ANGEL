@@ -72,7 +72,7 @@ func TestC2Channel_GetReconnects(t *testing.T) {
 	if ch.GetReconnects() != 0 {
 		t.Errorf("expected 0 reconnects, got %d", ch.GetReconnects())
 	}
-	ch.Reconnect()
+	_ = ch.Reconnect()
 	if ch.GetReconnects() != 1 {
 		t.Errorf("expected 1 reconnect, got %d", ch.GetReconnects())
 	}
@@ -84,7 +84,7 @@ func TestC2Channel_GetLastIO(t *testing.T) {
 	if !lastIO.IsZero() {
 		t.Error("expected zero lastIO before connect")
 	}
-	ch.Connect()
+	_ = ch.Connect()
 	lastIO = ch.GetLastIO()
 	if lastIO.IsZero() {
 		t.Error("expected non-zero lastIO after connect")
@@ -108,7 +108,7 @@ func TestC2Channel_SendNotConnected(t *testing.T) {
 
 func TestC2Channel_SendConnected(t *testing.T) {
 	ch := NewC2Channel(ChannelConfig{})
-	ch.Connect()
+	_ = ch.Connect()
 	err := ch.Send([]byte("data"))
 	if err != nil {
 		t.Fatalf("Send failed: %v", err)
@@ -125,7 +125,7 @@ func TestC2Channel_ReceiveNotConnected(t *testing.T) {
 
 func TestC2Channel_ReceiveConnected(t *testing.T) {
 	ch := NewC2Channel(ChannelConfig{})
-	ch.Connect()
+	_ = ch.Connect()
 	data, err := ch.Receive()
 	if err != nil {
 		t.Fatalf("Receive failed: %v", err)

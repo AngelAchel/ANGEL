@@ -87,12 +87,14 @@ func (g *Generator) Generate(serverURL string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to create output file: %w", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	if err := tmpl.Execute(file, implantCfg); err != nil {
 		return "", fmt.Errorf("failed to execute template: %w", err)
 	}
-	file.Close()
+	if err := file.Close(); err != nil {
+		return "", fmt.Errorf("failed to close file: %w", err)
+	}
 
 	cmd := exec.Command("go", "build", "-o", outputPath+"-bin", outputPath)
 	cmd.Dir = g.outputDir
@@ -100,7 +102,9 @@ func (g *Generator) Generate(serverURL string) (string, error) {
 		log.Printf("Warning: failed to build binary: %v", err)
 		return outputPath, nil
 	}
-	os.Remove(outputPath)
+	if err := os.Remove(outputPath); err != nil {
+		log.Printf("Warning: failed to remove temp file: %v", err)
+	}
 	return outputPath + "-bin", nil
 }
 

@@ -276,9 +276,9 @@ func TestStateManagerLoadNotFound(t *testing.T) {
 
 func TestStateManagerListKeys(t *testing.T) {
 	sm := NewStateManager()
-	sm.SaveState("prefix:key1", "v1")
-	sm.SaveState("prefix:key2", "v2")
-	sm.SaveState("other:key3", "v3")
+	_ = sm.SaveState("prefix:key1", "v1")
+	_ = sm.SaveState("prefix:key2", "v2")
+	_ = sm.SaveState("other:key3", "v3")
 
 	keys := sm.ListKeys("prefix:")
 	if len(keys) != 2 {
@@ -288,7 +288,7 @@ func TestStateManagerListKeys(t *testing.T) {
 
 func TestStateManagerDelete(t *testing.T) {
 	sm := NewStateManager()
-	sm.SaveState("key1", "value1")
+	_ = sm.SaveState("key1", "value1")
 
 	err := sm.DeleteState("key1")
 	if err != nil {
@@ -311,8 +311,8 @@ func TestStateManagerDeleteNotFound(t *testing.T) {
 
 func TestStateManagerClear(t *testing.T) {
 	sm := NewStateManager()
-	sm.SaveState("key1", "v1")
-	sm.SaveState("key2", "v2")
+	_ = sm.SaveState("key1", "v1")
+	_ = sm.SaveState("key2", "v2")
 
 	sm.Clear()
 	if sm.Count() != 0 {
@@ -322,8 +322,8 @@ func TestStateManagerClear(t *testing.T) {
 
 func TestStateManagerUpdate(t *testing.T) {
 	sm := NewStateManager()
-	sm.SaveState("key1", "value1")
-	sm.SaveState("key1", "value2")
+	_ = sm.SaveState("key1", "value1")
+	_ = sm.SaveState("key1", "value2")
 
 	val, _ := sm.LoadState("key1")
 	if val != "value2" {

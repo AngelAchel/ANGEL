@@ -72,11 +72,11 @@ func (l *HTTPListener) handleRegister(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "decryption failed", http.StatusBadRequest)
 		return
 	}
-	l.eb.Publish("agent.register", "http_listener", "registration", map[string]interface{}{
+	_, _ = l.eb.Publish("agent.register", "http_listener", "registration", map[string]interface{}{
 		"data": string(decrypted),
 	})
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
+	_, _ = w.Write([]byte("ok"))
 }
 
 func (l *HTTPListener) handleCheckIn(w http.ResponseWriter, r *http.Request) {
@@ -95,11 +95,11 @@ func (l *HTTPListener) handleCheckIn(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "decryption failed", http.StatusBadRequest)
 		return
 	}
-	l.eb.Publish("agent.checkin", "http_listener", "checkin", map[string]interface{}{
+	_, _ = l.eb.Publish("agent.checkin", "http_listener", "checkin", map[string]interface{}{
 		"data": string(decrypted),
 	})
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
+	_, _ = w.Write([]byte("ok"))
 }
 
 func (l *HTTPListener) handleTask(w http.ResponseWriter, r *http.Request) {
@@ -112,11 +112,11 @@ func (l *HTTPListener) handleTask(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "missing agent id", http.StatusBadRequest)
 		return
 	}
-	l.eb.Publish("agent.task", "http_listener", "task_request", map[string]interface{}{
+	_, _ = l.eb.Publish("agent.task", "http_listener", "task_request", map[string]interface{}{
 		"agent_id": agentID,
 	})
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
+	_, _ = w.Write([]byte("ok"))
 }
 
 func (l *HTTPListener) handleResult(w http.ResponseWriter, r *http.Request) {
@@ -135,11 +135,11 @@ func (l *HTTPListener) handleResult(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "decryption failed", http.StatusBadRequest)
 		return
 	}
-	l.eb.Publish("agent.result", "http_listener", "result", map[string]interface{}{
+	_, _ = l.eb.Publish("agent.result", "http_listener", "result", map[string]interface{}{
 		"data": string(decrypted),
 	})
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
+	_, _ = w.Write([]byte("ok"))
 }
 
 func (l *HTTPListener) SetTLS(certFile, keyFile string) {
@@ -187,7 +187,7 @@ func (l *HTTPListener) Stop() {
 	if l.server != nil {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		l.server.Shutdown(ctx)
+		_ = l.server.Shutdown(ctx)
 	}
 }
 
@@ -248,7 +248,7 @@ func (l *DNSListener) serve(ctx context.Context) {
 		case <-ctx.Done():
 			return
 		default:
-			l.conn.SetReadDeadline(time.Now().Add(1 * time.Second))
+			_ = l.conn.SetReadDeadline(time.Now().Add(1 * time.Second))
 			n, remoteAddr, err := l.conn.ReadFrom(buf)
 			if err != nil {
 				continue
@@ -266,7 +266,7 @@ func (l *DNSListener) handleDNSQuery(data []byte, remoteAddr net.Addr) {
 		l.log.Error("decrypt DNS query: %v", err)
 		return
 	}
-	l.eb.Publish("agent.dns", "dns_listener", "query", map[string]interface{}{
+	_, _ = l.eb.Publish("agent.dns", "dns_listener", "query", map[string]interface{}{
 		"data":   string(decrypted),
 		"remote": remoteAddr.String(),
 	})
@@ -275,7 +275,7 @@ func (l *DNSListener) handleDNSQuery(data []byte, remoteAddr net.Addr) {
 		l.log.Error("encrypt DNS response: %v", err)
 		return
 	}
-	l.conn.WriteTo(response, remoteAddr)
+	_, _ = l.conn.WriteTo(response, remoteAddr)
 }
 
 func (l *DNSListener) Stop() {
@@ -286,7 +286,7 @@ func (l *DNSListener) Stop() {
 		l.cancel()
 	}
 	if l.conn != nil {
-		l.conn.Close()
+		_ = l.conn.Close()
 	}
 }
 
@@ -359,9 +359,9 @@ func (l *WSSListener) handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		l.clientsMu.Lock()
 		delete(l.clients, clientID)
 		l.clientsMu.Unlock()
-		conn.Close()
+		_ = conn.Close()
 	}()
-	l.eb.Publish("agent.connect", "wss_listener", "connection", map[string]interface{}{
+	_, _ = l.eb.Publish("agent.connect", "wss_listener", "connection", map[string]interface{}{
 		"client_id": clientID,
 	})
 	buf := make([]byte, 4096)
@@ -377,7 +377,7 @@ func (l *WSSListener) handleWebSocket(w http.ResponseWriter, r *http.Request) {
 			l.log.Error("decrypt WSS data: %v", err)
 			continue
 		}
-		l.eb.Publish("agent.message", "wss_listener", "message", map[string]interface{}{
+		_, _ = l.eb.Publish("agent.message", "wss_listener", "message", map[string]interface{}{
 			"client_id": clientID,
 			"data":      string(decrypted),
 		})
@@ -386,7 +386,7 @@ func (l *WSSListener) handleWebSocket(w http.ResponseWriter, r *http.Request) {
 			l.log.Error("encrypt WSS response: %v", err)
 			continue
 		}
-		conn.Write(response)
+		_, _ = conn.Write(response)
 	}
 }
 
@@ -400,7 +400,7 @@ func (l *WSSListener) upgradeConnection(w http.ResponseWriter, r *http.Request) 
 		return nil, err
 	}
 	handshake := "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n\r\n"
-	conn.Write([]byte(handshake))
+	_, _ = conn.Write([]byte(handshake))
 	_ = bufrw
 	return conn, nil
 }
@@ -411,14 +411,14 @@ func (l *WSSListener) Stop() {
 	l.mu.Unlock()
 	l.clientsMu.Lock()
 	for id, conn := range l.clients {
-		conn.Close()
+		_ = conn.Close()
 		delete(l.clients, id)
 	}
 	l.clientsMu.Unlock()
 	if l.server != nil {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		l.server.Shutdown(ctx)
+		_ = l.server.Shutdown(ctx)
 	}
 }
 

@@ -34,7 +34,7 @@ func (l *GenericListener) Start() error {
 	if err != nil {
 		return err
 	}
-	defer ln.Close()
+	defer func() { _ = ln.Close() }()
 
 	log.Printf("Starting generic listener on %s", addr)
 
@@ -55,7 +55,7 @@ func (l *GenericListener) Stop() {
 	l.running = false
 
 	for id, conn := range l.connections {
-		conn.Close()
+		_ = conn.Close()
 		delete(l.connections, id)
 	}
 }
@@ -71,7 +71,7 @@ func (l *GenericListener) handleConnection(conn net.Conn) {
 		l.mu.Lock()
 		delete(l.connections, connID)
 		l.mu.Unlock()
-		conn.Close()
+		_ = conn.Close()
 	}()
 
 	log.Printf("New connection: %s from %s", connID, conn.RemoteAddr())

@@ -41,7 +41,7 @@ func (l *DNSListener) Start() error {
 	if err != nil {
 		return fmt.Errorf("failed to start DNS listener: %w", err)
 	}
-	defer ln.Close()
+	defer func() { _ = ln.Close() }()
 
 	log.Printf("Starting DNS listener on %s", addr)
 

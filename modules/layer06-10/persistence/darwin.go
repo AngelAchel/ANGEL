@@ -97,7 +97,7 @@ func (m *LaunchDaemonMethod) Remove(params *PersistenceParams) error {
 	plistPath := filepath.Join("/Library/LaunchDaemons", daemonName+".plist")
 
 	cmd := exec.Command("launchctl", "unload", "-w", plistPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return os.Remove(plistPath)
 }
@@ -213,7 +213,7 @@ func (m *LaunchAgentMethod) Remove(params *PersistenceParams) error {
 	plistPath := filepath.Join(homeDir, "Library", "LaunchAgents", agentName+".plist")
 
 	cmd := exec.Command("launchctl", "unload", "-w", plistPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return os.Remove(plistPath)
 }
@@ -613,7 +613,7 @@ func (m *KernelExtensionMethod) Remove(params *PersistenceParams) error {
 	kextPath := filepath.Join("/Library/Extensions", kextName+".kext")
 
 	cmd := exec.Command("kextunload", kextPath)
-	cmd.CombinedOutput()
+	_, _ = cmd.CombinedOutput()
 
 	return os.RemoveAll(kextPath)
 }
