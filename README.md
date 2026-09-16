@@ -3,7 +3,7 @@
 > **STATUS:** OPERATIONAL Red Team
 > **CLASS:** Offensive Security — P0/P1 Hard/Expert Full Attack
 > **LEGAL:** Only authorized systems
-
+> **Built:** Cyber Security Software Engineer
 ---
 
 ## ⚔️ ATTACK
@@ -108,6 +108,4 @@ docker compose logs -f angel-teamserver
 ---
 
 **ANGEL Platform — Offensive Security Framework**
-
-Built with 🔥 by Cyber Security Software Engineer
 GitHub: https://github.com/AngelAchel/ANGEL
