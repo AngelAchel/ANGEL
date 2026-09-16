@@ -12,7 +12,7 @@
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/angel-framework/angel.git
+git clone <REPO_URL>
 cd angel
 
 # 2. Install & setup environment
@@ -36,7 +36,7 @@ make engage SCOPE=target.txt
 |----------|---------|
 | **70 Layer** | C2 Framework, Evasion, AD Attack, Persistence, Rootkit |
 | **427 file Go** | Terstruktur per layer 1-70 |
-| **1,346 test case** | TC-001 hingga TC-1346 — semua passing |
+| **92 test automated** | Semua passing (1,346 manual scenarios di TEST_SCENARIOS.md) |
 | **3 binary** | `angel`, `angel-console`, `angel-rules` |
 | **Event Bus** | Semua komunikasi lewat central event bus |
 | **700+ teknik** | Fallback chains, anti-analysis, opsec procedures |
@@ -55,21 +55,14 @@ make engage SCOPE=target.txt  # Start engagement
 
 ### Manajemen C2
 ```bash
-make listeners-start     # Start listeners
-make implant-generate OS=windows TARGET=x64  # Generate implant
-make engage SCOPE=target.txt  # Mulai engagement
-make cleanup  # Post-engagement cleanup
+docker compose up -d angel-teamserver   # Start teamserver
+docker compose up -d angel-console      # Start console
+docker compose logs angel-teamserver    # Lihat logs
 ```
 
-### Dashboard & Monitoring
+### Generate Implant
 ```bash
-make dashboard  # Start Angular dashboard di http://localhost:4200
-```
-
-### Laporan
-```bash
-make report FORMAT=pdf   # Generate laporan PDF
-make report FORMAT=markdown  # Generate laporan markdown
+./bin/angel-generate -os linux -arch amd64 -server http://teamserver:8443 -out lab/implants
 ```
 
 ---

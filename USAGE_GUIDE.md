@@ -117,20 +117,10 @@ docker compose down
 make listeners-start
 ```
 
-**Atau secara manual:**
+**Atau via Docker:**
 ```bash
-nohup ./bin/angel > /var/log/angel/teamserver.log 2>&1 &
-sleep 2
-echo "Listeners started"
-```
-
-**Cek status:**
-```bash
-# Cek apakah process running
-ps aux | grep angel
-
-# Cek logs
-tail -f /var/log/angel/teamserver.log
+docker compose up -d angel-teamserver
+docker compose logs -f angel-teamserver
 ```
 
 ### Generate Implant Binary
@@ -152,19 +142,20 @@ tail -f /var/log/angel/teamserver.log
 echo "192.168.1.1" > target.txt
 echo "192.168.1.2" >> target.txt
 
-# Mulai engagement
-make engage SCOPE=target.txt
+# Untuk lab: jalankan C2 via Docker
+docker compose up -d angel-teamserver
+
+# Untuk produksi: deploy ke VPS
+make c2-deploy
 ```
 
-**Atau secara manual:**
-```bash
-./bin/angel engage --scope target.txt
-```
+> **Catatan:** `make engage` adalah placeholder untuk workflow CLI engagement.
 
 ### During Engagement
-- **Dashboard:** `http://localhost:4200` (atau port sesuai konfigurasi `.env.local`)
-- **Monitor logs:** `tail -f /var/log/angel/teamserver.log`
-- **Status check:** `make verify-clean` (setelah engagement)
+- **Dashboard:** `http://localhost:3000` (console Angular)
+- **Monitor logs:** `docker compose logs -f angel-teamserver`
+- **Cek rules:** `docker logs angel-rules`
+- **Status check:** `docker compose ps`
 
 ---
 
@@ -172,7 +163,7 @@ make engage SCOPE=target.txt
 
 ### Stop dan Bersihkan
 ```bash
-make cleanup
+docker compose down
 ```
 
 **Yang dilakukan:**
@@ -193,17 +184,13 @@ make verify-clean
 
 ### Generate Laporan
 ```bash
-# Laporan teknis (PDF)
-make report FORMAT=pdf
+# Laporan HTML (satu-satunya format yang didukung)
+make report
 
-# Laporan markdown
-make report FORMAT=markdown
-
-# Laporan JSON
-make report FORMAT=json
-
-# Output: reports/ directory
+# Output: report.html
 ```
+
+> **Catatan:** `FORMAT=pdf` dan `FORMAT=markdown` belum tersedia.
 
 ---
 
@@ -254,11 +241,11 @@ ANGEL/
 | `fmt` | Format kode | `make fmt` |
 | `tidy` | Go mod tidy | `make tidy` |
 | `clean` | Bersihkan artifacts | `make clean` |
-| `engage` | Mulai engagement | `make engage SCOPE=target.txt` |
+| `engage` | Mulai engagement | _placeholder_ |
 | `infra-deploy` | Deploy infra (Terraform) | `make infra-deploy ENV=production` |
 | `c2-deploy` | Deploy C2 framework | `make c2-deploy` |
-| `dashboard` | Start Angular dashboard | `make dashboard` |
-| `report` | Generate laporan | `make report FORMAT=pdf` |
+| `dashboard` | Start Angular dashboard | _butuh Angular CLI_ |
+| `report` | Generate laporan HTML | `make report` |
 | `help` | Show bantuan | `make help` |
 
 ---
@@ -317,27 +304,25 @@ Semua komunikasi antar-modul WAJIB lewat event bus:
 ### Masalah Umum & Solusi
 
 **1. Teamserver tidak start**
-- Cek port 8080 (atau yang ditetapkan `.env.local`) tidak digunakan lain
-- Cek konfigurasi `.env.local` (TEAMSERVER_SECRET, dll)
-- Cek log: `cat /var/log/angel/teamserver.log`
+- Cek port 8443 tidak digunakan lain
+- Cek log: `docker logs angel-teamserver`
+- Cek container: `docker compose ps`
 
 **2. Implant tidak terdaftar**
 - Cek network connectivity ke teamserver
-- Cek listener port sudah running: `make listeners-start`
-- Cek X-Angel-Sign header HMAC valid
+- Cek listener: `docker compose ps angel-teamserver`
 
 **3. Channel tert-block**
-- Gunakan channel rotation: `make listeners-start` akan otomatis fallback
-- Atau manual: ganti listener di `.env.local` (`LISTENER_HTTPS_PORT`, dll)
+- Gunakan channel rotation (otomatis via rules engine)
+- Cek: `docker logs angel-rules`
 
-**4. Verifikasi clean gagal**
-- Cek proses masih running: `pkill -f "angel"`
-- Cek file temp: `rm -f /tmp/angel-*`
+**4. Verifikasi clean**
+- Cek container: `docker compose ps`
+- Hentikan: `docker compose down`
 
 **5. Dashboard tidak bisa diakses**
-- Cek `make dashboard` sudah running
-- Cek frontend port (default 4200 dari `.env.local`)
-- Cek CORS configuration
+- Cek: `docker compose ps angel-console`
+- Cek port 3000
 
 ---
 

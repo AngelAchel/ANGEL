@@ -16,11 +16,11 @@ import (
 const (
 	sleepTime  = 10
 	jitter     = 0.1
-	serverURL  = "http://teamserver:8443"
+	serverURL  = "http://localhost:8443"
 	profile    = ""
 	encryption = ""
 	version    = "1.0.0"
-	buildTime  = "2026-09-16T07:58:51Z"
+	buildTime  = "2026-09-16T08:04:17Z"
 )
 
 func main() {
