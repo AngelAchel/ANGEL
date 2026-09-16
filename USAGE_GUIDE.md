@@ -26,6 +26,7 @@ cd angel
 ### Langkah 2: Set Environment Secrets (WAJIB)
 ```bash
 export TEAMSERVER_KEY="<strong-random-key-min-32-char>"
+export CRYPTO_KEY="<strong-random-key-min-32-char>"
 export JWT_SECRET="<strong-random-secret>"
 ```
 
