@@ -3,539 +3,247 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🛡️ ANGEL Platform — Offensive Security</title>
+<title>ANGEL Platform v3.3 — Attack Visualization</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: #000;
-    color: #00ff41;
-    font-family: 'Courier New', 'Consolas', monospace;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-  }
-  #matrix {
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 0;
-    opacity: 0.15;
-  }
-  .container {
-    position: relative;
-    z-index: 1;
-    padding: 30px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .scanlines {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      rgba(0, 255, 65, 0.02) 2px,
-      rgba(0, 255, 65, 0.02) 4px
-    );
-    pointer-events: none;
-    z-index: 2;
-  }
-  @keyframes glitch {
-    0% { text-shadow: 2px 0 #ff00c8, -2px 0 #00ff41; }
-    20% { text-shadow: -2px 0 #ff00c8, 2px 0 #00ff41; }
-    40% { text-shadow: 2px 0 #00ff41, -2px 0 #ff00c8; }
-    60% { text-shadow: -2px 0 #00ff41, 2px 0 #ff00c8; }
-    80% { text-shadow: 2px 0 #ff00c8, -2px 0 #00ff41; }
-    100% { text-shadow: 2px 0 #00ff41, -2px 0 #ff00c8; }
-  }
-  @keyframes glitchStatic {
-    0% { clip-path: inset(20% 0 60% 0); }
-    20% { clip-path: inset(60% 0 10% 0); }
-    40% { clip-path: inset(40% 0 40% 0); }
-    60% { clip-path: inset(80% 0 5% 0); }
-    80% { clip-path: inset(10% 0 70% 0); }
-    100% { clip-path: inset(50% 0 30% 0); }
-  }
-  .glitch-text {
-    animation: glitch 0.3s infinite;
-    position: relative;
-    display: inline-block;
-  }
-  .glitch-text::before,
-  .glitch-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-  }
-  .glitch-text::before {
-    animation: glitchStatic 0.3s infinite;
-    color: #ff00c8;
-    opacity: 0.5;
-  }
-  .glitch-text::after {
-    animation: glitchStatic 0.3s infinite reverse;
-    color: #00ffff;
-    opacity: 0.5;
-  }
-  .terminal {
-    background: rgba(0, 0, 0, 0.85);
-    border: 1px solid #00ff41;
-    border-radius: 4px;
-    overflow: hidden;
-    margin: 15px 0;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-  }
-  .terminal-header {
-    background: #111;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border-bottom: 1px solid #00ff41;
-  }
-  .terminal-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-  }
-  .terminal-dot.red { background: #ff5f56; }
-  .terminal-dot.yellow { background: #ffbd2e; }
-  .terminal-dot.green { background: #27c93f; }
-  .terminal-title {
-    color: #00ff41;
-    font-size: 12px;
-    margin-left: 10px;
-    letter-spacing: 1px;
-  }
-  .terminal-body {
-    padding: 15px;
-    font-size: 14px;
-    line-height: 1.8;
-    min-height: 60px;
-  }
-  .cursor {
-    display: inline-block;
-    width: 8px;
-    height: 16px;
-    background: #00ff41;
-    animation: blink 1s infinite;
-    vertical-align: middle;
-    margin-left: 2px;
-  }
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-  }
-  .attack-stage {
-    opacity: 0;
-    transform: translateX(-20px);
-    animation: slideIn 0.5s forwards;
-  }
-  @keyframes slideIn {
-    to { opacity: 1; transform: translateX(0); }
-  }
-  .stage-1 { animation-delay: 0.5s; }
-  .stage-2 { animation-delay: 1.5s; }
-  .stage-3 { animation-delay: 2.5s; }
-  .stage-4 { animation-delay: 3.5s; }
-  .stage-5 { animation-delay: 4.5s; }
-  .stage-6 { animation-delay: 5.5s; }
-  .progress-bar {
-    width: 100%;
-    height: 4px;
-    background: #111;
-    border-radius: 2px;
-    overflow: hidden;
-    margin: 5px 0;
-  }
-  .progress-fill {
-    height: 100%;
-    background: #00ff41;
-    border-radius: 2px;
-    width: 0;
-    animation: progressGrow 2s ease-out forwards;
-  }
-  @keyframes progressGrow {
-    from { width: 0; }
-  }
-  @keyframes flicker {
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-    20%, 24%, 55% { opacity: 0.3; }
-  }
-  .flicker { animation: flicker 3s infinite; }
-  .header {
-    text-align: center;
-    padding: 40px 0 30px;
-  }
-  .logo {
-    font-size: 64px;
-    display: block;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.15); opacity: 0.8; }
-  }
-  .title {
-    font-size: 42px;
-    font-weight: bold;
-    letter-spacing: 6px;
-    margin-top: 15px;
-  }
-  .subtitle {
-    font-size: 14px;
-    color: #00ff41;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-top: 10px;
-    opacity: 0.7;
-  }
-  .status-badge {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 6px 20px;
-    border: 1px solid #00ff41;
-    font-size: 12px;
-    letter-spacing: 3px;
-    animation: blink 2s infinite;
-  }
-  .section {
-    margin: 25px 0;
-    padding: 20px;
-    border-left: 2px solid #00ff41;
-    background: rgba(0, 20, 0, 0.3);
-    animation: fadeIn 1s ease both;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; border-left-color: transparent; }
-    to { opacity: 1; border-left-color: #00ff41; }
-  }
-  .section-title {
-    font-size: 16px;
-    color: #00ff41;
-    margin-bottom: 12px;
-    letter-spacing: 2px;
-  }
-  .layer-row {
-    display: flex;
-    align-items: center;
-    margin: 4px 0;
-    font-size: 12px;
-  }
-  .layer-name {
-    width: 100px;
-    flex-shrink: 0;
-  }
-  .layer-bar {
-    flex: 1;
-    height: 6px;
-    background: #111;
-    border-radius: 3px;
-    overflow: hidden;
-    margin: 0 8px;
-  }
-  .layer-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #00ff41, #00cc33);
-    border-radius: 3px;
-    animation: barGrow 1.5s ease-out forwards;
-  }
-  @keyframes barGrow {
-    from { width: 0; }
-  }
-  .layer-count {
-    width: 60px;
-    text-align: right;
-    flex-shrink: 0;
-    color: #8b949e;
-  }
-  .status-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 15px 0;
-  }
-  .status-item {
-    text-align: center;
-    padding: 12px;
-    border: 1px solid #111;
-    border-radius: 4px;
-    transition: all 0.3s;
-  }
-  .status-item:hover {
-    border-color: #00ff41;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
-  }
-  .status-icon {
-    font-size: 24px;
-    display: block;
-    margin-bottom: 5px;
-  }
-  .status-label {
-    font-size: 10px;
-    color: #8b949e;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .status-value {
-    font-size: 14px;
-    color: #00ff41;
-    font-weight: bold;
-    margin-top: 3px;
-  }
-  .warning {
-    border: 1px solid #ffa500;
-    padding: 15px;
-    margin: 20px 0;
-    background: rgba(255, 165, 0, 0.05);
-    animation: warningPulse 3s infinite;
-  }
-  @keyframes warningPulse {
-    0%, 100% { border-color: #ffa500; }
-    50% { border-color: #ff6600; box-shadow: 0 0 15px rgba(255, 102, 0, 0.3); }
-  }
-  .warning-title {
-    color: #ffa500;
-    font-size: 14px;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-  }
-  .footer {
-    text-align: center;
-    padding: 30px;
-    color: #333;
-    font-size: 10px;
-    letter-spacing: 2px;
-    border-top: 1px solid #111;
-    margin-top: 30px;
-  }
-  .prompt { color: #00ff41; }
-  .cmd { color: #c9d1d9; }
-  .output { color: #8b949e; }
-  @media (max-width: 768px) {
-    .title { font-size: 24px; }
-    .logo { font-size: 40px; }
-    .status-grid { grid-template-columns: 1fr 1fr; }
-    .container { padding: 15px; }
-  }
+  body { background: #000; overflow: hidden; font-family: 'Courier New', monospace; }
+  canvas { display: block; }
+  #ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+  .header { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); text-align: center; }
+  .header h1 { font-size: 36px; color: #00ff41; letter-spacing: 6px; text-shadow: 0 0 20px #00ff41; animation: glow 2s infinite alternate; }
+  @keyframes glow { from { text-shadow: 0 0 10px #00ff41; } to { text-shadow: 0 0 40px #00ff41, 0 0 80px #00ff41; } }
+  .header .sub { font-size: 12px; color: #8b949e; letter-spacing: 3px; margin-top: 5px; }
+  .status-bar { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 30px; background: rgba(0,20,0,0.8); border: 1px solid #00ff41; padding: 10px 25px; border-radius: 4px; }
+  .status-item { text-align: center; }
+  .status-item .label { font-size: 9px; color: #8b949e; text-transform: uppercase; }
+  .status-item .val { font-size: 16px; color: #00ff41; font-weight: bold; }
+  .alert { position: absolute; top: 80px; right: 30px; background: rgba(255,0,0,0.1); border: 1px solid #ff0000; padding: 10px 15px; color: #ff0000; font-size: 12px; animation: alertPulse 1s infinite; border-radius: 4px; }
+  @keyframes alertPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; border-color: #ff6600; } }
+  .phase { position: absolute; top: 80px; left: 30px; color: #00ff41; font-size: 14px; letter-spacing: 2px; }
+  .phase .num { font-size: 32px; font-weight: bold; display: block; }
 </style>
 </head>
 <body>
-
-<canvas id="matrix"></canvas>
-<div class="scanlines"></div>
-
-<div class="container">
-
+<canvas id="c"></canvas>
+<div id="ui">
   <div class="header">
-    <span class="logo">🛡️</span>
-    <h1 class="title glitch-text" data-text="ANGEL PLATFORM">ANGEL PLATFORM</h1>
-    <p class="subtitle">Offensive Security Framework v3.3</p>
-    <div class="status-badge">● FINAL & OPERATIONAL</div>
+    <h1>🛡️ ANGEL PLATFORM</h1>
+    <div class="sub">OFFENSIVE SECURITY — ATTACK VISUALIZATION</div>
   </div>
-
-  <div class="section">
-    <div class="section-title">⚠️ ATTACK SEQUENCE INITIALIZED</div>
-    <div class="terminal">
-      <div class="terminal-header">
-        <div class="terminal-dot red"></div>
-        <div class="terminal-dot yellow"></div>
-        <div class="terminal-dot green"></div>
-        <span class="terminal-title">angel@platform:~$</span>
-      </div>
-      <div class="terminal-body">
-        <div class="attack-stage stage-1">
-          <span class="prompt">$ </span><span class="cmd">initialize_system...</span>
-          <div class="progress-bar"><div class="progress-fill" style="animation-delay:0.5s"></div></div>
-          <span class="output">✔ System online</span>
-        </div>
-        <div class="attack-stage stage-2">
-          <span class="prompt">$ </span><span class="cmd">load_modules...</span>
-          <div class="progress-bar"><div class="progress-fill" style="animation-delay:1s"></div></div>
-          <span class="output">✔ 83 modules loaded</span>
-        </div>
-        <div class="attack-stage stage-3">
-          <span class="prompt">$ </span><span class="cmd">scan_target...</span>
-          <div class="progress-bar"><div class="progress-fill" style="animation-delay:1.5s"></div></div>
-          <span class="output">✔ Target identified</span>
-        </div>
-        <div class="attack-stage stage-4">
-          <span class="prompt">$ </span><span class="cmd">exploit...</span>
-          <div class="progress-bar"><div class="progress-fill" style="animation-delay:2s"></div></div>
-          <span class="output">✔ Vulnerability found</span>
-        </div>
-        <div class="attack-stage stage-5">
-          <span class="prompt">$ </span><span class="cmd">establish_persistence...</span>
-          <div class="progress-bar"><div class="progress-fill" style="animation-delay:2.5s"></div></div>
-          <span class="output">✔ Backdoor installed</span>
-        </div>
-        <div class="attack-stage stage-6">
-          <span class="prompt">$ </span><span class="cmd">exfiltrate_data...</span>
-          <div class="progress-bar"><div class="progress-fill" style="animation-delay:3s"></div></div>
-          <span class="output">✔ PWNED</span>
-        </div>
-        <div><span class="cursor"></span></div>
-      </div>
-    </div>
+  <div class="phase">
+    <span class="num" id="phaseNum">1</span>
+    <span id="phaseName">INITIALIZING</span>
   </div>
-
-  <div class="section">
-    <div class="section-title">⚔️ LAYER MAP — 70 RENTANG, 83 PAKET</div>
-    <div class="layer-row">
-      <span class="layer-name">layer01-05</span>
-      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:0.2s"></div></div>
-      <span class="layer-count">16</span>
-    </div>
-    <div class="layer-row">
-      <span class="layer-name">layer06-10</span>
-      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:0.4s"></div></div>
-      <span class="layer-count">5</span>
-    </div>
-    <div class="layer-row">
-      <span class="layer-name">layer11-15</span>
-      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:0.6s"></div></div>
-      <span class="layer-count">5</span>
-    </div>
-    <div class="layer-row">
-      <span class="layer-name">layer16-21</span>
-      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:0.8s"></div></div>
-      <span class="layer-count">6</span>
-    </div>
-    <div class="layer-row">
-      <span class="layer-name">layer22-25</span>
-      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:1s"></div></div>
-      <span class="layer-count">4</span>
-    </div>
-    <div class="layer-row">
-      <span class="layer-name">layer26-40</span>
-      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:1.2s"></div></div>
-      <span class="layer-count">15</span>
-    </div>
-    <div class="layer-row">
-      <span class="layer-name">layer41-60</span>
-      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:1.4s"></div></div>
-      <span class="layer-count">18</span>
-    </div>
-    <div class="layer-row">
-      <span class="layer-name">layer61-70</span>
-      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:1.6s"></div></div>
-      <span class="layer-count">10</span>
-    </div>
+  <div class="alert" id="alert">⚠ UNAUTHORIZED ACCESS DETECTED</div>
+  <div class="status-bar">
+    <div class="status-item"><div class="label">Modules</div><div class="val" id="sModules">0/83</div></div>
+    <div class="status-item"><div class="label">Layers</div><div class="val" id="sLayers">0/70</div></div>
+    <div class="status-item"><div class="label">Tests</div><div class="val" id="sTests">0/92</div></div>
+    <div class="status-item"><div class="label">Status</div><div class="val" id="sStatus">...</div></div>
   </div>
-
-  <div class="section">
-    <div class="section-title">📊 STATUS</div>
-    <div class="status-grid">
-      <div class="status-item">
-        <span class="status-icon">✅</span>
-        <div class="status-label">Build</div>
-        <div class="status-value">OK</div>
-      </div>
-      <div class="status-item">
-        <span class="status-icon">✅</span>
-        <div class="status-label">Test</div>
-        <div class="status-value">92 PASS</div>
-      </div>
-      <div class="status-item">
-        <span class="status-icon">✅</span>
-        <div class="status-label">Layer</div>
-        <div class="status-value">83/83</div>
-      </div>
-      <div class="status-item">
-        <span class="status-icon">✅</span>
-        <div class="status-label">Lab</div>
-        <div class="status-value">25/0</div>
-      </div>
-      <div class="status-item">
-        <span class="status-icon">🐳</span>
-        <div class="status-label">Docker</div>
-        <div class="status-value">3/3</div>
-      </div>
-      <div class="status-item">
-        <span class="status-icon">🔒</span>
-        <div class="status-label">Secret</div>
-        <div class="status-value">Env</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">⌨ COMMANDS</div>
-    <div class="terminal">
-      <div class="terminal-header">
-        <div class="terminal-dot red"></div>
-        <div class="terminal-dot yellow"></div>
-        <div class="terminal-dot green"></div>
-        <span class="terminal-title">angel@platform:~$</span>
-      </div>
-      <div class="terminal-body">
-        <div><span class="prompt">$ </span><span class="cmd">make build && docker compose up -d</span></div>
-        <div><span class="prompt">$ </span><span class="cmd">./bin/angel-generate -os linux -arch amd64 -server http://localhost:8443</span></div>
-        <div><span class="prompt">$ </span><span class="cmd">make engage SCOPE=target.txt</span></div>
-        <div><span class="prompt">$ </span><span class="cmd">docker compose logs -f angel-teamserver</span></div>
-        <div><span class="cursor"></span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="warning">
-      <div class="warning-title">⚠️ WARNING</div>
-      Only authorized systems. Contract + written permission required.<br>
-      For official offensive security engagement only.<br>
-      All activity logged via evidence ledger.
-    </div>
-  </div>
-
-</div>
-
-<div class="footer">
-  🛡️ ANGEL Platform — Offensive Security Framework<br>
-  github.com/SealAngel7/ANGEL
 </div>
 
 <script>
-  const canvas = document.getElementById('matrix');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
-  const fontSize = 14;
-  const columns = Math.floor(canvas.width / fontSize);
-  const drops = Array(columns).fill(1);
+const phases = [
+  { num: 1, name: 'INITIALIZING', duration: 3 },
+  { num: 2, name: 'SCANNING NETWORK', duration: 4 },
+  { num: 3, name: 'FINDING VULNERABILITY', duration: 3 },
+  { num: 4, name: 'EXPLOITING', duration: 3 },
+  { num: 5, name: 'ESCALATING PRIVILEGES', duration: 3 },
+  { num: 6, name: 'EXFILTRATING DATA', duration: 4 },
+  { num: 7, name: 'COVERING TRACKS', duration: 3 },
+  { num: 8, name: 'MISSION COMPLETE', duration: 5 }
+];
 
-  function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#00ff41';
-    ctx.font = fontSize + 'px Courier New';
+let currentPhase = 0, phaseStartTime = Date.now(), particles = [], nodes = [], lines = [];
+let scanAngle = 0, attackWave = 0, time = 0;
+let matrixDrops = [];
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
 
-    for (let i = 0; i < drops.length; i++) {
-      const char = chars[Math.floor(Math.random() * chars.length)];
-      ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
+for (let i = 0; i < 100; i++) {
+  matrixDrops.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, speed: Math.random() * 3 + 1, char: chars[Math.floor(Math.random() * chars.length)], length: Math.random() * 20 + 5 });
+}
+
+function initNodes() {
+  nodes = [];
+  const cx = canvas.width / 2, cy = canvas.height / 2;
+  nodes.push({ x: cx, y: cy, r: 20, type: 'core', hp: 100, compromised: false, pulse: 0 });
+  for (let i = 0; i < 6; i++) {
+    const angle = (Math.PI * 2 / 6) * i, dist = 150;
+    nodes.push({ x: cx + Math.cos(angle) * dist, y: cy + Math.sin(angle) * dist, r: 12, type: 'server', hp: 100, compromised: false, pulse: 0 });
+  }
+  for (let i = 0; i < 12; i++) {
+    const angle = (Math.PI * 2 / 12) * i, dist = 280;
+    nodes.push({ x: cx + Math.cos(angle) * dist, y: cy + Math.sin(angle) * dist, r: 8, type: 'workstation', hp: 100, compromised: false, pulse: 0 });
+  }
+  for (let i = 0; i < 20; i++) {
+    const angle = (Math.PI * 2 / 20) * i + 0.1, dist = 400;
+    nodes.push({ x: cx + Math.cos(angle) * dist, y: cy + Math.sin(angle) * dist, r: 5, type: 'target', hp: 100, compromised: false, pulse: 0 });
+  }
+  lines = [];
+  for (let i = 1; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+      if (Math.sqrt(dx*dx + dy*dy) < 200) lines.push({ from: i, to: j, active: false, pulse: 0 });
     }
   }
-  setInterval(drawMatrix, 50);
+}
 
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
+function addParticle(x, y, color, vx, vy, life) {
+  particles.push({ x, y, color, vx: vx || (Math.random() - 0.5) * 4, vy: vy || (Math.random() - 0.5) * 4, life, maxLife: life, size: Math.random() * 3 + 1 });
+}
 
-  setInterval(() => {
-    const title = document.querySelector('.glitch-text');
-    if (Math.random() > 0.7) {
-      title.style.animation = 'none';
-      setTimeout(() => title.style.animation = 'glitch 0.3s infinite', 50);
+function explode(x, y, color, count) {
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2, speed = Math.random() * 6 + 2;
+    addParticle(x, y, color, Math.cos(angle) * speed, Math.sin(angle) * speed, Math.random() * 40 + 20);
+  }
+}
+
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#00ff41';
+  ctx.font = '12px Courier New';
+  for (const d of matrixDrops) {
+    ctx.globalAlpha = 0.3;
+    ctx.fillText(d.char, d.x, d.y);
+    d.y += d.speed;
+    if (d.y > canvas.height) { d.y = -10; d.x = Math.random() * canvas.width; d.char = chars[Math.floor(Math.random() * chars.length)]; }
+  }
+  ctx.globalAlpha = 1;
+}
+
+function drawNetwork() {
+  for (const l of lines) {
+    const a = nodes[l.from], b = nodes[l.to];
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = l.active ? 'rgba(0, 255, 65, 0.6)' : 'rgba(0, 255, 65, 0.1)';
+    ctx.lineWidth = l.active ? 2 : 1; ctx.stroke();
+    if (l.active) {
+      l.pulse += 0.05;
+      const px = a.x + (b.x - a.x) * (Math.sin(l.pulse) * 0.5 + 0.5);
+      const py = a.y + (b.y - a.y) * (Math.sin(l.pulse) * 0.5 + 0.5);
+      ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI * 2); ctx.fillStyle = '#00ff41'; ctx.fill();
     }
-  }, 3000);
-</script>
+  }
+  for (const n of nodes) {
+    n.pulse += 0.03;
+    const pulseR = n.r + Math.sin(n.pulse) * 2;
+    if (n.compromised) {
+      ctx.beginPath(); ctx.arc(n.x, n.y, pulseR + 10, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255, 0, 0, 0.2)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(n.x, n.y, pulseR, 0, Math.PI * 2); ctx.fillStyle = '#ff0000'; ctx.fill();
+    } else {
+      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, pulseR * 2);
+      grad.addColorStop(0, n.type === 'core' ? 'rgba(0, 255, 65, 0.4)' : 'rgba(0, 200, 255, 0.2)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.beginPath(); ctx.arc(n.x, n.y, pulseR * 2, 0, Math.PI * 2); ctx.fillStyle = grad; ctx.fill();
+      ctx.beginPath(); ctx.arc(n.x, n.y, pulseR, 0, Math.PI * 2); ctx.fillStyle = n.type === 'core' ? '#00ff41' : '#00ccff'; ctx.fill();
+    }
+    ctx.beginPath(); ctx.arc(n.x, n.y, pulseR, 0, Math.PI * 2);
+    ctx.strokeStyle = n.compromised ? '#ff0000' : (n.type === 'core' ? '#00ff41' : '#00ccff');
+    ctx.lineWidth = n.type === 'core' ? 2 : 1; ctx.stroke();
+  }
+}
 
+function drawAttackWave() {
+  attackWave += 0.02;
+  const cx = canvas.width / 2, cy = canvas.height / 2;
+  const radius = 50 + attackWave * 200;
+  const alpha = Math.max(0, 1 - attackWave);
+  if (alpha <= 0) return;
+  ctx.beginPath(); ctx.arc(cx, cy, radius % 500, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(255, 0, 0, ${alpha * 0.5})`; ctx.lineWidth = 3; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx, cy, (radius + 150) % 500, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(255, 0, 0, ${alpha * 0.3})`; ctx.lineWidth = 2; ctx.stroke();
+}
+
+function drawScanLine() {
+  scanAngle += 0.01;
+  const cx = canvas.width / 2, cy = canvas.height / 2;
+  const len = Math.max(canvas.width, canvas.height);
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(scanAngle) * len, cy + Math.sin(scanAngle) * len);
+  ctx.strokeStyle = 'rgba(0, 255, 65, 0.1)'; ctx.lineWidth = 1; ctx.stroke();
+  const tx = cx + Math.cos(scanAngle) * len, ty = cy + Math.sin(scanAngle) * len;
+  const grad = ctx.createRadialGradient(tx, ty, 0, tx, ty, 20);
+  grad.addColorStop(0, 'rgba(0, 255, 65, 0.5)'); grad.addColorStop(1, 'rgba(0, 255, 65, 0)');
+  ctx.beginPath(); ctx.arc(tx, ty, 20, 0, Math.PI * 2); ctx.fillStyle = grad; ctx.fill();
+}
+
+function updateParticles() {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i]; p.x += p.vx; p.y += p.vy; p.vx *= 0.98; p.vy *= 0.98; p.life--;
+    if (p.life <= 0) particles.splice(i, 1);
+  }
+}
+
+function drawParticles() {
+  for (const p of particles) {
+    const alpha = p.life / p.maxLife;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.size * alpha, 0, Math.PI * 2);
+    ctx.fillStyle = p.color.replace(')', `, ${alpha})`).replace('rgb', 'rgba');
+    ctx.fill();
+  }
+}
+
+let nodesCompromised = 0, testProgress = 0;
+
+function animate() {
+  time++;
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  drawMatrix(); drawScanLine(); drawAttackWave(); drawNetwork(); drawParticles();
+
+  const phaseTime = (Date.now() - phaseStartTime) / 1000;
+  const phase = phases[currentPhase];
+  if (phaseTime > phase.duration) {
+    currentPhase = (currentPhase + 1) % phases.length;
+    phaseStartTime = Date.now();
+    const np = phases[currentPhase];
+    document.getElementById('phaseNum').textContent = np.num;
+    document.getElementById('phaseName').textContent = np.name;
+    if (np.num === 2) { for (const l of lines) l.active = true; }
+    else if (np.num === 4) { for (let i = 1; i < nodes.length; i += 2) { nodes[i].compromised = true; explode(nodes[i].x, nodes[i].y, '#ff0000', 15); } }
+    else if (np.num === 6) { for (const n of nodes) n.compromised = true; explode(canvas.width/2, canvas.height/2, '#ff0000', 50); }
+    else if (np.num === 8) { for (const n of nodes) { explode(n.x, n.y, '#ff0000', 20); explode(n.x, n.y, '#ffaa00', 10); } }
+  }
+
+  nodesCompromised = nodes.filter(n => n.compromised).length;
+  testProgress = Math.min(100, (phaseTime / phase.duration) * 100);
+  document.getElementById('sModules').textContent = Math.floor(testProgress * 0.83) + '/83';
+  document.getElementById('sLayers').textContent = Math.floor(testProgress * 0.7) + '/70';
+  document.getElementById('sTests').textContent = Math.floor(testProgress * 0.92) + '/92';
+  document.getElementById('sStatus').textContent = phase.name;
+
+  requestAnimationFrame(animate);
+}
+
+initNodes();
+phaseStartTime = Date.now();
+animate();
+
+window.addEventListener('click', (e) => {
+  explode(e.clientX, e.clientY, '#ff0000', 20);
+  explode(e.clientX, e.clientY, '#ffaa00', 10);
+  addParticle(e.clientX, e.clientY, '#ff0000', 0, 0, 40);
+  let closest = null, closestDist = Infinity;
+  for (const n of nodes) { const d = Math.hypot(n.x - e.clientX, n.y - e.clientY); if (d < closestDist) { closestDist = d; closest = n; } }
+  if (closest && closestDist < 100) { closest.compromised = true; explode(closest.x, closest.y, '#ff0000', 30); }
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (Math.random() > 0.7) addParticle(e.clientX, e.clientY, 'rgb(0, 255, 65)', (Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2, 20);
+});
+<\/script>
 </body>
-</html>
+</html>'''
+
+with open('/workspaces/ANGEL/README_ANIMATED.html', 'w') as f:
+    f.write(html)
+print('Written')
