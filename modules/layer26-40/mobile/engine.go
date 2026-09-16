@@ -26,8 +26,8 @@ func (e *Engine) KeychainDump() MobileResult {
 
 	items := []KeychainItem{
 			{Service: "com.apple.account iCloud", Account: "user@icloud.com", Value: "", Type: "kSecClassGenericPassword", Protected: true},
-			{Service: "com.example.app", Account: "auth_token", Value: "", Type: "kSecClassInternetPassword", Protected: true},
-			{Service: "com.example.app", Account: "api_key", Value: "", Type: "kSecClassGenericPassword", Protected: false},
+			{Service: "com.target.app", Account: "auth_token", Value: "", Type: "kSecClassInternetPassword", Protected: true},
+			{Service: "com.target.app", Account: "api_key", Value: "", Type: "kSecClassGenericPassword", Protected: false},
 			{Service: "WiFi", Account: "Enterprise WiFi", Value: "", Type: "kSecClassGenericPassword", Protected: true},
 			{Service: "com.apple.metrickit", Account: "analytics", Value: "", Type: "kSecClassGenericPassword", Protected: false},
 	}
@@ -80,18 +80,18 @@ func (e *Engine) SharedPreferencesExtract() MobileResult {
 
 	prefs := []PrefsFile{
 		{
-			Path:   "/data/data/com.example.app/shared_prefs/auth.xml",
+			Path:   "/data/data/com.target.app/shared_prefs/auth.xml",
 			Format: "XML",
 			Content: map[string]string{
-				"auth_token":     "Bearer eyJhbGci...",
-				"refresh_token":  "rt_abc123def456",
-				"user_id":        "12345",
+				"auth_token":     "<JWT_TOKEN_PLACEHOLDER>",
+							"refresh_token":  "<REFRESH_TOKEN_PLACEHOLDER>",
+				"user_id":        "<USER_ID>",
 				"session_expiry": "1700000000",
 			},
 			Contains: true,
 		},
 		{
-			Path:   "/data/data/com.example.app/shared_prefs/settings.xml",
+			Path:   "/data/data/com.target.app/shared_prefs/settings.xml",
 			Format: "XML",
 			Content: map[string]string{
 				"theme":         "dark",
@@ -101,7 +101,7 @@ func (e *Engine) SharedPreferencesExtract() MobileResult {
 			Contains: false,
 		},
 		{
-			Path:   "/data/data/com.example.app/databases/app.db",
+			Path:   "/data/data/com.target.app/databases/app.db",
 			Format: "SQLite",
 			Content: map[string]string{
 				"table_count": "12",
@@ -131,7 +131,7 @@ func (e *Engine) BackupExtract() MobileResult {
 
 	backups := []BackupInfo{
 		{
-			Path:      "/tmp/backup/com.example.app",
+			Path:      "/tmp/backup/com.target.app",
 			Encrypted: false,
 			Size:      15728640,
 			Files: []string{
@@ -142,7 +142,7 @@ func (e *Engine) BackupExtract() MobileResult {
 			},
 		},
 		{
-			Path:      "/tmp/backup/com.example.app.bak",
+			Path:      "/tmp/backup/com.target.app.bak",
 			Encrypted: true,
 			Size:      20971520,
 			Files:     []string{"encrypted_data.bin"},
@@ -181,7 +181,7 @@ func (e *Engine) BackupExtract() MobileResult {
 }  //nolint:staticcheck
   //nolint:staticcheck
 func (e *Engine) enumerateKeychainItems() []KeychainItem {  //nolint:unused
-	accessGroups := []string{"keychain-access-groups", "app-group.com.example"}
+	accessGroups := []string{"keychain-access-groups", "app-group.angel.local"}
 	var items []KeychainItem
 	for _, ag := range accessGroups {
 		items = append(items, KeychainItem{

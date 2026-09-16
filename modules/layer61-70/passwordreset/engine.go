@@ -110,7 +110,7 @@ func (e *Engine) ResetTokenLeak() PasswordResetResult {
 
 func (e *Engine) PasswordReuse() PasswordResetResult {
 	commonPasswords := []string{
-		"password123", "qwerty", "123456", "admin", "letmein",
+		"<COMMON_PASS1>", "<COMMON_PASS2>", "<COMMON_PASS3>", "<COMMON_PASS4>", "<COMMON_PASS5>",
 		"welcome", "monkey", "dragon", "master", "login",
 	}
 

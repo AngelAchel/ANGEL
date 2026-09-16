@@ -154,16 +154,16 @@ func (e *Engine) enumerateBuckets() []BucketInfo {
 
 func (e *Engine) enumerateInstances() []InstanceInfo {
 	return []InstanceInfo{
-		{ID: "i-0abc123def456789", Name: "web-server-1", State: "running", Type: "t3.medium", PublicIP: "52.12.34.56", IAMRole: "WebServerRole"},
+		{ID: "i-0abcdef1122334450", Name: "web-server-1", State: "running", Type: "t3.medium", PublicIP: "10.0.1.100", IAMRole: "WebServerRole"},
 	}
 }
 
 func (e *Engine) enumerateLambdas() []LambdaInfo {
 	return []LambdaInfo{
-		{Name: "process-data", ARN: "arn:aws:lambda:us-east-1:123456789:function:process-data", Runtime: "python3.9", Role: "LambdaExecutionRole", EnvVars: map[string]string{"DB_PASSWORD": "***"}, Memory: 256, Timeout: 30},
+		{Name: "process-data", ARN: "arn:aws:lambda:us-east-1:112233445:function:process-data", Runtime: "python3.9", Role: "LambdaExecutionRole", EnvVars: map[string]string{"DB_PASSWORD": "***"}, Memory: 256, Timeout: 30},
 	}
 }
 
 func (e *Engine) getAccountID() string {
-	return "123456789012"
+	return "112233445566"
 }

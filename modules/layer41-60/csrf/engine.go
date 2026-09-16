@@ -134,7 +134,7 @@ func (e *Engine) generateBypassPayload(token CSRFToken, techniques []string) str
 	for _, technique := range techniques {
 		switch technique {
 		case "bruteforce":
-			fmt.Fprintf(&payload, "<!-- Try common values for %s: 000000, 123456, admin, test -->\n", token.Name)
+			fmt.Fprintf(&payload, "<!-- Try common values for %s: <COMMON_VALUE_1>, <COMMON_VALUE_2>, <COMMON_VALUE_3>, <COMMON_VALUE_4> -->\n", token.Name)
 		case "sequential":
 			fmt.Fprintf(&payload, "<!-- Sequential token detected, try incrementing from %s -->\n", token.Value)
 		case "short_token":

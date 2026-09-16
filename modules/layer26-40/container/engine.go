@@ -244,7 +244,7 @@ func (e *Engine) enumerateNodes(config KubernetesConfig) []NodeInfo {
 
 func (e *Engine) enumeratePods(config KubernetesConfig) []PodInfo {
 	return []PodInfo{
-		{Name: "coredns-abc123", Namespace: "kube-system", Node: "master-node", Status: "Running", ServiceAcc: "coredns"},
+		{Name: "<POD_NAME>", Namespace: "<NAMESPACE>", Node: "<NODE_NAME>", Status: "Running", ServiceAcc: "<SERVICE_ACCOUNT>"},
 	}
 }
 
@@ -317,7 +317,7 @@ func (e *Engine) getPorts(containerID string) []string {
 }
 
 func (e *Engine) getContainerPID(containerID string) int {
-	return 12345
+	return 0
 }
 
 func (e *Engine) getNetworkMode(containerID string) string {

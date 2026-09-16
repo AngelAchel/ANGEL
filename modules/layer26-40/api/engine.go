@@ -282,8 +282,8 @@ func (e *Engine) detectIDORPatterns(basePath string) []IDORFinding {
 
 func (e *Engine) generateSampleJWT() string {
 	header := base64RawURLEncode([]byte(`{"alg":"HS256","typ":"JWT"}`))
-	payload := base64RawURLEncode([]byte(`{"sub":"1234567890","name":"John Doe","admin":true,"iat":1516239022}`))
-	signature := base64RawURLEncode([]byte("test-secret-signature"))
+	payload := base64RawURLEncode([]byte(`{"sub":"<USER_ID>","name":"<USER_NAME>","admin":<IS_ADMIN>,"iat":<TIMESTAMP>}`))
+	signature := base64RawURLEncode([]byte("<SECRET_KEY>"))
 	return header + "." + payload + "." + signature
 }
 

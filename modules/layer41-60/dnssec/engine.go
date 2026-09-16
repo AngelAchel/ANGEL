@@ -203,7 +203,7 @@ func (e *Engine) AnalyzeDNSSEC(domain string) map[string]interface{} {
 	analysis["domain"] = domain
 	analysis["signed"] = true
 	analysis["algorithms"] = []int{8, 13} // RSA/ECDSA
-	analysis["key_tags"] = []int{12345, 12346}
+	analysis["key_tags"] = []int{0x0001, 0x0002}
 	analysis["nsec3"] = false
 
 	return analysis

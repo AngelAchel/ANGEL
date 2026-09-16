@@ -270,12 +270,12 @@ func (e *AuthBypassEngine) testJWTBypass(target string, start time.Time) (*Bypas
 	// Attempt to obtain a real JWT token by logging in
 	jwtToken := ""
 	sampleCreds := []struct{ u, p string }{
-		{"admin", "admin"},
-		{"admin", "password"},
-		{"admin", "admin123"},
-		{"user", "user"},
-		{"test", "test"},
-		{"guest", "guest"},
+		{"<USERNAME>", "<PASSWORD>"},
+		{"<USERNAME>", "<PASSWORD>"},
+		{"<USERNAME>", "<PASSWORD>"},
+		{"<USERNAME>", "<PASSWORD>"},
+		{"<USERNAME>", "<PASSWORD>"},
+		{"<USERNAME>", "<PASSWORD>"},
 	}
 
 	for _, cred := range sampleCreds {
@@ -481,23 +481,22 @@ func (e *AuthBypassEngine) testJSONTampering(target string, start time.Time) (*B
 
 func (e *AuthBypassEngine) testDefaultCred(target string, start time.Time) (*BypassResult, error) {
 	creds := []CredentialPair{
-		{Username: "admin", Password: "admin"},
-		{Username: "admin", Password: "password"},
-		{Username: "admin", Password: "123456"},
-		{Username: "root", Password: "root"},
-		{Username: "root", Password: "toor"},
-		{Username: "admin", Password: "admin123"},
-		{Username: "user", Password: "user"},
-		{Username: "test", Password: "test"},
-		{Username: "guest", Password: "guest"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
 		{Username: "admin", Password: ""},
-		{Username: "administrator", Password: "administrator"},
-		{Username: "admin", Password: "Changeme123!"},
-		{Username: "admin", Password: "P@ssw0rd"},
-		{Username: "sa", Password: ""},
-		{Username: "postgres", Password: "postgres"},
-		{Username: "mysql", Password: "mysql"},
-		{Username: "oracle", Password: "oracle"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
+		{Username: "<USER>", Password: "<PASS>"},
 	}
 
 	result := &BypassResult{

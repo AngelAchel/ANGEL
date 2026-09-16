@@ -182,7 +182,7 @@ func (e *Engine) findHardcodedKeys(path string) []HardcodedKey {
 	keys = append(keys, HardcodedKey{
 		Name:      "API Encryption Key",
 		Type:      "AES",
-		Key:       "0123456789abcdef0123456789abcdef",
+		Key:       "0112233445abcdef0112233445abcdef",
 		Location:  "/etc/config/crypto.conf",
 		Algorithm: "AES-256",
 	})

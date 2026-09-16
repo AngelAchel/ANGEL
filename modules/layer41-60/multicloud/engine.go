@@ -138,7 +138,7 @@ func (e *Engine) analyzeCrossAccountTrust(source, target string) []CrossAccountT
 	trusts = append(trusts, CrossAccountTrust{
 		AccountID:  target,
 		RoleARN:    fmt.Sprintf("arn:aws:iam::%s:role/CrossAccountRole", target),
-		ExternalID: "external-id-12345",
+		ExternalID: "<external-id>",
 		Condition:  "sts:ExternalId",
 	})
 
