@@ -3,664 +3,538 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🛡️ ANGEL Platform v3.3</title>
+<title>🛡️ ANGEL Platform — Offensive Security</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    background: #0a0a0f;
-    color: #e0e0e0;
-    font-family: 'Courier New', monospace;
-    overflow-x: hidden;
+    background: #000;
+    color: #00ff41;
+    font-family: 'Courier New', 'Consolas', monospace;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
   }
-  /* Animated background */
-  .bg-animation {
+  #matrix {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 0;
+    opacity: 0.15;
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .scanlines {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: -1;
-    background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 25%, #0a1a2e 50%, #1a0a0f 75%, #0a0a0f 100%);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
-  }
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  /* Scanline effect */
-  .scanline {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
     background: repeating-linear-gradient(
       0deg,
-      transparent,
+      transparent 0px,
       transparent 2px,
-      rgba(0, 255, 65, 0.03) 2px,
-      rgba(0, 255, 65, 0.03) 4px
+      rgba(0, 255, 65, 0.02) 2px,
+      rgba(0, 255, 65, 0.02) 4px
     );
     pointer-events: none;
+    z-index: 2;
   }
-  /* Header */
-  .header {
-    text-align: center;
-    padding: 60px 20px 40px;
-    animation: fadeInDown 1s ease;
+  @keyframes glitch {
+    0% { text-shadow: 2px 0 #ff00c8, -2px 0 #00ff41; }
+    20% { text-shadow: -2px 0 #ff00c8, 2px 0 #00ff41; }
+    40% { text-shadow: 2px 0 #00ff41, -2px 0 #ff00c8; }
+    60% { text-shadow: -2px 0 #00ff41, 2px 0 #ff00c8; }
+    80% { text-shadow: 2px 0 #ff00c8, -2px 0 #00ff41; }
+    100% { text-shadow: 2px 0 #00ff41, -2px 0 #ff00c8; }
   }
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-30px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes glitchStatic {
+    0% { clip-path: inset(20% 0 60% 0); }
+    20% { clip-path: inset(60% 0 10% 0); }
+    40% { clip-path: inset(40% 0 40% 0); }
+    60% { clip-path: inset(80% 0 5% 0); }
+    80% { clip-path: inset(10% 0 70% 0); }
+    100% { clip-path: inset(50% 0 30% 0); }
   }
-  .logo {
-    font-size: 80px;
-    display: block;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
-  .title {
-    font-size: 48px;
-    font-weight: bold;
-    background: linear-gradient(90deg, #00ff41, #00cc33, #00ff41);
-    background-size: 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textShimmer 3s infinite;
-    text-shadow: none;
-  }
-  @keyframes textShimmer {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .subtitle {
-    font-size: 18px;
-    color: #00ff41;
-    margin-top: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-  .status-badge {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 8px 24px;
-    border: 1px solid #00ff41;
-    color: #00ff41;
-    font-size: 14px;
-    letter-spacing: 2px;
-    animation: blink 2s infinite;
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-  /* Container */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  /* Section */
-  .section {
-    margin: 40px 0;
-    padding: 30px;
-    border: 1px solid #1a3a1a;
-    border-radius: 8px;
-    background: rgba(10, 20, 10, 0.8);
-    animation: fadeInUp 0.8s ease both;
-  }
-  .section:nth-child(2) { animation-delay: 0.1s; }
-  .section:nth-child(3) { animation-delay: 0.2s; }
-  .section:nth-child(4) { animation-delay: 0.3s; }
-  .section:nth-child(5) { animation-delay: 0.4s; }
-  .section:nth-child(6) { animation-delay: 0.5s; }
-  .section:nth-child(7) { animation-delay: 0.6s; }
-  .section:nth-child(8) { animation-delay: 0.7s; }
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .section-title {
-    font-size: 24px;
-    color: #00ff41;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #1a3a1a;
-    padding-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  /* Code blocks */
-  .code-block {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 6px;
-    padding: 20px;
-    margin: 15px 0;
-    overflow-x: auto;
-    font-size: 13px;
-    line-height: 1.6;
+  .glitch-text {
+    animation: glitch 0.3s infinite;
     position: relative;
+    display: inline-block;
   }
-  .code-block .copy-btn {
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
     position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #21262d;
-    border: 1px solid #30363d;
-    color: #8b949e;
-    padding: 4px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.3s;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
   }
-  .code-block .copy-btn:hover {
-    background: #30363d;
-    color: #00ff41;
+  .glitch-text::before {
+    animation: glitchStatic 0.3s infinite;
+    color: #ff00c8;
+    opacity: 0.5;
   }
-  .code-block code {
-    color: #c9d1d9;
+  .glitch-text::after {
+    animation: glitchStatic 0.3s infinite reverse;
+    color: #00ffff;
+    opacity: 0.5;
   }
-  .code-block .comment { color: #8b949e; }
-  .code-block .keyword { color: #ff7b72; }
-  .code-block .string { color: #a5d6ff; }
-  .code-block .func { color: #d2a8ff; }
-  /* Tables */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 15px 0;
-  }
-  th, td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid #1a3a1a;
-  }
-  th {
-    background: #0d1117;
-    color: #00ff41;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-  }
-  tr:hover {
-    background: rgba(0, 255, 65, 0.05);
-  }
-  /* Progress bars */
-  .progress-bar {
-    width: 100%;
-    height: 8px;
-    background: #1a1a2e;
-    border-radius: 4px;
-    overflow: hidden;
-    margin: 5px 0;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #00ff41, #00cc33);
-    border-radius: 4px;
-    animation: progressGrow 1.5s ease-out;
-  }
-  @keyframes progressGrow {
-    from { width: 0; }
-  }
-  /* Layer map */
-  .layer-map {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-    margin: 20px 0;
-  }
-  .layer-card {
-    background: #0d1117;
-    border: 1px solid #1a3a1a;
-    border-radius: 6px;
-    padding: 15px;
-    transition: all 0.3s;
-    cursor: pointer;
-  }
-  .layer-card:hover {
-    border-color: #00ff41;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1);
-  }
-  .layer-card .layer-name {
-    color: #00ff41;
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .layer-card .layer-count {
-    color: #8b949e;
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  .layer-card .layer-bar {
-    width: 100%;
-    height: 4px;
-    background: #1a1a2e;
-    border-radius: 2px;
-    margin-top: 8px;
-    overflow: hidden;
-  }
-  .layer-card .layer-bar-fill {
-    height: 100%;
-    background: #00ff41;
-    border-radius: 2px;
-  }
-  /* Architecture */
-  .arch-box {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 6px;
-    padding: 20px;
-    margin: 10px 0;
-    text-align: center;
-    font-size: 13px;
-    transition: all 0.3s;
-  }
-  .arch-box:hover {
-    border-color: #00ff41;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-  }
-  .arch-box .arch-icon {
-    font-size: 32px;
-    display: block;
-    margin-bottom: 10px;
-  }
-  .arch-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 10px 0;
-  }
-  .arch-arrow {
-    color: #00ff41;
-    text-align: center;
-    font-size: 20px;
-    margin: 5px 0;
-    animation: arrowBounce 1s infinite;
-  }
-  @keyframes arrowBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(5px); }
-  }
-  /* Status grid */
-  .status-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
-  }
-  .status-card {
-    background: #0d1117;
-    border: 1px solid #1a3a1a;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    transition: all 0.3s;
-  }
-  .status-card:hover {
-    transform: scale(1.05);
-    border-color: #00ff41;
-  }
-  .status-card .status-icon {
-    font-size: 36px;
-    display: block;
-    margin-bottom: 10px;
-  }
-  .status-card .status-label {
-    font-size: 12px;
-    color: #8b949e;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .status-card .status-value {
-    font-size: 18px;
-    color: #00ff41;
-    font-weight: bold;
-    margin-top: 5px;
-  }
-  /* Warning */
-  .warning-box {
-    background: rgba(255, 165, 0, 0.1);
-    border: 1px solid #ffa500;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    animation: warningPulse 3s infinite;
-  }
-  @keyframes warningPulse {
-    0%, 100% { border-color: #ffa500; }
-    50% { border-color: #ff6600; }
-  }
-  .warning-box h3 {
-    color: #ffa500;
-    margin-bottom: 10px;
-  }
-  /* Terminal */
   .terminal {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #00ff41;
+    border-radius: 4px;
     overflow: hidden;
     margin: 15px 0;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
   }
   .terminal-header {
-    background: #161b22;
-    padding: 10px 15px;
+    background: #111;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
     gap: 8px;
-    border-bottom: 1px solid #30363d;
+    border-bottom: 1px solid #00ff41;
   }
   .terminal-dot {
-    width: 12px;
-    height: 12px;
+    width: 10px; height: 10px;
     border-radius: 50%;
   }
   .terminal-dot.red { background: #ff5f56; }
   .terminal-dot.yellow { background: #ffbd2e; }
   .terminal-dot.green { background: #27c93f; }
+  .terminal-title {
+    color: #00ff41;
+    font-size: 12px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+  }
   .terminal-body {
     padding: 15px;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.8;
+    min-height: 60px;
   }
-  .terminal-body .prompt {
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: #00ff41;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+    margin-left: 2px;
+  }
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  .attack-stage {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.5s forwards;
+  }
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .stage-1 { animation-delay: 0.5s; }
+  .stage-2 { animation-delay: 1.5s; }
+  .stage-3 { animation-delay: 2.5s; }
+  .stage-4 { animation-delay: 3.5s; }
+  .stage-5 { animation-delay: 4.5s; }
+  .stage-6 { animation-delay: 5.5s; }
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #111;
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 5px 0;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #00ff41;
+    border-radius: 2px;
+    width: 0;
+    animation: progressGrow 2s ease-out forwards;
+  }
+  @keyframes progressGrow {
+    from { width: 0; }
+  }
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.3; }
+  }
+  .flicker { animation: flicker 3s infinite; }
+  .header {
+    text-align: center;
+    padding: 40px 0 30px;
+  }
+  .logo {
+    font-size: 64px;
+    display: block;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+  }
+  .title {
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 6px;
+    margin-top: 15px;
+  }
+  .subtitle {
+    font-size: 14px;
     color: #00ff41;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    opacity: 0.7;
   }
-  .terminal-body .cmd {
-    color: #c9d1d9;
+  .status-badge {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 6px 20px;
+    border: 1px solid #00ff41;
+    font-size: 12px;
+    letter-spacing: 3px;
+    animation: blink 2s infinite;
   }
-  .terminal-body .output {
+  .section {
+    margin: 25px 0;
+    padding: 20px;
+    border-left: 2px solid #00ff41;
+    background: rgba(0, 20, 0, 0.3);
+    animation: fadeIn 1s ease both;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; border-left-color: transparent; }
+    to { opacity: 1; border-left-color: #00ff41; }
+  }
+  .section-title {
+    font-size: 16px;
+    color: #00ff41;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+  .layer-row {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    font-size: 12px;
+  }
+  .layer-name {
+    width: 100px;
+    flex-shrink: 0;
+  }
+  .layer-bar {
+    flex: 1;
+    height: 6px;
+    background: #111;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 8px;
+  }
+  .layer-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff41, #00cc33);
+    border-radius: 3px;
+    animation: barGrow 1.5s ease-out forwards;
+  }
+  @keyframes barGrow {
+    from { width: 0; }
+  }
+  .layer-count {
+    width: 60px;
+    text-align: right;
+    flex-shrink: 0;
     color: #8b949e;
   }
-  /* Footer */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+  }
+  .status-item {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #111;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+  .status-item:hover {
+    border-color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+  }
+  .status-icon {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .status-label {
+    font-size: 10px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .status-value {
+    font-size: 14px;
+    color: #00ff41;
+    font-weight: bold;
+    margin-top: 3px;
+  }
+  .warning {
+    border: 1px solid #ffa500;
+    padding: 15px;
+    margin: 20px 0;
+    background: rgba(255, 165, 0, 0.05);
+    animation: warningPulse 3s infinite;
+  }
+  @keyframes warningPulse {
+    0%, 100% { border-color: #ffa500; }
+    50% { border-color: #ff6600; box-shadow: 0 0 15px rgba(255, 102, 0, 0.3); }
+  }
+  .warning-title {
+    color: #ffa500;
+    font-size: 14px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
   .footer {
     text-align: center;
-    padding: 40px 20px;
-    color: #8b949e;
-    font-size: 12px;
-    border-top: 1px solid #1a3a1a;
-    margin-top: 40px;
+    padding: 30px;
+    color: #333;
+    font-size: 10px;
+    letter-spacing: 2px;
+    border-top: 1px solid #111;
+    margin-top: 30px;
   }
-  /* Floating particles */
-  .particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: -1;
-  }
-  .particle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: #00ff41;
-    border-radius: 50%;
-    animation: float linear infinite;
-    opacity: 0.3;
-  }
-  @keyframes float {
-    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.3; }
-    90% { opacity: 0.3; }
-    100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-  }
-  /* Responsive */
+  .prompt { color: #00ff41; }
+  .cmd { color: #c9d1d9; }
+  .output { color: #8b949e; }
   @media (max-width: 768px) {
-    .title { font-size: 28px; }
-    .logo { font-size: 50px; }
-    .layer-map { grid-template-columns: 1fr; }
+    .title { font-size: 24px; }
+    .logo { font-size: 40px; }
     .status-grid { grid-template-columns: 1fr 1fr; }
+    .container { padding: 15px; }
   }
 </style>
 </head>
 <body>
 
-<div class="bg-animation"></div>
-<div class="scanline"></div>
-<div class="particles" id="particles"></div>
-
-<div class="header">
-  <span class="logo">🛡️</span>
-  <h1 class="title">ANGEL Platform</h1>
-  <p class="subtitle">Offensive Security Framework v3.3</p>
-  <div class="status-badge">● FINAL & OPERATIONAL</div>
-</div>
+<canvas id="matrix"></canvas>
+<div class="scanlines"></div>
 
 <div class="container">
 
-  <!-- QUICK START -->
+  <div class="header">
+    <span class="logo">🛡️</span>
+    <h1 class="title glitch-text" data-text="ANGEL PLATFORM">ANGEL PLATFORM</h1>
+    <p class="subtitle">Offensive Security Framework v3.3</p>
+    <div class="status-badge">● FINAL & OPERATIONAL</div>
+  </div>
+
   <div class="section">
-    <div class="section-title">🚀 Quick Start</div>
+    <div class="section-title">⚠️ ATTACK SEQUENCE INITIALIZED</div>
     <div class="terminal">
       <div class="terminal-header">
         <div class="terminal-dot red"></div>
         <div class="terminal-dot yellow"></div>
         <div class="terminal-dot green"></div>
-        <span style="color:#8b949e; margin-left:10px;">terminal</span>
+        <span class="terminal-title">angel@platform:~$</span>
       </div>
       <div class="terminal-body">
-        <span class="prompt">$ </span><span class="cmd">git clone &lt;REPO_URL&gt; && cd ANGEL</span><br>
-        <span class="prompt">$ </span><span class="cmd">export TEAMSERVER_KEY=&lt;key&gt; CRYPTO_KEY=&lt;key&gt; JWT_SECRET=&lt;secret&gt;</span><br>
-        <span class="prompt">$ </span><span class="cmd">make build && docker compose up -d</span><br>
-        <span class="prompt">$ </span><span class="cmd">./lab/test_lab_full.sh</span><br>
-        <span class="prompt">$ </span><span class="cmd">make engage SCOPE=target.txt</span><br>
+        <div class="attack-stage stage-1">
+          <span class="prompt">$ </span><span class="cmd">initialize_system...</span>
+          <div class="progress-bar"><div class="progress-fill" style="animation-delay:0.5s"></div></div>
+          <span class="output">✔ System online</span>
+        </div>
+        <div class="attack-stage stage-2">
+          <span class="prompt">$ </span><span class="cmd">load_modules...</span>
+          <div class="progress-bar"><div class="progress-fill" style="animation-delay:1s"></div></div>
+          <span class="output">✔ 83 modules loaded</span>
+        </div>
+        <div class="attack-stage stage-3">
+          <span class="prompt">$ </span><span class="cmd">scan_target...</span>
+          <div class="progress-bar"><div class="progress-fill" style="animation-delay:1.5s"></div></div>
+          <span class="output">✔ Target identified</span>
+        </div>
+        <div class="attack-stage stage-4">
+          <span class="prompt">$ </span><span class="cmd">exploit...</span>
+          <div class="progress-bar"><div class="progress-fill" style="animation-delay:2s"></div></div>
+          <span class="output">✔ Vulnerability found</span>
+        </div>
+        <div class="attack-stage stage-5">
+          <span class="prompt">$ </span><span class="cmd">establish_persistence...</span>
+          <div class="progress-bar"><div class="progress-fill" style="animation-delay:2.5s"></div></div>
+          <span class="output">✔ Backdoor installed</span>
+        </div>
+        <div class="attack-stage stage-6">
+          <span class="prompt">$ </span><span class="cmd">exfiltrate_data...</span>
+          <div class="progress-bar"><div class="progress-fill" style="animation-delay:3s"></div></div>
+          <span class="output">✔ PWNED</span>
+        </div>
+        <div><span class="cursor"></span></div>
       </div>
     </div>
   </div>
 
-  <!-- LAYER MAP -->
   <div class="section">
-    <div class="section-title">⚔️ Layer Distribution — 70 Rentang, 83 Paket</div>
-    <div class="layer-map">
-      <div class="layer-card">
-        <div class="layer-name">layer01-05</div>
-        <div class="layer-count">16 modul</div>
-        <div class="layer-bar"><div class="layer-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-name">layer06-10</div>
-        <div class="layer-count">5 modul</div>
-        <div class="layer-bar"><div class="layer-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-name">layer11-15</div>
-        <div class="layer-count">5 modul</div>
-        <div class="layer-bar"><div class="layer-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-name">layer16-21</div>
-        <div class="layer-count">6 modul</div>
-        <div class="layer-bar"><div class="layer-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-name">layer22-25</div>
-        <div class="layer-count">4 modul</div>
-        <div class="layer-bar"><div class="layer-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-name">layer26-40</div>
-        <div class="layer-count">15 modul</div>
-        <div class="layer-bar"><div class="layer-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-name">layer41-60</div>
-        <div class="layer-count">18 modul</div>
-        <div class="layer-bar"><div class="layer-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-name">layer61-70</div>
-        <div class="layer-count">10 modul</div>
-        <div class="layer-bar"><div class="layer-bar-fill" style="width:100%"></div></div>
-      </div>
+    <div class="section-title">⚔️ LAYER MAP — 70 RENTANG, 83 PAKET</div>
+    <div class="layer-row">
+      <span class="layer-name">layer01-05</span>
+      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:0.2s"></div></div>
+      <span class="layer-count">16</span>
+    </div>
+    <div class="layer-row">
+      <span class="layer-name">layer06-10</span>
+      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:0.4s"></div></div>
+      <span class="layer-count">5</span>
+    </div>
+    <div class="layer-row">
+      <span class="layer-name">layer11-15</span>
+      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:0.6s"></div></div>
+      <span class="layer-count">5</span>
+    </div>
+    <div class="layer-row">
+      <span class="layer-name">layer16-21</span>
+      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:0.8s"></div></div>
+      <span class="layer-count">6</span>
+    </div>
+    <div class="layer-row">
+      <span class="layer-name">layer22-25</span>
+      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:1s"></div></div>
+      <span class="layer-count">4</span>
+    </div>
+    <div class="layer-row">
+      <span class="layer-name">layer26-40</span>
+      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:1.2s"></div></div>
+      <span class="layer-count">15</span>
+    </div>
+    <div class="layer-row">
+      <span class="layer-name">layer41-60</span>
+      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:1.4s"></div></div>
+      <span class="layer-count">18</span>
+    </div>
+    <div class="layer-row">
+      <span class="layer-name">layer61-70</span>
+      <div class="layer-bar"><div class="layer-bar-fill" style="animation-delay:1.6s"></div></div>
+      <span class="layer-count">10</span>
     </div>
   </div>
 
-  <!-- SERVICES -->
   <div class="section">
-    <div class="section-title">📡 Layanan</div>
-    <table>
-      <tr><th>Service</th><th>Port</th><th>Keterangan</th></tr>
-      <tr><td>🎯 Teamserver</td><td>8443</td><td>C2 server (HTTP/HTTPS/DNS/SMB)</td></tr>
-      <tr><td>🌐 Console</td><td>3000</td><td>API Gateway</td></tr>
-      <tr><td>🎮 DVWA</td><td>8081</td><td>Target latihan</td></tr>
-    </table>
-  </div>
-
-  <!-- FEATURES -->
-  <div class="section">
-    <div class="section-title">⚔️ Fitur Utama</div>
+    <div class="section-title">📊 STATUS</div>
     <div class="status-grid">
-      <div class="status-card">
-        <span class="status-icon">🧬</span>
-        <div class="status-label">70 Layer</div>
-        <div class="status-value">70 rentang</div>
-      </div>
-      <div class="status-card">
-        <span class="status-icon">📄</span>
-        <div class="status-label">Go Files</div>
-        <div class="status-value">376+</div>
-      </div>
-      <div class="status-card">
+      <div class="status-item">
         <span class="status-icon">✅</span>
-        <div class="status-label">Tests</div>
+        <div class="status-label">Build</div>
+        <div class="status-value">OK</div>
+      </div>
+      <div class="status-item">
+        <span class="status-icon">✅</span>
+        <div class="status-label">Test</div>
         <div class="status-value">92 PASS</div>
       </div>
-      <div class="status-card">
-        <span class="status-icon">📦</span>
-        <div class="status-label">Binary</div>
-        <div class="status-value">3</div>
+      <div class="status-item">
+        <span class="status-icon">✅</span>
+        <div class="status-label">Layer</div>
+        <div class="status-value">83/83</div>
       </div>
-      <div class="status-card">
-        <span class="status-icon">🔌</span>
-        <div class="status-label">Event Bus</div>
-        <div class="status-value">Active</div>
+      <div class="status-item">
+        <span class="status-icon">✅</span>
+        <div class="status-label">Lab</div>
+        <div class="status-value">25/0</div>
       </div>
-      <div class="status-card">
-        <span class="status-icon">🛡️</span>
-        <div class="status-label">Teknik</div>
-        <div class="status-value">700+</div>
+      <div class="status-item">
+        <span class="status-icon">🐳</span>
+        <div class="status-label">Docker</div>
+        <div class="status-value">3/3</div>
+      </div>
+      <div class="status-item">
+        <span class="status-icon">🔒</span>
+        <div class="status-label">Secret</div>
+        <div class="status-value">Env</div>
       </div>
     </div>
   </div>
 
-  <!-- ARCHITECTURE -->
   <div class="section">
-    <div class="section-title">🏗️ Arsitektur</div>
-    <div class="arch-box">
-      <span class="arch-icon">🖥️</span>
-      <div>Frontend (Angular Dashboard)</div>
-    </div>
-    <div class="arch-arrow">↓</div>
-    <div class="arch-box">
-      <span class="arch-icon">🌐</span>
-      <div>Gateway (API — port 3000)</div>
-    </div>
-    <div class="arch-arrow">↓</div>
-    <div class="arch-box">
-      <span class="arch-icon">🎯</span>
-      <div>Teamserver (C2 — port 8443)</div>
-    </div>
-    <div class="arch-arrow">↓</div>
-    <div class="arch-box">
-      <span class="arch-icon">🔌</span>
-      <div>Event Bus (Central Communication)</div>
-    </div>
-    <div class="arch-arrow">↓</div>
-    <div class="arch-row">
-      <div class="arch-box" style="flex:1; min-width:120px;"><span class="arch-icon">🧠</span><div>Brain</div></div>
-      <div class="arch-box" style="flex:1; min-width:120px;"><span class="arch-icon">⚡</span><div>Auth Bypass</div></div>
-      <div class="arch-box" style="flex:1; min-width:120px;"><span class="arch-icon">📱</span><div>Mobile</div></div>
-      <div class="arch-box" style="flex:1; min-width:120px;"><span class="arch-icon">🤖</span><div>AI</div></div>
-      <div class="arch-box" style="flex:1; min-width:120px;"><span class="arch-icon">🔐</span><div>Crypto</div></div>
-    </div>
-    <div class="arch-arrow">↓</div>
-    <div class="arch-box">
-      <span class="arch-icon">🎮</span>
-      <div>DVWA Target (port 8081)</div>
+    <div class="section-title">⌨ COMMANDS</div>
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <span class="terminal-title">angel@platform:~$</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$ </span><span class="cmd">make build && docker compose up -d</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">./bin/angel-generate -os linux -arch amd64 -server http://localhost:8443</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">make engage SCOPE=target.txt</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">docker compose logs -f angel-teamserver</span></div>
+        <div><span class="cursor"></span></div>
+      </div>
     </div>
   </div>
 
-  <!-- MAKEFILE -->
   <div class="section">
-    <div class="section-title">📋 Makefile Targets</div>
-    <table>
-      <tr><th>Target</th><th>Deskripsi</th></tr>
-      <tr><td>`make all`</td><td>Build + test + lint</td></tr>
-      <tr><td>`make build`</td><td>Build 3 binary</td></tr>
-      <tr><td>`make deps`</td><td>Install Go deps</td></tr>
-      <tr><td>`make test`</td><td>Run all tests</td></tr>
-      <tr><td>`make lint`</td><td>golangci-lint</td></tr>
-      <tr><td>`make engage`</td><td>Start engagement</td></tr>
-      <tr><td>`make report`</td><td>Generate laporan</td></tr>
-    </table>
-  </div>
-
-  <!-- STATUS -->
-  <div class="section">
-    <div class="section-title">📊 Status</div>
-    <table>
-      <tr><th>Komponen</th><th>Status</th></tr>
-      <tr><td>Build</td><td>✅ OK</td></tr>
-      <tr><td>Test</td><td>✅ 92 packages PASS</td></tr>
-      <tr><td>Layer</td><td>✅ 83/83 functional</td></tr>
-      <tr><td>Lab</td><td>✅ 25 PASS / 0 FAIL</td></tr>
-      <tr><td>Docker</td><td>✅ 3 containers running</td></tr>
-      <tr><td>Secret</td><td>✅ Env var enforced</td></tr>
-      <tr><td>Placeholder</td><td>✅ Bersih</td></tr>
-      <tr><td>Deploy</td><td>⏳ Butuh env var + server</td></tr>
-    </table>
-  </div>
-
-  <!-- LEGAL -->
-  <div class="section">
-    <div class="section-title">⚠️ Legalitas & Prinsip</div>
-    <div class="warning-box">
-      <h3>⚠️ Hanya gunakan pada sistem yang telah diizinkan</h3>
-      <p>Harus memiliki kontrak, izin tertulis, dan persetujuan founder.<br>
-      Platform dirancang untuk engagement offensive security resmi.<br>
-      Semua aktivitas dilacak melalui evidence ledger (CHAIN_CUSTODY).</p>
+    <div class="warning">
+      <div class="warning-title">⚠️ WARNING</div>
+      Only authorized systems. Contract + written permission required.<br>
+      For official offensive security engagement only.<br>
+      All activity logged via evidence ledger.
     </div>
-    <p><strong>Prinsip:</strong> No copy-paste | Signature-free | Modular | Evidentiary | Clean</p>
   </div>
 
 </div>
 
 <div class="footer">
-  <p>🛡️ ANGEL Platform — Offensive Security Framework untuk Engagement Resmi</p>
-  <p>GitHub: https://github.com/SealAngel7/ANGEL | USAGE_GUIDE.md | STRUKTUR_ANGEL.md</p>
+  🛡️ ANGEL Platform — Offensive Security Framework<br>
+  github.com/SealAngel7/ANGEL
 </div>
 
 <script>
-  // Floating particles
-  const particles = document.getElementById('particles');
-  for (let i = 0; i < 50; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (Math.random() * 20 + 10) + 's';
-    p.style.animationDelay = Math.random() * 10 + 's';
-    p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
-    particles.appendChild(p);
-  }
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-  // Copy button functionality
-  document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const code = btn.parentElement.querySelector('code').innerText;
-      navigator.clipboard.writeText(code);
-      btn.textContent = 'Copied!';
-      setTimeout(() => btn.textContent = 'Copy', 2000);
-    });
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
+  const fontSize = 14;
+  const columns = Math.floor(canvas.width / fontSize);
+  const drops = Array(columns).fill(1);
+
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = fontSize + 'px Courier New';
+
+    for (let i = 0; i < drops.length; i++) {
+      const char = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+  setInterval(drawMatrix, 50);
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   });
+
+  setInterval(() => {
+    const title = document.querySelector('.glitch-text');
+    if (Math.random() > 0.7) {
+      title.style.animation = 'none';
+      setTimeout(() => title.style.animation = 'glitch 0.3s infinite', 50);
+    }
+  }, 3000);
 </script>
 
 </body>
