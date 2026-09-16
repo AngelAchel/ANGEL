@@ -1,7 +1,10 @@
 package supabase
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
+	"os"
 	"sync"
 )
 
@@ -86,4 +89,31 @@ func matchPattern(pattern, input string) bool {
 
 func (e *RulesEngine) Reload() error {
 	return e.LoadAllRules()
+}
+
+func (e *RulesEngine) LoadLocalRules(path string) error {
+	e.mu.Lock()
+	defer e.mu.Unlock()
+
+	data, err := os.ReadFile(path)
+	if err != nil {
+		log.Printf("Warning: local rules file %s not found: %v", path, err)
+		e.rules = make(map[string][]Rule)
+		return nil
+	}
+
+	var rules []Rule
+	if err := json.Unmarshal(data, &rules); err != nil {
+		return fmt.Errorf("failed to parse local rules: %w", err)
+	}
+
+	e.rules = make(map[string][]Rule)
+	for _, rule := range rules {
+		if rule.Enabled {
+			e.rules[rule.Category] = append(e.rules[rule.Category], rule)
+		}
+	}
+
+	log.Printf("Loaded %d rules from local file %s", len(rules), path)
+	return nil
 }

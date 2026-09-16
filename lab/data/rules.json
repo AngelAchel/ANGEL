@@ -1,0 +1,6 @@
+[
+  {"id": "local-001", "name": "Lab C2 Beacon", "category": "c2", "pattern": "*", "action": "log", "priority": 100, "enabled": true},
+  {"id": "local-002", "name": "Lab Exploit Detection", "category": "exploit", "pattern": "*", "action": "alert", "priority": 90, "enabled": true},
+  {"id": "local-003", "name": "Lab Auth Bypass", "category": "auth", "pattern": "*", "action": "block", "priority": 80, "enabled": true},
+  {"id": "local-004", "name": "Lab Network Scan", "category": "network", "pattern": "*", "action": "log", "priority": 70, "enabled": true}
+]

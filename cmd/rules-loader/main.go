@@ -17,7 +17,8 @@ func main() {
 	engine := supabase.NewRulesEngine()
 
 	if err := engine.LoadAllRules(); err != nil {
-		log.Fatalf("Failed to load rules: %v", err)
+		log.Printf("Warning: Supabase rules unavailable, loading local fallback: %v", err)
+		engine.LoadLocalRules("/app/data/rules.json")
 	}
 
 	categories := []string{"c2", "exploit", "auth", "network"}
