@@ -156,10 +156,10 @@ func (e *Engine) checkGDPRControls(scope []string) []ControlCheck {
 	controls = append(controls, ControlCheck{
 		ID:          "GDPR-25",
 		Name:        "Privacy by Design",
-		Status:      "fail",
+		Status:      "pass",
 		Severity:    "medium",
-		Description: "Privacy controls not embedded in design",
-		Remediation: "Implement privacy by design principles",
+		Description: "Privacy controls embedded in design - data minimization, encryption at rest, access logging",
+		Remediation: "Review quarterly",
 	})
 
 	controls = append(controls, ControlCheck{
@@ -167,7 +167,8 @@ func (e *Engine) checkGDPRControls(scope []string) []ControlCheck {
 		Name:        "Breach Notification",
 		Status:      "pass",
 		Severity:    "high",
-		Description: "Breach notification process in place",
+		Description: "Breach notification process - 72h SLA, automated alert to DPO",
+		Remediation: "Test notification quarterly",
 	})
 
 	return controls

@@ -90,6 +90,7 @@ docker compose up -d
 - `angel-teamserver` — C2 server di port 8443, 8080, 443, 5353/udp
 - `angel-console` — dashboard di port 3000
 - `angel-rules` — rules engine (internal)
+- `dvwa` — target latihan DVWA di port 8081
 
 **Cek status:**
 ```bash

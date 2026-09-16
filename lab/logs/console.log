@@ -1,0 +1,12 @@
+angel-console  | 2026/09/16 07:26:24 Warning: .env file not found: open .env: no such file or directory
+angel-console  | 2026/09/16 07:26:24 API Gateway starting on 0.0.0.0:3000
+angel-console  | 2026/09/16 07:26:44 GET / 22.843µs
+angel-console  | 2026/09/16 07:37:37 GET / 7.297803ms
+angel-console  | 2026/09/16 07:46:58 GET / 54.011µs
+angel-console  | 2026/09/16 07:48:34 GET / 32.23µs
+angel-console  | 2026/09/16 07:49:12 GET / 28.643µs
+angel-console  | 2026/09/16 07:58:17 GET / 29.324µs
+angel-console  | 2026/09/16 07:59:19 GET / 50.304µs
+angel-console  | 2026/09/16 08:00:29 GET / 25.487µs
+angel-console  | 2026/09/16 08:16:13 GET / 30.367µs
+angel-console  | 2026/09/16 08:19:16 GET / 46.426µs

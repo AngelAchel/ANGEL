@@ -81,6 +81,18 @@ services:
     restart: unless-stopped
     command: ["-bind", "0.0.0.0", "-port", "9444"]
 
+  dvwa:
+    image: vulnerables/web-dvwa:latest
+    container_name: angel-dvwa
+    ports:
+      - "8081:80"
+    environment:
+      PHP_DISPLAY_ERRORS: "On"
+      DVWA_CONTEXT: "dvwa"
+    networks:
+      - angel-net
+    restart: unless-stopped
+
 networks:
   angel-net:
     driver: bridge

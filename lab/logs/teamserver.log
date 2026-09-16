@@ -1,0 +1,10 @@
+angel-teamserver  | 2026/09/16 07:46:45 Warning: .env file not found: open .env: no such file or directory
+angel-teamserver  | [2026-09-16T07:46:45Z] [INFO] [teamserver] Starting teamserver on 0.0.0.0:8443
+angel-teamserver  | [2026-09-16T07:46:45Z] [INFO] [teamserver] HTTP listener starting on 0.0.0.0:8443
+angel-teamserver  | [2026-09-16T07:46:45Z] [INFO] [teamserver] DNS listener starting on 0.0.0.0:8444
+angel-teamserver  | [2026-09-16T07:46:45Z] [INFO] [teamserver] Teamserver started successfully
+angel-teamserver  | [2026-09-16T07:46:45Z] [INFO] [teamserver] Teamserver running on 0.0.0.0:8443 (version: dev)
+angel-teamserver  | [2026-09-16T07:46:45Z] [INFO] [teamserver] TLS disabled, using plain HTTP on 0.0.0.0:8443
+angel-teamserver  | [2026-09-16T07:59:19Z] [ERROR] [teamserver] decrypt registration: ciphertext too short
+angel-teamserver  | [2026-09-16T08:00:29Z] [ERROR] [teamserver] decrypt registration: ciphertext too short
+angel-teamserver  | [2026-09-16T08:19:16Z] [ERROR] [teamserver] decrypt registration: ciphertext too short

@@ -2,31 +2,40 @@
 
 **Offensive Security Platform untuk Engagement Resmi**
 
-> **Status:** FINAL & EXECUTABLE  
-> **Tujuan:** P0/P1, Hard/Expert, Full Attack, No Demo, No Placeholder  
+> **Status:** FINAL & EXECUTABLE
+> **Tujuan:** P0/P1, Hard/Expert, Full Attack, No Demo, No Placeholder
 > **Legalitas:** Hanya digunakan pada sistem yang telah diizinkan
 
 ---
 
-## CEPAT MULAI (Quick Start)
+## QUICK START
 
 ```bash
 # 1. Clone repository
 git clone <REPO_URL>
-cd angel
+cd ANGEL
 
-# 2. Install & setup environment
-make setup
-
-# 3. Build binary
+# 2. Build binary
 make build
 
-# 4. Jalankan test suite
+# 3. Jalankan lab (Docker)
+make up
+
+# 4. Test end-to-end
 make test
 
 # 5. Mulai engagement
 make engage SCOPE=target.txt
 ```
+
+## LAYANAN
+
+| Service | Port | Keterangan |
+|---------|------|------------|
+| Teamserver | 8443 | C2 server (HTTP/HTTPS) |
+| Console | 3000 | Agent management UI |
+| Rules | 9444 | Rules engine |
+| DVWA | 8081 | Target latihan |
 
 ---
 

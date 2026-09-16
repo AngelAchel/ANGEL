@@ -2,5 +2,11 @@
   {"id": "local-001", "name": "Lab C2 Beacon", "category": "c2", "pattern": "*", "action": "log", "priority": 100, "enabled": true},
   {"id": "local-002", "name": "Lab Exploit Detection", "category": "exploit", "pattern": "*", "action": "alert", "priority": 90, "enabled": true},
   {"id": "local-003", "name": "Lab Auth Bypass", "category": "auth", "pattern": "*", "action": "block", "priority": 80, "enabled": true},
-  {"id": "local-004", "name": "Lab Network Scan", "category": "network", "pattern": "*", "action": "log", "priority": 70, "enabled": true}
+  {"id": "local-004", "name": "Lab Network Scan", "category": "network", "pattern": "*", "action": "log", "priority": 70, "enabled": true},
+  {"id": "local-005", "name": "Lab SQL Injection", "category": "injection", "pattern": "SELECT.*FROM", "action": "alert", "priority": 95, "enabled": true},
+  {"id": "local-006", "name": "Lab XSS Detection", "category": "xss", "pattern": "<script", "action": "block", "priority": 90, "enabled": true},
+  {"id": "local-007", "name": "Lab Lateral Movement", "category": "lateral", "pattern": "psexec|wmi|smb", "action": "alert", "priority": 85, "enabled": true},
+  {"id": "local-008", "name": "Lab Persistence", "category": "persistence", "pattern": "registry|scheduled|startup", "action": "block", "priority": 80, "enabled": true},
+  {"id": "local-009", "name": "Lab Data Exfil", "category": "exfil", "pattern": "base64|encode|upload", "action": "alert", "priority": 85, "enabled": true},
+  {"id": "local-010", "name": "Lab Privilege Escalation", "category": "privesc", "pattern": "sudo|token|privilege", "action": "block", "priority": 90, "enabled": true}
 ]
