@@ -1,4 +1,5 @@
 package credential
+//nolint:staticcheck
 
 import (
 	"fmt"

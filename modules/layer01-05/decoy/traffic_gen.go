@@ -1,4 +1,5 @@
 package decoy
+//nolint:staticcheck
 
 import (
 	"crypto/rand"

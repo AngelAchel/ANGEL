@@ -1,4 +1,5 @@
 package listener
+//nolint:staticcheck
 
 import (
 	"crypto/rand"

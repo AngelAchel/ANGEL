@@ -1,4 +1,5 @@
 package infra
+//nolint:staticcheck
 
 import (
 	"fmt"

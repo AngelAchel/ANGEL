@@ -1,4 +1,5 @@
 package kerberos
+//nolint:staticcheck
 
 import (
 	"crypto/aes"

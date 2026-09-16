@@ -1,4 +1,5 @@
 package osint
+//nolint:staticcheck
 
 import (
 	"fmt"

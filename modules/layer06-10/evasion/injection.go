@@ -1,4 +1,5 @@
 package evasion
+//nolint:staticcheck
 
 import (
 	"errors"

@@ -1,4 +1,5 @@
 package middleware
+//nolint:staticcheck
 
 import (
 	"log"

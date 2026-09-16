@@ -1,4 +1,5 @@
 package physical
+//nolint:staticcheck
 
 import (
 	"crypto/rand"

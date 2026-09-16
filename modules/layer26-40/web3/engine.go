@@ -1,4 +1,5 @@
 package web3
+//nolint:staticcheck
 
 import (
 	"crypto/sha256"

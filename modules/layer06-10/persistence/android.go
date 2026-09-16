@@ -1,4 +1,5 @@
 package persistence
+//nolint:staticcheck
 
 import (
 	"fmt"

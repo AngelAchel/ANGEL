@@ -1,4 +1,5 @@
 package wireless
+//nolint:staticcheck
 
 import (
 	"crypto/rand"

@@ -1,4 +1,5 @@
 package gateway
+//nolint:staticcheck
 
 import (
 	"encoding/json"

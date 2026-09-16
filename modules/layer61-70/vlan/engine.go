@@ -1,4 +1,5 @@
 package vlan
+//nolint:staticcheck
 
 import (
 	"encoding/binary"

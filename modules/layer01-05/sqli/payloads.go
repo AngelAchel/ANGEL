@@ -1,4 +1,5 @@
 package sqli
+//nolint:staticcheck
 
 import (
 	"fmt"

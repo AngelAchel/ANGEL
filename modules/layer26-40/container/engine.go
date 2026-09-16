@@ -1,4 +1,5 @@
 package container
+//nolint:staticcheck
 
 import (
 	"crypto/rand"

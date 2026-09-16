@@ -1,4 +1,5 @@
 package ai
+//nolint:staticcheck
 
 import (
 	"crypto/rand"

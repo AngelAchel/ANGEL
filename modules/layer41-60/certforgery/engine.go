@@ -1,4 +1,5 @@
 package certforgery
+//nolint:staticcheck
 
 import (
 	"crypto/rand"

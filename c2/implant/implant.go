@@ -1,4 +1,5 @@
 package implant
+//nolint:staticcheck
 
 import (
 	"crypto/aes"

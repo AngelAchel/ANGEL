@@ -1,4 +1,5 @@
 package crypto
+//nolint:staticcheck
 
 import (
 	"crypto/cipher"

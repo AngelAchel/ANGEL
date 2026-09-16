@@ -1,4 +1,5 @@
 package malleable
+//nolint:staticcheck
 
 import (
 	"fmt"

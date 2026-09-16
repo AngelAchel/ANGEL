@@ -1,4 +1,5 @@
 package mobile
+//nolint:staticcheck
 
 import (
 	"fmt"

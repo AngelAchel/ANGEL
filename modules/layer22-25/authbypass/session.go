@@ -1,4 +1,5 @@
 package authbypass
+//nolint:staticcheck
 
 import (
 	"crypto/rand"

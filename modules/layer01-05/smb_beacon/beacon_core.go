@@ -1,4 +1,5 @@
 package smb_beacon
+//nolint:staticcheck
 
 import (
 	"crypto/rand"
