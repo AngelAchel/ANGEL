@@ -135,10 +135,10 @@ export class ReportsComponent implements OnInit {
 
   loadReports(): void {
     this.apiService.getReports().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.reports = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to load reports:', err);
       }
     });
@@ -149,7 +149,7 @@ export class ReportsComponent implements OnInit {
       next: () => {
         this.loadReports();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to generate report:', err);
       }
     });
@@ -168,7 +168,7 @@ export class ReportsComponent implements OnInit {
         a.download = `report-${report.id}.pdf`;
         a.click();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to download report:', err);
       }
     });

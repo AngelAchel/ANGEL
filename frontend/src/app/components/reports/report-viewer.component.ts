@@ -333,10 +333,10 @@ export class ReportViewerComponent implements OnInit {
 
   loadReports(): void {
     this.apiService.getReports().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.reports = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to load reports:', err);
       }
     });
@@ -349,10 +349,10 @@ export class ReportViewerComponent implements OnInit {
     }
 
     this.apiService.getReport(this.selectedReport).subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.currentReport = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to load report:', err);
       }
     });
@@ -371,7 +371,7 @@ export class ReportViewerComponent implements OnInit {
         a.download = `report-${this.currentReport.id}.${format}`;
         a.click();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to export report:', err);
       }
     });

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, WebSocketSubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { WebSocketSubject } from 'rxjs/webSocket';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,10 @@ export class WebSocketService {
     const messageSubject = new Subject<any>();
 
     ws.subscribe({
-      next: (message) => {
+      next: (message: any) => {
         messageSubject.next(message);
       },
-      error: (error) => {
+      error: (error: any) => {
         messageSubject.error(error);
         this.connections.delete(agentId);
         this.messageSubjects.delete(agentId);

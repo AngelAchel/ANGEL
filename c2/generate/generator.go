@@ -2,7 +2,9 @@ package generate
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"text/template"
@@ -90,8 +92,16 @@ func (g *Generator) Generate(serverURL string) (string, error) {
 	if err := tmpl.Execute(file, implantCfg); err != nil {
 		return "", fmt.Errorf("failed to execute template: %w", err)
 	}
+	file.Close()
 
-	return outputPath, nil
+	cmd := exec.Command("go", "build", "-o", outputPath+"-bin", outputPath)
+	cmd.Dir = g.outputDir
+	if err := cmd.Run(); err != nil {
+		log.Printf("Warning: failed to build binary: %v", err)
+		return outputPath, nil
+	}
+	os.Remove(outputPath)
+	return outputPath + "-bin", nil
 }
 
 func (g *Generator) GetSupportedPlatforms() []map[string]string {

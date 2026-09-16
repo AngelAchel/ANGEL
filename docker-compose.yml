@@ -19,7 +19,7 @@ services:
       TEAMSERVER_ADDR: "0.0.0.0"
       TEAMSERVER_PORT: "8443"
       DATABASE_URL: "sqlite:///data/angel.db"
-      DATABASE_ENCRYPTION_KEY: "lab-enc-key-503ca5e9242"
+      DATABASE_ENCRYPTION_KEY: "${DATABASE_ENCRYPTION_KEY}"
       LOG_LEVEL: "debug"
       LOG_FILE: "/app/logs/angel.log"
       C2_DEFAULT_PROFILE: "teams"
@@ -32,9 +32,9 @@ services:
       LISTENER_WEBSOCKET_PORT: "9443"
       ENCRYPTION_ALGORITHM: "aes-256-gcm"
       ENCRYPTION_KEY_ROTATION: "24h"
-      SUPABASE_URL: "https://lab-test-project.supabase.co"
-      SUPABASE_ANON_KEY: "lab-anon-key"
-      SUPABASE_SERVICE_ROLE_KEY: "lab-service-key"
+      SUPABASE_URL: "${SUPABASE_URL}"
+      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY}"
+      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY}"
     networks:
       - angel-net
     restart: unless-stopped
@@ -72,9 +72,9 @@ services:
     volumes:
       - ./lab/data:/app/data
     environment:
-      SUPABASE_URL: "https://lab-test-project.supabase.co"
-      SUPABASE_ANON_KEY: "lab-anon-key"
-      SUPABASE_SERVICE_ROLE_KEY: "lab-service-key"
+      SUPABASE_URL: "${SUPABASE_URL}"
+      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY}"
+      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY}"
       LOG_LEVEL: "info"
     networks:
       - angel-net

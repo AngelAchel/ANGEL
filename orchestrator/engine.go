@@ -2,7 +2,6 @@ package orchestrator
 
 import (
 	"fmt"
-	"log"
 	"sync"
 	"time"
 
@@ -137,28 +136,33 @@ func (o *Orchestrator) routeDecision(state map[string]interface{}) (map[string]i
 }
 
 func (o *Orchestrator) executeRecon(state map[string]interface{}) (map[string]interface{}, error) {
-	log.Println("Executing recon module")
-	return map[string]interface{}{"recon_result": "recon_completed"}, nil
+	input, _ := state["input"].(string)
+	o.classifier.Classify(input)
+	return map[string]interface{}{"recon_result": "recon_completed", "input": input}, nil
 }
 
 func (o *Orchestrator) executeExploit(state map[string]interface{}) (map[string]interface{}, error) {
-	log.Println("Executing exploit module")
-	return map[string]interface{}{"exploit_result": "exploit_completed"}, nil
+	input, _ := state["input"].(string)
+	result := o.classifier.Classify(input)
+	return map[string]interface{}{"exploit_result": "exploit_completed", "intent": string(result.Intent), "risk": result.RiskScore}, nil
 }
 
 func (o *Orchestrator) executePostExploit(state map[string]interface{}) (map[string]interface{}, error) {
-	log.Println("Executing post-exploit module")
-	return map[string]interface{}{"post_result": "post_completed"}, nil
+	input, _ := state["input"].(string)
+	result := o.classifier.Classify(input)
+	return map[string]interface{}{"post_result": "post_completed", "intent": string(result.Intent)}, nil
 }
 
 func (o *Orchestrator) executeLateral(state map[string]interface{}) (map[string]interface{}, error) {
-	log.Println("Executing lateral movement module")
-	return map[string]interface{}{"lateral_result": "lateral_completed"}, nil
+	input, _ := state["input"].(string)
+	result := o.classifier.Classify(input)
+	return map[string]interface{}{"lateral_result": "lateral_completed", "intent": string(result.Intent)}, nil
 }
 
 func (o *Orchestrator) executeDestruction(state map[string]interface{}) (map[string]interface{}, error) {
-	log.Println("Executing destruction module")
-	return map[string]interface{}{"destruct_result": "destruct_completed"}, nil
+	input, _ := state["input"].(string)
+	result := o.classifier.Classify(input)
+	return map[string]interface{}{"destruct_result": "destruct_completed", "intent": string(result.Intent), "risk_action": "request_approval"}, nil
 }
 
 func (o *Orchestrator) collectResults(state map[string]interface{}) (map[string]interface{}, error) {

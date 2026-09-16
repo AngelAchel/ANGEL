@@ -126,10 +126,10 @@ export class AgentsComponent implements OnInit {
 
   loadAgents(): void {
     this.apiService.getAgents().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.agents = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Failed to load agents:', err);
       }
     });
@@ -149,7 +149,7 @@ export class AgentsComponent implements OnInit {
         next: () => {
           this.loadAgents();
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Failed to kill agent:', err);
         }
       });
@@ -162,7 +162,7 @@ export class AgentsComponent implements OnInit {
         next: () => {
           this.loadAgents();
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Failed to kill agents:', err);
         }
       });

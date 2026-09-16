@@ -1,6 +1,7 @@
 package gateway
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -14,6 +15,38 @@ type Middleware interface {
 	Wrap(next http.Handler) http.Handler
 }
 
+type Agent struct {
+	ID        string    `json:"id"`
+	Hostname  string    `json:"hostname"`
+	IP        string    `json:"ip"`
+	OS        string    `json:"os"`
+	Arch      string    `json:"arch"`
+	User      string    `json:"user"`
+	Status    string    `json:"status"`
+	LastCheck time.Time `json:"last_check"`
+	FirstSeen time.Time `json:"first_seen"`
+}
+
+type Task struct {
+	ID        string    `json:"id"`
+	AgentID   string    `json:"agent_id"`
+	Type      string    `json:"type"`
+	Payload   string    `json:"payload"`
+	Status    string    `json:"status"`
+	Priority  int       `json:"priority"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type Result struct {
+	ID        string    `json:"id"`
+	TaskID    string    `json:"task_id"`
+	AgentID   string    `json:"agent_id"`
+	Output    string    `json:"output"`
+	Success   bool      `json:"success"`
+	Error     string    `json:"error"`
+	Timestamp time.Time `json:"timestamp"`
+}
+
 type Gateway struct {
 	config     *Config
 	server     *http.Server
@@ -25,6 +58,10 @@ type Gateway struct {
 	totalReqs  uint64
 	totalErrs  uint64
 	jwtMgr     *auth.JWTManager
+	agents     map[string]*Agent
+	tasks      map[string]*Task
+	results    map[string]*Result
+	activity   []string
 }
 
 type Config struct {
@@ -106,7 +143,7 @@ func (m *corsMiddleware) Wrap(next http.Handler) http.Handler {
 
 func (m *rateLimitMiddleware) Wrap(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("X-RateLimit-Limit", "100")
+		w.Header().Set("X-RateLimit-Limit", fmt.Sprintf("%d", m.Rate))
 		next.ServeHTTP(w, r)
 	})
 }
@@ -128,15 +165,17 @@ func New(cfg *Config) *Gateway {
 	if cfg == nil {
 		cfg = DefaultConfig()
 	}
-
 	gw := &Gateway{
 		config:    cfg,
 		routes:    make(map[string]http.Handler),
 		methods:   make(map[string]map[string]http.Handler),
 		startTime: time.Now(),
 		jwtMgr:    auth.NewJWTManager(cfg.JWTSecret, cfg.JWTExpiry),
+		agents:    make(map[string]*Agent),
+		tasks:     make(map[string]*Task),
+		results:   make(map[string]*Result),
+		activity:  make([]string, 0),
 	}
-
 	gw.middleware = []Middleware{
 		&loggingMiddleware{},
 		&recoveryMiddleware{},
@@ -145,14 +184,11 @@ func New(cfg *Config) *Gateway {
 		&requestIDMiddleware{},
 		&metricsMiddleware{},
 	}
-
 	gw.setupRoutes()
-
 	mux := http.NewServeMux()
 	for path, handler := range gw.routes {
 		mux.Handle(path, handler)
 	}
-
 	gw.server = &http.Server{
 		Addr:           fmt.Sprintf("%s:%d", cfg.Addr, cfg.Port),
 		Handler:        gw.chainMiddleware(mux),
@@ -160,7 +196,6 @@ func New(cfg *Config) *Gateway {
 		WriteTimeout:   cfg.WriteTimeout,
 		MaxHeaderBytes: cfg.MaxHeaderBytes,
 	}
-
 	return gw
 }
 
@@ -170,7 +205,9 @@ func (gw *Gateway) setupRoutes() {
 	gw.routes["/api/v1/auth/logout"] = http.HandlerFunc(gw.handleLogout)
 	gw.routes["/api/v1/auth/refresh"] = http.HandlerFunc(gw.handleRefresh)
 	gw.routes["/api/v1/agents"] = http.HandlerFunc(gw.handleAgents)
+	gw.routes["/api/v1/agents/{id}"] = http.HandlerFunc(gw.handleAgentByID)
 	gw.routes["/api/v1/tasks"] = http.HandlerFunc(gw.handleTasks)
+	gw.routes["/api/v1/tasks/{id}"] = http.HandlerFunc(gw.handleTaskByID)
 	gw.routes["/api/v1/results"] = http.HandlerFunc(gw.handleResults)
 	gw.routes["/api/v1/reports"] = http.HandlerFunc(gw.handleReports)
 	gw.routes["/api/v1/stats"] = http.HandlerFunc(gw.handleStats)
@@ -194,97 +231,268 @@ func (gw *Gateway) Stop() error {
 	return gw.server.Close()
 }
 
-func (gw *Gateway) handleHealth(w http.ResponseWriter, r *http.Request) {
+func (gw *Gateway) writeJSON(w http.ResponseWriter, status int, data interface{}) {
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"status":"healthy","uptime":"%s"}`, time.Since(gw.startTime).String())
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(data)
+}
+
+func (gw *Gateway) addActivity(action, detail string) {
+	gw.mu.Lock()
+	defer gw.mu.Unlock()
+	gw.activity = append(gw.activity, fmt.Sprintf("[%s] %s: %s", time.Now().Format("2006-01-02 15:04:05"), action, detail))
+	if len(gw.activity) > 100 {
+		gw.activity = gw.activity[1:]
+	}
+}
+
+func (gw *Gateway) handleHealth(w http.ResponseWriter, r *http.Request) {
+	gw.writeJSON(w, http.StatusOK, map[string]interface{}{
+		"status": "healthy",
+		"uptime": time.Since(gw.startTime).String(),
+		"agents": len(gw.agents),
+		"tasks":  len(gw.tasks),
+	})
 }
 
 func (gw *Gateway) handleLogin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, `{"error":"method_not_allowed"}`, http.StatusMethodNotAllowed)
+		gw.writeJSON(w, http.StatusMethodNotAllowed, map[string]string{"error": "method_not_allowed"})
 		return
 	}
-	token, err := gw.jwtMgr.GenerateToken("user", "admin", "operator")
+	var creds struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&creds); err != nil {
+		gw.writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid_request"})
+		return
+	}
+	if creds.Username == "" || creds.Password == "" {
+		gw.writeJSON(w, http.StatusUnauthorized, map[string]string{"error": "missing_credentials"})
+		return
+	}
+	role := "viewer"
+	if creds.Username == "admin" {
+		role = "admin"
+	} else if creds.Username == "operator" {
+		role = "operator"
+	}
+	token, err := gw.jwtMgr.GenerateToken("user", creds.Username, role)
 	if err != nil {
-		http.Error(w, `{"error":"token_generation_failed"}`, http.StatusInternalServerError)
+		gw.writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "token_generation_failed"})
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"token":"%s","expires_in":86400}`, token)
+	gw.addActivity("auth", fmt.Sprintf("user %s logged in as %s", creds.Username, role))
+	gw.writeJSON(w, http.StatusOK, map[string]interface{}{
+		"token":      token,
+		"expires_in": int(gw.config.JWTExpiry.Seconds()),
+	})
 }
 
 func (gw *Gateway) handleLogout(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, `{"error":"method_not_allowed"}`, http.StatusMethodNotAllowed)
+		gw.writeJSON(w, http.StatusMethodNotAllowed, map[string]string{"error": "method_not_allowed"})
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"status":"logged_out"}`)
+	gw.addActivity("auth", "user logged out")
+	gw.writeJSON(w, http.StatusOK, map[string]string{"status": "logged_out"})
 }
 
 func (gw *Gateway) handleRefresh(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, `{"error":"method_not_allowed"}`, http.StatusMethodNotAllowed)
+		gw.writeJSON(w, http.StatusMethodNotAllowed, map[string]string{"error": "method_not_allowed"})
 		return
 	}
 	token, err := gw.jwtMgr.GenerateToken("user", "admin", "operator")
 	if err != nil {
-		http.Error(w, `{"error":"token_generation_failed"}`, http.StatusInternalServerError)
+		gw.writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "token_generation_failed"})
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"token":"%s","expires_in":86400}`, token)
+	gw.writeJSON(w, http.StatusOK, map[string]interface{}{
+		"token":      token,
+		"expires_in": int(gw.config.JWTExpiry.Seconds()),
+	})
 }
 
 func (gw *Gateway) handleAgents(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	gw.mu.RLock()
+	agentList := make([]*Agent, 0, len(gw.agents))
+	for _, a := range gw.agents {
+		agentList = append(agentList, a)
+	}
+	gw.mu.RUnlock()
 	switch r.Method {
 	case http.MethodGet:
-		fmt.Fprintf(w, `{"agents":[]}`)
+		gw.writeJSON(w, http.StatusOK, map[string]interface{}{"agents": agentList})
 	case http.MethodPost:
-		fmt.Fprintf(w, `{"status":"agent_registered"}`)
+		var req struct {
+			Hostname string `json:"hostname"`
+			IP       string `json:"ip"`
+			OS       string `json:"os"`
+			Arch     string `json:"arch"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			gw.writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid_request"})
+			return
+		}
+		agent := &Agent{
+			ID:        fmt.Sprintf("agent-%d", time.Now().UnixNano()),
+			Hostname:  req.Hostname,
+			IP:        req.IP,
+			OS:        req.OS,
+			Arch:      req.Arch,
+			Status:    "online",
+			LastCheck: time.Now(),
+			FirstSeen: time.Now(),
+		}
+		gw.mu.Lock()
+		gw.agents[agent.ID] = agent
+		gw.mu.Unlock()
+		gw.addActivity("agents", fmt.Sprintf("registered %s (%s)", req.Hostname, req.IP))
+		gw.writeJSON(w, http.StatusCreated, map[string]interface{}{"status": "agent_registered", "agent_id": agent.ID})
 	case http.MethodDelete:
-		fmt.Fprintf(w, `{"status":"all_agents_killed"}`)
+		gw.mu.Lock()
+		gw.agents = make(map[string]*Agent)
+		gw.mu.Unlock()
+		gw.addActivity("agents", "all agents killed")
+		gw.writeJSON(w, http.StatusOK, map[string]string{"status": "all_agents_killed"})
 	default:
-		http.Error(w, `{"error":"method_not_allowed"}`, http.StatusMethodNotAllowed)
+		gw.writeJSON(w, http.StatusMethodNotAllowed, map[string]string{"error": "method_not_allowed"})
 	}
+}
+
+func (gw *Gateway) handleAgentByID(w http.ResponseWriter, r *http.Request) {
+	gw.mu.RLock()
+	var agent *Agent
+	for _, a := range gw.agents {
+		agent = a
+		break
+	}
+	gw.mu.RUnlock()
+	if agent == nil {
+		gw.writeJSON(w, http.StatusNotFound, map[string]string{"error": "agent_not_found"})
+		return
+	}
+	gw.writeJSON(w, http.StatusOK, agent)
 }
 
 func (gw *Gateway) handleTasks(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	gw.mu.RLock()
+	taskList := make([]*Task, 0, len(gw.tasks))
+	for _, t := range gw.tasks {
+		taskList = append(taskList, t)
+	}
+	gw.mu.RUnlock()
 	switch r.Method {
 	case http.MethodGet:
-		fmt.Fprintf(w, `{"tasks":[]}`)
+		gw.writeJSON(w, http.StatusOK, map[string]interface{}{"tasks": taskList})
 	case http.MethodPost:
-		fmt.Fprintf(w, `{"status":"task_created"}`)
+		var req struct {
+			AgentID string `json:"agent_id"`
+			Command string `json:"command"`
+			Args    string `json:"arguments"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			gw.writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid_request"})
+			return
+		}
+		task := &Task{
+			ID:        fmt.Sprintf("task-%d", time.Now().UnixNano()),
+			AgentID:   req.AgentID,
+			Type:      "command",
+			Payload:   fmt.Sprintf("%s %s", req.Command, req.Args),
+			Status:    "pending",
+			Priority:  1,
+			CreatedAt: time.Now(),
+		}
+		gw.mu.Lock()
+		gw.tasks[task.ID] = task
+		gw.mu.Unlock()
+		gw.addActivity("tasks", fmt.Sprintf("created task %s for agent %s", task.ID, req.AgentID))
+		gw.writeJSON(w, http.StatusCreated, map[string]interface{}{"status": "task_created", "task_id": task.ID})
 	default:
-		http.Error(w, `{"error":"method_not_allowed"}`, http.StatusMethodNotAllowed)
+		gw.writeJSON(w, http.StatusMethodNotAllowed, map[string]string{"error": "method_not_allowed"})
 	}
 }
 
+func (gw *Gateway) handleTaskByID(w http.ResponseWriter, r *http.Request) {
+	gw.mu.RLock()
+	var task *Task
+	for _, t := range gw.tasks {
+		task = t
+		break
+	}
+	gw.mu.RUnlock()
+	if task == nil {
+		gw.writeJSON(w, http.StatusNotFound, map[string]string{"error": "task_not_found"})
+		return
+	}
+	gw.writeJSON(w, http.StatusOK, task)
+}
+
 func (gw *Gateway) handleResults(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"results":[]}`)
+	gw.mu.RLock()
+	resultList := make([]*Result, 0, len(gw.results))
+	for _, r := range gw.results {
+		resultList = append(resultList, r)
+	}
+	gw.mu.RUnlock()
+	gw.writeJSON(w, http.StatusOK, map[string]interface{}{"results": resultList})
 }
 
 func (gw *Gateway) handleReports(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"reports":[]}`)
+	gw.mu.RLock()
+	reportCount := len(gw.results)
+	gw.mu.RUnlock()
+	gw.writeJSON(w, http.StatusOK, map[string]interface{}{
+		"reports": []map[string]interface{}{
+			{"id": "report-1", "type": "executive", "status": "completed"},
+			{"id": "report-2", "type": "technical", "status": "pending"},
+		},
+		"total": reportCount,
+	})
 }
 
 func (gw *Gateway) handleStats(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"active_agents":0,"pending_tasks":0,"completed_tasks":0,"credentials_found":0}`)
+	gw.mu.RLock()
+	activeAgents := 0
+	pendingTasks := 0
+	completedTasks := 0
+	for _, a := range gw.agents {
+		if a.Status == "online" {
+			activeAgents++
+		}
+	}
+	for _, t := range gw.tasks {
+		if t.Status == "pending" {
+			pendingTasks++
+		} else if t.Status == "done" {
+			completedTasks++
+		}
+	}
+	gw.mu.RUnlock()
+	gw.writeJSON(w, http.StatusOK, map[string]interface{}{
+		"active_agents":     activeAgents,
+		"pending_tasks":     pendingTasks,
+		"completed_tasks":   completedTasks,
+		"credentials_found": 0,
+	})
 }
 
 func (gw *Gateway) handleActivity(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"activities":[]}`)
+	gw.mu.RLock()
+	activity := make([]string, len(gw.activity))
+	copy(activity, gw.activity)
+	gw.mu.RUnlock()
+	gw.writeJSON(w, http.StatusOK, map[string]interface{}{"activities": activity})
 }
 
 func (gw *Gateway) handleWebSocket(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"status":"websocket_endpoint"}`)
+	gw.writeJSON(w, http.StatusOK, map[string]interface{}{
+		"status": "websocket_endpoint",
+		"url":    "ws://localhost:3000/ws",
+	})
 }
 
 func (gw *Gateway) IncrementRequests() {
