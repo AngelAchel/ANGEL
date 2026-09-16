@@ -6,7 +6,7 @@
 
 ---
 
-## ⚔️ ATTACK VISUALIZATION
+## ⚔️ ATTACK
 
 ![Attack Visualization](attack_viz.gif)
 
