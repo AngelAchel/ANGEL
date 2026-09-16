@@ -66,16 +66,47 @@ ok  	github.com/angel-platform/angel/c2/generate (cached)	coverage: 82.8% of sta
 --- PASS: TestImplantStop (0.00s)
 --- PASS: TestImplantSessionID (0.00s)
 ok  	github.com/angel-platform/angel/c2/implant (cached)	coverage: 10.6% of statements
-... (1,346 test cases total)
+... (92 automated tests + 1,346 manual scenarios in TEST_SCENARIOS.md)
 ok  	github.com/angel-platform/angel/tests/integration (cached)	coverage: [no statements]
 ```
 
-### Langkah 4: Verifikasi Lint
+### Langkah 5: Verifikasi Lint
 ```bash
 make lint
 ```
 
 **Catatan:** Bisa ada minor style issues yang non-fungsional, tetapi build/test tetap 100% passing.
+
+---
+
+## SECTION 1.5: DEPLOYMENT LAB (DOCKER COMPOSE)
+
+### Jalankan Semua Service
+```bash
+docker compose up -d
+```
+
+**Service yang jalan:**
+- `angel-teamserver` — C2 server di port 8443, 8080, 443, 5353/udp
+- `angel-console` — dashboard di port 3000
+- `angel-rules` — rules engine (internal)
+
+**Cek status:**
+```bash
+docker compose ps
+docker logs angel-teamserver
+docker logs angel-rules
+```
+
+**Test lab:**
+```bash
+./lab/test_lab.sh
+```
+
+**Hentikan:**
+```bash
+docker compose down
+```
 
 ---
 
@@ -104,22 +135,16 @@ tail -f /var/log/angel/teamserver.log
 
 ### Generate Implant Binary
 ```bash
-# Generate implant untuk Windows x64
-make implant-generate OS=windows TARGET=x64
+# Generate implant untuk Linux x64 (default)
+./bin/angel-generate -os linux -arch amd64 -server http://teamserver:8443 -out lab/implants
 
-# Atau Linux x64
-make implant-generate OS=linux TARGET=amd64
+# Windows x64
+./bin/angel-generate -os windows -arch amd64 -server http://teamserver:8443 -out lab/implants
 
-# Atau macOS arm64
-make implant-generate OS=darwin TARGET=arm64
-
-# Output: bin/implants/ directory
+# Output: lab/implants/ directory
 ```
 
-**Dari command langsung:**
-```bash
-go run ./cmd/teamserver/ -generate-os windows -target x64
-```
+> **Catatan:** `make implant-generate` adalah placeholder. Gunakan `angel-generate` langsung.
 
 ### Define Target Scope
 ```bash
