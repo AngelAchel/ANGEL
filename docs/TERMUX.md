@@ -46,7 +46,7 @@ ANGEL **TIDAK didukung** di Termux saat ini. Berikut analisis kompatibilitas:
 
 | Component | Termux Feasibility | Notes |
 |-----------|-------------------|-------|
-| Binary (static) | POSSIBLE | CGO_ENABLED=0 cross-compile |
+| Binary (static) | **CONFIRMED** | ldd: "not a dynamic executable" — zero deps |
 | Event bus | POSSIBLE | in-process, no Docker needed |
 | Orchestrator | POSSIBLE | in-process, no Docker needed |
 | C2 server | POSSIBLE | bind 127.0.0.1 only |
@@ -57,6 +57,16 @@ ANGEL **TIDAK didukung** di Termux saat ini. Berikut analisis kompatibilitas:
 | Network scanning | NOT POSSIBLE | no nmap, no root |
 | Packet injection | NOT POSSIBLE | no root, no iptables |
 | Docker services | NOT POSSIBLE | no Docker daemon |
+
+### Test Results (Ubuntu Codespace — simulates proot)
+
+| Test | Result |
+|------|--------|
+| ldd static binary | "not a dynamic executable" — zero deps |
+| Run without env vars | Exits with "TEAMSERVER_KEY must be set" — expected |
+| Network binding | Ports 3000, 8443 in use by Docker |
+| File permissions | Binary executable, lab dirs writable |
+
 
 ### Verdict
 
@@ -82,6 +92,7 @@ Untuk mendukung Termux, diperlukan:
 |-----------|--------|
 | Build (amd64) | SUPPORTED |
 | Build (arm64 cross-compile) | SUPPORTED (not tested runtime) |
+| Static binary (no deps) | **CONFIRMED** — ldd: "not a dynamic executable" |
 | Runtime Termux | NOT TESTED |
 | Docker | NOT SUPPORTED |
 | Network binding | NOT TESTED |
