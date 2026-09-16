@@ -12,7 +12,7 @@
 
 ---
 
-## ██ INITIALIZE
+## >> INITIALIZE
 
 ```bash
 git clone <REPO_URL> && cd ANGEL
@@ -25,7 +25,7 @@ make build && docker compose up -d
 
 ---
 
-## ██ DEPLOY
+## >> DEPLOY
 
 ```bash
 docker compose up -d
@@ -35,7 +35,7 @@ docker compose logs -f angel-teamserver
 
 ---
 
-## ██ GENERATE IMPLANT
+## >> GENERATE IMPLANT
 
 ```bash
 ./bin/angel-generate -os linux -arch amd64 -server http://localhost:8443 -out lab/implants
@@ -44,7 +44,7 @@ docker compose logs -f angel-teamserver
 
 ---
 
-## ██ ENGAGE
+## >> ENGAGE
 
 ```bash
 echo "192.168.1.1" > target.txt
@@ -53,7 +53,7 @@ make engage SCOPE=target.txt
 
 ---
 
-## ██ MONITOR
+## >> MONITOR
 
 ```bash
 http://localhost:3000
@@ -63,22 +63,22 @@ docker compose logs -f angel-teamserver
 
 ---
 
-## ██ LAYER MAP
+## >> LAYER MAP
 
 ```
-layer01-05  ████████████████  16 modul
-layer06-10  █████  5 modul
-layer11-15  █████  5 modul
-layer16-21  ██████  6 modul
-layer22-25  ████  4 modul
-layer26-40  ████████████  15 modul
-layer41-60  ██████████████  18 modul
-layer61-70  ██████████  10 modul
+layer01-05  ==================  16 modul
+layer06-10  ======  5 modul
+layer11-15  ======  5 modul
+layer16-21  =======  6 modul
+layer22-25  =====  4 modul
+layer26-40  ============  15 modul
+layer41-60  ==================  18 modul
+layer61-70  ==========  10 modul
 ```
 
 ---
 
-## ██ STATUS
+## >> STATUS
 
 | Build | Test | Layer | Lab | Docker | Secret |
 |:-----:|:----:|:-----:|:---:|:------:|:------:|
@@ -86,7 +86,7 @@ layer61-70  ██████████  10 modul
 
 ---
 
-## ██ LEGAL
+## >> LEGAL
 
 ⚠️ Only authorized systems. Contract + written permission required.
 ⚠️ For official offensive security engagement only.
