@@ -8,3 +8,6 @@ angel-teamserver  | [2026-09-16T07:46:45Z] [INFO] [teamserver] TLS disabled, usi
 angel-teamserver  | [2026-09-16T07:59:19Z] [ERROR] [teamserver] decrypt registration: ciphertext too short
 angel-teamserver  | [2026-09-16T08:00:29Z] [ERROR] [teamserver] decrypt registration: ciphertext too short
 angel-teamserver  | [2026-09-16T08:19:16Z] [ERROR] [teamserver] decrypt registration: ciphertext too short
+angel-teamserver  | [2026-09-16T08:19:17Z] [ERROR] [teamserver] decrypt registration: ciphertext too short
+angel-teamserver  | [2026-09-16T08:21:19Z] [ERROR] [teamserver] decrypt registration: ciphertext too short
+angel-teamserver  | [2026-09-16T08:21:59Z] [ERROR] [teamserver] decrypt registration: ciphertext too short

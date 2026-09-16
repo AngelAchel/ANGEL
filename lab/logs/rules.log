@@ -2509,3 +2509,172 @@ angel-rules  |   [70] Lab Network Scan: *
 angel-rules  | 
 angel-rules  | Rules loaded successfully!
 angel-rules  | 2026/09/16 08:19:07 Warning: .env file not found
+angel-rules  | 2026/09/16 08:19:17 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:39502->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:19:17 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:19:20 Warning: .env file not found
+angel-rules  | 2026/09/16 08:19:30 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:44828->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:19:30 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:19:34 Warning: .env file not found
+angel-rules  | 2026/09/16 08:19:44 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:42082->127.0.0.11:53: i/o timeout
+angel-rules  | Category: c2 - 1 rules
+angel-rules  | 2026/09/16 08:19:44 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:19:47 Warning: .env file not found
+angel-rules  | 2026/09/16 08:19:57 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:52473->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:19:57 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:20:00 Warning: .env file not found
+angel-rules  | 2026/09/16 08:20:10 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:49279->127.0.0.11:53: i/o timeout
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:20:10 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | 2026/09/16 08:20:13 Warning: .env file not found
+angel-rules  | 2026/09/16 08:20:23 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:41259->127.0.0.11:53: i/o timeout
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:20:23 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | 2026/09/16 08:20:26 Warning: .env file not found
+angel-rules  | 2026/09/16 08:20:36 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:49627->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:20:36 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:20:39 Warning: .env file not found
+angel-rules  | 2026/09/16 08:20:49 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:58054->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:20:49 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:20:53 Warning: .env file not found
+angel-rules  | 2026/09/16 08:21:03 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:52401->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:21:03 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:21:06 Warning: .env file not found
+angel-rules  | 2026/09/16 08:21:16 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:43267->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:21:16 Loaded 4 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:21:19 Warning: .env file not found
+angel-rules  | 2026/09/16 08:21:29 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:57186->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:21:29 Loaded 10 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:21:32 Warning: .env file not found
+angel-rules  | 2026/09/16 08:21:42 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:55671->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:21:42 Loaded 10 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:21:45 Warning: .env file not found
+angel-rules  | 2026/09/16 08:21:55 Warning: Supabase rules unavailable, loading local fallback: failed to execute request: Get "https://lab-test-project.supabase.co/rest/v1/rules?select=*&order=priority.desc": dial tcp: lookup lab-test-project.supabase.co on 127.0.0.11:53: read udp 127.0.0.1:38845->127.0.0.11:53: i/o timeout
+angel-rules  | 2026/09/16 08:21:55 Loaded 10 rules from local file /app/data/rules.json
+angel-rules  | Category: c2 - 1 rules
+angel-rules  |   [100] Lab C2 Beacon: *
+angel-rules  | Category: exploit - 1 rules
+angel-rules  |   [90] Lab Exploit Detection: *
+angel-rules  | Category: auth - 1 rules
+angel-rules  |   [80] Lab Auth Bypass: *
+angel-rules  | Category: network - 1 rules
+angel-rules  |   [70] Lab Network Scan: *
+angel-rules  | 
+angel-rules  | Rules loaded successfully!
+angel-rules  | 2026/09/16 08:21:59 Warning: .env file not found
