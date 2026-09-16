@@ -107,6 +107,10 @@ docker compose logs -f angel-teamserver
 
 ---
 
-**ANGEL Platform - Offensive Security Framework**
+**ANGEL Platform — Offensive Security Framework**
 
+Built with 🔥 by Cyber Security Software Engineer
 GitHub: https://github.com/AngelAchel/ANGEL
+
+> *"No copy-paste. No demo. No placeholder. Full attack."*
+
