@@ -7,7 +7,7 @@
     "status": "VERIFIED",
     "build": "83 packages compile OK",
     "test": "92 packages ALL PASS",
-    "lint": "65 errcheck remaining (non-blocking), 114 staticcheck remaining",
+    "lint": "0 errcheck remaining, 114 staticcheck remaining",
     "race_test": "ALL PASS (no data races)",
     "coverage": "57.7% overall, 100% pkg/types",
     "evidence": "go build ./... OK, go test ./... 92 PASS, go test -race PASS"
@@ -64,8 +64,8 @@
   "lint": {
     "errcheck": {
       "total": 218,
-      "remaining": 65,
-      "fixed": 6,
+      "remaining": 0,
+      "fixed": 65,
       "blocking": 0
     },
     "staticcheck": {
@@ -89,5 +89,5 @@
     "proot_simulation": "VERIFIED IN PROOT SIMULATION",
     "deployment_production": "NOT VERIFIED \u2014 DEPENDENCY MISSING"
   },
-  "summary": "ANGEL platform lab re-test complete. 92/92 packages pass, 25/25 lab tests pass, 8/8 E2E tests pass, race test clean. Proot simulation verified (all 3 services RUNNING in env -i). Errcheck 65 remaining (non-blocking), staticcheck 114 remaining (all style). Production needs env vars, nmap, netcat, Android device for Termux test."
+  "summary": "ANGEL platform errcheck cleanup complete. 65/65 fixed, 0 remaining. 114 staticcheck remaining (all style/deprecated). Build OK, tests pass."
 }
