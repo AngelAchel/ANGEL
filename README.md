@@ -63,18 +63,21 @@ docker compose logs -f angel-teamserver
 
 ---
 
-## >> LAYER MAP
+## >> DAMPAK PERUSAHAAN
 
-```
-layer01-05  ==================  16 modul
-layer06-10  ======  5 modul
-layer11-15  ======  5 modul
-layer16-21  =======  6 modul
-layer22-25  =====  4 modul
-layer26-40  ============  15 modul
-layer41-60  ==================  18 modul
-layer61-70  ==========  10 modul
-```
+| Skenario | Dampak |
+|----------|--------|
+| 💀 Credential Dump | Semua password bocor, root access |
+| 🔥 Data Exfiltration | Data permanen keluar, tak terlacak |
+| 🧠 Ransomware | Semua file terenkripsi, backup hancur |
+| 🕵️ Espionage | Intel kompetitor dicuri |
+| 🔌 Persistence | Backdoor permanen, tidak hilang |
+| 🧹 Anti-Forensik | Bukti dihapus, tidak ada jejak |
+| 💀 Privilege Escalation | User biasa jadi root |
+| 🌐 Lateral Movement | Semua server terinfeksi |
+| 🔥 Destruction | Database, log, backup — semua hilang |
+| 💀 Complete Takeover | Full kontrol infrastruktur |
+
 
 ---
 
