@@ -97,6 +97,47 @@ Untuk mendukung Termux, diperlukan:
 | Network scanning | NOT SUPPORTED |
 | Packet injection | NOT SUPPORTED |
 
+### Workarounds for Termux
+
+If Termux support is required, these options exist (none tested):
+
+1. **proot-distro** — run full Ubuntu/Debian in Termux
+   ```bash
+   pkg install proot-distro
+   proot-distro install ubuntu
+   proot-distro login ubuntu
+   # Then install Go, Docker, and run ANGEL natively
+   ```
+
+2. **Termux + Docker** — use termux-docker
+   ```bash
+   pkg install termux-docker
+   termux-docker run -v $HOME/ANGEL:/app angel-rules
+   ```
+
+3. **Kali NetHunter** — Android penetration testing OS
+   - Native Kali Linux on Android
+   - Full tool support including ANGEL
+   - Root required
+
+4. **SSH to remote lab** — connect to existing lab server
+   ```bash
+   ssh user@lab-server
+   cd ANGEL && bash scripts/start-local.sh
+   ```
+
+5. **GitHub Codespace / VS Code Remote** — cloud development environment
+   - Already tested in this environment
+   - Full Linux with Docker
+   - No Android required
+
+### Recommendation
+
+For Android penetration testing:
+- Use **Kali NetHunter** (native Kali on Android)
+- Or use **proot-distro** (Ubuntu in Termux)
+- Do NOT claim Termux support without runtime test
+
 ### Peringatan
 
 JANGAN klaim Termux support sebelum:
