@@ -104,4 +104,6 @@ layer61-70  ==========  10 modul
 
 ---
 
-**ANGEL -SOFTWARE ENGGINER CYBER SECURITY**
+**ANGEL Platform - Offensive Security Framework**
+
+GitHub: https://github.com/AngelAchel/ANGEL
