@@ -102,7 +102,7 @@ certbot renew --dry-run  # Test renewal
 
 ```bash
 # Backup lab data
-tar -czf angel-backup-$(date +%Y%m%d).tar.gz lab/data/ lab/logs/ lab/implants/
+bash scripts/backup.sh /opt/ANGEL/backups
 
 # Restore
 tar -xzf angel-backup-YYYYMMDD.tar.gz -C /opt/ANGEL/
@@ -117,8 +117,11 @@ bash scripts/health-check-prod.sh <domain>
 # Full test
 bash scripts/test-production.sh <domain>
 
+# Monitor system
+bash scripts/monitor.sh <domain>
+
 # Check logs
-docker compose logs -f angel-teamserver
+journalctl -u angel-teamserver -f
 ```
 
 ## Troubleshooting
