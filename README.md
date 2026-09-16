@@ -1,8 +1,8 @@
-# ANGEL Platform v3.2
+# ANGEL Platform v3.3
 
 **Offensive Security Platform untuk Engagement Resmi**
 
-> **Status:** FINAL & EXECUTABLE
+> **Status:** FINAL & OPERATIONAL
 > **Tujuan:** P0/P1, Hard/Expert, Full Attack, No Demo, No Placeholder
 > **Legalitas:** Hanya digunakan pada sistem yang telah diizinkan
 
@@ -15,16 +15,21 @@
 git clone <REPO_URL>
 cd ANGEL
 
-# 2. Build binary
+# 2. Set env secrets (WAJIB)
+export TEAMSERVER_KEY=<strong-random-key>
+export CRYPTO_KEY=<strong-random-key>
+export JWT_SECRET=<strong-random-secret>
+
+# 3. Build binary
 make build
 
-# 3. Jalankan lab (Docker)
-make up
+# 4. Jalankan lab (Docker)
+docker compose up -d
 
-# 4. Test end-to-end
-make test
+# 5. Test end-to-end
+./lab/test_lab_full.sh
 
-# 5. Mulai engagement
+# 6. Mulai engagement
 make engage SCOPE=target.txt
 ```
 
@@ -32,46 +37,53 @@ make engage SCOPE=target.txt
 
 | Service | Port | Keterangan |
 |---------|------|------------|
-| Teamserver | 8443 | C2 server (HTTP/HTTPS) |
-| Console | 3000 | Agent management UI |
-| Rules | 9444 | Rules engine |
+| Teamserver | 8443 | C2 server (HTTP/HTTPS/DNS/SMB) |
+| Console | 3000 | API Gateway |
 | DVWA | 8081 | Target latihan |
 
 ---
 
 ## FITUR UTAMA
 
-| kategori | detail |
-|----------|---------|
-| **70 Layer** | C2 Framework, Evasion, AD Attack, Persistence, Rootkit |
-| **427 file Go** | Terstruktur per layer 1-70 |
-| **92 test automated** | Semua passing (1,346 manual scenarios di TEST_SCENARIOS.md) |
-| **3 binary** | `angel`, `angel-console`, `angel-rules` |
+| Kategori | Detail |
+|----------|--------|
+| **70 Layer** | 70 rentang layer, 83 paket Go |
+| **376+ file Go** | Terstruktur per layer |
+| **92 test automated** | Semua passing |
+| **3 binary** | `angel`, `angel-console`, `angel-generate` |
 | **Event Bus** | Semua komunikasi lewat central event bus |
-| **700+ teknik** | Fallback chains, anti-analysis, opsec procedures |
+| **700+ teknik** | Fallback chains, anti-analysis, opsec |
 
 ---
 
 ## CARA PAKAI
 
-### Setup Lengkap
+### Setup
 ```bash
-make setup     # Install deps + buat .env.local
+make deps      # Install Go deps
 make build     # Build 3 binary
-make test      # Jalankan 1,346 test case
-make engage SCOPE=target.txt  # Start engagement
+make test      # Jalankan 92 package test
 ```
 
-### Manajemen C2
+### Docker
 ```bash
-docker compose up -d angel-teamserver   # Start teamserver
-docker compose up -d angel-console      # Start console
-docker compose logs angel-teamserver    # Lihat logs
+docker compose up -d          # Mulai semua service
+docker compose ps             # Cek status
+docker compose logs -f angel-teamserver  # Lihat logs
+docker compose down           # Hentikan
 ```
 
 ### Generate Implant
 ```bash
-./bin/angel-generate -os linux -arch amd64 -server http://teamserver:8443 -out lab/implants
+./bin/angel-generate -os linux -arch amd64 -server http://localhost:8443 -out lab/implants
+./bin/angel-generate -os windows -arch amd64 -server http://localhost:8443 -out lab/implants
+```
+
+### Test Lab
+```bash
+./lab/test_lab.sh         # Basic (10 endpoint)
+./lab/test_lab_full.sh    # Comprehensive (25 check)
+./lab/test_lab_layers.sh  # Per-layer (83 package)
 ```
 
 ---
@@ -93,7 +105,7 @@ Setiap layer terpisah fungsional, komunikasi lewat **Event Bus Protocol**.
 ## LEGALITAS
 
 - Seluruh aktivitas hanya pada sistem yang telah diizinkan
-- Harus memiliki kontrak, izin polisi, dan persetujuan founder
+- Harus memiliki kontrak, izin tertulis, dan persetujuan founder
 - Hanya digunakan untuk engagement resmi offensive security
 
 ### Prinsip Dasar
@@ -105,20 +117,21 @@ Setiap layer terpisah fungsional, komunikasi lewat **Event Bus Protocol**.
 
 ---
 
-## GITHUB & RESOURCES
+## REPOSITORY
 
-- **Repository:** https://github.com/angel-framework/angel
-- **Blueprint:** STRUKTUR_ANGEL.md v3.2
-- **Test Scenarios:** tests/TEST_SCENARIOS.md (1,346 test)
+- **GitHub:** https://github.com/SealAngel7/ANGEL
+- **Blueprint:** STRUKTUR_ANGEL.md
+- **Test Scenarios:** tests/TEST_SCENARIOS.md
 - **Dokumentasi:** docs/ directory
+- **Usage Guide:** USAGE_GUIDE.md
 
 ---
 
 ## PERINGATAN PENTING
 
-⚠️ **Hanya gunakan pada sistem yang telah diizinkan.**  
-⚠️ **Pastikan memiliki kontrak, izin tertulis, dan persetujuan founder.**  
-⚠️ **Platform dirancang untuk engagement offensive security resmi.**  
+⚠️ **Hanya gunakan pada sistem yang telah diizinkan.**
+⚠️ **Pastikan memiliki kontrak, izin tertulis, dan persetujuan founder.**
+⚠️ **Platform dirancang untuk engagement offensive security resmi.**
 ⚠️ **Semua aktivitas dilacak melalui evidence ledger (CHAIN_CUSTODY).**
 
 ---
