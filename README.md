@@ -1,6 +1,6 @@
 # 🛡️ ANGEL Platform
 
-> **STATUS:** FINAL & OPERATIONAL
+> **STATUS:** OPERATIONAL Red Team
 > **CLASS:** Offensive Security — P0/P1 Hard/Expert Full Attack
 > **LEGAL:** Only authorized systems
 
