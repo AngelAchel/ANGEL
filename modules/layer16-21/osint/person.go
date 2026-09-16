@@ -47,7 +47,7 @@ func (p *PersonRecon) EmailHarvest(domain string) ([]string, error) {
 		if err != nil {
 			continue
 		}
-		defer resp.Body.Close()
+		defer func() { _ = resp.Body.Close() }()
 
 		buf := make([]byte, 1024*1024)
 		n, _ := resp.Body.Read(buf)
@@ -90,7 +90,7 @@ func (p *PersonRecon) SocialMediaRecon(username string) (*SocialProfile, error) 
 		if err != nil {
 			continue
 		}
-		defer resp.Body.Close()
+		defer func() { _ = resp.Body.Close() }()
 
 		if resp.StatusCode == 200 {
 			return &SocialProfile{
@@ -122,7 +122,7 @@ func (p *PersonRecon) GitRecon(username string) ([]GitRepo, error) {
 	if err != nil {
 		return repos, fmt.Errorf("GitHub API failed: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != 200 {
 		return repos, fmt.Errorf("GitHub API returned status %d", resp.StatusCode)

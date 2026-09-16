@@ -80,7 +80,7 @@ func (c *WebClient) CreateStripeCheckout(amount float64, currency, productID, us
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -135,7 +135,7 @@ func (c *WebClient) CreateMidtransToken(amount float64, orderID, userID string) 
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -189,7 +189,7 @@ func (c *WebClient) CreateXenditInvoice(amount float64, orderID, userID string) 
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {

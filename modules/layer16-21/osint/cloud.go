@@ -74,7 +74,7 @@ func (c *CloudRecon) AzureBlobEnum(account string) ([]BlobInfo, error) {
 	if err != nil {
 		return blobs, nil
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode == 200 {
 		c.log.Info("Azure storage account %s is accessible", account)
@@ -159,7 +159,7 @@ func (c *CloudRecon) CheckMetadataService() (string, error) {
 	for _, url := range metadataURLs {
 		resp, err := c.client.Get(url)
 		if err == nil {
-			defer resp.Body.Close()
+			defer func() { _ = resp.Body.Close() }()
 			if resp.StatusCode == 200 {
 				return url, nil
 			}

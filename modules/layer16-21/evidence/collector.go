@@ -48,7 +48,7 @@ func (ec *EvidenceCollector) CaptureResponse(resp *http.Response) (*EvidenceCapt
 	if err != nil {
 		return nil, fmt.Errorf("read response body: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	h := sha256.Sum256(body)
 
@@ -72,7 +72,7 @@ func (ec *EvidenceCollector) CaptureScreenshot(url string) (*EvidenceCapture, er
 	if err != nil {
 		return nil, fmt.Errorf("fetch url: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {

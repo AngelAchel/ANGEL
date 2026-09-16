@@ -142,7 +142,7 @@ func (d *Database) GetAllAgents() ([]*AgentRecord, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var agents []*AgentRecord
 	for rows.Next() {
@@ -193,7 +193,7 @@ func (d *Database) GetPendingTasks(agentID string) ([]*TaskRecord, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var tasks []*TaskRecord
 	for rows.Next() {

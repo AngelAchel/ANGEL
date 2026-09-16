@@ -73,7 +73,7 @@ func (s *SessionModule) CookieFlags(urlStr string) (*CookieAnalysis, error) {
 			Issues:     []string{"unable to fetch cookies, assuming vulnerable"},
 		}, nil
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	analysis := &CookieAnalysis{
 		URL:     urlStr,

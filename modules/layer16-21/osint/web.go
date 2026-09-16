@@ -50,7 +50,7 @@ func (w *WebRecon) TechFingerprint(url string) (*TechStack, error) {
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -125,7 +125,7 @@ func (w *WebRecon) WAFDetect(url string) (*WAFInfo, error) {
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	headers := resp.Header
 	waf := &WAFInfo{}
@@ -178,7 +178,7 @@ func (w *WebRecon) SSLInspect(domain string) (*CertInfo, error) {
 	if err != nil {
 		return nil, fmt.Errorf("TLS connection failed: %w", err)
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	certs := conn.ConnectionState().PeerCertificates
 	if len(certs) == 0 {
@@ -216,7 +216,7 @@ func (w *WebRecon) RobotsParse(url string) ([]string, error) {
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("robots.txt not found (status: %d)", resp.StatusCode)
@@ -285,7 +285,7 @@ func (w *WebRecon) GetHeaders(url string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	headers := make(map[string]string)
 	for key, values := range resp.Header {

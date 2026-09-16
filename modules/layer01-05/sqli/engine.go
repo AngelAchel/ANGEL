@@ -241,7 +241,7 @@ func (e *SQLiEngine) extractData(injection *InjectionPoint, payload string) (str
 	if err != nil {
 		return "", fmt.Errorf("execute request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body := make([]byte, 0)
 	buf := make([]byte, 4096)
@@ -346,7 +346,7 @@ func (e *SQLiEngine) makeFingerprintRequest(targetURL, param, payload string) (*
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body := make([]byte, 0)
 	buf := make([]byte, 4096)

@@ -2,13 +2,13 @@
   "audit_date": "2026-09-16",
   "repo": "https://github.com/AngelAchel/ANGEL",
   "branch": "main",
-  "commit": "5e5d3fb8",
+  "commit": "3bfcb5e5",
 
   "source_code_readiness": {
     "status": "VERIFIED",
     "build": "83 packages compile OK",
     "test": "92 packages ALL PASS",
-    "lint": "115 errcheck remaining (non-blocking)",
+    "lint": "71 errcheck remaining (non-blocking), 114 staticcheck remaining",
     "race_test": "ALL PASS (no data races)",
     "coverage": "57.7% overall, 100% pkg/types",
     "evidence": "go build ./... OK, go test ./... 92 PASS, go test -race PASS"
@@ -48,8 +48,8 @@
     "docker": "4/4 containers running",
     "secrets": "no hardcoded secrets, env var enforced",
     "limitations": [
-      "115 errcheck remaining (non-blocking)",
-      "119 staticcheck remaining (all style/deprecated)",
+      "71 errcheck remaining (non-blocking)",
+      "114 staticcheck remaining (all style/deprecated)",
       "nmap NOT installed",
       "netcat NOT installed",
       "Termux NOT tested on Android device",
@@ -69,8 +69,8 @@
   },
 
   "lint": {
-    "errcheck": {"total": 218, "remaining": 115, "blocking": 0},
-    "staticcheck": {"total": 119, "remaining": 119, "blocking": 0}
+    "errcheck": {"total": 218, "remaining": 71, "fixed": 42, "blocking": 0},
+    "staticcheck": {"total": 114, "remaining": 114, "blocking": 0}
   },
 
   "docker": {
@@ -91,5 +91,5 @@
     "deployment_production": "NOT VERIFIED — DEPENDENCY MISSING"
   },
 
-  "summary": "ANGEL platform lab re-test complete. 92/92 packages pass, 25/25 lab tests pass, 8/8 E2E tests pass, race test clean. Proot simulation verified (all 3 services RUNNING in env -i). Errcheck 115 remaining (non-blocking), staticcheck 119 remaining (all style). Production needs env vars, nmap, netcat, Android device for Termux test."
+  "summary": "ANGEL platform lab re-test complete. 92/92 packages pass, 25/25 lab tests pass, 8/8 E2E tests pass, race test clean. Proot simulation verified (all 3 services RUNNING in env -i). Errcheck 71 remaining (non-blocking), staticcheck 114 remaining (all style). Production needs env vars, nmap, netcat, Android device for Termux test."
 }

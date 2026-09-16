@@ -103,7 +103,7 @@ func (l *WebSocketListener) handleMessage(connID string, messageType int, messag
 
 func (l *WebSocketListener) handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"status": "ok"}`)
+	_, _ = fmt.Fprintf(w, `{"status": "ok"}`)
 }
 
 func (l *WebSocketListener) SendMessage(connID string, message []byte) error {

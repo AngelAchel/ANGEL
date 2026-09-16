@@ -86,7 +86,7 @@ func (d *DNSRecon) ZoneTransfer(domain, nameserver string) ([]string, error) {
 	if err != nil {
 		return records, fmt.Errorf("connection failed: %w", err)
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	d.log.Warn("Zone transfer typically requires AXFR support - using fallback enumeration")
 

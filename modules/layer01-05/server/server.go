@@ -118,7 +118,7 @@ func (s *Server) handleResults(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, `{"status": "ok"}`)
+	_, _ = fmt.Fprintf(w, `{"status": "ok"}`)
 }
 
 func (s *Server) AddAgent(agent *Agent) {

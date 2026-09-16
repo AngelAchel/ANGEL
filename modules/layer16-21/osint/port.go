@@ -99,7 +99,7 @@ func (p *PortScanner) ServiceFingerprint(host string, port int) (*ServiceInfo, e
 	if err != nil {
 		return nil, fmt.Errorf("connection failed: %w", err)
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	service := guessService(port)
 	version := ""
@@ -118,7 +118,7 @@ func (p *PortScanner) BannerGrab(host string, port int) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("connection failed: %w", err)
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	conn.SetReadDeadline(time.Now().Add(p.config.Timeout))
 

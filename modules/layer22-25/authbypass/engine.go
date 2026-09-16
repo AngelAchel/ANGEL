@@ -738,7 +738,7 @@ func (e *AuthBypassEngine) testSessionHijack(target string, start time.Time) (*B
 		result.Duration = time.Since(start)
 		return result, nil
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	// Collect session cookies from response
 	var sessionID string

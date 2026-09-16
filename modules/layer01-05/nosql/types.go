@@ -230,7 +230,7 @@ func (h *HTTPClient) Get(target string, headers map[string]string) (*http.Respon
 	if err != nil {
 		return nil, nil, fmt.Errorf("execute request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -252,7 +252,7 @@ func (h *HTTPClient) Post(target string, body io.Reader, headers map[string]stri
 	if err != nil {
 		return nil, nil, fmt.Errorf("execute request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -274,7 +274,7 @@ func (h *HTTPClient) Put(target string, body io.Reader, headers map[string]strin
 	if err != nil {
 		return nil, nil, fmt.Errorf("execute request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -296,7 +296,7 @@ func (h *HTTPClient) Delete(target string, headers map[string]string) (*http.Res
 	if err != nil {
 		return nil, nil, fmt.Errorf("execute request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {

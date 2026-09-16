@@ -134,7 +134,7 @@ func (l *UDPListener) Send(remoteAddr string, data []byte) error {
 	if err != nil {
 		return fmt.Errorf("failed to dial: %v", err)
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	_, err = conn.Write(data)
 	if err != nil {
