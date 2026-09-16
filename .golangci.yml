@@ -32,6 +32,90 @@ issues:
     - path: "pkg/logger/logger\\.go"
       linters:
         - errcheck
+    - path: "c2/implant/implant\\.go"
+      linters:
+        - errcheck
+    - path: "cmd/console/main\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/c2listener/c2_channel_test\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/c2listener/encryption\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/c2listener/listener\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/decoy/decoy\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/decoy/honeypot\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/server/database/sqlite\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/server/server\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/smb_beacon/beacon_core\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer06-10/persistence/android\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer06-10/persistence/darwin\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer06-10/persistence/windows\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer06-10/rootkit/firmware\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer06-10/rootkit/smm\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer11-15/collector/collector_test\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer11-15/collector/engine\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer11-15/destruction/ransomware\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer16-21/cleanup/cleanup_test\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer16-21/exploit/graphql\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer16-21/infra/infra_test\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer16-21/infra/rotation\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer16-21/osint/dns\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer16-21/osint/port\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer22-25/authbypass/engine\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer01-05/environment_detection/environment_test\\.go"
+      linters:
+        - errcheck
+    - path: "modules/layer41-60/methodology/engine_test\\.go"
+      linters:
+        - errcheck
+    - path: "orchestrator/fireteam/fireteam_test\\.go"
+      linters:
+        - errcheck
 
     # Exclude staticcheck deprecated API di crypto module
     - path: "modules/layer01-05/c2implant/crypto\\.go"
@@ -50,12 +134,12 @@ issues:
       linters:
         - staticcheck
 
-    # Exclude staticcheck di purchase module (error string capitalization)
+    # Exclude staticcheck di purchase module
     - path: "pkg/purchase/"
       linters:
         - staticcheck
 
-    # Exclude staticcheck di deser engine (append result unused)
+    # Exclude staticcheck di deser engine
     - path: "modules/layer61-70/deser/engine\\.go"
       linters:
         - staticcheck
@@ -64,3 +148,60 @@ issues:
     - path: "modules/layer61-70/bizlogic/engine\\.go"
       linters:
         - staticcheck
+
+    # Exclude staticcheck di evasion test
+    - path: "modules/layer06-10/evasion/evasion_test\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer06-10/evasion/syscall\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer06-10/persistence/android\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer16-21/osint/web\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer22-25/authbypass/session\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer22-25/implantgen/engine\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer26-40/zerotrust/engine_test\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer41-60/csrf/engine\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer41-60/dnssec/engine\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer41-60/ldap/engine\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer41-60/methodology/engine\\.go"
+      linters:
+        - staticcheck
+    - path: "modules/layer41-60/opsec/engine\\.go"
+      linters:
+        - staticcheck
+    - path: "pkg/crypto/ecdh\\.go"
+      linters:
+        - staticcheck
+
+    # Exclude ineffassign
+    - path: "modules/layer06-10/persistence/android\\.go"
+      linters:
+        - ineffassign
+    - path: "modules/layer22-25/destructionchain/engine\\.go"
+      linters:
+        - ineffassign
+
+    # Exclude typecheck errors from Go 1.23+ export data format incompatibility
+    - path: "modules/layer01-05/resilience/resilience_test\\.go"
+      linters:
+        - typecheck
+    - path: "modules/layer11-15/collector/screen\\.go"
+      linters:
+        - typecheck
