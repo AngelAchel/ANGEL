@@ -166,9 +166,9 @@ func (e *Engine) OIDCRedirectAttack(clientID string, redirectURI string) (*SAMLR
 		UserInfoURL:      "",
 		Scopes:           []string{"openid", "profile", "email"},
 		Claims: map[string]string{
-			"sub":  "1234567890",
-			"name": "Admin User",
-			"role": "admin",
+			"sub":  "<SUBJECT_ID>",
+			"name": "<USER_NAME>",
+			"role": "<ROLE>",
 		},
 	}
 
