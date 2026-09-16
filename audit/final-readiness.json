@@ -3,17 +3,15 @@
   "repo": "https://github.com/AngelAchel/ANGEL",
   "branch": "main",
   "commit": "3bfcb5e5",
-
   "source_code_readiness": {
     "status": "VERIFIED",
     "build": "83 packages compile OK",
     "test": "92 packages ALL PASS",
-    "lint": "71 errcheck remaining (non-blocking), 114 staticcheck remaining",
+    "lint": "65 errcheck remaining (non-blocking), 114 staticcheck remaining",
     "race_test": "ALL PASS (no data races)",
     "coverage": "57.7% overall, 100% pkg/types",
     "evidence": "go build ./... OK, go test ./... 92 PASS, go test -race PASS"
   },
-
   "module_integration_readiness": {
     "status": "VERIFIED",
     "event_bus": "6 tests PASS",
@@ -24,7 +22,6 @@
     "docker": "4 containers running (all UP)",
     "evidence": "TestE2EFullEngagement PASS, TestE2EAgentLifecycle PASS"
   },
-
   "lab_end_to_end_readiness": {
     "status": "VERIFIED",
     "lab_script": "25 PASS | 0 FAIL | LAB READY",
@@ -34,16 +31,14 @@
     "network": "all containers on same network",
     "evidence": "lab/test_lab_full.sh 25 PASS, curl health checks OK"
   },
-
   "proot_simulation_readiness": {
     "status": "VERIFIED IN PROOT SIMULATION",
     "binary": "static ELF, zero deps (ldd confirmed)",
     "services": "teamserver, console, rules-loader all RUNNING in env -i",
     "evidence": "HTTP 404 from all 3 services in clean environment"
   },
-
   "deployment_production_readiness": {
-    "status": "NOT VERIFIED — DEPENDENCY MISSING",
+    "status": "NOT VERIFIED \u2014 DEPENDENCY MISSING",
     "env_vars": "TEAMSERVER_KEY, CRYPTO_KEY, JWT_SECRET required (not set)",
     "docker": "4/4 containers running",
     "secrets": "no hardcoded secrets, env var enforced",
@@ -59,37 +54,40 @@
     ],
     "evidence": "env vars not set in production, nmap/netcat missing"
   },
-
   "compatibility": {
     "kali_linux": "SUPPORTED WITH LIMITATIONS",
     "termux_proot": "VERIFIED IN PROOT SIMULATION",
-    "termux_native": "NOT TESTED — HARDWARE REQUIRED",
-    "kali_nethunter": "NOT TESTED — HARDWARE REQUIRED",
-    "external_deployment": "NOT VERIFIED — DEPENDENCY MISSING"
+    "termux_native": "NOT TESTED \u2014 HARDWARE REQUIRED",
+    "kali_nethunter": "NOT TESTED \u2014 HARDWARE REQUIRED",
+    "external_deployment": "NOT VERIFIED \u2014 DEPENDENCY MISSING"
   },
-
   "lint": {
-    "errcheck": {"total": 218, "remaining": 65, "fixed": 6, "blocking": 0},
-    "staticcheck": {"total": 114, "remaining": 114, "blocking": 0}
+    "errcheck": {
+      "total": 218,
+      "remaining": 65,
+      "fixed": 6,
+      "blocking": 0
+    },
+    "staticcheck": {
+      "total": 114,
+      "remaining": 114,
+      "blocking": 0
+    }
   },
-
   "docker": {
     "containers": 4,
-    "dvwa": "HTTP 302 — RUNNING"
+    "dvwa": "HTTP 302 \u2014 RUNNING"
   },
-
   "tests": {
     "pass": 92,
     "total": 92
   },
-
   "final_verdict": {
     "source_code": "VERIFIED",
     "module_integration": "VERIFIED",
     "lab_e2e": "VERIFIED",
     "proot_simulation": "VERIFIED IN PROOT SIMULATION",
-    "deployment_production": "NOT VERIFIED — DEPENDENCY MISSING"
+    "deployment_production": "NOT VERIFIED \u2014 DEPENDENCY MISSING"
   },
-
   "summary": "ANGEL platform lab re-test complete. 92/92 packages pass, 25/25 lab tests pass, 8/8 E2E tests pass, race test clean. Proot simulation verified (all 3 services RUNNING in env -i). Errcheck 65 remaining (non-blocking), staticcheck 114 remaining (all style). Production needs env vars, nmap, netcat, Android device for Termux test."
 }

@@ -25,13 +25,11 @@ ERRCHECK — CORRECTED NUMBERS
 
 Command: `errcheck ./...`
 Total lines: 218
-Non-test, non-decoy: 71 (after fixing 42 deferred closes)
+Non-test, non-decoy: 65 (after fixing 6 fmt.Fprintf + 1 defer close)
 
 Breakdown by pattern:
 | Pattern | Count | Severity | Status |
 |---------|-------|----------|--------|
-| defer req.Body.Close() | 1 | LOW | FIXED |
-| fmt.Fprintf(w, ...) | 7 | LOW | 5 FIXED, 2 ALREADY FIXED |
 | engine.LoadLocalRules | 2 | LOW | REMAINING |
 | json.NewEncoder(w).Encode | 4 | LOW | REMAINING |
 | conn.WriteMessage | 1 | LOW | REMAINING |
