@@ -72,7 +72,7 @@ ANGEL/
 │   ├── layer01-05/        # C2 core, decoy, SQLi, NoSQL, DB post-exploit
 │   ├── layer06-10/
 │   ├── ...
-│   └── layer66-70/
+│   └── layer61-70/
 ├── scripts/               # Automation, build, lint, release pipeline
 ├── tests/                 # Test scenarios TC-001..TC-1346 (Section 17)
 ├── docs/                  # Dokumentasi operasional + report template
