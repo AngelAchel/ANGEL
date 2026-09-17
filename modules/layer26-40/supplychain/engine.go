@@ -126,7 +126,7 @@ func (e *Engine) PreCommitHook(configPath string) SupplyChainResult {
 }
 
 func (e *Engine) generateTyposquats(name string) []string {
-	var results []string
+	results := make([]string, 0, 1)
 	runes := []rune(name)
 
 	for i := 0; i < len(runes)-1; i++ {

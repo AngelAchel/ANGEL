@@ -36,7 +36,7 @@ func (e *Engine) AWSToAzurePivot(awsAccountID string, azureTenantID string) (*Mu
 }
 
 func (e *Engine) findAWSAzurePaths(awsAccount, azureTenant string) []PivotPath {
-	paths := make([]PivotPath, 0)
+	paths := make([]PivotPath, 0, 2)
 
 	path1 := PivotPath{
 		Steps: []PivotStep{
@@ -90,7 +90,7 @@ func (e *Engine) AzureToGCPPivot(azureTenantID string, gcpProjectID string) (*Mu
 }
 
 func (e *Engine) findAzureGCPPaths(azureTenant, gcpProject string) []PivotPath {
-	paths := make([]PivotPath, 0)
+	paths := make([]PivotPath, 0, 2)
 
 	path1 := PivotPath{
 		Steps: []PivotStep{
@@ -133,7 +133,7 @@ func (e *Engine) CrossAccountExploit(sourceAccount string, targetAccount string)
 }
 
 func (e *Engine) analyzeCrossAccountTrust(source, target string) []CrossAccountTrust {
-	trusts := make([]CrossAccountTrust, 0)
+	trusts := make([]CrossAccountTrust, 0, 2)
 
 	trusts = append(trusts, CrossAccountTrust{
 		AccountID:  target,
@@ -183,7 +183,7 @@ func (e *Engine) CloudTrailEvade(region string) (*MultiCloudResult, error) {
 }
 
 func (e *Engine) getEvadeTechniques(region string) []string {
-	techniques := make([]string, 0)
+	techniques := make([]string, 0, 6)
 
 	techniques = append(techniques, fmt.Sprintf("Stop CloudTrail in %s", region))
 	techniques = append(techniques, fmt.Sprintf("Delete CloudTrail logs in %s", region))
@@ -196,7 +196,7 @@ func (e *Engine) getEvadeTechniques(region string) []string {
 }
 
 func (e *Engine) AnalyzeTrustRelationships(sourceCloud string, targetCloud string) []TrustRelationship {
-	relationships := make([]TrustRelationship, 0)
+	relationships := make([]TrustRelationship, 0, 2)
 
 	relationships = append(relationships, TrustRelationship{
 		Type:      "Federation",

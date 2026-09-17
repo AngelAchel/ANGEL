@@ -167,7 +167,7 @@ func (e *Engine) RefererBypass(allowedDomains []string) (*CSRFResult, error) {
 }
 
 func (e *Engine) generateRefererBypasses(domains []string) []string {
-	bypasses := make([]string, 0)
+	bypasses := make([]string, 0, 5*len(domains))
 
 	for _, domain := range domains {
 		bypasses = append(bypasses, fmt.Sprintf("https://%s@evil.com", domain))

@@ -105,7 +105,7 @@ func (e *Engine) TrafficAnalysis(sourceIP string, destIP string) (*OPSECResult, 
 }
 
 func (e *Engine) analyzeTraffic(sourceIP, destIP string) []TrafficAnalysis {
-	analyses := make([]TrafficAnalysis, 0)
+	analyses := make([]TrafficAnalysis, 0, 2)
 
 	analyses = append(analyses, TrafficAnalysis{
 		SourceIP:   sourceIP,
@@ -147,7 +147,7 @@ func (e *Engine) calculateTrafficRisk(analyses []TrafficAnalysis) int {
 }
 
 func (e *Engine) formatTrafficAnalysis(analyses []TrafficAnalysis) []string {
-	details := make([]string, 0)
+	details := make([]string, 0, len(analyses))
 	for _, a := range analyses {
 		details = append(details, fmt.Sprintf("%s:%d -> %s (%s)", a.SourceIP, a.Port, a.DestIP, a.Signature))
 	}
@@ -172,7 +172,7 @@ func (e *Engine) RiskAssessment(scope []string) (*OPSECResult, error) {
 }
 
 func (e *Engine) assessRisks(scope []string) []OPSECRisk {
-	risks := make([]OPSECRisk, 0)
+	risks := make([]OPSECRisk, 0, 4)
 
 	risks = append(risks, OPSECRisk{
 		Category:    "Identity",
@@ -226,7 +226,7 @@ func (e *Engine) calculateOverallRisk(risks []OPSECRisk) int {
 }
 
 func (e *Engine) formatRisks(risks []OPSECRisk) []string {
-	details := make([]string, 0)
+	details := make([]string, 0, len(risks))
 	for _, r := range risks {
 		details = append(details, fmt.Sprintf("[%s] %s: %s (mitigation: %s)", r.Severity, r.Category, r.Description, r.Mitigation))
 	}
@@ -251,7 +251,7 @@ func (e *Engine) CleanupVerify(actions []string) (*OPSECResult, error) {
 }
 
 func (e *Engine) verifyCleanup(actions []string) []CleanupAction {
-	results := make([]CleanupAction, 0)
+	results := make([]CleanupAction, 0, len(actions)+1+1)
 
 	for _, action := range actions {
 		results = append(results, CleanupAction{
@@ -290,7 +290,7 @@ func (e *Engine) calculateCleanupRisk(results []CleanupAction) int {
 }
 
 func (e *Engine) formatCleanupResults(results []CleanupAction) []string {
-	details := make([]string, 0)
+	details := make([]string, 0, len(results))
 	for _, r := range results {
 		details = append(details, fmt.Sprintf("%s: %s -> %s", r.Action, r.Target, r.Status))
 	}

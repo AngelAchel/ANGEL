@@ -56,7 +56,7 @@ func (e *Engine) PCICompliance(scope []string) (*ComplianceResult, error) {
 }
 
 func (e *Engine) checkPCIControls(scope []string) []ControlCheck {
-	controls := make([]ControlCheck, 0)
+	controls := make([]ControlCheck, 0, 5)
 
 	controls = append(controls, ControlCheck{
 		ID:          "PCI-DSS-1.1",
@@ -134,7 +134,7 @@ func (e *Engine) GDPRCheck(scope []string) (*ComplianceResult, error) {
 }
 
 func (e *Engine) checkGDPRControls(scope []string) []ControlCheck {
-	controls := make([]ControlCheck, 0)
+	controls := make([]ControlCheck, 0, 5)
 
 	controls = append(controls, ControlCheck{
 		ID:          "GDPR-5.1",
@@ -204,7 +204,7 @@ func (e *Engine) NISTAssess(scope []string) (*ComplianceResult, error) {
 }
 
 func (e *Engine) checkNISTControls(scope []string) []ControlCheck {
-	controls := make([]ControlCheck, 0)
+	controls := make([]ControlCheck, 0, 5)
 
 	controls = append(controls, ControlCheck{
 		ID:          "AC-2",
@@ -273,7 +273,7 @@ func (e *Engine) CISBenchmark(scope []string) (*ComplianceResult, error) {
 }
 
 func (e *Engine) checkCISControls(scope []string) []ControlCheck {
-	controls := make([]ControlCheck, 0)
+	controls := make([]ControlCheck, 0, 5)
 
 	controls = append(controls, ControlCheck{
 		ID:          "CIS-1.1.1",

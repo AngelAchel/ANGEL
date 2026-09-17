@@ -134,7 +134,7 @@ func (e *Engine) DHCPEhaustion() ARPDHCPResult {
 	}
 
 	packetsSent := 0
-	discoveredServers := make([]string, 0)
+	discoveredServers := make([]string, 0, 1)
 
 	for i := 0; i < numSpoof; i++ {
 		srcMAC := randomMAC()

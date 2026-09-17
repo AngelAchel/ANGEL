@@ -115,7 +115,7 @@ func (p *PersonRecon) GitRecon(username string) ([]GitRepo, error) {
 
 	p.log.Info("Git recon for: %s", username)
 
-	repos := make([]GitRepo, 0)
+	repos := make([]GitRepo, 0, 1)
 
 	apiURL := fmt.Sprintf("https://api.github.com/users/%s/repos", username)
 	resp, err := p.client.Get(apiURL)

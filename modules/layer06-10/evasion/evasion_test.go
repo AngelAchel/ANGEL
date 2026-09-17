@@ -1347,8 +1347,8 @@ func TestSysWhispers3GenerateShellcode(t *testing.T) {
 }
 
 func TestGenerateHash(t *testing.T) {
-	hash1 := generateHash("test")
-	hash2 := generateHash("test")
+	hash1 := generateHash([]byte("test"))
+	hash2 := generateHash([]byte("test"))
 	if hash1 != hash2 {
 		t.Error("Same input should produce same hash")
 	}

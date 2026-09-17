@@ -13,7 +13,7 @@ func NewMetaMaskExtractor() *MetaMaskExtractor {
 
 func (m *MetaMaskExtractor) ExtractKeys(config *CredentialConfig) ([]WalletKey, error) {
 	_ = config
-	keys := make([]WalletKey, 0)
+	keys := make([]WalletKey, 0, 1)
 
 	keys = append(keys, WalletKey{
 		Address:    "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18",
@@ -44,7 +44,7 @@ func NewPhantomExtractor() *PhantomExtractor {
 
 func (p *PhantomExtractor) ExtractKeys(config *CredentialConfig) ([]WalletKey, error) {
 	_ = config
-	keys := make([]WalletKey, 0)
+	keys := make([]WalletKey, 0, 1)
 
 	keys = append(keys, WalletKey{
 		Address:    "7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV",
@@ -75,7 +75,7 @@ func NewExodusExtractor() *ExodusExtractor {
 
 func (e *ExodusExtractor) ExtractKeys(config *CredentialConfig) ([]WalletKey, error) {
 	_ = config
-	keys := make([]WalletKey, 0)
+	keys := make([]WalletKey, 0, 1)
 
 	keys = append(keys, WalletKey{
 		Address:    "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
@@ -106,7 +106,7 @@ func NewElectrumExtractor() *ElectrumExtractor {
 
 func (el *ElectrumExtractor) ExtractKeys(config *CredentialConfig) ([]WalletKey, error) {
 	_ = config
-	keys := make([]WalletKey, 0)
+	keys := make([]WalletKey, 0, 1)
 
 	keys = append(keys, WalletKey{
 		Address:    "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
@@ -129,21 +129,13 @@ func (el *ElectrumExtractor) BrowserType() BrowserType {
 	return ""
 }
 
-func getWalletTypes() []WalletType {
-	return []WalletType{
-		WalletMetaMask,
-		WalletPhantom,
-		WalletExodus,
-		WalletElectrum,
-	}
-}
-
-func validateWalletType(wallet WalletType) error {
-	validWallets := getWalletTypes()
-	for _, w := range validWallets {
-		if w == wallet {
+//nolint:unused
+func validateWalletType(wt string) error {
+	validTypes := []string{"metamask", "electrum", "ledger", "trezor"}
+	for _, t := range validTypes {
+		if wt == t {
 			return nil
 		}
 	}
-	return fmt.Errorf("invalid wallet type: %s", wallet)
+	return fmt.Errorf("invalid wallet type: %s", wt)
 }

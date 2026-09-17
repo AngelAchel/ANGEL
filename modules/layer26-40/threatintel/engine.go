@@ -1,3 +1,4 @@
+// Package threatintel provides threat intelligence for ANGEL.
 package threatintel
 
 import (
@@ -92,7 +93,7 @@ func (e *Engine) IntelReport(target string) IntelResult {
 }
 
 func (e *Engine) extractIOCs(target string) []IOC {
-	var iocs []IOC
+	iocs := make([]IOC, 0, 5)
 
 	iocs = append(iocs, IOC{
 		Type:       IOCTypeIP,
@@ -149,8 +150,6 @@ func (e *Engine) extractIOCs(target string) []IOC {
 }
 
 func (e *Engine) mapToMITRE(iocs []IOC) []MITRETechnique {
-	var techniques []MITRETechnique
-
 	techniqueMap := make(map[string]*MITRETechnique)
 
 	for _, ioc := range iocs {
@@ -175,6 +174,8 @@ func (e *Engine) mapToMITRE(iocs []IOC) []MITRETechnique {
 			}
 		}
 	}
+
+	techniques := make([]MITRETechnique, 0, len(techniqueMap))
 
 	for _, tech := range techniqueMap {
 		techniques = append(techniques, *tech)

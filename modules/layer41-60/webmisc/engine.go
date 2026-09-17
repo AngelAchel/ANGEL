@@ -37,7 +37,7 @@ func (e *Engine) CachePoisoning(targetURL string) (*WebMiscResult, error) {
 }
 
 func (e *Engine) analyzeCachePoisonVectors(targetURL string) []CachePoisonMethod {
-	methods := make([]CachePoisonMethod, 0)
+	methods := make([]CachePoisonMethod, 0, 5)
 
 	methods = append(methods, CachePoisonMethod{
 		Name:        "X-Forwarded-Host",
@@ -191,7 +191,7 @@ func (e *Engine) HTTPSmuggling(targetURL string) (*WebMiscResult, error) {
 }
 
 func (e *Engine) generateSmugglePayloads(targetURL string) []SmuggleRequest {
-	payloads := make([]SmuggleRequest, 0)
+	payloads := make([]SmuggleRequest, 0, 3)
 
 	payloads = append(payloads, SmuggleRequest{
 		Method: "POST",

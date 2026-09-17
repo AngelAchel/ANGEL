@@ -38,7 +38,7 @@ func (e *Engine) ParamManipulation(targetURL string, redirectURL string) (*Redir
 }
 
 func (e *Engine) generateParamManipulationPayloads(targetURL, redirectURL string) []BypassPayload {
-	payloads := make([]BypassPayload, 0)
+	payloads := make([]BypassPayload, 0, 6)
 
 	payloads = append(payloads, BypassPayload{
 		Encoded:   redirectURL,
@@ -128,7 +128,7 @@ func (e *Engine) ProtocolRelative(redirectURL string) (*RedirectResult, error) {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 
-	payloads := make([]string, 0)
+	payloads := make([]string, 0, 6)
 
 	payloads = append(payloads, "//"+strings.TrimPrefix(redirectURL, "https://"))
 	payloads = append(payloads, "//"+strings.TrimPrefix(redirectURL, "http://"))
@@ -172,7 +172,7 @@ func (e *Engine) PhishRedirect(targetURL string, phishingDomain string) (*Redire
 }
 
 func (e *Engine) generatePhishingURLs(targetURL, phishingDomain string) []string {
-	urls := make([]string, 0)
+	urls := make([]string, 0, 4)
 
 	urls = append(urls, fmt.Sprintf("https://%s/%s", phishingDomain, url.PathEscape(targetURL)))
 	urls = append(urls, fmt.Sprintf("https://%s/?next=%s", phishingDomain, url.QueryEscape(targetURL)))

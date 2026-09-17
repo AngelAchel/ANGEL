@@ -190,7 +190,7 @@ func (e *Engine) RaceCheckout() BizLogicResult {
 }
 
 func buildItemPayload(items []CartItem) string {
-	parts := make([]string, 0)
+	parts := make([]string, 0, len(items))
 	for _, item := range items {
 		parts = append(parts, fmt.Sprintf(`{"id":"%s","price":%.2f,"qty":%d}`, item.ID, item.Price, item.Quantity))
 	}
@@ -198,7 +198,7 @@ func buildItemPayload(items []CartItem) string {
 }
 
 func buildNegativePayload(items []CartItem) string {
-	parts := make([]string, 0)
+	parts := make([]string, 0, len(items))
 	for _, item := range items {
 		parts = append(parts, fmt.Sprintf(`{"id":"%s","price":%.2f,"qty":%d}`, item.ID, item.Price, -item.Quantity))
 	}

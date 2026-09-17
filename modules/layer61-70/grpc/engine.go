@@ -180,7 +180,7 @@ func streamType(streaming bool) string {
 }
 
 func summarizeProtoServices(files []ProtoFile) string {
-	names := make([]string, 0)
+	names := make([]string, 0, len(files))
 	for _, f := range files {
 		names = append(names, f.Name)
 	}

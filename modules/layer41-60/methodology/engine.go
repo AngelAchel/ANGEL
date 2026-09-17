@@ -71,7 +71,7 @@ func (e *Engine) performRecon(scope []string) ReconResult {
 }
 
 func (e *Engine) formatReconFindings(result ReconResult) []string {
-	findings := make([]string, 0)
+	findings := make([]string, 0, 4)
 	findings = append(findings, fmt.Sprintf("Discovered %d IP addresses", len(result.IPs)))
 	findings = append(findings, fmt.Sprintf("Found %d open ports", len(result.Ports)))
 	findings = append(findings, fmt.Sprintf("Identified %d services", len(result.Services)))
@@ -132,7 +132,7 @@ func (e *Engine) performDiscovery(recon ReconResult) DiscoveryResult {
 }
 
 func (e *Engine) formatDiscoveryFindings(result DiscoveryResult) []string {
-	findings := make([]string, 0)
+	findings := make([]string, 0, 4)
 	findings = append(findings, fmt.Sprintf("Found %d endpoints", len(result.Endpoints)))
 	findings = append(findings, fmt.Sprintf("Discovered %d parameters", len(result.Parameters)))
 	findings = append(findings, fmt.Sprintf("Found %d potentially sensitive files", len(result.Files)))
@@ -189,7 +189,7 @@ func (e *Engine) performExploitation(discovery DiscoveryResult) ExploitationResu
 }
 
 func (e *Engine) formatExploitationFindings(result ExploitationResult) []string {
-	findings := make([]string, 0)
+	findings := make([]string, 0, 4)
 	for _, v := range result.Vulns {
 		findings = append(findings, fmt.Sprintf("[VULN] %s", v))
 	}

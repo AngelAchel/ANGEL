@@ -119,8 +119,6 @@ func (e *Engine) OPCExploit(targetIP string) (*SCADAResult, error) {
 }
 
 func (e *Engine) enumerateOPCNodes(targetIP string) []OPCNode {
-	nodes := make([]OPCNode, 0)
-
 	commonNodes := []struct {
 		id   string
 		name string
@@ -133,6 +131,7 @@ func (e *Engine) enumerateOPCNodes(targetIP string) []OPCNode {
 		{"ns=2;s=AlarmStatus", "AlarmStatus", "Boolean", "Read"},
 		{"ns=2;s=PumpSpeed", "PumpSpeed", "Int32", "Read/Write"},
 	}
+	nodes := make([]OPCNode, 0, len(commonNodes))
 
 	for _, n := range commonNodes {
 		nodes = append(nodes, OPCNode{

@@ -15,7 +15,7 @@ func NewTokenImpersonationThief() *TokenImpersonationThief {
 
 func (t *TokenImpersonationThief) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "token_impersonation",
@@ -41,7 +41,7 @@ func NewTokenDelegationThief() *TokenDelegationThief {
 
 func (t *TokenDelegationThief) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "token_delegation",
@@ -67,7 +67,7 @@ func NewTokenPrimaryThief() *TokenPrimaryThief {
 
 func (t *TokenPrimaryThief) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "token_primary",
@@ -85,18 +85,11 @@ func (t *TokenPrimaryThief) Name() string {
 	return "TokenPrimary"
 }
 
-func getTokenMethods() []TokenMethod {
-	return []TokenMethod{
-		TokenImpersonation,
-		TokenDelegation,
-		TokenPrimary,
-	}
-}
-
-func validateTokenMethod(method TokenMethod) error {
-	validMethods := getTokenMethods()
+//nolint:unused
+func validateTokenMethod(method string) error {
+	validMethods := []string{"primary", "msv", "wdigest", "ssp"}
 	for _, m := range validMethods {
-		if m == method {
+		if method == m {
 			return nil
 		}
 	}

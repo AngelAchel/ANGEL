@@ -43,7 +43,7 @@ func (e *Engine) generateExtensionBypasses(filename string) []ExtensionBypass {
 		ext = parts[1]
 	}
 
-	bypasses := make([]ExtensionBypass, 0)
+	bypasses := make([]ExtensionBypass, 0, 9)
 
 	bypasses = append(bypasses, ExtensionBypass{
 		Original:   filename,

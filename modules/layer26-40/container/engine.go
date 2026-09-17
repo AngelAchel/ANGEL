@@ -249,7 +249,7 @@ func (e *Engine) enumeratePods(config KubernetesConfig) []PodInfo {
 }
 
 func (e *Engine) findEscapePaths(config KubernetesConfig) []string {
-	var paths []string
+	paths := make([]string, 0, 2)
 	paths = append(paths, "ServiceAccount token -> API Server -> kubectl exec")
 	paths = append(paths, "Pod attachment -> Host PID namespace -> /proc/1/root")
 	return paths
@@ -279,8 +279,8 @@ func (e *Engine) extractSecretValue(path string) string {
 }
 
 func (e *Engine) extractEnvSecrets(containerID string) []SecretEntry {
-	var secrets []SecretEntry
 	sensitiveKeys := []string{"PASSWORD", "SECRET", "TOKEN", "API_KEY", "PRIVATE_KEY"}
+	secrets := make([]SecretEntry, 0, len(sensitiveKeys))
 	for _, key := range sensitiveKeys {
 		secrets = append(secrets, SecretEntry{
 			Key:      key,

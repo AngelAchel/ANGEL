@@ -25,7 +25,7 @@ func NewServerCrypto() (*ServerCrypto, error) {
 }
 
 func NewServerCryptoFromKey(privKey *ecdsa.PrivateKey) *ServerCrypto {
-	pubBytes := make([]byte, 0)
+	pubBytes := make([]byte, 0, privKey.Curve.Params().BitSize/4*2)
 	//nolint
 	pubBytes = append(pubBytes, privKey.PublicKey.X.Bytes()...)
 	//nolint

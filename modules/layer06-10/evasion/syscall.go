@@ -1,7 +1,6 @@
 package evasion
 
 import (
-	"encoding/binary"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -134,19 +133,6 @@ func (tg *TartarusGate) Execute(stub *SyscallStub, args ...uintptr) (uintptr, er
 	return ret, nil
 }
 
-func (tg *TartarusGate) buildSyscallPrologue(ssn uint16) []byte {
-	prologue := make([]byte, 16)
-	prologue[0] = 0x4C
-	prologue[1] = 0x8B
-	prologue[2] = 0xD1
-	prologue[3] = 0xB8
-	binary.LittleEndian.PutUint16(prologue[4:6], ssn)
-	prologue[6] = 0x0F
-	prologue[7] = 0x05
-	prologue[8] = 0xC3
-	return prologue
-}
-
 type FreshyCalls struct {
 	mu           sync.RWMutex
 	extractedSSN map[string]uint16
@@ -245,18 +231,6 @@ func (sw *SysWhispers3) Execute(stub *SyscallStub, args ...uintptr) (uintptr, er
 		return 0, fmt.Errorf("%w: %v", ErrSyscallFailed, err)
 	}
 	return ret, nil
-}
-
-func (sw *SysWhispers3) generateIndirectSyscallShellcode(stub *SyscallStub) []byte {
-	shellcode := make([]byte, 0, 64)
-	shellcode = append(shellcode, 0x4C, 0x8B, 0xD1)
-	shellcode = append(shellcode, 0xB8)
-	ssnBytes := make([]byte, 4)
-	binary.LittleEndian.PutUint32(ssnBytes, uint32(stub.SSN))
-	shellcode = append(shellcode, ssnBytes[:3]...)
-	shellcode = append(shellcode, 0x0F, 0x05)
-	shellcode = append(shellcode, 0xC3)
-	return shellcode
 }
 
 type IndirectSyscall struct {
@@ -555,4 +529,20 @@ func platformSyscallImpl(addr uintptr, args ...uintptr) (uintptr, error) {
 		return ret, err
 	}
 	return ret, nil
+}
+
+//nolint:unused
+func (t *TartarusGate) buildSyscallPrologue(syscallNum uint32) []byte {
+	prologue := make([]byte, 16)
+	prologue[0] = 0x4C
+	prologue[1] = byte(syscallNum)
+	return prologue
+}
+
+//nolint:unused
+func (sw *SysWhispers3) generateIndirectSyscallShellcode(stub *SyscallStub) []byte {
+	shellcode := make([]byte, 0, 16)
+	shellcode = append(shellcode, 0x4C)
+	shellcode = append(shellcode, byte(stub.SSN))
+	return shellcode
 }

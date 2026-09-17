@@ -1,3 +1,4 @@
+// Package c2listener provides C2 listener functionality for ANGEL.
 package c2listener
 
 import (

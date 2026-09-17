@@ -207,16 +207,14 @@ func (ne *NetworkEvasion) MorphTrafficPattern() []byte {
 	}
 
 	basePattern := []byte{0x16, 0x03, 0x01, 0x00}
-	newPattern := make([]byte, len(basePattern))
-	copy(newPattern, basePattern)
-
 	jitterLen := mathrand.Intn(32) + 4
 	jitterBytes := make([]byte, jitterLen)
 	rand.Read(jitterBytes)
+	newPattern := make([]byte, 0, len(basePattern)+len(jitterBytes))
 
 	morphed := append(newPattern, jitterBytes...)
 
-	prefix := []byte{0x47, 0x45, 0x54, 0x20}
+	prefix := make([]byte, 0, 4+len(morphed))
 	suffix := []byte{0x0D, 0x0A, 0x0D, 0x0A}
 	morphed = append(prefix, morphed...)
 	morphed = append(morphed, suffix...)

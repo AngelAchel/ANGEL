@@ -106,7 +106,7 @@ func (e *Engine) CredentialDump(firmwarePath string) (*IoTResult, error) {
 }
 
 func (e *Engine) findCredentials(path string) []CredentialInfo {
-	creds := make([]CredentialInfo, 0)
+	creds := make([]CredentialInfo, 0, 3)
 
 	creds = append(creds, CredentialInfo{
 		Type:     "default",
@@ -169,7 +169,7 @@ func (e *Engine) HardcodedKey(firmwarePath string) (*IoTResult, error) {
 }
 
 func (e *Engine) findHardcodedKeys(path string) []HardcodedKey {
-	keys := make([]HardcodedKey, 0)
+	keys := make([]HardcodedKey, 0, 3)
 
 	keys = append(keys, HardcodedKey{
 		Name:      "SSH Host Key",
@@ -228,7 +228,7 @@ func (e *Engine) BackdoorDetect(firmwarePath string) (*IoTResult, error) {
 }
 
 func (e *Engine) detectBackdoors(path string) []BackdoorInfo {
-	backdoors := make([]BackdoorInfo, 0)
+	backdoors := make([]BackdoorInfo, 0, 3)
 
 	backdoors = append(backdoors, BackdoorInfo{
 		Type:        "hidden_account",

@@ -125,7 +125,7 @@ func (e *Engine) TrunkPort() VLANResult {
 	}
 
 	allowedVLANs := []int{1, 10, 20, 100}
-	tagConfigs := make([]TagConfig, 0)
+	tagConfigs := make([]TagConfig, 0, len(allowedVLANs))
 	for _, v := range allowedVLANs {
 		tagConfigs = append(tagConfigs, TagConfig{
 			OuterVLAN: v,
@@ -194,7 +194,7 @@ func buildGraftFrame(tag TagConfig) []byte {
 }  //nolint:staticcheck
   //nolint:staticcheck
 func formatTags(tags []TagConfig) string {  //nolint:unused
-	parts := make([]string, 0)
+	parts := make([]string, 0, len(tags))
 	for _, t := range tags {
 		parts = append(parts, fmt.Sprintf("VLAN%d(prio=%d)", t.OuterVLAN, t.Priority))
 	}

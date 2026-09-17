@@ -65,7 +65,7 @@ func (e *Engine) RASpoof(prefix string, prefixLen int, dnsServers []string) (*IP
 }
 
 func (e *Engine) buildRAPacket(prefix string, prefixLen int, dnsServers []string) []byte {
-	var buf []byte
+	buf := make([]byte, 0)
 	buf = append(buf, 0x86) // ICMPv6 Router Advertisement
 	buf = append(buf, 0x00) // Code
 	checksum := ipv6Checksum(buf)
@@ -122,7 +122,7 @@ func (e *Engine) NSFlood(targetIPv6 string, count int) (*IPv6Result, error) {
 }
 
 func (e *Engine) buildNSPacket(target string) []byte {
-	var buf []byte
+	buf := make([]byte, 0)
 	buf = append(buf, 0x87) // ICMPv6 Neighbor Solicitation
 	buf = append(buf, 0x00) // Code
 	checksum := ipv6Checksum(buf)
@@ -173,7 +173,7 @@ func (e *Engine) DADAttack(targetIPv6 string, attempts int) (*IPv6Result, error)
 }
 
 func (e *Engine) buildDADPacket(target string) []byte {
-	var buf []byte
+	buf := make([]byte, 0)
 	buf = append(buf, 0x87) // ICMPv6 Neighbor Solicitation
 	buf = append(buf, 0x00) // Code
 	checksum := ipv6Checksum(buf)
@@ -216,7 +216,7 @@ func (e *Engine) DNSv6Spoof(domain string, fakeIPv6 string) (*IPv6Result, error)
 }
 
 func (e *Engine) buildDNSv6Response(atk DNSv6Attack) []byte {
-	var buf []byte
+	buf := make([]byte, 0)
 	domainParts := strings.Split(atk.Domain, ".")
 	for _, part := range domainParts {
 		buf = append(buf, byte(len(part)))
@@ -279,7 +279,6 @@ func (e *Engine) TunnelAbuse(tunnelType string, endpoint string) (*IPv6Result, e
 }
 
 func (e *Engine) buildTunnelPacket(info TunnelInfo) []byte {
-	var buf []byte
 	outerProto := uint16(0)
 	switch info.Type {
 	case "6to4":
@@ -294,13 +293,14 @@ func (e *Engine) buildTunnelPacket(info TunnelInfo) []byte {
 
 	protoBytes := make([]byte, 2)
 	binary.BigEndian.PutUint16(protoBytes, outerProto)
-	buf = append(buf, protoBytes...)
-
-	buf = append(buf, byte(info.HopLimit))
-	buf = append(buf, 0xff)             // Next header: IPv6
-	payloadLen := uint16(info.MTU - 40) // IPv6 header = 40 bytes
+	payloadLen := uint16(info.MTU - 40)
 	payloadBytes := make([]byte, 2)
 	binary.BigEndian.PutUint16(payloadBytes, payloadLen)
+
+	buf := make([]byte, 0, len(protoBytes)+1+1+len(payloadBytes))
+	buf = append(buf, protoBytes...)
+	buf = append(buf, byte(info.HopLimit))
+	buf = append(buf, 0xff) // Next header: IPv6
 	buf = append(buf, payloadBytes...) // Payload length
 
 	return buf
@@ -311,13 +311,16 @@ func (e *Engine) isValidIPv6(addr string) bool {
 	return ip != nil && ip.To4() == nil
 }
 
+//nolint:unused
 func generateRandomBytes(n int) []byte {
 	b := make([]byte, n)
 	rand.Read(b)
 	return b
 }
 
+//nolint:unused
 func generateRandomHex(n int) string {
-	b := generateRandomBytes(n)
+	b := make([]byte, n)
+	rand.Read(b)
 	return hex.EncodeToString(b)
 }

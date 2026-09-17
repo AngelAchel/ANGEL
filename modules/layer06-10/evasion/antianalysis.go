@@ -3,6 +3,7 @@ package evasion
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"math"
 	"os"
@@ -70,7 +71,7 @@ func (e *AntiAnalysisEngine) RunAll() []DetectionResult {
 	e.mu.RLock()
 	defer e.mu.RUnlock()
 
-	var results []DetectionResult
+	results := make([]DetectionResult, 0, len(e.debuggers))
 
 	if e.config.EnableDebuggerChecks {
 		for _, det := range e.debuggers {
@@ -93,7 +94,7 @@ func (e *AntiAnalysisEngine) RunAll() []DetectionResult {
 func (e *AntiAnalysisEngine) RunDebuggerChecks() []DetectionResult {
 	e.mu.RLock()
 	defer e.mu.RUnlock()
-	var results []DetectionResult
+	results := make([]DetectionResult, 0, len(e.debuggers))
 	for _, det := range e.debuggers {
 		results = append(results, det.Detect())
 	}
@@ -103,7 +104,7 @@ func (e *AntiAnalysisEngine) RunDebuggerChecks() []DetectionResult {
 func (e *AntiAnalysisEngine) RunVMChecks() []DetectionResult {
 	e.mu.RLock()
 	defer e.mu.RUnlock()
-	var results []DetectionResult
+	results := make([]DetectionResult, 0, len(e.vms))
 	for _, det := range e.vms {
 		results = append(results, det.Detect())
 	}
@@ -113,7 +114,7 @@ func (e *AntiAnalysisEngine) RunVMChecks() []DetectionResult {
 func (e *AntiAnalysisEngine) RunSandboxChecks() []DetectionResult {
 	e.mu.RLock()
 	defer e.mu.RUnlock()
-	var results []DetectionResult
+	results := make([]DetectionResult, 0, len(e.sandboxes))
 	for _, det := range e.sandboxes {
 		results = append(results, det.Detect())
 	}
@@ -850,11 +851,6 @@ func isCommonVMUser() bool {  //nolint:unused
 	return false
 }
 
-func generateHash(input string) string {
-	h := sha256.Sum256([]byte(input))
-	return fmt.Sprintf("%x", h)
-}  //nolint:staticcheck
-  //nolint:staticcheck
 func detectEnvironmentFingerprint() string {  //nolint:unused
 	fingerprint := fmt.Sprintf("%s-%s-%s-%d",
 		runtime.GOOS,
@@ -862,7 +858,7 @@ func detectEnvironmentFingerprint() string {  //nolint:unused
 		currentUser(),
 		time.Now().UnixNano(),
 	)
-	return generateHash(fingerprint)[:16]
+	return fingerprint[:min(16, len(fingerprint))]
 }  //nolint:staticcheck
   //nolint:staticcheck
 func calculateRiskScore(results []DetectionResult) float64 {  //nolint:unused
@@ -881,4 +877,10 @@ func calculateRiskScore(results []DetectionResult) float64 {  //nolint:unused
 		return 0.0
 	}
 	return math.Min(total/float64(count), 1.0)
+}
+
+//nolint:unused
+func generateHash(data []byte) string {
+	hash := sha256.Sum256(data)
+	return hex.EncodeToString(hash[:])
 }

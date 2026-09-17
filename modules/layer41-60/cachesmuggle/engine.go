@@ -36,7 +36,7 @@ func (e *Engine) RequestSmuggle(targetURL string) (*CacheSmuggleResult, error) {
 }
 
 func (e *Engine) generateSmuggleVariants(targetURL string) []RequestSmuggleResult {
-	variants := make([]RequestSmuggleResult, 0)
+	variants := make([]RequestSmuggleResult, 0, 4)
 
 	variants = append(variants, RequestSmuggleResult{
 		Variant: "CL-TE",
@@ -97,7 +97,7 @@ func (e *Engine) ResponseSplit(targetURL string) (*CacheSmuggleResult, error) {
 }
 
 func (e *Engine) generateResponseSplits(targetURL string) []ResponseSplitResult {
-	splits := make([]ResponseSplitResult, 0)
+	splits := make([]ResponseSplitResult, 0, 3)
 
 	splits = append(splits, ResponseSplitResult{
 		Header:      "Set-Cookie: session=evil\r\n\r\n<script>alert(1)</script>",
@@ -148,9 +148,8 @@ func (e *Engine) CacheKeyPoison(targetURL string) (*CacheSmuggleResult, error) {
 }
 
 func (e *Engine) analyzeCacheKeyPoisoning(targetURL string) []CacheKeyPoisonResult {
-	poisons := make([]CacheKeyPoisonResult, 0)
-
 	unkeyedParams := []string{
+		"session", "sid", "PHPSESSID", "token", "auth",
 		"utm_source",
 		"utm_medium",
 		"utm_campaign",
@@ -159,6 +158,7 @@ func (e *Engine) analyzeCacheKeyPoisoning(targetURL string) []CacheKeyPoisonResu
 		"callback",
 		"json",
 	}
+	poisons := make([]CacheKeyPoisonResult, 0, len(unkeyedParams))
 
 	for _, param := range unkeyedParams {
 		poisons = append(poisons, CacheKeyPoisonResult{
@@ -229,7 +229,7 @@ func (e *Engine) getCDNAbuseTechniques(cdnType string) []string {
 }
 
 func (e *Engine) AnalyzeCacheHeaders(headers map[string]string) []CacheHeader {
-	result := make([]CacheHeader, 0)
+	result := make([]CacheHeader, 0, len(headers))
 
 	unkeyed := []string{
 		"X-Forwarded-Host",

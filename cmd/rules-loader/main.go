@@ -1,3 +1,4 @@
+// Package rules_loader loads security rules for ANGEL.
 package main
 
 import (

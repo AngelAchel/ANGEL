@@ -19,15 +19,16 @@ func NewEngine(config PurpleTeamConfig) *Engine {
 }
 
 func (e *Engine) AlertValidation(alertID string) []AlertValidation {
-	var validations []AlertValidation
-
 	rules := []DetectionRule{
 		{Name: "Suspicious PowerShell Execution", ID: "SIGMA-001", MITRETechs: []string{"T1059.001"}, Severity: "high", Enabled: true},
 		{Name: "Lateral Movement PsExec", ID: "SIGMA-002", MITRETechs: []string{"T1021.002"}, Severity: "critical", Enabled: true},
 		{Name: "Credential Dumping", ID: "SIGMA-003", MITRETechs: []string{"T1003"}, Severity: "critical", Enabled: true},
 		{Name: "Data Exfiltration Over DNS", ID: "SIGMA-004", MITRETechs: []string{"T1048.003"}, Severity: "high", Enabled: true},
 		{Name: "Persistence via Scheduled Task", ID: "SIGMA-005", MITRETechs: []string{"T1053.005"}, Severity: "high", Enabled: true},
+		{Name: "Privilege Escalation UAC Bypass", ID: "SIGMA-006", MITRETechs: []string{"T1548.002"}, Severity: "high", Enabled: true},
 	}
+
+	validations := make([]AlertValidation, 0, len(rules))
 
 	for _, rule := range rules {
 		val := AlertValidation{
@@ -47,8 +48,6 @@ func (e *Engine) AlertValidation(alertID string) []AlertValidation {
 }
 
 func (e *Engine) DetectionRuleTest() []DetectionTest {
-	var tests []DetectionTest
-
 	techniques := []struct {
 		tactic   string
 		techID   string
@@ -65,6 +64,8 @@ func (e *Engine) DetectionRuleTest() []DetectionTest {
 		{"Collection", "T1560", "Archive Collected Data"},
 		{"Exfiltration", "T1041", "Exfiltration Over C2 Channel"},
 	}
+
+	tests := make([]DetectionTest, 0, len(techniques))
 
 	for i, tech := range techniques {
 		test := DetectionTest{
@@ -87,8 +88,6 @@ func (e *Engine) DetectionRuleTest() []DetectionTest {
 }
 
 func (e *Engine) LogCoverageTest() []MITREMapping {
-	var coverage []MITREMapping
-
 	tactics := []struct {
 		id        string
 		name      string
@@ -101,6 +100,8 @@ func (e *Engine) LogCoverageTest() []MITREMapping {
 		{"TA0005", "Defense Evasion", []string{"T1027", "T1070", "T1562"}, []string{"Obfuscated Files", "Indicator Removal", "Impair Defenses"}},
 		{"TA0006", "Credential Access", []string{"T1003", "T1110", "T1555"}, []string{"OS Credential Dumping", "Brute Force", "Credentials from Password Stores"}},
 	}
+
+	coverage := make([]MITREMapping, 0, len(tactics))
 
 	for _, tactic := range tactics {
 		detected := 0
@@ -126,7 +127,7 @@ func (e *Engine) LogCoverageTest() []MITREMapping {
 }
 
 func (e *Engine) MITREMapping(techniqueIDs []string) []MITREMapping {
-	var mappings []MITREMapping
+	mappings := make([]MITREMapping, 0, len(techniqueIDs))
 
 	techniqueToTactic := map[string]struct {
 		tactic string

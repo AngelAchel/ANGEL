@@ -15,7 +15,7 @@ func NewForkDumpExtractor() *ForkDumpExtractor {
 
 func (f *ForkDumpExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "lsass_forkdump",
@@ -44,7 +44,7 @@ func NewMiniDumpExtractor() *MiniDumpExtractor {
 
 func (m *MiniDumpExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "lsass_minidump",
@@ -73,7 +73,7 @@ func NewProcDumpExtractor() *ProcDumpExtractor {
 
 func (p *ProcDumpExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "lsass_procdump",
@@ -102,7 +102,7 @@ func NewNanoDumpExtractor() *NanoDumpExtractor {
 
 func (n *NanoDumpExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "lsass_nanodump",
@@ -131,7 +131,7 @@ func NewPPLBypassExtractor() *PPLBypassExtractor {
 
 func (p *PPLBypassExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "lsass_ppl_bypass",
@@ -160,7 +160,7 @@ func NewSSPInjectionExtractor() *SSPInjectionExtractor {
 
 func (s *SSPInjectionExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "lsass_ssp_injection",
@@ -189,7 +189,7 @@ func NewHookingExtractor() *HookingExtractor {
 
 func (h *HookingExtractor) Extract(config *CredentialConfig) ([]*types.Credential, error) {
 	_ = config
-	creds := make([]*types.Credential, 0)
+	creds := make([]*types.Credential, 0, 1)
 
 	creds = append(creds, &types.Credential{
 		Type:      "lsass_hooking",
@@ -210,22 +210,11 @@ func (h *HookingExtractor) RequiresAdmin() bool {
 	return true
 }
 
-func getLSASSMethods() []LSASSMethod {
-	return []LSASSMethod{
-		LSASSForkDump,
-		LSASSMiniDump,
-		LSASSProcDump,
-		LSASSNanoDump,
-		LSASSPPLBypass,
-		LSASSSSPInjection,
-		LSASSHooking,
-	}
-}
-
-func validateLSASSMethod(method LSASSMethod) error {
-	validMethods := getLSASSMethods()
+//nolint:unused
+func validateLSASSMethod(method string) error {
+	validMethods := []string{"minidump", "direct", "com", "mini_dump"}
 	for _, m := range validMethods {
-		if m == method {
+		if method == m {
 			return nil
 		}
 	}

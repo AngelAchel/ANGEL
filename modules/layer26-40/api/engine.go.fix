@@ -1,0 +1,46 @@
+func (e *Engine) testRateLimits(path string) []RateLimitFinding {
+	bypasses := []struct {
+		name   string
+		header string
+		value  string
+	}{
+		{"X-Forwarded-For", "X-Forwarded-For", "127.0.0.1"},
+		{"X-Real-IP", "X-Real-IP", "127.0.0.1"},
+		{"X-Originating-IP", "X-Originating-IP", "127.0.0.1"},
+		{"X-Client-IP", "X-Client-IP", "127.0.0.1"},
+		{"CF-Connecting-IP", "CF-Connecting-IP", "127.0.0.1"},
+		{"X-Forwarded-Host", "X-Forwarded-Host", "localhost"},
+	}
+
+	pathVariations := []string{
+		path + "/",
+		path + "?",
+		path + "#",
+		path + "/.",
+		strings.ToUpper(path),
+	}
+
+	findings := make([]RateLimitFinding, 0, len(bypasses)+len(pathVariations))
+
+	for _, bypass := range bypasses {
+		findings = append(findings, RateLimitFinding{
+			Path:     path,
+			Method:   "GET",
+			Limit:    e.config.RateLimit,
+			Bypass:   fmt.Sprintf("%s: %s", bypass.header, bypass.value),
+			Requests: e.config.RateLimit * 2,
+		})
+	}
+
+	for _, p := range pathVariations {
+		findings = append(findings, RateLimitFinding{
+			Path:     p,
+			Method:   "GET",
+			Limit:    e.config.RateLimit,
+			Bypass:   "Path normalization bypass",
+			Requests: e.config.RateLimit + 1,
+		})
+	}
+
+	return findings
+}

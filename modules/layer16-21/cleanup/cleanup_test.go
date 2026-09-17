@@ -9,10 +9,16 @@ import (
 func TestCredentialCleanupRevoke(t *testing.T) {
 	dir := t.TempDir()
 
-	// Create dummy credential files
-	_ = os.WriteFile(filepath.Join(dir, "credentials.json"), []byte("test"), 0600)
-	_ = os.WriteFile(filepath.Join(dir, ".credentials"), []byte("test"), 0600)
-	_ = os.WriteFile(filepath.Join(dir, "creds.tmp"), []byte("test"), 0600)
+	// Create test credential files
+	if err := os.WriteFile(filepath.Join(dir, "credentials.json"), []byte("test"), 0600); err != nil {
+		t.Fatalf("Failed to create credentials.json: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, ".credentials"), []byte("test"), 0600); err != nil {
+		t.Fatalf("Failed to create .credentials: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "creds.tmp"), []byte("test"), 0600); err != nil {
+		t.Fatalf("Failed to create creds.tmp: %v", err)
+	}
 
 	config := &CleanupConfig{BasePath: dir}
 	cc := NewCredentialCleanup(config)

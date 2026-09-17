@@ -1,3 +1,4 @@
+// Package middleware provides HTTP middleware for the ANGEL gateway.
 package middleware
 //nolint:staticcheck
 

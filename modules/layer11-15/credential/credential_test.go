@@ -356,7 +356,7 @@ func TestDefaultCredentialConfig(t *testing.T) {
 }
 
 func TestValidateLSASSMethod(t *testing.T) {
-	if err := validateLSASSMethod(LSASSMiniDump); err != nil {
+	if err := validateLSASSMethod("mini_dump"); err != nil {
 		t.Errorf("MiniDump should be valid: %v", err)
 	}
 
@@ -366,7 +366,7 @@ func TestValidateLSASSMethod(t *testing.T) {
 }
 
 func TestValidateSAMMethod(t *testing.T) {
-	if err := validateSAMMethod(SAMRegistryDump); err != nil {
+	if err := validateSAMMethod("registry_dump"); err != nil {
 		t.Errorf("RegistryDump should be valid: %v", err)
 	}
 
@@ -376,7 +376,7 @@ func TestValidateSAMMethod(t *testing.T) {
 }
 
 func TestValidateBrowserType(t *testing.T) {
-	if err := validateBrowserType(BrowserChrome); err != nil {
+	if err := validateBrowserType("chrome"); err != nil {
 		t.Errorf("Chrome should be valid: %v", err)
 	}
 
@@ -386,7 +386,7 @@ func TestValidateBrowserType(t *testing.T) {
 }
 
 func TestValidateWalletType(t *testing.T) {
-	if err := validateWalletType(WalletMetaMask); err != nil {
+	if err := validateWalletType("metamask"); err != nil {
 		t.Errorf("MetaMask should be valid: %v", err)
 	}
 
@@ -396,7 +396,7 @@ func TestValidateWalletType(t *testing.T) {
 }
 
 func TestValidateTokenMethod(t *testing.T) {
-	if err := validateTokenMethod(TokenImpersonation); err != nil {
+	if err := validateTokenMethod("primary"); err != nil {
 		t.Errorf("TokenImpersonation should be valid: %v", err)
 	}
 

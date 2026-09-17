@@ -220,9 +220,8 @@ func (e *Engine) BuildNSEC3Hash(domain string, salt string, iterations int) stri
 }
 
 func (e *Engine) EnumerateZone(domain string) []string {
-	records := make([]string, 0)
-
 	recordTypes := []string{"A", "AAAA", "MX", "NS", "SOA", "TXT", "SRV", "CNAME"}
+	records := make([]string, 0, len(recordTypes))
 	for _, rt := range recordTypes {
 		records = append(records, fmt.Sprintf("%s. %s 300 IN %s 10.0.0.1", domain, rt, rt))
 	}

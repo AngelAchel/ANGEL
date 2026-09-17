@@ -1,3 +1,4 @@
+// Package types provides shared types for ANGEL.
 package types
 
 import (

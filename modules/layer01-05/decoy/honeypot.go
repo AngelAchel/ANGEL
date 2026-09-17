@@ -88,7 +88,9 @@ func (h *Honeypot) handleLogin(w http.ResponseWriter, r *http.Request) {
 	h.logActivity(r.RemoteAddr, "login_attempt", "login page", "medium")
 
 	if r.Method == http.MethodPost {
-		_ = r.ParseForm()
+		if err := r.ParseForm(); err != nil {
+			log.Printf("Honeypot form parse error: %v", err)
+		}
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 
@@ -106,13 +108,15 @@ func (h *Honeypot) handleLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/html")
-	_, _ = fmt.Fprintf(w, "<html><head><title>Login</title></head>\n"+
+	if _, err := fmt.Fprintf(w, "<html><head><title>Login</title></head>\n"+
 		"<body><h1>Secure Login</h1>\n"+
 		"<form method=\"POST\">\n"+
 		"<input type=\"text\" name=\"username\" placeholder=\"Username\">\n"+
 		"<input type=\"password\" name=\"password\" placeholder=\"Password\">\n"+
 		"<button type=\"submit\">Login</button>\n"+
-		"</form></body></html>")
+		"</form></body></html>"); err != nil {
+		log.Printf("Honeypot login page write error: %v", err)
+	}
 }
 
 func (h *Honeypot) handleAdmin(w http.ResponseWriter, r *http.Request) {
@@ -138,9 +142,11 @@ func (h *Honeypot) handleMySQL(w http.ResponseWriter, r *http.Request) {
 func (h *Honeypot) serveDecoyPage(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Server", "Apache/2.4.52 (Ubuntu)")
 	w.Header().Set("Content-Type", "text/html")
-	_, _ = fmt.Fprintf(w, "<html><head><title>Welcome</title></head>\n"+
+	if _, err := fmt.Fprintf(w, "<html><head><title>Welcome</title></head>\n"+
 		"<body><h1>Welcome to our website</h1>\n"+
-		"<p>This page is under construction.</p></body></html>")
+		"<p>This page is under construction.</p></body></html>"); err != nil {
+		log.Printf("Honeypot decoy page write error: %v", err)
+	}
 }
 
 func (h *Honeypot) logActivity(ip, action, details, severity string) {

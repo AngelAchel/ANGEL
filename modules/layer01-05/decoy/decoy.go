@@ -60,16 +60,20 @@ func (d *DecoyServer) handleRoot(w http.ResponseWriter, r *http.Request) {
 	d.logVisitor(r)
 	w.Header().Set("Server", "nginx/1.24.0")
 	w.Header().Set("Content-Type", "text/html")
-	_, _ = fmt.Fprintf(w, `<html><head><title>Welcome</title></head>
+	if _, err := fmt.Fprintf(w, `<html><head><title>Welcome</title></head>
 <body><h1>Welcome to our website</h1>
-<p>This page is under construction.</p></body></html>`)
+<p>This page is under construction.</p></body></html>`); err != nil {
+		log.Printf("Decoy root page write error: %v", err)
+	}
 }
 
 func (d *DecoyServer) handleLogin(w http.ResponseWriter, r *http.Request) {
 	d.logVisitor(r)
 
 	if r.Method == http.MethodPost {
-		_ = r.ParseForm()
+		if err := r.ParseForm(); err != nil {
+			log.Printf("Decoy form parse error: %v", err)
+		}
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 
@@ -82,13 +86,15 @@ func (d *DecoyServer) handleLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/html")
-	_, _ = fmt.Fprintf(w, `<html><head><title>Login</title></head>
+	if _, err := fmt.Fprintf(w, `<html><head><title>Login</title></head>
 <body><h1>Login</h1>
 <form method="POST">
 <input type="text" name="username" placeholder="Username">
 <input type="password" name="password" placeholder="Password">
 <button type="submit">Login</button>
-</form></body></html>`)
+</form></body></html>`); err != nil {
+		log.Printf("Decoy login page write error: %v", err)
+	}
 }
 
 func (d *DecoyServer) handleAdmin(w http.ResponseWriter, r *http.Request) {
@@ -99,7 +105,9 @@ func (d *DecoyServer) handleAdmin(w http.ResponseWriter, r *http.Request) {
 func (d *DecoyServer) handleAPI(w http.ResponseWriter, r *http.Request) {
 	d.logVisitor(r)
 	w.Header().Set("Content-Type", "application/json")
-	_, _ = fmt.Fprintf(w, `{"status": "ok"}`)
+	if _, err := fmt.Fprintf(w, `{"status": "ok"}`); err != nil {
+		log.Printf("Decoy API write error: %v", err)
+	}
 }
 
 func (d *DecoyServer) logVisitor(r *http.Request) {

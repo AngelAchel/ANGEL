@@ -182,7 +182,7 @@ func (e *Engine) BackupExtract() MobileResult {
   //nolint:staticcheck
 func (e *Engine) enumerateKeychainItems() []KeychainItem {  //nolint:unused
 	accessGroups := []string{"keychain-access-groups", "app-group.angel.local"}
-	var items []KeychainItem
+	items := make([]KeychainItem, 0, len(accessGroups))
 	for _, ag := range accessGroups {
 		items = append(items, KeychainItem{
 			Service:   ag,
@@ -197,7 +197,6 @@ func (e *Engine) enumerateKeychainItems() []KeychainItem {  //nolint:unused
 }  //nolint:staticcheck
   //nolint:staticcheck
 func (e *Engine) analyzeSSLChain(host string) []SSLCertInfo {  //nolint:unused
-	var certs []SSLCertInfo
 	chain := []struct {
 		issuer    string
 		algorithm string
@@ -206,6 +205,8 @@ func (e *Engine) analyzeSSLChain(host string) []SSLCertInfo {  //nolint:unused
 		{"Intermediate CA", "RSA-2048"},
 		{host, "ECDSA-256"},
 	}
+
+	certs := make([]SSLCertInfo, 0, len(chain))
 
 	for _, c := range chain {
 		certs = append(certs, SSLCertInfo{

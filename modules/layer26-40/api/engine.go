@@ -205,8 +205,6 @@ func (e *Engine) analyzeJWT(token string) []JWTIssue {
 }
 
 func (e *Engine) testRateLimits(path string) []RateLimitFinding {
-	var findings []RateLimitFinding
-
 	bypasses := []struct {
 		name   string
 		header string
@@ -220,6 +218,16 @@ func (e *Engine) testRateLimits(path string) []RateLimitFinding {
 		{"X-Forwarded-Host", "X-Forwarded-Host", "localhost"},
 	}
 
+	pathVariations := []string{
+		path + "/",
+		path + "?",
+		path + "#",
+		path + "/.",
+		strings.ToUpper(path),
+	}
+
+	findings := make([]RateLimitFinding, 0, len(bypasses)+len(pathVariations))
+
 	for _, bypass := range bypasses {
 		findings = append(findings, RateLimitFinding{
 			Path:     path,
@@ -228,14 +236,6 @@ func (e *Engine) testRateLimits(path string) []RateLimitFinding {
 			Bypass:   fmt.Sprintf("%s: %s", bypass.header, bypass.value),
 			Requests: e.config.RateLimit * 2,
 		})
-	}
-
-	pathVariations := []string{
-		path + "/",
-		path + "?",
-		path + "#",
-		path + "/.",
-		strings.ToUpper(path),
 	}
 
 	for _, p := range pathVariations {
@@ -252,8 +252,6 @@ func (e *Engine) testRateLimits(path string) []RateLimitFinding {
 }
 
 func (e *Engine) detectIDORPatterns(basePath string) []IDORFinding {
-	var findings []IDORFinding
-
 	patterns := []struct {
 		path    string
 		param   string
@@ -266,6 +264,8 @@ func (e *Engine) detectIDORPatterns(basePath string) []IDORFinding {
 		{basePath + "/files/{filename}", "filename", "path_traversal", "Filename parameter vulnerable to path traversal"},
 		{basePath + "/reports/{report_id}", "report_id", "sequential_id", "Report ID enumerable"},
 	}
+
+	findings := make([]IDORFinding, 0, len(patterns))
 
 	for _, p := range patterns {
 		findings = append(findings, IDORFinding{

@@ -1,3 +1,4 @@
+// Package mdns provides mDNS/LLMNR/NBT-NS poisoning for ANGEL.
 package mdns
 
 import (
@@ -235,7 +236,7 @@ func (e *Engine) encodeNetBIOSName(name string) []byte {
 		name = name[:15]
 	}
 	padded := fmt.Sprintf("%-16s", name)
-	var encoded []byte
+	encoded := make([]byte, 0, len(padded))
 	for _, ch := range padded {
 		encoded = append(encoded, byte(((ch-'A'+1)<<4)&0xF0|((ch-'A'+1)&0x0F)))
 	}
