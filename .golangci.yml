@@ -3,7 +3,12 @@ version: "2"
 run:
   timeout: 30m
   modules-download-mode: readonly
-  tests: false
+  tests: true
+  skip-dirs:
+    - vendor
+    - node_modules
+  skip-files:
+    - *_test.go
 
 linters:
   enable:
@@ -16,11 +21,33 @@ linters:
     - nakedret
     - prealloc
     - unconvert
+    - gofmt
+    - goimports
   disable:
     - depguard
     - revive
 
+linters-settings:
+  gofmt:
+    simplify: true
+  goimports:
+    local-prefix: github.com/angel-platform/angel
+
 issues:
-  exclude-use-default: true
+  exclude-use-default: false
   max-issues-per-linter: 50
   max-same-issues: 5
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+        - nakedret
+    - path: vendor/
+      linters:
+        - errcheck
+        - staticcheck
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  path-prefix: ""

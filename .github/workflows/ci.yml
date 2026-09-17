@@ -8,17 +8,22 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Lint & Format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.27'
-      - name: Run golangci-lint
+          go-version: '1.22'
+      - name: Install golangci-lint
         run: |
           curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.60.3
-          $(go env GOPATH)/bin/golangci-lint run --no-config ./...
+      - name: Check formatting
+        run: |
+          test -z "$(gofmt -l .)" && echo "All files formatted" || (echo "Formatting issues found" && gofmt -l . && exit 1)
+      - name: Run golangci-lint
+        run: |
+          $(go env GOPATH)/bin/golangci-lint run --config .golangci.yml ./...
 
   build:
     name: Build
@@ -27,9 +32,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.27'
+          go-version: '1.22'
       - name: Build
-        run: go build ./...
+        run: |
+          go mod tidy
+          go build ./...
 
   test:
     name: Test
@@ -38,9 +45,24 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.27'
+          go-version: '1.22'
       - name: Test
-        run: go test ./...
+        run: |
+          go mod tidy
+          go test -race -count=1 ./...
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Run gosec
+        run: |
+          go install github.com/securego/gosec/v2/cmd/gosec@latest
+          $(go env GOPATH)/bin/gosec ./...
 
   cross-compile:
     name: Cross Compile
@@ -53,9 +75,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.27'
+          go-version: '1.22'
       - name: Build
         run: |
-          CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o bin/angel-${{ matrix.os }}-${{ matrix.arch }} ./cmd/angel
+          CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o bin/angel-${{ matrix.os }}-${{ matrix.arch }} ./cmd/teamserver
           CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o bin/angel-console-${{ matrix.os }}-${{ matrix.arch }} ./cmd/console
-          CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o bin/angel-generate-${{ matrix.os }}-${{ matrix.arch }} ./cmd/generator
+          CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o bin/angel-rules-${{ matrix.os }}-${{ matrix.arch }} ./cmd/rules-loader
+
+  docker:
+    name: Docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate docker compose
+        run: |
+          docker compose config --validate
