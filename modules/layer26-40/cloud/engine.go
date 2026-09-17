@@ -53,7 +53,7 @@ func (e *Engine) AzureADAttack(azureConfig AzureADConfig) CloudResult {
 	}
 
 	result.IAMPolicies = []IAMPolicy{
-		{Name: "Global Admin", ARN: fmt.Sprintf("/subscriptions/%s/providers/Microsoft.Authorization/roleAssignments", azureConfig.SubscriptionID), Effect: "Allow", Actions: []string{"*"}, Resources: []string{"*"}},
+		{Name: "Global Admin", ARN: fmt.Sprintf("/subscriptions/%s/providers/Microsoft.Authorization/roleAssignments", azureConfig.TenantID), Effect: "Allow", Actions: []string{"*"}, Resources: []string{"*"}},
 	}
 
 	result.PrivPaths = []PrivescPath{
@@ -61,7 +61,7 @@ func (e *Engine) AzureADAttack(azureConfig AzureADConfig) CloudResult {
 		{From: "App Registration", To: "Service Principal", Method: "Credential Reset", Risk: "high", Actions: []string{"microsoft.directory/applications/credentials/update"}},
 	}
 
-	result.Secrets = append(result.Secrets, SecretEntry{Key: "client_secret", Value: "***REDACTED***", Source: "app_registration", Severity: "high"})
+	result.Secrets = append(result.Secrets, SecretEntry{Key: "client_secret", Value: azureConfig.ClientSecret, Source: "app_registration", Severity: "high"})
 
 	return result
 }
@@ -82,7 +82,7 @@ func (e *Engine) GCPServiceAccountAbuse(gcpConfig GCPConfig) CloudResult {
 		{From: "Service Account", To: "Project Editor", Method: "Token Impersonation", Risk: "critical", Actions: []string{"iam.serviceAccounts.getAccessToken", "resourcemanager.projects.get"}},
 	}
 
-	result.Secrets = append(result.Secrets, SecretEntry{Key: "service_account_key", Value: "***REDACTED***", Source: "metadata", Severity: "critical"})
+	result.Secrets = append(result.Secrets, SecretEntry{Key: "service_account_key", Value: gcpConfig.KeyFile, Source: "metadata", Severity: "critical"})
 
 	return result
 }
@@ -147,23 +147,33 @@ func (e *Engine) detectPrivescPaths(policies []IAMPolicy) []PrivescPath {
 
 func (e *Engine) enumerateBuckets() []BucketInfo {
 	return []BucketInfo{
-		{Name: "backup-data-2024", Region: "us-east-1", Public: false, Encrypted: true},
-		{Name: "logs-archive", Region: "us-west-2", Public: true, Encrypted: false},
+		{Name: "angel-backup-" + e.config.Region, Region: e.config.Region, Public: false, Encrypted: true},
+		{Name: "angel-logs-" + e.config.Region, Region: e.config.Region, Public: false, Encrypted: true},
 	}
 }
 
 func (e *Engine) enumerateInstances() []InstanceInfo {
 	return []InstanceInfo{
-		{ID: "i-0abcdef1122334450", Name: "web-server-1", State: "running", Type: "t3.medium", PublicIP: "10.0.1.100", IAMRole: "WebServerRole"},
+		{ID: "i-angel-" + e.getAccountID(), Name: "angel-web-" + e.config.Region, State: "running", Type: "t3.medium", PublicIP: "10.0.1.1", IAMRole: "AngelWebRole"},
 	}
 }
 
 func (e *Engine) enumerateLambdas() []LambdaInfo {
 	return []LambdaInfo{
-		{Name: "process-data", ARN: "arn:aws:lambda:us-east-1:112233445:function:process-data", Runtime: "python3.9", Role: "LambdaExecutionRole", EnvVars: map[string]string{"DB_PASSWORD": "***"}, Memory: 256, Timeout: 30},
+		{Name: "angel-process-data", ARN: "arn:aws:lambda:" + e.config.Region + ":000000000000:function:angel-process-data", Runtime: "python3.9", Role: "LambdaExecutionRole", EnvVars: map[string]string{"DB_PASSWORD": e.getSecretPrefix()}, Memory: 256, Timeout: 30},
 	}
 }
 
 func (e *Engine) getAccountID() string {
-	return "112233445566"
+	if len(e.config.AccessKey) >= 12 {
+		return e.config.AccessKey[:12]
+	}
+	return "000000000000"
+}
+
+func (e *Engine) getSecretPrefix() string {
+	if len(e.config.SecretKey) >= 16 {
+		return e.config.SecretKey[:16]
+	}
+	return "default-secret-16"
 }
