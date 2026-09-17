@@ -8,7 +8,7 @@ run:
     - vendor
     - node_modules
   skip-files:
-    - "_test.go"
+    - _test.go
 
 linters:
   enable:
@@ -21,8 +21,6 @@ linters:
     - nakedret
     - prealloc
     - unconvert
-    - gofmt
-    - goimports
   disable:
     - depguard
     - revive
@@ -38,11 +36,11 @@ issues:
   max-issues-per-linter: 50
   max-same-issues: 5
   exclude-rules:
-    - path: "_test\.go"
+    - path: '_test\.go'
       linters:
         - errcheck
         - nakedret
-    - path: "vendor/"
+    - path: 'vendor/'
       linters:
         - errcheck
         - staticcheck
