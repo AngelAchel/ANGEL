@@ -105,7 +105,9 @@ docker compose logs -f angel-teamserver
 ## >> LEGAL
 
 ⚠️ Only authorized systems. Contract + written permission required.
+
 ⚠️ For official offensive security engagement only.
+
 ⚠️ All activity logged via evidence ledger.
 
 ---
