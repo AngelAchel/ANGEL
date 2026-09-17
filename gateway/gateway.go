@@ -1,6 +1,7 @@
 package gateway
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -228,6 +229,26 @@ func (gw *Gateway) Start() error {
 
 func (gw *Gateway) Stop() error {
 	return gw.server.Close()
+}
+
+func (gw *Gateway) Shutdown(ctx context.Context) error {
+	return gw.server.Shutdown(ctx)
+}
+
+// Addr returns the gateway address for testing purposes.
+func (gw *Gateway) Addr() string {
+	return fmt.Sprintf("%s:%d", gw.config.Addr, gw.config.Port)
+}
+
+// Config returns the gateway configuration for testing purposes.
+func (gw *Gateway) Config() *Config {
+	return gw.config
+}
+
+// SetPort sets the gateway port and updates the server address.
+func (gw *Gateway) SetPort(port int) {
+	gw.config.Port = port
+	gw.server.Addr = fmt.Sprintf("%s:%d", gw.config.Addr, port)
 }
 
 func (gw *Gateway) writeJSON(w http.ResponseWriter, status int, data interface{}) {

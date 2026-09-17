@@ -1,6 +1,8 @@
 package integration
 
 import (
+	"fmt"
+	"net/http"
 	"testing"
 	"time"
 
@@ -42,9 +44,8 @@ func TestIntegrationFullWorkflow(t *testing.T) {
 		if gw == nil {
 			t.Fatal("expected non-nil gateway")
 		}
-		gw.Start() //nolint:errcheck
-		time.Sleep(50 * time.Millisecond)
-		gw.Stop() //nolint:errcheck
+		cleanup := StartGateway(t, gw)
+		defer cleanup()
 	})
 
 	t.Run("GatewayHealthCheck", func(t *testing.T) {
@@ -52,9 +53,13 @@ func TestIntegrationFullWorkflow(t *testing.T) {
 		if gw == nil {
 			t.Fatal("expected non-nil gateway")
 		}
-		gw.Start() //nolint:errcheck
-		time.Sleep(50 * time.Millisecond)
-		gw.Stop() //nolint:errcheck
+		cleanup := StartGateway(t, gw)
+		defer cleanup()
+		resp, err := http.Get(fmt.Sprintf("http://localhost:%d/api/v1/health", gw.Config().Port))
+		if err != nil {
+			t.Fatalf("health check failed: %v", err)
+		}
+		resp.Body.Close()
 	})
 }
 

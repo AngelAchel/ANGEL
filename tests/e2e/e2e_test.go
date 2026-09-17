@@ -1,8 +1,9 @@
 package e2e
 
 import (
+	"fmt"
+	"net/http"
 	"testing"
-	"time"
 
 	"github.com/angel-platform/angel/gateway"
 	"github.com/angel-platform/angel/orchestrator"
@@ -122,9 +123,8 @@ func TestE2EOrchestratorWorkflow(t *testing.T) {
 		if gw == nil {
 			t.Fatal("expected non-nil gateway")
 		}
-		gw.Start() //nolint:errcheck
-		time.Sleep(50 * time.Millisecond)
-		gw.Stop() //nolint:errcheck
+		cleanup := StartGateway(t, gw)
+		defer cleanup()
 	})
 }
 
@@ -134,9 +134,13 @@ func TestE2EGatewayCRUD(t *testing.T) {
 		t.Fatal("expected non-nil gateway")
 	}
 
-	gw.Start() //nolint:errcheck
-	time.Sleep(50 * time.Millisecond)
+	cleanup := StartGateway(t, gw)
+	defer cleanup()
 
-	// Verify health endpoint
-	gw.Stop() //nolint:errcheck
+	// Verify health endpoint is accessible
+	resp, err := http.Get(fmt.Sprintf("http://localhost:%d/api/v1/health", gw.Config().Port))
+	if err != nil {
+		t.Fatalf("health check failed: %v", err)
+	}
+	resp.Body.Close()
 }
