@@ -99,14 +99,14 @@ func (w *WebRecon) TechFingerprint(url string) (*TechStack, error) {
 
 	for tech, marker := range patterns {
 		if strings.Contains(bodyStr, marker) {
-				switch tech {
-				case "React", "Vue.js", "Angular", "jQuery", "Bootstrap":
-					stack.JS = append(stack.JS, tech)
-				case "Google Analytics", "Google Tag Manager":
-					stack.Analytics = append(stack.Analytics, tech)
-				default:
-					stack.Frameworks = append(stack.Frameworks, tech)
-				}
+			switch tech {
+			case "React", "Vue.js", "Angular", "jQuery", "Bootstrap":
+				stack.JS = append(stack.JS, tech)
+			case "Google Analytics", "Google Tag Manager":
+				stack.Analytics = append(stack.Analytics, tech)
+			default:
+				stack.Frameworks = append(stack.Frameworks, tech)
+			}
 		}
 	}
 

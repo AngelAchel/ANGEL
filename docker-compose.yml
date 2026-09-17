@@ -38,7 +38,7 @@ services:
       ENCRYPTION_ALGORITHM: "aes-256-gcm"
       ENCRYPTION_KEY_ROTATION: "24h"
       SUPABASE_URL: "${SUPABASE_URL:-http://localhost:54321}"
-      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY:-anon-key-default}"
+      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY:-ANGEL-ANON-docker-dev}"
       SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-service-role-default}"
     networks:
       - angel-net
@@ -94,7 +94,7 @@ services:
       - ./lab/data:/app/data
     environment:
       SUPABASE_URL: "${SUPABASE_URL:-http://localhost:54321}"
-      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY:-anon-key-default}"
+      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY:-ANGEL-ANON-docker-dev}"
       SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-service-role-default}"
       LOG_LEVEL: "info"
     networks:
