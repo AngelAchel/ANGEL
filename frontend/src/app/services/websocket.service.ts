@@ -9,7 +9,7 @@ import { WebSocketSubject } from 'rxjs/webSocket';
 })
 export class WebSocketService {
   private apiUrl = '/api/v1';
-  private wsUrl = 'ws://localhost:8080/ws';
+  private wsUrl = 'ws://localhost:3000/ws';
   private connections: Map<string, WebSocketSubject<any>> = new Map();
   private messageSubjects: Map<string, Subject<any>> = new Map();
 
