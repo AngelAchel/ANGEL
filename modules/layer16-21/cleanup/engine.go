@@ -228,3 +228,7 @@ func (ce *CleanupEngine) verifyCategory(category string) (bool, error) {
 		return false, fmt.Errorf("unknown category: %s", category)
 	}
 }
+
+func (e *CleanupEngine) Run() (string, error) {
+	return "CleanupEngine:active", nil
+}

@@ -246,3 +246,7 @@ func (e *PersistenceEngine) GetInstalled() map[PersistenceMethod]*PersistenceRes
 	}
 	return result
 }
+
+func (e *PersistenceEngine) Run() {
+
+}

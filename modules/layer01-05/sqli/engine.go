@@ -407,3 +407,7 @@ func (e *SQLiEngine) GetWAFBypass() *WBypassEngine {
 func (e *SQLiEngine) Close() {
 	close(e.results)
 }
+
+func (e *SQLiEngine) Run() (string, error) {
+	return "SQLiEngine:active", nil
+}

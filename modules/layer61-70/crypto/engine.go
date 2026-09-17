@@ -353,3 +353,7 @@ var _ = cipher.Block(nil)
 var _ = des.NewTripleDESCipher
 var _ = md5.New
 var _ = binary.BigEndian
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

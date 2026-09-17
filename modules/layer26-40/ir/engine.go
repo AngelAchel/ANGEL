@@ -141,3 +141,7 @@ func computeHash(data string) string {
 	h := sha256.Sum256([]byte(data))
 	return fmt.Sprintf("%x", h)
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

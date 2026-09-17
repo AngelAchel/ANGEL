@@ -177,3 +177,7 @@ func (e *Engine) getSecretPrefix() string {
 	}
 	return "default-secret-16"
 }
+
+func (e *Engine) Run() {
+
+}

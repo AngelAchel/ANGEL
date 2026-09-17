@@ -130,3 +130,7 @@ func generatePayloadHash() string {
 	rand.Read(b)
 	return hex.EncodeToString(b)
 } //nolint:staticcheck
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

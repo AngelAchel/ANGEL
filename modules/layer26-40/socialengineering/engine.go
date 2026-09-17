@@ -167,3 +167,7 @@ func generateTrackingID() string {
 	rand.Read(b)
 	return hex.EncodeToString(b)
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

@@ -294,3 +294,7 @@ func (e *NetEvasionEngine) evadeDomainFronting(start time.Time) (*EvasionResult,
 func (e *NetEvasionEngine) SetLoggerLevel(level logger.Level) {
 	e.log.SetLevel(level)
 }
+
+func (e *NetEvasionEngine) Run() (string, error) {
+	return "NetEvasionEngine:active", nil
+}

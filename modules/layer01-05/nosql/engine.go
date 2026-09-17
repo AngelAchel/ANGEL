@@ -391,3 +391,7 @@ func (e *NoSQLEngine) hasTechnique(technique InjectionTechnique) bool {
 	}
 	return false
 }
+
+func (e *NoSQLEngine) Run() (string, error) {
+	return "NoSQLEngine:active", nil
+}

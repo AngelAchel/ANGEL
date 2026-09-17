@@ -93,3 +93,7 @@ func (re *ReportEngine) CalculateRiskScore(findings []Finding) float64 {
 	normalized := math.Min(score/float64(len(findings))*2, 10.0)
 	return math.Round(normalized*100) / 100
 }
+
+func (e *ReportEngine) Run() (string, error) {
+	return "ReportEngine:active", nil
+}

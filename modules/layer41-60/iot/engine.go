@@ -290,3 +290,7 @@ func (e *Engine) AnalyzeStrings(data string) []string {
 
 	return suspicious
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

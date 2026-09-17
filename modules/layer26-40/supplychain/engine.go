@@ -249,3 +249,7 @@ func (e *Engine) calculateDockerRisk(issues []DockerIssue) int {
 	}
 	return score
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

@@ -211,3 +211,7 @@ func (o *Orchestrator) IsRunning() bool {
 	defer o.mu.RUnlock()
 	return o.running
 }
+
+func (e *Orchestrator) Run() (string, error) {
+	return "Orchestrator:active", nil
+}

@@ -341,3 +341,7 @@ func isSecretEnvVar(env string) bool {
 	}
 	return false
 } //nolint:staticcheck
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

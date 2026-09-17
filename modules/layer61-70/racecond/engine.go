@@ -181,3 +181,7 @@ func (e *Engine) TimeWindow() RaceCondResult {
 		Remediation: "Ensure atomic operations with proper locking",
 	}
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

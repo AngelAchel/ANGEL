@@ -365,3 +365,7 @@ func (e *Engine) BuildSearchFilter(attribute string, value string, operator stri
 		return fmt.Sprintf("(%s=%s)", attribute, value)
 	}
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

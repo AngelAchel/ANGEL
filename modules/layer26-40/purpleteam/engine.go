@@ -181,3 +181,7 @@ func getSeverity(i int) string {
 		return "low"
 	}
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

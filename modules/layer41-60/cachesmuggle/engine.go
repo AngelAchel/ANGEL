@@ -273,3 +273,7 @@ func (e *Engine) DetectCDN(headers map[string]string) string {
 	}
 	return "Unknown"
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

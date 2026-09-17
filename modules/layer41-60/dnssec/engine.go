@@ -228,3 +228,7 @@ func (e *Engine) EnumerateZone(domain string) []string {
 
 	return records
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

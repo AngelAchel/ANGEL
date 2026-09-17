@@ -179,3 +179,7 @@ func generateJavaPayload(chain []string, cmd string) string {
 	payload := fmt.Sprintf("aced0005 (%d gadgets: %s) cmd: %s", len(chain), strings.Join(chain, " -> "), cmd)
 	return payload
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

@@ -177,3 +177,7 @@ func (e *Engine) BackupExtract() MobileResult {
 
 	return result
 } //nolint:staticcheck
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

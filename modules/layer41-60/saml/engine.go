@@ -299,3 +299,7 @@ func (e *Engine) CheckSameSiteCookie(cookie string) string {
 	}
 	return "none"
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

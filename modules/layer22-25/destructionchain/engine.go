@@ -576,3 +576,7 @@ func (e *DestructionChainEngine) generateReport(target *FullScopeTarget, recon *
 		Timestamp: time.Now(),
 	}
 }
+
+func (e *DestructionChainEngine) Run() (string, error) {
+	return "DestructionChainEngine:active", nil
+}

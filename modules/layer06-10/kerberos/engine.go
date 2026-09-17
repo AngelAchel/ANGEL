@@ -211,3 +211,7 @@ func (e *KerberosEngine) GetConfig() *KerberosConfig {
 	defer e.mu.RUnlock()
 	return e.config
 }
+
+func (e *KerberosEngine) Run() (string, error) {
+	return "KerberosEngine:active", nil
+}

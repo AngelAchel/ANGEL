@@ -216,3 +216,7 @@ func (e *DBPostEngine) exploitMSSQL(creds *DBCreds, result *PostExploitResult) (
 	result.Error = "all MSSQL exploitation techniques failed"
 	return result, nil
 }
+
+func (e *DBPostEngine) Run() (string, error) {
+	return "DBPostEngine:active", nil
+}

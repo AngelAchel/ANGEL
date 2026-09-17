@@ -156,3 +156,7 @@ func (e *LateralEngine) GetMethod(name string) (LateralMethodImpl, bool) {
 func (e *LateralEngine) SetLoggerLevel(level logger.Level) {
 	e.logger.SetLevel(level)
 }
+
+func (e *LateralEngine) Run() (string, error) {
+	return "LateralEngine:active", nil
+}

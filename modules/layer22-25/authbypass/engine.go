@@ -957,3 +957,7 @@ func generateFallbackToken() string {
 	}
 	return string(b)
 }
+
+func (e *AuthBypassEngine) Run() (string, error) {
+	return "AuthBypassEngine:active", nil
+}

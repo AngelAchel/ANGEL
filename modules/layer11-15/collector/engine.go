@@ -216,3 +216,7 @@ func (e *CollectorEngine) GetResults() []*CollectResult {
 func (e *CollectorEngine) SetLoggerLevel(level logger.Level) {
 	e.log.SetLevel(level)
 }
+
+func (e *CollectorEngine) Run() (string, error) {
+	return "CollectorEngine:active", nil
+}

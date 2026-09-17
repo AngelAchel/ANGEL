@@ -194,3 +194,7 @@ func (e *Engine) calculateRiskScore(iocs []IOC) int {
 	}
 	return score
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

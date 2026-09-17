@@ -291,3 +291,7 @@ func (e *Engine) GenerateRedirectChain(urls []string) RedirectChain {
 	chain.Total = len(chain.Steps)
 	return chain
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

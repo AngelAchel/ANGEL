@@ -337,3 +337,7 @@ func (e *Engine) DetectTech(headers http.Header, body string) []string {
 
 	return techs
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

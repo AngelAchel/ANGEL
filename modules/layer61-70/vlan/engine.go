@@ -190,3 +190,7 @@ func buildGraftFrame(tag TagConfig) []byte {
 
 	return frame
 } //nolint:staticcheck
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

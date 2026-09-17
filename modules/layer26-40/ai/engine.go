@@ -219,3 +219,7 @@ func (e *Engine) calculateScore(result AIResult) int {
 	}
 	return score
 } //nolint:staticcheck
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

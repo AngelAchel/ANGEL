@@ -294,3 +294,7 @@ func base64RawURLEncode(data []byte) string {
 func base64RawURLEncodeDecode(s string) ([]byte, error) {
 	return base64.RawURLEncoding.DecodeString(s)
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

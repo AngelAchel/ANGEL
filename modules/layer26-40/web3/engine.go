@@ -141,3 +141,7 @@ func (e *Engine) AccessControlBypass(contractAddr string) Web3Result {
 
 	return result
 } //nolint:staticcheck
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

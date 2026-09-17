@@ -148,3 +148,7 @@ func (e *OSINTEngine) GetStats() map[string]interface{} {
 		"ports_count":     len(e.config.Ports),
 	}
 }
+
+func (e *OSINTEngine) Run() (string, error) {
+	return "OSINTEngine:active", nil
+}

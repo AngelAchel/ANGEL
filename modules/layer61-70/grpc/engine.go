@@ -193,3 +193,7 @@ func min(a, b int) int {
 	}
 	return b
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

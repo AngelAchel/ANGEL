@@ -218,3 +218,7 @@ func (e *Engine) StackPivot() MemCorruptResult {
 		Techniques:  techniques,
 	}
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

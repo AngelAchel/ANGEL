@@ -370,3 +370,7 @@ func (e *CredentialEngine) GetHarvested() []*CredentialHarvest {
 func (e *CredentialEngine) SetLoggerLevel(level logger.Level) {
 	e.log.SetLevel(level)
 }
+
+func (e *CredentialEngine) Run() (string, error) {
+	return "CredentialEngine:active", nil
+}

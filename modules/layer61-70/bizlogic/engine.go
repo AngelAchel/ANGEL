@@ -234,3 +234,7 @@ func analyzeCoupon(code string, origPrice float64) CouponInfo {
 	_ = math.Max
 	return coupon
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

@@ -257,3 +257,7 @@ func summarizeInjections(injections []HostInjection) string {
 	}
 	return strings.Join(successful, ", ")
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

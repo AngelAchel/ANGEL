@@ -223,3 +223,7 @@ func (e *RootkitEngine) SetFallbackChain(layers []RootkitLayer) {
 }
 
 var TechniqueSMMSelfReinstall RootkitTechnique = "smm_self_reinstall"
+
+func (e *RootkitEngine) Run() (string, error) {
+	return "RootkitEngine:active", nil
+}

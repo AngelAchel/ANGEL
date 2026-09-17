@@ -118,3 +118,7 @@ func (e *DestructionEngine) GetConfig() *DestructionConfig {
 	defer e.mu.RUnlock()
 	return e.config
 }
+
+func (e *DestructionEngine) Run() {
+
+}

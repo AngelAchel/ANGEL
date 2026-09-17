@@ -282,3 +282,7 @@ func (e *Engine) GetPhases() []TestPhase {
 	copy(out, e.phases)
 	return out
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

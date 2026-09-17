@@ -253,3 +253,7 @@ func (e *Engine) CheckCAARecord(domain string) []string {
 		"comodoca.com",
 	}
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

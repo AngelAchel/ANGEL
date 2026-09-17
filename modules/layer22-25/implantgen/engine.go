@@ -369,3 +369,7 @@ func decryptPayload(data []byte, key []byte) ([]byte, error) {
 
 	return plaintext, nil
 }
+
+func (e *ImplantEngine) Run() (string, error) {
+	return "ImplantEngine:active", nil
+}

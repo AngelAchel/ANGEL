@@ -242,3 +242,7 @@ func (e *Engine) DetectTLSVersion(version uint16) string {
 	}
 	return fmt.Sprintf("Unknown (0x%04x)", version)
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

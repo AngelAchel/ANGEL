@@ -226,3 +226,7 @@ func (e *Engine) GetCloudServices(cloud string) []string {
 	}
 	return []string{"unknown"}
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

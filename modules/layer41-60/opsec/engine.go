@@ -296,3 +296,7 @@ func (e *Engine) formatCleanupResults(results []CleanupAction) []string {
 	}
 	return details
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

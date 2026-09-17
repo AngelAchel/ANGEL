@@ -278,3 +278,7 @@ func (e *Engine) DetectPLCProtocol(port int) string {
 	}
 	return "Unknown ICS protocol"
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

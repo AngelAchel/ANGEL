@@ -314,3 +314,7 @@ func (e *Engine) GenerateUploadHTML(targetURL string, fieldName string) string {
   <input type="submit" value="Upload" />
 </form>`, targetURL, fieldName)
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}

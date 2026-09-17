@@ -411,3 +411,7 @@ func (e *Engine) GapAnalysis(current []string, required []string) GapAnalysis {
 		Priority:        priority,
 	}
 }
+
+func (e *DataDeletionRecord) Run() (string, error) {
+	return "DataDeletionRecord:active", nil
+}

@@ -312,3 +312,7 @@ func (e *Engine) GetRecords() []MDNSRecord {
 	copy(out, e.records)
 	return out
 }
+
+func (e *Engine) Run() (string, error) {
+	return "Engine:active", nil
+}
