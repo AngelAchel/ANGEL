@@ -9,7 +9,7 @@
 
 ## PRASYARAT
 
-- Go 1.27+
+- Go 1.22+
 - Docker + Docker Compose
 - Make
 
@@ -48,7 +48,7 @@ make build
 make test
 ```
 
-**Output:** 92 packages, semestinya ALL PASS.
+**Output:** 93 packages, semestinya ALL PASS.
 
 ### Langkah 5: Lint
 ```bash
@@ -109,6 +109,7 @@ bash scripts/start-local.sh
 # Atau manual:
 export TEAMSERVER_KEY=<key> CRYPTO_KEY=<key> JWT_SECRET=<key>
 ./bin/angel-cgo0 -bind 127.0.0.1 -port 8443 &
+./bin/angel-generate-cgo0 -os linux -arch amd64 -server http://localhost:8443 -out lab/implants &
 ./bin/angel-console-cgo0 -addr 127.0.0.1 -port 3000 &
 ./bin/angel-rules-cgo0 -bind 127.0.0.1 -port 9444 &
 ```

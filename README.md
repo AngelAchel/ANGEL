@@ -92,7 +92,7 @@ docker compose logs -f angel-teamserver
 | ⚔️ 700+ Techniques | Fallback chains, anti-analysis |
 | 🧬 83 Modules | C2, Evasion, Credential, Exploit, Malware |
 | 🔌 Event Bus | Real-time cross-layer orchestration |
-| 🛡️ 92 Tests | All passing — zero regressions |
+| 🛡️ 93 Tests | All passing — zero regressions |
 | 💀 Signature-Free | Defender gak kenal |
 | 🔥 Privilege Escalation | Auto escalate |
 | 🕵️ OSINT + Recon | Passive & active intel |

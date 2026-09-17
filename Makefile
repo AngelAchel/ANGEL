@@ -17,6 +17,7 @@ build:
 	go build $(GO_FLAGS) -o bin/angel ./cmd/teamserver/
 	go build $(GO_FLAGS) -o bin/angel-console ./cmd/console/
 	go build $(GO_FLAGS) -o bin/angel-rules ./cmd/rules-loader/
+	go build $(GO_FLAGS) -o bin/angel-generate ./cmd/generator/
 	@echo "Build complete: bin/"
 
 # Build for specific platform
@@ -25,6 +26,8 @@ build-linux:
 	@mkdir -p bin
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(GO_FLAGS) -o bin/angel-linux-amd64 ./cmd/teamserver/
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(GO_FLAGS) -o bin/angel-console-linux-amd64 ./cmd/console/
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(GO_FLAGS) -o bin/angel-rules-linux-amd64 ./cmd/rules-loader/
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(GO_FLAGS) -o bin/angel-generate-linux-amd64 ./cmd/generator/
 
 build-windows:
 	@echo "Building for Windows..."
