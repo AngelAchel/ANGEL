@@ -168,7 +168,7 @@ func (tg *TrafficGenerator) IsRunning() bool {
 
 func generateRandomEmail() string {
 	names := []string{"john", "jane", "bob", "alice", "charlie"}
-	domains := []string{"angel.local", "test.com", "demo.com"}
+	domains := []string{"angel.local", "test.com", "angel.local"}
 
 	name := names[randIntn(len(names))]
 	domain := domains[randIntn(len(domains))]

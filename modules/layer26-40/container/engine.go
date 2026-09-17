@@ -281,7 +281,7 @@ func (e *Engine) extractEnvSecrets(containerID string) []SecretEntry {
 	for _, key := range sensitiveKeys {
 		secrets = append(secrets, SecretEntry{
 			Key:      key,
-			Value:    "***REDACTED***",
+			Value:    fmt.Sprintf("REDACTED-%s", key),
 			Source:   "environment",
 			Severity: "high",
 		})
