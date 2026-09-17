@@ -16,5 +16,5 @@ func (e *Aggregator) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Aggregator) Name() string { return "Aggregator" }
+func (e *Aggregator) Name() string         { return "Aggregator" }
 func (e *Aggregator) Timestamp() time.Time { return time.Now() }

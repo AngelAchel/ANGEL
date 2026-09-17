@@ -16,5 +16,5 @@ func (w *Whitespace) Obfuscate() ([]string, error) {
 	return results, nil
 }
 
-func (w *Whitespace) Name() string { return "Whitespace" }
+func (w *Whitespace) Name() string         { return "Whitespace" }
 func (w *Whitespace) Timestamp() time.Time { return time.Now() }

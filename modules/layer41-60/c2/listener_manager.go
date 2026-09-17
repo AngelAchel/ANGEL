@@ -16,5 +16,5 @@ func (l *ListenerManager) Manage() ([]string, error) {
 	return results, nil
 }
 
-func (l *ListenerManager) Name() string { return "ListenerManager" }
+func (l *ListenerManager) Name() string         { return "ListenerManager" }
 func (l *ListenerManager) Timestamp() time.Time { return time.Now() }

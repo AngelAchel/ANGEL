@@ -16,5 +16,5 @@ func (e *Collector) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Collector) Name() string { return "Collector" }
+func (e *Collector) Name() string         { return "Collector" }
 func (e *Collector) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Peer) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Peer) Name() string { return "Peer" }
+func (e *Peer) Name() string         { return "Peer" }
 func (e *Peer) Timestamp() time.Time { return time.Now() }

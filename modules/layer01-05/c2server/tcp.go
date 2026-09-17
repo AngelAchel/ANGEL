@@ -16,5 +16,5 @@ func (e *Tcp) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Tcp) Name() string { return "Tcp" }
+func (e *Tcp) Name() string         { return "Tcp" }
 func (e *Tcp) Timestamp() time.Time { return time.Now() }

@@ -16,6 +16,6 @@ func (e *CharFunc) Process(char string) ([]string, error) {
 	return results, nil
 }
 
-func (e *CharFunc) Name() string { return "CharFunc" }
+func (e *CharFunc) Name() string              { return "CharFunc" }
 func (e *CharFunc) Category() EvasionCategory { return CategorySyscall }
-func (e *CharFunc) Timestamp() time.Time { return time.Now() }
+func (e *CharFunc) Timestamp() time.Time      { return time.Now() }

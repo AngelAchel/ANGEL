@@ -16,5 +16,5 @@ func (l *LookupExfil) Exfiltrate() ([]string, error) {
 	return results, nil
 }
 
-func (l *LookupExfil) Name() string { return "LookupExfil" }
+func (l *LookupExfil) Name() string         { return "LookupExfil" }
 func (l *LookupExfil) Timestamp() time.Time { return time.Now() }

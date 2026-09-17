@@ -16,5 +16,5 @@ func (e *Proxy) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Proxy) Name() string { return "Proxy" }
+func (e *Proxy) Name() string         { return "Proxy" }
 func (e *Proxy) Timestamp() time.Time { return time.Now() }

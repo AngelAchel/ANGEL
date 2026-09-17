@@ -1,11 +1,9 @@
 package persistence
-//nolint:staticcheck
 
 import (
 	"fmt"
 	"os"
 	"os/exec"
-	"os/user"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -916,19 +914,4 @@ func (m *InitramfsHookMethod) Verify(params *PersistenceParams) (bool, error) {
 	hookPath := "/etc/initramfs-tools/hooks/persistence"
 	_, err := os.Stat(hookPath)
 	return err == nil, nil
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func getLinuxEnvVar(name string) string {  //nolint:unused
-	return os.Getenv(name)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func getLinuxUserHome() string {  //nolint:unused
-	if u, err := user.Current(); err == nil {
-		return u.HomeDir
-	}
-	home := os.Getenv("HOME")
-	if home == "" {
-		home = "/root"
-	}
-	return home
-}
+} //nolint:staticcheck

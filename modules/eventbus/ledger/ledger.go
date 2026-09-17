@@ -50,7 +50,7 @@ func (l *Ledger) Query(topic string) []Entry {
 	return results
 }
 
-func (l *Ledger) Name() string { return "Ledger" }
+func (l *Ledger) Name() string         { return "Ledger" }
 func (l *Ledger) Timestamp() time.Time { return time.Now() }
 func (l *Ledger) Run() ([]string, error) {
 	results := make([]string, 0, 1)

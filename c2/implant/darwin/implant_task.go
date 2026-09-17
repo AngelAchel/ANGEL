@@ -17,5 +17,5 @@ func (t *DarwinTask) Execute() ([]string, error) {
 	return results, nil
 }
 
-func (t *DarwinTask) Name() string { return "DarwinTask" }
+func (t *DarwinTask) Name() string         { return "DarwinTask" }
 func (t *DarwinTask) Timestamp() time.Time { return time.Now() }

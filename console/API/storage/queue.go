@@ -16,5 +16,5 @@ func (q *Queue) Enqueue() ([]string, error) {
 	return results, nil
 }
 
-func (q *Queue) Name() string { return "Queue" }
+func (q *Queue) Name() string         { return "Queue" }
 func (q *Queue) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Kerberos) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Kerberos) Name() string { return "Kerberos" }
+func (e *Kerberos) Name() string         { return "Kerberos" }
 func (e *Kerberos) Timestamp() time.Time { return time.Now() }

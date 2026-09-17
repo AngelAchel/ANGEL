@@ -16,5 +16,5 @@ func (e *Vpn) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Vpn) Name() string { return "Vpn" }
+func (e *Vpn) Name() string         { return "Vpn" }
 func (e *Vpn) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (i *ImplantSleep) Sleep() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantSleep) Name() string { return "ImplantSleep" }
+func (i *ImplantSleep) Name() string         { return "ImplantSleep" }
 func (i *ImplantSleep) Timestamp() time.Time { return time.Now() }

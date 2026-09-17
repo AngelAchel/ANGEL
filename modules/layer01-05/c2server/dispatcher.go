@@ -16,5 +16,5 @@ func (e *Dispatcher) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Dispatcher) Name() string { return "Dispatcher" }
+func (e *Dispatcher) Name() string         { return "Dispatcher" }
 func (e *Dispatcher) Timestamp() time.Time { return time.Now() }

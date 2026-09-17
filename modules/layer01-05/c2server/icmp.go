@@ -16,5 +16,5 @@ func (e *Icmp) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Icmp) Name() string { return "Icmp" }
+func (e *Icmp) Name() string         { return "Icmp" }
 func (e *Icmp) Timestamp() time.Time { return time.Now() }

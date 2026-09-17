@@ -16,6 +16,6 @@ func (e *BooleanBlind) Inject(query string) ([]string, error) {
 	return results, nil
 }
 
-func (e *BooleanBlind) Name() string { return "BooleanBlind" }
+func (e *BooleanBlind) Name() string              { return "BooleanBlind" }
 func (e *BooleanBlind) Category() EvasionCategory { return CategoryInjection }
-func (e *BooleanBlind) Timestamp() time.Time { return time.Now() }
+func (e *BooleanBlind) Timestamp() time.Time      { return time.Now() }

@@ -16,5 +16,5 @@ func (g *GraphQLParam) Query() ([]string, error) {
 	return results, nil
 }
 
-func (g *GraphQLParam) Name() string { return "GraphQLParam" }
+func (g *GraphQLParam) Name() string         { return "GraphQLParam" }
 func (g *GraphQLParam) Timestamp() time.Time { return time.Now() }

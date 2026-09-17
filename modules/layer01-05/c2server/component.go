@@ -16,5 +16,5 @@ func (e *Component) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Component) Name() string { return "Component" }
+func (e *Component) Name() string         { return "Component" }
 func (e *Component) Timestamp() time.Time { return time.Now() }

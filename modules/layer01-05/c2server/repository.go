@@ -16,5 +16,5 @@ func (e *Repository) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Repository) Name() string { return "Repository" }
+func (e *Repository) Name() string         { return "Repository" }
 func (e *Repository) Timestamp() time.Time { return time.Now() }

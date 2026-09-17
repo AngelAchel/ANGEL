@@ -16,5 +16,5 @@ func (e *Node) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Node) Name() string { return "Node" }
+func (e *Node) Name() string         { return "Node" }
 func (e *Node) Timestamp() time.Time { return time.Now() }

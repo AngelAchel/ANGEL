@@ -49,7 +49,7 @@ func (q *Queue) Pop() (Event, bool) {
 	return event, true
 }
 
-func (q *Queue) Name() string { return "Queue" }
+func (q *Queue) Name() string         { return "Queue" }
 func (q *Queue) Timestamp() time.Time { return time.Now() }
 func (q *Queue) Run() ([]string, error) {
 	results := make([]string, 0, 1)

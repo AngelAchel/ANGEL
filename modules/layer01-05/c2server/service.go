@@ -16,5 +16,5 @@ func (e *Service) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Service) Name() string { return "Service" }
+func (e *Service) Name() string         { return "Service" }
 func (e *Service) Timestamp() time.Time { return time.Now() }

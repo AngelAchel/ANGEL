@@ -16,5 +16,5 @@ func (e *Middleware) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Middleware) Name() string { return "Middleware" }
+func (e *Middleware) Name() string         { return "Middleware" }
 func (e *Middleware) Timestamp() time.Time { return time.Now() }

@@ -71,7 +71,7 @@ func TestEventBusWildcardSubscription(t *testing.T) {
 	})
 
 	for i := 0; i < 3; i++ {
-		eb.Publish("c2.implant.registered.v1", "test", "event", nil)  //nolint:errcheck
+		eb.Publish("c2.implant.registered.v1", "test", "event", nil) //nolint:errcheck
 	}
 
 	done := make(chan struct{})
@@ -137,7 +137,7 @@ func TestEventBusMultipleHandlers(t *testing.T) {
 		return nil
 	})
 
-	eb.Publish("c2.implant.registered.v1", "test", "event", nil)  //nolint:errcheck
+	eb.Publish("c2.implant.registered.v1", "test", "event", nil) //nolint:errcheck
 
 	done := make(chan struct{})
 	go func() {
@@ -163,7 +163,7 @@ func TestEventBusEventLog(t *testing.T) {
 	defer eb.Stop()
 
 	for i := 0; i < 5; i++ {
-		eb.Publish("c2.implant.registered.v1", "test", "event", nil)  //nolint:errcheck
+		eb.Publish("c2.implant.registered.v1", "test", "event", nil) //nolint:errcheck
 	}
 
 	if eb.GetEventCount() != 5 {

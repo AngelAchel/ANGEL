@@ -16,5 +16,5 @@ func (e *Flooder) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Flooder) Name() string { return "Flooder" }
+func (e *Flooder) Name() string         { return "Flooder" }
 func (e *Flooder) Timestamp() time.Time { return time.Now() }

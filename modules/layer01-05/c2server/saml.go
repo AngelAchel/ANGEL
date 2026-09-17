@@ -16,5 +16,5 @@ func (e *Saml) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Saml) Name() string { return "Saml" }
+func (e *Saml) Name() string         { return "Saml" }
 func (e *Saml) Timestamp() time.Time { return time.Now() }

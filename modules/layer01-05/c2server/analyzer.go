@@ -16,5 +16,5 @@ func (e *Analyzer) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Analyzer) Name() string { return "Analyzer" }
+func (e *Analyzer) Name() string         { return "Analyzer" }
 func (e *Analyzer) Timestamp() time.Time { return time.Now() }

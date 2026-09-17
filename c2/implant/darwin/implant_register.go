@@ -17,5 +17,5 @@ func (r *DarwinRegister) Register() ([]string, error) {
 	return results, nil
 }
 
-func (r *DarwinRegister) Name() string { return "DarwinRegister" }
+func (r *DarwinRegister) Name() string         { return "DarwinRegister" }
 func (r *DarwinRegister) Timestamp() time.Time { return time.Now() }

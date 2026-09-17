@@ -16,5 +16,5 @@ func (e *Harvest) Gather() ([]string, error) {
 	return results, nil
 }
 
-func (e *Harvest) Name() string { return "Harvest" }
+func (e *Harvest) Name() string         { return "Harvest" }
 func (e *Harvest) Timestamp() time.Time { return time.Now() }

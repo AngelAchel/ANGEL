@@ -16,5 +16,5 @@ func (e *Https) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Https) Name() string { return "Https" }
+func (e *Https) Name() string         { return "Https" }
 func (e *Https) Timestamp() time.Time { return time.Now() }

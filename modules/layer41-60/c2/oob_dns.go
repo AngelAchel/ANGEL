@@ -16,5 +16,5 @@ func (o *OOBDNS) Resolve() ([]string, error) {
 	return results, nil
 }
 
-func (o *OOBDNS) Name() string { return "OOBDNS" }
+func (o *OOBDNS) Name() string         { return "OOBDNS" }
 func (o *OOBDNS) Timestamp() time.Time { return time.Now() }

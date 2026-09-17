@@ -1,9 +1,6 @@
 package container
-//nolint:staticcheck
 
 import (
-	"crypto/rand"
-	"encoding/hex"
 	"fmt"
 	"strings"
 	"time"
@@ -343,10 +340,4 @@ func isSecretEnvVar(env string) bool {
 		}
 	}
 	return false
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func generateHash() string {  //nolint:unused
-	b := make([]byte, 16)
-	rand.Read(b)
-	return hex.EncodeToString(b)
-}
+} //nolint:staticcheck

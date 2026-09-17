@@ -1,19 +1,17 @@
 package kerberos
-//nolint:staticcheck
 
 import (
 	"fmt"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/angel-platform/angel/pkg/logger"
 )
 
 type ADRecon struct {
-	config *KerberosConfig  //nolint:staticcheck
+	config *KerberosConfig //nolint:staticcheck
 	logger *logger.Logger  //nolint:staticcheck
-	mu     sync.RWMutex  //nolint:unused
+
 }
 
 func NewADRecon(config *KerberosConfig) *ADRecon {

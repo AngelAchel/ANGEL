@@ -16,5 +16,5 @@ func (e *Ssl) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Ssl) Name() string { return "Ssl" }
+func (e *Ssl) Name() string         { return "Ssl" }
 func (e *Ssl) Timestamp() time.Time { return time.Now() }

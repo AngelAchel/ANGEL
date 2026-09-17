@@ -16,5 +16,5 @@ func (m *Migrations) Migrate() ([]string, error) {
 	return results, nil
 }
 
-func (m *Migrations) Name() string { return "Migrations" }
+func (m *Migrations) Name() string         { return "Migrations" }
 func (m *Migrations) Timestamp() time.Time { return time.Now() }

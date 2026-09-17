@@ -16,5 +16,5 @@ func (e *KhuntHash) Hunt() ([]string, error) {
 	return results, nil
 }
 
-func (e *KhuntHash) Name() string { return "KhuntHash" }
+func (e *KhuntHash) Name() string         { return "KhuntHash" }
 func (e *KhuntHash) Timestamp() time.Time { return time.Now() }

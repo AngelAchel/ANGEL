@@ -16,5 +16,5 @@ func (e *Tor) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Tor) Name() string { return "Tor" }
+func (e *Tor) Name() string         { return "Tor" }
 func (e *Tor) Timestamp() time.Time { return time.Now() }

@@ -1,13 +1,11 @@
 package c2implant
 
 import (
-	"crypto/ecdsa"
-	"crypto/elliptic"
+	"crypto/ecdh"
 	"crypto/rand"
 	"testing"
 	"time"
 
-	angelcrypto "github.com/angel-platform/angel/pkg/crypto"
 	"github.com/angel-platform/angel/pkg/types"
 )
 
@@ -123,18 +121,17 @@ func TestImplantConfigExpired(t *testing.T) {
 }
 
 func TestCryptoEncryptDecrypt(t *testing.T) {
-	localKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	localKey, err := ecdh.P256().GenerateKey(rand.Reader)
 	if err != nil {
 		t.Fatalf("generate local key failed: %v", err)
 	}
 
-	serverKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	serverKey, err := ecdh.P256().GenerateKey(rand.Reader)
 	if err != nil {
 		t.Fatalf("generate server key failed: %v", err)
 	}
 
-	//nolint
-	serverPubBytes := elliptic.MarshalCompressed(serverKey.PublicKey.Curve, serverKey.PublicKey.X, serverKey.PublicKey.Y)
+	serverPubBytes := serverKey.PublicKey().Bytes()
 
 	cryptoImpl, err := NewImplantCrypto(serverPubBytes)
 	if err != nil {
@@ -164,16 +161,6 @@ func TestCryptoEncryptDecrypt(t *testing.T) {
 	if string(decrypted) != string(plaintext) {
 		t.Errorf("decrypted text doesn't match: got %s, want %s", decrypted, plaintext)
 	}
-}
-
-
-//nolint
-func generateTestECDHKey() ([]byte, error) {
-	key, err := angelcrypto.GenerateECDHKeyPair()
-	if err != nil {
-		return nil, err
-	}
-	return key.PublicKey, nil
 }
 
 func TestCryptoKeyExchange(t *testing.T) {
@@ -506,18 +493,17 @@ func TestImplantCryptoSign(t *testing.T) {
 }
 
 func TestImplantCryptoHMAC(t *testing.T) {
-	localKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	localKey, err := ecdh.P256().GenerateKey(rand.Reader)
 	if err != nil {
 		t.Fatalf("generate local key failed: %v", err)
 	}
 
-	serverKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	serverKey, err := ecdh.P256().GenerateKey(rand.Reader)
 	if err != nil {
 		t.Fatalf("generate server key failed: %v", err)
 	}
 
-	//nolint
-	serverPubBytes := elliptic.MarshalCompressed(serverKey.PublicKey.Curve, serverKey.PublicKey.X, serverKey.PublicKey.Y)
+	serverPubBytes := serverKey.PublicKey().Bytes()
 
 	cryptoImpl, err := NewImplantCrypto(serverPubBytes)
 	if err != nil {

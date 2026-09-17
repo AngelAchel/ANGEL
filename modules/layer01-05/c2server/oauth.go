@@ -16,5 +16,5 @@ func (e *Oauth) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Oauth) Name() string { return "Oauth" }
+func (e *Oauth) Name() string         { return "Oauth" }
 func (e *Oauth) Timestamp() time.Time { return time.Now() }

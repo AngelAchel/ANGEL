@@ -16,5 +16,5 @@ func (c *CaseVar) Vary() ([]string, error) {
 	return results, nil
 }
 
-func (c *CaseVar) Name() string { return "CaseVar" }
+func (c *CaseVar) Name() string         { return "CaseVar" }
 func (c *CaseVar) Timestamp() time.Time { return time.Now() }

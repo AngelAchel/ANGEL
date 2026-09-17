@@ -17,7 +17,7 @@ func (m *Mapper) Map(event Event) ([]string, error) {
 	return results, nil
 }
 
-func (m *Mapper) Name() string { return "Mapper" }
+func (m *Mapper) Name() string         { return "Mapper" }
 func (m *Mapper) Timestamp() time.Time { return time.Now() }
 
 type Event struct {

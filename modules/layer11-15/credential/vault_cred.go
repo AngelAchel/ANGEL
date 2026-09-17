@@ -16,6 +16,6 @@ func (e *VaultCred) Extract() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (e *VaultCred) Name() string { return "VaultCred" }
-func (e *VaultCred) Platform() string { return "windows" }
+func (e *VaultCred) Name() string            { return "VaultCred" }
+func (e *VaultCred) Platform() string        { return "windows" }
 func (e *VaultCred) RequiresElevation() bool { return true }

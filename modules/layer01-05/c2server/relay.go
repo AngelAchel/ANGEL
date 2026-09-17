@@ -16,5 +16,5 @@ func (e *Relay) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Relay) Name() string { return "Relay" }
+func (e *Relay) Name() string         { return "Relay" }
 func (e *Relay) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Queue) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Queue) Name() string { return "Queue" }
+func (e *Queue) Name() string         { return "Queue" }
 func (e *Queue) Timestamp() time.Time { return time.Now() }

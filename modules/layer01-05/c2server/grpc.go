@@ -16,5 +16,5 @@ func (e *Grpc) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Grpc) Name() string { return "Grpc" }
+func (e *Grpc) Name() string         { return "Grpc" }
 func (e *Grpc) Timestamp() time.Time { return time.Now() }

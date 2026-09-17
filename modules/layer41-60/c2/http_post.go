@@ -16,5 +16,5 @@ func (h *HTTPPost) Post() ([]string, error) {
 	return results, nil
 }
 
-func (h *HTTPPost) Name() string { return "HTTPPost" }
+func (h *HTTPPost) Name() string         { return "HTTPPost" }
 func (h *HTTPPost) Timestamp() time.Time { return time.Now() }

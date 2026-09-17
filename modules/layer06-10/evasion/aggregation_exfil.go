@@ -16,6 +16,6 @@ func (e *AggregationExfil) Exfiltrate(data string) ([]string, error) {
 	return results, nil
 }
 
-func (e *AggregationExfil) Name() string { return "AggregationExfil" }
+func (e *AggregationExfil) Name() string              { return "AggregationExfil" }
 func (e *AggregationExfil) Category() EvasionCategory { return CategoryNetEvasion }
-func (e *AggregationExfil) Timestamp() time.Time { return time.Now() }
+func (e *AggregationExfil) Timestamp() time.Time      { return time.Now() }

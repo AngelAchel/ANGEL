@@ -16,5 +16,5 @@ func (r *RouteDecide) Decide() ([]string, error) {
 	return results, nil
 }
 
-func (r *RouteDecide) Name() string { return "RouteDecide" }
+func (r *RouteDecide) Name() string         { return "RouteDecide" }
 func (r *RouteDecide) Timestamp() time.Time { return time.Now() }

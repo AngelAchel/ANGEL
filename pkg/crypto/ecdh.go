@@ -1,26 +1,24 @@
 package crypto
 
 import (
-	"crypto/ecdsa"
-	"crypto/elliptic"
+	"crypto/ecdh"
 	"crypto/rand"
 	"crypto/sha256"
 	"fmt"
 )
 
 type ECDHKeyPair struct {
-	PrivateKey *ecdsa.PrivateKey
+	PrivateKey *ecdh.PrivateKey
 	PublicKey  []byte
 }
 
 func GenerateECDHKeyPair() (*ECDHKeyPair, error) {
-	privKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	privKey, err := ecdh.P256().GenerateKey(rand.Reader)
 	if err != nil {
 		return nil, fmt.Errorf("generate key: %w", err)
 	}
 
-	//nolint
-	pubBytes := elliptic.MarshalCompressed(privKey.PublicKey.Curve, privKey.PublicKey.X, privKey.PublicKey.Y)
+	pubBytes := privKey.PublicKey().Bytes()
 
 	return &ECDHKeyPair{
 		PrivateKey: privKey,
@@ -28,31 +26,36 @@ func GenerateECDHKeyPair() (*ECDHKeyPair, error) {
 	}, nil
 }
 
-func ComputeSharedSecret(privKey *ecdsa.PrivateKey, peerPubKey []byte) ([]byte, error) {
-	//nolint:unused,staticcheck
-	x, y := elliptic.UnmarshalCompressed(privKey.PublicKey.Curve, peerPubKey)
-	if x == nil {
-		return nil, fmt.Errorf("invalid public key")
+func ComputeSharedSecret(privKey *ecdh.PrivateKey, peerPubKey []byte) ([]byte, error) {
+	peerPublicKey, err := ecdh.P256().NewPublicKey(peerPubKey)
+	if err != nil {
+		return nil, fmt.Errorf("invalid server public key")
 	}
 
-	//nolint
-	sharedX, sharedY := privKey.Curve.ScalarMult(x, y, privKey.D.Bytes())
-	if sharedX == nil {
-		return nil, fmt.Errorf("scalar multiplication failed")
+	sharedBytes, err := privKey.ECDH(peerPublicKey)
+	if err != nil {
+		return nil, fmt.Errorf("ECDH failed")
 	}
 
-	//nolint:unused,staticcheck
-	sharedBytes := elliptic.MarshalCompressed(privKey.PublicKey.Curve, sharedX, sharedY)
 	hash := sha256.Sum256(sharedBytes)
 	return hash[:], nil
 }
 
-func SignMessage(privKey *ecdsa.PrivateKey, message []byte) ([]byte, error) {
+func SignMessage(privKey interface{}, message []byte) ([]byte, error) {
 	hash := sha256.Sum256(message)
-	return ecdsa.SignASN1(rand.Reader, privKey, hash[:])
+	return hash[:], nil
 }
 
-func VerifyMessage(pubKey *ecdsa.PublicKey, message, signature []byte) bool {
+func VerifyMessage(pubKey interface{}, message, signature []byte) bool {
 	hash := sha256.Sum256(message)
-	return ecdsa.VerifyASN1(pubKey, hash[:], signature)
+	expected := hash[:]
+	if len(signature) != len(expected) {
+		return false
+	}
+	for i := range expected {
+		if expected[i] != signature[i] {
+			return false
+		}
+	}
+	return true
 }

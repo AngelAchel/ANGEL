@@ -71,7 +71,7 @@ func (tr *TechnicalReportGen) RenderJSON() ([]byte, error) {
 
 func (tr *TechnicalReportGen) addFindingsSection(findings []Finding) {
 	var sb strings.Builder
-		fmt.Fprintf(&sb, "Total findings: %d\n\n", len(findings))
+	fmt.Fprintf(&sb, "Total findings: %d\n\n", len(findings))
 
 	for i, f := range findings {
 		fmt.Fprintf(&sb, "### Finding %d: %s\n", i+1, f.Title)

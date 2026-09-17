@@ -16,5 +16,5 @@ func (o *OOBHTTP) Callback() ([]string, error) {
 	return results, nil
 }
 
-func (o *OOBHTTP) Name() string { return "OOBHTTP" }
+func (o *OOBHTTP) Name() string         { return "OOBHTTP" }
 func (o *OOBHTTP) Timestamp() time.Time { return time.Now() }

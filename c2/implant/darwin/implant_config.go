@@ -30,6 +30,6 @@ func NewDarwinConfig() *DarwinConfig {
 	}
 }
 
-func (c *DarwinConfig) Validate() error { return nil }
+func (c *DarwinConfig) Validate() error          { return nil }
 func (c *DarwinConfig) Marshal() ([]byte, error) { return json.Marshal(c) }
-func (c *DarwinConfig) Name() string { return "DarwinConfig" }
+func (c *DarwinConfig) Name() string             { return "DarwinConfig" }

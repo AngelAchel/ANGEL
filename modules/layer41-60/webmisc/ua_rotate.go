@@ -16,5 +16,5 @@ func (u *UARotate) Rotate() ([]string, error) {
 	return results, nil
 }
 
-func (u *UARotate) Name() string { return "UARotate" }
+func (u *UARotate) Name() string         { return "UARotate" }
 func (u *UARotate) Timestamp() time.Time { return time.Now() }

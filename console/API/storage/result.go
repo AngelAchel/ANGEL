@@ -16,5 +16,5 @@ func (r *Result) Get() ([]string, error) {
 	return results, nil
 }
 
-func (r *Result) Name() string { return "Result" }
+func (r *Result) Name() string         { return "Result" }
 func (r *Result) Timestamp() time.Time { return time.Now() }

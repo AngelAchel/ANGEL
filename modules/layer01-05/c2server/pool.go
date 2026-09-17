@@ -16,5 +16,5 @@ func (e *Pool) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Pool) Name() string { return "Pool" }
+func (e *Pool) Name() string         { return "Pool" }
 func (e *Pool) Timestamp() time.Time { return time.Now() }

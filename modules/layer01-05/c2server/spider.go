@@ -16,5 +16,5 @@ func (e *Spider) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Spider) Name() string { return "Spider" }
+func (e *Spider) Name() string         { return "Spider" }
 func (e *Spider) Timestamp() time.Time { return time.Now() }

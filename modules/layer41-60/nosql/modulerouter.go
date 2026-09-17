@@ -17,5 +17,5 @@ func (r *ModuleRouter) Route(topic string) ([]string, error) {
 	return results, nil
 }
 
-func (r *ModuleRouter) Name() string { return "ModuleRouter" }
+func (r *ModuleRouter) Name() string         { return "ModuleRouter" }
 func (r *ModuleRouter) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Tls) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Tls) Name() string { return "Tls" }
+func (e *Tls) Name() string         { return "Tls" }
 func (e *Tls) Timestamp() time.Time { return time.Now() }

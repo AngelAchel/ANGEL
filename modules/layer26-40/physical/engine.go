@@ -1,10 +1,8 @@
 package physical
-//nolint:staticcheck
 
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"math"
 	"time"
 
 	"github.com/google/uuid"
@@ -131,25 +129,4 @@ func generatePayloadHash() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func entropy(data []byte) float64 {  //nolint:unused
-	if len(data) == 0 {
-		return 0
-	}
-
-	freq := make(map[byte]int)
-	for _, b := range data {
-		freq[b]++
-	}
-
-	entropy := 0.0
-	length := float64(len(data))
-	for _, count := range freq {
-		p := float64(count) / length
-		if p > 0 {
-			entropy -= p * math.Log2(p)
-		}
-	}
-	return entropy
-}
+} //nolint:staticcheck

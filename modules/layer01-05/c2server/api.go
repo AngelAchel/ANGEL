@@ -16,5 +16,5 @@ func (e *Api) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Api) Name() string { return "Api" }
+func (e *Api) Name() string         { return "Api" }
 func (e *Api) Timestamp() time.Time { return time.Now() }

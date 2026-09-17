@@ -16,5 +16,5 @@ func (p *ProfileLoader) Load() ([]string, error) {
 	return results, nil
 }
 
-func (p *ProfileLoader) Name() string { return "ProfileLoader" }
+func (p *ProfileLoader) Name() string         { return "ProfileLoader" }
 func (p *ProfileLoader) Timestamp() time.Time { return time.Now() }

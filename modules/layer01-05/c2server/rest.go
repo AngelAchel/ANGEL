@@ -16,5 +16,5 @@ func (e *Rest) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Rest) Name() string { return "Rest" }
+func (e *Rest) Name() string         { return "Rest" }
 func (e *Rest) Timestamp() time.Time { return time.Now() }

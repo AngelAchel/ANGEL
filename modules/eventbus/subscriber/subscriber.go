@@ -38,7 +38,7 @@ func (s *Subscriber) Handle(topic string, handler func(Event)) {
 	s.handlers[topic] = append(s.handlers[topic], handler)
 }
 
-func (s *Subscriber) Name() string { return "Subscriber" }
+func (s *Subscriber) Name() string         { return "Subscriber" }
 func (s *Subscriber) Timestamp() time.Time { return time.Now() }
 func (s *Subscriber) Run() ([]string, error) {
 	results := make([]string, 0, 1)

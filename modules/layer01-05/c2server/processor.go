@@ -16,5 +16,5 @@ func (e *Processor) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Processor) Name() string { return "Processor" }
+func (e *Processor) Name() string         { return "Processor" }
 func (e *Processor) Timestamp() time.Time { return time.Now() }

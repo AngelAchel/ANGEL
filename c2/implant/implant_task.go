@@ -16,5 +16,5 @@ func (i *ImplantTask) Task() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantTask) Name() string { return "ImplantTask" }
+func (i *ImplantTask) Name() string         { return "ImplantTask" }
 func (i *ImplantTask) Timestamp() time.Time { return time.Now() }

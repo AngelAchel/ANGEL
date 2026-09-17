@@ -16,5 +16,5 @@ func (e *OsintAgent0166) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *OsintAgent0166) Name() string { return "OsintAgent0166" }
+func (e *OsintAgent0166) Name() string         { return "OsintAgent0166" }
 func (e *OsintAgent0166) Timestamp() time.Time { return time.Now() }

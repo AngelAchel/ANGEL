@@ -16,5 +16,5 @@ func (e *Engine) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Engine) Name() string { return "Engine" }
+func (e *Engine) Name() string         { return "Engine" }
 func (e *Engine) Timestamp() time.Time { return time.Now() }

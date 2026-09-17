@@ -16,5 +16,5 @@ func (e *Client) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Client) Name() string { return "Client" }
+func (e *Client) Name() string         { return "Client" }
 func (e *Client) Timestamp() time.Time { return time.Now() }

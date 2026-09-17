@@ -16,5 +16,5 @@ func (e *Store) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Store) Name() string { return "Store" }
+func (e *Store) Name() string         { return "Store" }
 func (e *Store) Timestamp() time.Time { return time.Now() }

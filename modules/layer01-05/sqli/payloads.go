@@ -1,5 +1,4 @@
 package sqli
-//nolint:staticcheck
 
 import (
 	"fmt"
@@ -8,11 +7,10 @@ import (
 )
 
 type PayloadGenerator struct {
-	dbms       DBMSType  //nolint:staticcheck
-	columns    int  //nolint:staticcheck
-	//nolint:unused
-	totalWidth int
-	_comment   string
+	dbms    DBMSType //nolint:staticcheck
+	columns int      //nolint:staticcheck
+
+	_comment string
 }
 
 func NewPayloadGenerator(dbms DBMSType) *PayloadGenerator {

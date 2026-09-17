@@ -16,5 +16,5 @@ func (e *UDFInstall) Install(funcName string) ([]string, error) {
 	return results, nil
 }
 
-func (e *UDFInstall) Name() string { return "UDFInstall" }
+func (e *UDFInstall) Name() string         { return "UDFInstall" }
 func (e *UDFInstall) Timestamp() time.Time { return time.Now() }

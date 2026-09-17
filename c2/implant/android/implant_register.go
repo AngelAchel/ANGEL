@@ -17,5 +17,5 @@ func (r *AndroidRegister) Register() ([]string, error) {
 	return results, nil
 }
 
-func (r *AndroidRegister) Name() string { return "AndroidRegister" }
+func (r *AndroidRegister) Name() string         { return "AndroidRegister" }
 func (r *AndroidRegister) Timestamp() time.Time { return time.Now() }

@@ -1,10 +1,8 @@
 package malleable
-//nolint:staticcheck
 
 import (
 	"fmt"
 	"net/http"
-	"strings"
 	"sync"
 	"time"
 )
@@ -176,11 +174,4 @@ func (pa *ProfileApplier) GetStats(name string) (int, int) {
 		return profile.Requests, profile.Errors
 	}
 	return 0, 0
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func generateMalleableURL(host string, path string) string {  //nolint:unused
-	if !strings.HasPrefix(path, "/") {
-		path = "/" + path
-	}
-	return fmt.Sprintf("https://%s%s", host, path)
-}
+} //nolint:staticcheck

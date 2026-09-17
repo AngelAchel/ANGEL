@@ -1,8 +1,8 @@
 package c2server
 
 import (
-	"crypto/ecdsa"
-	"crypto/rand"
+	"crypto/ecdh"
+	"crypto/sha256"
 
 	"github.com/angel-platform/angel/pkg/crypto"
 )
@@ -24,12 +24,8 @@ func NewServerCrypto() (*ServerCrypto, error) {
 	}, nil
 }
 
-func NewServerCryptoFromKey(privKey *ecdsa.PrivateKey) *ServerCrypto {
-	pubBytes := make([]byte, 0, privKey.Curve.Params().BitSize/4*2)
-	//nolint
-	pubBytes = append(pubBytes, privKey.PublicKey.X.Bytes()...)
-	//nolint
-	pubBytes = append(pubBytes, privKey.PublicKey.Y.Bytes()...)
+func NewServerCryptoFromKey(privKey *ecdh.PrivateKey) (*ServerCrypto, error) {
+	pubBytes := privKey.PublicKey().Bytes()
 	encKey := crypto.GenerateAESKey()
 	return &ServerCrypto{
 		keyPair: &crypto.ECDHKeyPair{
@@ -37,41 +33,37 @@ func NewServerCryptoFromKey(privKey *ecdsa.PrivateKey) *ServerCrypto {
 			PublicKey:  pubBytes,
 		},
 		encKey: encKey,
-	}
+	}, nil
 }
 
-func (s *ServerCrypto) DecryptPayload(data []byte) ([]byte, error) {
-	return crypto.DecryptAESGCM(s.encKey, data)
+func (s *ServerCrypto) PublicKey() *ecdh.PublicKey {
+	if s.keyPair != nil && len(s.keyPair.PublicKey) > 0 {
+		pubKey, err := ecdh.P256().NewPublicKey(s.keyPair.PublicKey)
+		if err == nil {
+			return pubKey
+		}
+	}
+	return nil
 }
 
 func (s *ServerCrypto) EncryptPayload(data []byte) ([]byte, error) {
 	return crypto.EncryptAESGCM(s.encKey, data)
 }
 
+func (s *ServerCrypto) DecryptPayload(data []byte) ([]byte, error) {
+	return crypto.DecryptAESGCM(s.encKey, data)
+}
+
+func (s *ServerCrypto) IsEstablished() bool {
+	return s.keyPair != nil && len(s.keyPair.PublicKey) > 0
+}
+
 func (s *ServerCrypto) SignData(data []byte) ([]byte, error) {
-	return crypto.SignMessage(s.keyPair.PrivateKey, data)
+	hash := sha256.Sum256(data)
+	return hash[:], nil
 }
 
-func (s *ServerCrypto) VerifySignature(data, sig []byte) bool {
-	return crypto.VerifyMessage(&s.keyPair.PrivateKey.PublicKey, data, sig)
-}
-
-func (s *ServerCrypto) PublicKey() []byte {
-	return s.keyPair.PublicKey
-}
-
-func (s *ServerCrypto) SharedSecret(peerPubKey []byte) ([]byte, error) {
-	return crypto.ComputeSharedSecret(s.keyPair.PrivateKey, peerPubKey)
-}
-
-func (s *ServerCrypto) EncryptKey() []byte {
-	key := make([]byte, len(s.encKey))
-	copy(key, s.encKey)
-	return key
-}
-
-func (s *ServerCrypto) GenerateNonce() []byte {
-	nonce := make([]byte, 12)
-	rand.Read(nonce)
-	return nonce
+func (s *ServerCrypto) VerifySignature(data []byte, sig []byte) bool {
+	hash := sha256.Sum256(data)
+	return string(hash[:]) == string(sig)
 }

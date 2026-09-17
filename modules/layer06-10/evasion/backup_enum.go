@@ -16,6 +16,6 @@ func (e *BackupEnum) Enumerate() ([]string, error) {
 	return results, nil
 }
 
-func (e *BackupEnum) Name() string { return "BackupEnum" }
+func (e *BackupEnum) Name() string              { return "BackupEnum" }
 func (e *BackupEnum) Category() EvasionCategory { return CategorySyscall }
-func (e *BackupEnum) Timestamp() time.Time { return time.Now() }
+func (e *BackupEnum) Timestamp() time.Time      { return time.Now() }

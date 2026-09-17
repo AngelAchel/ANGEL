@@ -17,7 +17,7 @@ func (f *Filter) Filter(event Event) ([]string, error) {
 	return results, nil
 }
 
-func (f *Filter) Name() string { return "Filter" }
+func (f *Filter) Name() string         { return "Filter" }
 func (f *Filter) Timestamp() time.Time { return time.Now() }
 
 type Event struct {

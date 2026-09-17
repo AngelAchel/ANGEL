@@ -16,5 +16,5 @@ func (e *Channel) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Channel) Name() string { return "Channel" }
+func (e *Channel) Name() string         { return "Channel" }
 func (e *Channel) Timestamp() time.Time { return time.Now() }

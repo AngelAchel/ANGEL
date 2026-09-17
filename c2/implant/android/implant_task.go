@@ -17,5 +17,5 @@ func (t *AndroidTask) Execute() ([]string, error) {
 	return results, nil
 }
 
-func (t *AndroidTask) Name() string { return "AndroidTask" }
+func (t *AndroidTask) Name() string         { return "AndroidTask" }
 func (t *AndroidTask) Timestamp() time.Time { return time.Now() }

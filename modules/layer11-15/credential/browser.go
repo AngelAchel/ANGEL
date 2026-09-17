@@ -1,5 +1,4 @@
 package credential
-//nolint:staticcheck
 
 import (
 	"fmt"
@@ -161,16 +160,8 @@ func (o *OperaExtractor) Name() string {
 
 func (o *OperaExtractor) BrowserType() BrowserType {
 	return BrowserOpera
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func decryptDPAPI(data []byte) ([]byte, error) {  //nolint:unused
-	if len(data) == 0 {
-		return nil, fmt.Errorf("empty data")
-	}
-	return data, nil
-}
+} //nolint:staticcheck
 
-//nolint:unused
 func validateBrowserType(bt string) error {
 	validTypes := []string{"chrome", "firefox", "edge", "brave"}
 	for _, t := range validTypes {

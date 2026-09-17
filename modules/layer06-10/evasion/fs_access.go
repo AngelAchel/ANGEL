@@ -16,5 +16,5 @@ func (e *FSAccess) Access(path string) ([]string, error) {
 	return results, nil
 }
 
-func (e *FSAccess) Name() string { return "FSAccess" }
+func (e *FSAccess) Name() string         { return "FSAccess" }
 func (e *FSAccess) Timestamp() time.Time { return time.Now() }

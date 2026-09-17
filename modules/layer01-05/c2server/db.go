@@ -16,5 +16,5 @@ func (e *Db) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Db) Name() string { return "Db" }
+func (e *Db) Name() string         { return "Db" }
 func (e *Db) Timestamp() time.Time { return time.Now() }

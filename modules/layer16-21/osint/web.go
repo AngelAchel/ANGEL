@@ -1,12 +1,10 @@
 package osint
-//nolint:staticcheck
 
 import (
 	"crypto/tls"
 	"fmt"
 	"io"
 	"net/http"
-	"regexp"
 	"strings"
 	"sync"
 
@@ -101,7 +99,6 @@ func (w *WebRecon) TechFingerprint(url string) (*TechStack, error) {
 
 	for tech, marker := range patterns {
 		if strings.Contains(bodyStr, marker) {
-			//nolint:staticcheck
 			switch {
 			case tech == "React" || tech == "Vue.js" || tech == "Angular" || tech == "jQuery" || tech == "Bootstrap":
 				stack.JS = append(stack.JS, tech)
@@ -302,16 +299,4 @@ func (w *WebRecon) CheckWAF(url string) bool {
 		return false
 	}
 	return waf.Detected
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func extractMetaTags(body string) map[string]string {  //nolint:unused
-	meta := make(map[string]string)
-	re := regexp.MustCompile(`<meta\s+[^>]*name=["']([^"']+)["'][^>]*content=["']([^"']+)["'][^>]*>`)
-	matches := re.FindAllStringSubmatch(body, -1)
-	for _, match := range matches {
-		if len(match) >= 3 {
-			meta[match[1]] = match[2]
-		}
-	}
-	return meta
-}
+} //nolint:staticcheck

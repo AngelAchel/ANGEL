@@ -19,15 +19,15 @@ func NewTelegramEngine(config CloudConfig) *TelegramEngine {
 
 // TelegramResult holds the result of a Telegram covert operation.
 type TelegramResult struct {
-	ID        string     `json:"id"`
-	ChatID    string     `json:"chat_id"`
-	Channel   string     `json:"channel"`
-	Payload   string     `json:"payload"`
-	Encoded   string     `json:"encoded"`
-	Success   bool       `json:"success"`
-	Timestamp time.Time  `json:"timestamp"`
-	RiskScore float64    `json:"risk_score"`
-	Details   string     `json:"details"`
+	ID        string    `json:"id"`
+	ChatID    string    `json:"chat_id"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }
 
 // BotCommand encodes data as Telegram bot commands.

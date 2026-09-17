@@ -16,5 +16,5 @@ func (t *TCP) Connect() ([]string, error) {
 	return results, nil
 }
 
-func (t *TCP) Name() string { return "TCP" }
+func (t *TCP) Name() string         { return "TCP" }
 func (t *TCP) Timestamp() time.Time { return time.Now() }

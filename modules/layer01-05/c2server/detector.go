@@ -16,5 +16,5 @@ func (e *Detector) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Detector) Name() string { return "Detector" }
+func (e *Detector) Name() string         { return "Detector" }
 func (e *Detector) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (i *ImplantFallback) Fallback() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantFallback) Name() string { return "ImplantFallback" }
+func (i *ImplantFallback) Name() string         { return "ImplantFallback" }
 func (i *ImplantFallback) Timestamp() time.Time { return time.Now() }

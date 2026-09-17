@@ -37,7 +37,7 @@ func TestOrchestratorStatus(t *testing.T) {
 func TestOrchestratorStop(t *testing.T) {
 	orch := New(nil)
 	go func() {
-		orch.Execute("scan target.com")  //nolint:errcheck
+		orch.Execute("scan target.com") //nolint:errcheck
 	}()
 	time.Sleep(100 * time.Millisecond)
 	orch.Stop()
@@ -48,7 +48,7 @@ func TestOrchestratorStop(t *testing.T) {
 
 func TestOrchestratorReset(t *testing.T) {
 	orch := New(nil)
-	orch.Execute("scan target.com")  //nolint:errcheck
+	orch.Execute("scan target.com") //nolint:errcheck
 	orch.Reset()
 	if len(orch.state.Actions) != 0 {
 		t.Error("expected empty actions after reset")

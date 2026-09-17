@@ -16,5 +16,5 @@ func (e *Ssh) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Ssh) Name() string { return "Ssh" }
+func (e *Ssh) Name() string         { return "Ssh" }
 func (e *Ssh) Timestamp() time.Time { return time.Now() }

@@ -1,5 +1,4 @@
 package certforgery
-//nolint:staticcheck
 
 import (
 	"crypto/rand"
@@ -74,20 +73,7 @@ func (e *Engine) SelfSignForge(domain string) (*CertResult, error) {
 		KeyPEM:   string(keyPEM),
 		Risk:     "high",
 	}, nil
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (e *Engine) buildCertTemplate(domain string) CertificateInfo {  //nolint:unused
-	return CertificateInfo{
-		Subject:     fmt.Sprintf("CN=%s", domain),
-		Issuer:      fmt.Sprintf("CN=%s Self-Signed", domain),
-		Serial:      e.generateSerial(),
-		NotBefore:   time.Now(),
-		NotAfter:    time.Now().Add(time.Duration(e.config.ValidDays) * 24 * time.Hour),
-		KeyUsage:    []string{"Key Encipherment", "Digital Signature"},
-		ExtKeyUsage: []string{"Server Auth"},
-		DNSNames:    []string{domain},
-	}
-}
+} //nolint:staticcheck
 
 func (e *Engine) generateSerial() string {
 	b := make([]byte, 16)

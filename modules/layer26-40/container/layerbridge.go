@@ -17,5 +17,5 @@ func (b *LayerBridge) Bridge() ([]string, error) {
 	return results, nil
 }
 
-func (b *LayerBridge) Name() string { return "LayerBridge" }
+func (b *LayerBridge) Name() string         { return "LayerBridge" }
 func (b *LayerBridge) Timestamp() time.Time { return time.Now() }

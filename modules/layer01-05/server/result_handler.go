@@ -1,10 +1,8 @@
 package server
-//nolint:staticcheck
 
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"fmt"
 	"sync"
 	"time"
 )
@@ -194,14 +192,4 @@ func generateResultID() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func formatResult(result *TaskResult) string {  //nolint:unused
-	status := "✅ Success"
-	if !result.Success {
-		status = "❌ Failed"
-	}
-
-	return fmt.Sprintf("[%s] Task %s: %s (Duration: %v)",
-		status, result.TaskID, result.Output, result.Duration)
-}
+} //nolint:staticcheck

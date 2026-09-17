@@ -16,5 +16,5 @@ func (e *Enumerator) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Enumerator) Name() string { return "Enumerator" }
+func (e *Enumerator) Name() string         { return "Enumerator" }
 func (e *Enumerator) Timestamp() time.Time { return time.Now() }

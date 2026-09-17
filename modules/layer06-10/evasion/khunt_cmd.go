@@ -16,5 +16,5 @@ func (e *KhuntCmd) Hunt() ([]string, error) {
 	return results, nil
 }
 
-func (e *KhuntCmd) Name() string { return "KhuntCmd" }
+func (e *KhuntCmd) Name() string         { return "KhuntCmd" }
 func (e *KhuntCmd) Timestamp() time.Time { return time.Now() }

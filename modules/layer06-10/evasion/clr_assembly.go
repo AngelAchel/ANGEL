@@ -16,5 +16,5 @@ func (c *CLRAssembly) Load() ([]string, error) {
 	return results, nil
 }
 
-func (c *CLRAssembly) Name() string { return "CLRAssembly" }
+func (c *CLRAssembly) Name() string         { return "CLRAssembly" }
 func (c *CLRAssembly) Timestamp() time.Time { return time.Now() }

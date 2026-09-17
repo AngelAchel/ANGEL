@@ -17,5 +17,5 @@ func (t *ModuleTree) Tree() ([]string, error) {
 	return results, nil
 }
 
-func (t *ModuleTree) Name() string { return "ModuleTree" }
+func (t *ModuleTree) Name() string         { return "ModuleTree" }
 func (t *ModuleTree) Timestamp() time.Time { return time.Now() }

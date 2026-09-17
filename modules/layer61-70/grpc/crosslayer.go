@@ -17,5 +17,5 @@ func (h *CrossLayerHandler) Handle(topic string) ([]string, error) {
 	return results, nil
 }
 
-func (h *CrossLayerHandler) Name() string { return "CrossLayerHandler" }
+func (h *CrossLayerHandler) Name() string         { return "CrossLayerHandler" }
 func (h *CrossLayerHandler) Timestamp() time.Time { return time.Now() }

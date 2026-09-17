@@ -16,5 +16,5 @@ func (u *UnionBased) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (u *UnionBased) Name() string { return "UnionBased" }
+func (u *UnionBased) Name() string         { return "UnionBased" }
 func (u *UnionBased) Timestamp() time.Time { return time.Now() }

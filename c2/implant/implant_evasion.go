@@ -16,5 +16,5 @@ func (i *ImplantEvasion) Evade() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantEvasion) Name() string { return "ImplantEvasion" }
+func (i *ImplantEvasion) Name() string         { return "ImplantEvasion" }
 func (i *ImplantEvasion) Timestamp() time.Time { return time.Now() }

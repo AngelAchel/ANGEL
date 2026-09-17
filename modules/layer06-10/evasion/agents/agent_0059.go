@@ -16,5 +16,5 @@ func (e *EvasionAgent0059) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *EvasionAgent0059) Name() string { return "EvasionAgent0059" }
+func (e *EvasionAgent0059) Name() string         { return "EvasionAgent0059" }
 func (e *EvasionAgent0059) Timestamp() time.Time { return time.Now() }

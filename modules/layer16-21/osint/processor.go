@@ -17,7 +17,7 @@ func (p *Processor) Process(event Event) ([]string, error) {
 	return results, nil
 }
 
-func (p *Processor) Name() string { return "Processor" }
+func (p *Processor) Name() string         { return "Processor" }
 func (p *Processor) Timestamp() time.Time { return time.Now() }
 
 type Event struct {

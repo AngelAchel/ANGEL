@@ -1,5 +1,4 @@
 package gateway
-//nolint:staticcheck
 
 import (
 	"encoding/json"
@@ -55,10 +54,8 @@ type Gateway struct {
 	routes     map[string]http.Handler
 	methods    map[string]map[string]http.Handler
 	mu         sync.RWMutex
-	startTime  time.Time  //nolint:staticcheck
-	totalReqs  uint64  //nolint:staticcheck
-	//nolint:unused
-	totalErrs  uint64
+	startTime  time.Time
+	totalReqs  uint64
 	jwtMgr     *auth.JWTManager
 	agents     map[string]*Agent
 	tasks      map[string]*Task
@@ -274,13 +271,13 @@ func (gw *Gateway) handleLogin(w http.ResponseWriter, r *http.Request) {
 		gw.writeJSON(w, http.StatusUnauthorized, map[string]string{"error": "missing_credentials"})
 		return
 	}
-		role := "viewer"
-		switch creds.Username {
-		case "admin":
-			role = "admin"
-		case "operator":
-			role = "operator"
-		}
+	role := "viewer"
+	switch creds.Username {
+	case "admin":
+		role = "admin"
+	case "operator":
+		role = "operator"
+	}
 	token, err := gw.jwtMgr.GenerateToken("user", creds.Username, role)
 	if err != nil {
 		gw.writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "token_generation_failed"})
@@ -467,13 +464,13 @@ func (gw *Gateway) handleStats(w http.ResponseWriter, r *http.Request) {
 			activeAgents++
 		}
 	}
-		for _, t := range gw.tasks {
-			switch t.Status {
-			case "pending":
-				pendingTasks++
-			case "done":
-				completedTasks++
-			}
+	for _, t := range gw.tasks {
+		switch t.Status {
+		case "pending":
+			pendingTasks++
+		case "done":
+			completedTasks++
+		}
 	}
 	gw.mu.RUnlock()
 	gw.writeJSON(w, http.StatusOK, map[string]interface{}{

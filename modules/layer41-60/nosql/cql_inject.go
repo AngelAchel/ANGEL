@@ -16,5 +16,5 @@ func (c *CQLInject) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (c *CQLInject) Name() string { return "CQLInject" }
+func (c *CQLInject) Name() string         { return "CQLInject" }
 func (c *CQLInject) Timestamp() time.Time { return time.Now() }

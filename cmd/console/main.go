@@ -23,10 +23,10 @@ func main() {
 	}
 
 	cfg := &gateway.Config{
-		Addr:        *addr,
-		Port:        *port,
-		JWTSecret:   *jwtSecret,
-		EnableRBAC:  true,
+		Addr:          *addr,
+		Port:          *port,
+		JWTSecret:     *jwtSecret,
+		EnableRBAC:    true,
 		EnableMetrics: true,
 	}
 

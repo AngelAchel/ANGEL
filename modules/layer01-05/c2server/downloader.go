@@ -16,5 +16,5 @@ func (e *Downloader) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Downloader) Name() string { return "Downloader" }
+func (e *Downloader) Name() string         { return "Downloader" }
 func (e *Downloader) Timestamp() time.Time { return time.Now() }

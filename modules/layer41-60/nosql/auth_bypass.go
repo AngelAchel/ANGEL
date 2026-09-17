@@ -9,14 +9,14 @@ import (
 
 // NoSQLAuthBypass represents a NoSQL authentication bypass attack.
 type NoSQLAuthBypass struct {
-	Target       string
-	Port         int
-	Database     string
-	Collection   string
+	Target        string
+	Port          int
+	Database      string
+	Collection    string
 	UsernameField string
 	PasswordField string
-	Timeout      time.Duration
-	Verbose      bool
+	Timeout       time.Duration
+	Verbose       bool
 }
 
 // AuthBypassResult holds the result of an auth bypass attempt.
@@ -293,7 +293,7 @@ func (a *NoSQLAuthBypass) TestORPayloads() []AuthBypassResult {
 // FullBypassTest runs all authentication bypass techniques.
 func (a *NoSQLAuthBypass) FullBypassTest() []AuthBypassResult {
 	allResults := make([]AuthBypassResult, 0,
-	len(a.TestNEPayloads()) + len(a.TestGTPayloads()) + len(a.TestRegexPayloads()) + len(a.TestExistsPayloads()) + len(a.TestORPayloads()))
+		len(a.TestNEPayloads())+len(a.TestGTPayloads())+len(a.TestRegexPayloads())+len(a.TestExistsPayloads())+len(a.TestORPayloads()))
 
 	allResults = append(allResults, a.TestNEPayloads()...)
 	allResults = append(allResults, a.TestGTPayloads()...)
@@ -325,12 +325,12 @@ func (a *NoSQLAuthBypass) GenerateReport(results []AuthBypassResult) map[string]
 	}
 
 	return map[string]interface{}{
-		"target":       a.Target,
-		"vulnerable":   len(vulnerable) > 0,
-		"total_tests":  len(results),
+		"target":           a.Target,
+		"vulnerable":       len(vulnerable) > 0,
+		"total_tests":      len(results),
 		"vulnerable_count": len(vulnerable),
-		"techniques":   techniques,
-		"timestamp":    time.Now().Format(time.RFC3339),
+		"techniques":       techniques,
+		"timestamp":        time.Now().Format(time.RFC3339),
 	}
 }
 
@@ -346,12 +346,12 @@ func (a *NoSQLAuthBypass) BypassReport(results []AuthBypassResult) (string, erro
 
 // NoSQLAuthScanner holds scanner configuration and results.
 type NoSQLAuthScanner struct {
-	target   string
-	port     int
-	db       string
-	col      string
-	verbose  bool
-	results  []AuthBypassResult
+	target  string
+	port    int
+	db      string
+	col     string
+	verbose bool
+	results []AuthBypassResult
 }
 
 // NewNoSQLAuthScanner creates a new NoSQL auth bypass scanner.
@@ -442,16 +442,16 @@ func (a *NoSQLAuthBypass) RecoverCredentials() CredentialRecoveryResult {
 
 // NoSQLAuthReport is the full report for auth bypass scanning.
 type NoSQLAuthReport struct {
-	Target       string                `json:"target"`
-	Port         int                   `json:"port"`
-	Database     string                `json:"database"`
-	Collection   string                `json:"collection"`
-	Vulnerable   bool                  `json:"vulnerable"`
-	TotalTests   int                   `json:"total_tests"`
-	VulnCount    int                   `json:"vulnerable_count"`
-	Techniques   map[string]int        `json:"techniques"`
-	Credentials  []CredentialEntry     `json:"credentials"`
-	Timestamp    time.Time             `json:"timestamp"`
+	Target      string            `json:"target"`
+	Port        int               `json:"port"`
+	Database    string            `json:"database"`
+	Collection  string            `json:"collection"`
+	Vulnerable  bool              `json:"vulnerable"`
+	TotalTests  int               `json:"total_tests"`
+	VulnCount   int               `json:"vulnerable_count"`
+	Techniques  map[string]int    `json:"techniques"`
+	Credentials []CredentialEntry `json:"credentials"`
+	Timestamp   time.Time         `json:"timestamp"`
 }
 
 // FullReport generates a complete auth bypass report.

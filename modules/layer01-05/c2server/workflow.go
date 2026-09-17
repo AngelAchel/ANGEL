@@ -16,5 +16,5 @@ func (e *Workflow) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Workflow) Name() string { return "Workflow" }
+func (e *Workflow) Name() string         { return "Workflow" }
 func (e *Workflow) Timestamp() time.Time { return time.Now() }

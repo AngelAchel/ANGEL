@@ -1,11 +1,9 @@
 package osint
-//nolint:staticcheck
 
 import (
 	"fmt"
 	"net"
 	"os"
-	"os/exec"
 	"strings"
 	"sync"
 
@@ -168,13 +166,4 @@ func (d *DNSRecon) CheckWildcards(domain string) (bool, string, error) {
 		return false, "", nil
 	}
 	return true, ip[0], nil
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func digCommand(domain, recordType string) (string, error) {  //nolint:unused
-	cmd := exec.Command("dig", "+short", domain, recordType)
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		return "", err
-	}
-	return strings.TrimSpace(string(out)), nil
-}
+} //nolint:staticcheck

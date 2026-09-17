@@ -28,7 +28,7 @@ func (c *Connector) Connect() ([]string, error) {
 	return results, nil
 }
 
-func (c *Connector) Name() string { return "Connector" }
+func (c *Connector) Name() string         { return "Connector" }
 func (c *Connector) Timestamp() time.Time { return time.Now() }
 
 // EventBusConnector connects via event bus
@@ -48,5 +48,5 @@ func (e *EventBusConnector) Subscribe(topic string) chan eventbus.Event {
 	return eventbus.Subscribe(topic)
 }
 
-func (e *EventBusConnector) Name() string { return "EventBusConnector" }
+func (e *EventBusConnector) Name() string         { return "EventBusConnector" }
 func (e *EventBusConnector) Timestamp() time.Time { return time.Now() }

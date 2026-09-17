@@ -16,5 +16,5 @@ func (e *Ftp) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Ftp) Name() string { return "Ftp" }
+func (e *Ftp) Name() string         { return "Ftp" }
 func (e *Ftp) Timestamp() time.Time { return time.Now() }

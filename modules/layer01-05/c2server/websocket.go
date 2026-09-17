@@ -16,5 +16,5 @@ func (e *Websocket) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Websocket) Name() string { return "Websocket" }
+func (e *Websocket) Name() string         { return "Websocket" }
 func (e *Websocket) Timestamp() time.Time { return time.Now() }

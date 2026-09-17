@@ -1,6 +1,4 @@
-// Package middleware provides HTTP middleware for the ANGEL gateway.
 package middleware
-//nolint:staticcheck
 
 import (
 	"log"
@@ -83,11 +81,9 @@ func (m *RequestIDMiddleware) Wrap(next http.Handler) http.Handler {
 		r.Header.Set("X-Request-ID", reqID)
 		next.ServeHTTP(w, r)
 	})
-}  //nolint:staticcheck
+} //nolint:staticcheck
 
-type MetricsMiddleware struct {  //nolint:staticcheck
-	//nolint:unused
-	gateway interface{ IncrementRequests() }
+type MetricsMiddleware struct {
 }
 
 func (m *MetricsMiddleware) Wrap(next http.Handler) http.Handler {

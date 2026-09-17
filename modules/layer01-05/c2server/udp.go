@@ -16,5 +16,5 @@ func (e *Udp) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Udp) Name() string { return "Udp" }
+func (e *Udp) Name() string         { return "Udp" }
 func (e *Udp) Timestamp() time.Time { return time.Now() }

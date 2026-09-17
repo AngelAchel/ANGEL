@@ -1466,7 +1466,7 @@ func TestLogCleanupRemoveDirectoryContents(t *testing.T) {
 
 	for i := 0; i < 5; i++ {
 		f := filepath.Join(tmpDir, fmt.Sprintf("file%d.txt", i))
-		os.WriteFile(f, []byte("content"), 0644)  //nolint:errcheck
+		os.WriteFile(f, []byte("content"), 0644) //nolint:errcheck
 	}
 
 	lc := NewLogCleanup(&CleanupConfig{})

@@ -16,5 +16,5 @@ func (e *Raw) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Raw) Name() string { return "Raw" }
+func (e *Raw) Name() string         { return "Raw" }
 func (e *Raw) Timestamp() time.Time { return time.Now() }

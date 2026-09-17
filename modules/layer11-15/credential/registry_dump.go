@@ -16,6 +16,6 @@ func (e *RegistryDump) Extract() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (e *RegistryDump) Name() string { return "RegistryDump" }
-func (e *RegistryDump) Platform() string { return "windows" }
+func (e *RegistryDump) Name() string            { return "RegistryDump" }
+func (e *RegistryDump) Platform() string        { return "windows" }
 func (e *RegistryDump) RequiresElevation() bool { return true }

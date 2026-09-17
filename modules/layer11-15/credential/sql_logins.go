@@ -16,6 +16,6 @@ func (e *SQLLogins) Extract() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (e *SQLLogins) Name() string { return "SQLLogins" }
-func (e *SQLLogins) Platform() string { return "windows" }
+func (e *SQLLogins) Name() string            { return "SQLLogins" }
+func (e *SQLLogins) Platform() string        { return "windows" }
 func (e *SQLLogins) RequiresElevation() bool { return true }

@@ -38,7 +38,7 @@ func (p *Publisher) Subscribe(topic string, handler func(Event)) {
 	p.handlers[topic] = append(p.handlers[topic], handler)
 }
 
-func (p *Publisher) Name() string { return "Publisher" }
+func (p *Publisher) Name() string         { return "Publisher" }
 func (p *Publisher) Timestamp() time.Time { return time.Now() }
 func (p *Publisher) Run() ([]string, error) {
 	results := make([]string, 0, 1)

@@ -95,8 +95,8 @@ func TestGetOWASPCategories(t *testing.T) {
 
 func TestGetPhases(t *testing.T) {
 	eng := newTestEngine()
-	eng.ReconPhase([]string{"test.com"})  //nolint:errcheck
-	eng.DiscoveryPhase(ReconResult{})  //nolint:errcheck
+	eng.ReconPhase([]string{"test.com"}) //nolint:errcheck
+	eng.DiscoveryPhase(ReconResult{})    //nolint:errcheck
 	phases := eng.GetPhases()
 	if len(phases) != 2 {
 		t.Errorf("expected 2 phases, got %d", len(phases))

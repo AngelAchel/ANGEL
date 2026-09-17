@@ -16,5 +16,5 @@ func (c *Comment) Insert() ([]string, error) {
 	return results, nil
 }
 
-func (c *Comment) Name() string { return "Comment" }
+func (c *Comment) Name() string         { return "Comment" }
 func (c *Comment) Timestamp() time.Time { return time.Now() }

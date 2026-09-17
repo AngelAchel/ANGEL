@@ -16,5 +16,5 @@ func (d *DNS) Query() ([]string, error) {
 	return results, nil
 }
 
-func (d *DNS) Name() string { return "DNS" }
+func (d *DNS) Name() string         { return "DNS" }
 func (d *DNS) Timestamp() time.Time { return time.Now() }

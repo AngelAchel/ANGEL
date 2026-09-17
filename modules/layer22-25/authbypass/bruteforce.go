@@ -1,9 +1,7 @@
 package authbypass
-//nolint:staticcheck
 
 import (
 	"fmt"
-	"math/rand"
 	"time"
 )
 
@@ -110,8 +108,4 @@ func (b *BruteforceModule) RateLimitBypass(target string) (bool, error) {
 	bypassed := len(strategies) > 0
 
 	return bypassed, nil
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func randomDelay() time.Duration {  //nolint:unused
-	return time.Duration(rand.Intn(500)+100) * time.Millisecond
-}
+} //nolint:staticcheck

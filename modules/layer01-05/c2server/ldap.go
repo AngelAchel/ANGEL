@@ -16,5 +16,5 @@ func (e *Ldap) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Ldap) Name() string { return "Ldap" }
+func (e *Ldap) Name() string         { return "Ldap" }
 func (e *Ldap) Timestamp() time.Time { return time.Now() }

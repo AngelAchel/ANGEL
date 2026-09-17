@@ -16,5 +16,5 @@ func (e *Runner) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Runner) Name() string { return "Runner" }
+func (e *Runner) Name() string         { return "Runner" }
 func (e *Runner) Timestamp() time.Time { return time.Now() }

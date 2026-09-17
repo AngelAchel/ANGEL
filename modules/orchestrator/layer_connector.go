@@ -17,5 +17,5 @@ func (c *LayerConnector) Connect(source, dest string) ([]string, error) {
 	return results, nil
 }
 
-func (c *LayerConnector) Name() string { return "LayerConnector" }
+func (c *LayerConnector) Name() string         { return "LayerConnector" }
 func (c *LayerConnector) Timestamp() time.Time { return time.Now() }

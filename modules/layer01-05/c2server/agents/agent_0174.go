@@ -16,5 +16,5 @@ func (e *C2ServerAgent0174) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *C2ServerAgent0174) Name() string { return "C2ServerAgent0174" }
+func (e *C2ServerAgent0174) Name() string         { return "C2ServerAgent0174" }
 func (e *C2ServerAgent0174) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Parser) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Parser) Name() string { return "Parser" }
+func (e *Parser) Name() string         { return "Parser" }
 func (e *Parser) Timestamp() time.Time { return time.Now() }

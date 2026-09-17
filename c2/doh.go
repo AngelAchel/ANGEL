@@ -16,5 +16,5 @@ func (d *DoH) Resolve() ([]string, error) {
 	return results, nil
 }
 
-func (d *DoH) Name() string { return "DoH" }
+func (d *DoH) Name() string         { return "DoH" }
 func (d *DoH) Timestamp() time.Time { return time.Now() }

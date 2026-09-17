@@ -16,5 +16,5 @@ func (e *Master) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Master) Name() string { return "Master" }
+func (e *Master) Name() string         { return "Master" }
 func (e *Master) Timestamp() time.Time { return time.Now() }

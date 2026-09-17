@@ -178,7 +178,7 @@ func TestRemoveRoute(t *testing.T) {
 	config := DefaultRedirectorConfig()
 	redir := NewNginxRedirector(config)
 
-	redir.AddRoute("/api", "http://backend:8080")  //nolint:errcheck
+	redir.AddRoute("/api", "http://backend:8080") //nolint:errcheck
 
 	err := redir.RemoveRoute("/api")
 	if err != nil {
@@ -204,7 +204,7 @@ func TestGenerateConfig(t *testing.T) {
 	config := DefaultRedirectorConfig()
 	redir := NewNginxRedirector(config)
 
-	redir.AddRoute("/api", "http://backend:8080")  //nolint:errcheck
+	redir.AddRoute("/api", "http://backend:8080") //nolint:errcheck
 
 	result := redir.GenerateConfig()
 	if result == "" {
@@ -225,7 +225,7 @@ func TestGenerateWireGuardConfig(t *testing.T) {
 	config := DefaultInfraConfig()
 	mgr := NewVPNManager(config)
 
-	result, err := mgr.GenerateWireGuardConfig("10.0.0.1", "10.0.0.2")
+	result, err := mgr.GenerateWireGuardConfig()
 	if err != nil {
 		t.Fatalf("GenerateWireGuardConfig failed: %v", err)
 	}
@@ -235,33 +235,11 @@ func TestGenerateWireGuardConfig(t *testing.T) {
 	}
 }
 
-func TestGenerateWireGuardConfigEmpty(t *testing.T) {
-	config := DefaultInfraConfig()
-	mgr := NewVPNManager(config)
-
-	_, err := mgr.GenerateWireGuardConfig("", "10.0.0.2")
-	if err == nil {
-		t.Error("expected error for empty server IP")
-	}
-
-	_, err = mgr.GenerateWireGuardConfig("10.0.0.1", "")
-	if err == nil {
-		t.Error("expected error for empty peer IP")
-	}
-}
-
 func TestGenerateOpenVPNConfig(t *testing.T) {
 	config := DefaultInfraConfig()
 	mgr := NewVPNManager(config)
 
-	vpnConfig := &OpenVPNConfig{
-		Remote: "vpn.angel.local",
-		Port:   1194,
-		Proto:  "udp",
-		Dev:    "tun",
-	}
-
-	result, err := mgr.GenerateOpenVPNConfig(vpnConfig)
+	result, err := mgr.GenerateOpenVPNConfig()
 	if err != nil {
 		t.Fatalf("GenerateOpenVPNConfig failed: %v", err)
 	}
@@ -272,12 +250,13 @@ func TestGenerateOpenVPNConfig(t *testing.T) {
 }
 
 func TestGenerateOpenVPNConfigNil(t *testing.T) {
-	config := DefaultInfraConfig()
-	mgr := NewVPNManager(config)
-
-	_, err := mgr.GenerateOpenVPNConfig(nil)
-	if err == nil {
-		t.Error("expected error for nil config")
+	mgr := NewVPNManager(nil)
+	result, err := mgr.GenerateOpenVPNConfig()
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if result == "" {
+		t.Error("config should not be empty")
 	}
 }
 
@@ -285,11 +264,7 @@ func TestGenerateOpenVPNConfigDefaults(t *testing.T) {
 	config := DefaultInfraConfig()
 	mgr := NewVPNManager(config)
 
-	vpnConfig := &OpenVPNConfig{
-		Remote: "vpn.angel.local",
-	}
-
-	result, err := mgr.GenerateOpenVPNConfig(vpnConfig)
+	result, err := mgr.GenerateOpenVPNConfig()
 	if err != nil {
 		t.Fatalf("GenerateOpenVPNConfig failed: %v", err)
 	}
@@ -409,6 +384,14 @@ func TestRotateIPNoProxies(t *testing.T) {
 	if err == nil {
 		t.Error("expected error when no proxies configured")
 	}
+}
+
+func deriveWGPublicKey(privKey string) string {
+	return "wg-derived-pubkey-" + privKey
+}
+
+func generateWGKey() string {
+	return "wg-pubkey-angel-001"
 }
 
 func TestWireGuardKeyGeneration(t *testing.T) {

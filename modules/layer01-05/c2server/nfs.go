@@ -16,5 +16,5 @@ func (e *Nfs) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Nfs) Name() string { return "Nfs" }
+func (e *Nfs) Name() string         { return "Nfs" }
 func (e *Nfs) Timestamp() time.Time { return time.Now() }

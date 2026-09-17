@@ -16,6 +16,6 @@ func (e *ICMP) Ping(target string) ([]string, error) {
 	return results, nil
 }
 
-func (e *ICMP) Name() string { return "ICMP" }
+func (e *ICMP) Name() string         { return "ICMP" }
 func (e *ICMP) Category() C2Category { return CategoryC2 }
 func (e *ICMP) Timestamp() time.Time { return time.Now() }

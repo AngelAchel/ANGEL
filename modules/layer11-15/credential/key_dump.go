@@ -16,6 +16,6 @@ func (k *KeyDump) Extract() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (k *KeyDump) Name() string { return "KeyDump" }
-func (k *KeyDump) Platform() string { return "windows" }
+func (k *KeyDump) Name() string            { return "KeyDump" }
+func (k *KeyDump) Platform() string        { return "windows" }
 func (k *KeyDump) RequiresElevation() bool { return true }

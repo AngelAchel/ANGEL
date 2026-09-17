@@ -30,6 +30,6 @@ func NewWindowsConfig() *WindowsConfig {
 	}
 }
 
-func (c *WindowsConfig) Validate() error { return nil }
+func (c *WindowsConfig) Validate() error          { return nil }
 func (c *WindowsConfig) Marshal() ([]byte, error) { return json.Marshal(c) }
-func (c *WindowsConfig) Name() string { return "WindowsConfig" }
+func (c *WindowsConfig) Name() string             { return "WindowsConfig" }

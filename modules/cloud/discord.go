@@ -19,15 +19,15 @@ func NewDiscordEngine(config CloudConfig) *DiscordEngine {
 
 // DiscordResult holds the result of a Discord covert operation.
 type DiscordResult struct {
-	ID        string     `json:"id"`
-	ChannelID string     `json:"channel_id"`
-	Channel   string     `json:"channel"`
-	Payload   string     `json:"payload"`
-	Encoded   string     `json:"encoded"`
-	Success   bool       `json:"success"`
-	Timestamp time.Time  `json:"timestamp"`
-	RiskScore float64    `json:"risk_score"`
-	Details   string     `json:"details"`
+	ID        string    `json:"id"`
+	ChannelID string    `json:"channel_id"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }
 
 // EmbedField hides data in Discord embed fields.

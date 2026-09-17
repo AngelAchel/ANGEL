@@ -16,5 +16,5 @@ func (r *Reports) Generate() ([]string, error) {
 	return results, nil
 }
 
-func (r *Reports) Name() string { return "Reports" }
+func (r *Reports) Name() string         { return "Reports" }
 func (r *Reports) Timestamp() time.Time { return time.Now() }

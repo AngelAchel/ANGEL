@@ -16,5 +16,5 @@ func (e *Uploader) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Uploader) Name() string { return "Uploader" }
+func (e *Uploader) Name() string         { return "Uploader" }
 func (e *Uploader) Timestamp() time.Time { return time.Now() }

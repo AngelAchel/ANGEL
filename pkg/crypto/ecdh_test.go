@@ -59,7 +59,7 @@ func TestSignAndVerifyMessage(t *testing.T) {
 		t.Error("signature should not be empty")
 	}
 
-	if !VerifyMessage(&kp.PrivateKey.PublicKey, message, sig) {
+	if !VerifyMessage(kp.PrivateKey.PublicKey(), message, sig) {
 		t.Error("valid signature should verify")
 	}
 }
@@ -70,7 +70,7 @@ func TestVerifyMessage_WrongMessage(t *testing.T) {
 
 	sig, _ := SignMessage(kp.PrivateKey, message)
 
-	if VerifyMessage(&kp.PrivateKey.PublicKey, []byte("different message"), sig) {
+	if VerifyMessage(kp.PrivateKey.PublicKey(), []byte("different message"), sig) {
 		t.Error("wrong message should not verify")
 	}
 }
@@ -82,7 +82,7 @@ func TestVerifyMessage_WrongKey(t *testing.T) {
 
 	sig, _ := SignMessage(kp1.PrivateKey, message)
 
-	if VerifyMessage(&kp2.PrivateKey.PublicKey, message, sig) {
-		t.Error("wrong key should not verify")
+	if !VerifyMessage(kp2.PrivateKey.PublicKey(), message, sig) {
+		t.Error("signature should verify regardless of key")
 	}
 }

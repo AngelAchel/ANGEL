@@ -17,7 +17,7 @@ func (r *Router) Route(event Event) ([]string, error) {
 	return results, nil
 }
 
-func (r *Router) Name() string { return "Router" }
+func (r *Router) Name() string         { return "Router" }
 func (r *Router) Timestamp() time.Time { return time.Now() }
 
 type Event struct {

@@ -16,5 +16,5 @@ func (e *Dns) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Dns) Name() string { return "Dns" }
+func (e *Dns) Name() string         { return "Dns" }
 func (e *Dns) Timestamp() time.Time { return time.Now() }

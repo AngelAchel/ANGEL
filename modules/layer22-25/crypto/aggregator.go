@@ -17,7 +17,7 @@ func (a *Aggregator) Aggregate(events []Event) ([]string, error) {
 	return results, nil
 }
 
-func (a *Aggregator) Name() string { return "Aggregator" }
+func (a *Aggregator) Name() string         { return "Aggregator" }
 func (a *Aggregator) Timestamp() time.Time { return time.Now() }
 
 type Event struct {

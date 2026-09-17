@@ -14,14 +14,14 @@ const (
 type Domain string
 
 const (
-	DomainC2            Domain = "c2"
-	DomainOrchestrator  Domain = "orchestrator"
-	DomainExploit       Domain = "exploit"
-	DomainInfra         Domain = "infra"
-	DomainOps           Domain = "ops"
-	DomainReport        Domain = "report"
-	DomainGateway       Domain = "gateway"
-	DomainFrontend      Domain = "frontend"
+	DomainC2           Domain = "c2"
+	DomainOrchestrator Domain = "orchestrator"
+	DomainExploit      Domain = "exploit"
+	DomainInfra        Domain = "infra"
+	DomainOps          Domain = "ops"
+	DomainReport       Domain = "report"
+	DomainGateway      Domain = "gateway"
+	DomainFrontend     Domain = "frontend"
 )
 
 // Topic represents an event topic

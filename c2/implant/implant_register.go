@@ -16,5 +16,5 @@ func (i *ImplantRegister) Register() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantRegister) Name() string { return "ImplantRegister" }
+func (i *ImplantRegister) Name() string         { return "ImplantRegister" }
 func (i *ImplantRegister) Timestamp() time.Time { return time.Now() }

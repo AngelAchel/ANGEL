@@ -16,6 +16,6 @@ func (a *AdminPersist) Persist() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (a *AdminPersist) Name() string { return "AdminPersist" }
-func (a *AdminPersist) Platform() string { return "windows" }
+func (a *AdminPersist) Name() string            { return "AdminPersist" }
+func (a *AdminPersist) Platform() string        { return "windows" }
 func (a *AdminPersist) RequiresElevation() bool { return true }

@@ -16,5 +16,5 @@ func (e *Probe) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Probe) Name() string { return "Probe" }
+func (e *Probe) Name() string         { return "Probe" }
 func (e *Probe) Timestamp() time.Time { return time.Now() }

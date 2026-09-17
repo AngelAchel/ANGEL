@@ -16,6 +16,6 @@ func (e *DNS) Query(domain string) ([]string, error) {
 	return results, nil
 }
 
-func (e *DNS) Name() string { return "DNS" }
+func (e *DNS) Name() string         { return "DNS" }
 func (e *DNS) Category() C2Category { return CategoryC2 }
 func (e *DNS) Timestamp() time.Time { return time.Now() }

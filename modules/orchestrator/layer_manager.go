@@ -17,5 +17,5 @@ func (m *LayerManager) ConnectLayers() ([]string, error) {
 	return results, nil
 }
 
-func (m *LayerManager) Name() string { return "LayerManager" }
+func (m *LayerManager) Name() string         { return "LayerManager" }
 func (m *LayerManager) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Coordinator) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Coordinator) Name() string { return "Coordinator" }
+func (e *Coordinator) Name() string         { return "Coordinator" }
 func (e *Coordinator) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Cache) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Cache) Name() string { return "Cache" }
+func (e *Cache) Name() string         { return "Cache" }
 func (e *Cache) Timestamp() time.Time { return time.Now() }

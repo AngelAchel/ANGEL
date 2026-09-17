@@ -16,5 +16,5 @@ func (e *Sftp) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Sftp) Name() string { return "Sftp" }
+func (e *Sftp) Name() string         { return "Sftp" }
 func (e *Sftp) Timestamp() time.Time { return time.Now() }

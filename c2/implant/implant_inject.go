@@ -16,5 +16,5 @@ func (i *ImplantInject) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantInject) Name() string { return "ImplantInject" }
+func (i *ImplantInject) Name() string         { return "ImplantInject" }
 func (i *ImplantInject) Timestamp() time.Time { return time.Now() }

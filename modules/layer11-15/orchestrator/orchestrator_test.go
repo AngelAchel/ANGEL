@@ -362,7 +362,7 @@ func TestFireteamExecute(t *testing.T) {
 
 func TestFireteamWait(t *testing.T) {
 	ft := CreateFireteam([]string{"agent1"})
-	ft.Execute("test", []string{"target1"})  //nolint:errcheck
+	ft.Execute("test", []string{"target1"}) //nolint:errcheck
 	results := ft.Wait()
 	if len(results) != 1 {
 		t.Errorf("expected 1 result, got %d", len(results))

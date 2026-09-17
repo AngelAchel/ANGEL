@@ -16,6 +16,6 @@ func (e *UserExtract) Extract() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (e *UserExtract) Name() string { return "UserExtract" }
-func (e *UserExtract) Platform() string { return "linux" }
+func (e *UserExtract) Name() string            { return "UserExtract" }
+func (e *UserExtract) Platform() string        { return "linux" }
 func (e *UserExtract) RequiresElevation() bool { return false }

@@ -16,5 +16,5 @@ func (i *ImplantMain) Run() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantMain) Name() string { return "ImplantMain" }
+func (i *ImplantMain) Name() string         { return "ImplantMain" }
 func (i *ImplantMain) Timestamp() time.Time { return time.Now() }

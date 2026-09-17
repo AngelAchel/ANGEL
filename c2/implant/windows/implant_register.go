@@ -17,5 +17,5 @@ func (r *WindowsRegister) Register() ([]string, error) {
 	return results, nil
 }
 
-func (r *WindowsRegister) Name() string { return "WindowsRegister" }
+func (r *WindowsRegister) Name() string         { return "WindowsRegister" }
 func (r *WindowsRegister) Timestamp() time.Time { return time.Now() }

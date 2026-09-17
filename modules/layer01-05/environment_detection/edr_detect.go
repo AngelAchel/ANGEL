@@ -1,7 +1,6 @@
 package environment_detection
 
 import (
-	"os"
 	"runtime"
 	"sync"
 )
@@ -148,13 +147,4 @@ func (d *EDRDetector) checkDLLHook(dll string) bool {
 
 func (d *EDRDetector) GetHookedFunctions() []string {
 	return []string{}
-}
-
-
-//nolint
-
-//nolint
-func fileExists(path string) bool {
-	_, err := os.Stat(path)
-	return err == nil
 }

@@ -1,5 +1,4 @@
 package evasion
-//nolint:staticcheck
 
 import (
 	"errors"
@@ -8,7 +7,6 @@ import (
 	"runtime"
 	"sync"
 	"time"
-	"unsafe"
 )
 
 var (
@@ -425,8 +423,4 @@ func (e *InjectionEngine) GetSuccessRate(methodName string) float64 {
 
 func runtimeGOOS() string {
 	return runtime.GOOS
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func unsafeSlice(ptr unsafe.Pointer, size uintptr) []byte {  //nolint:unused
-	return unsafe.Slice((*byte)(ptr), size)
-}
+} //nolint:staticcheck

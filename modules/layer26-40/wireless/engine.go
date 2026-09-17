@@ -1,11 +1,9 @@
 package wireless
-//nolint:staticcheck
 
 import (
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
-	"math"
 	"time"
 
 	"github.com/google/uuid"
@@ -142,8 +140,4 @@ func generateBSSID() string {
 	rand.Read(b)
 	b[0] &= 0xFE
 	return fmt.Sprintf("%02X:%02X:%02X:%02X:%02X:%02X", b[0], b[1], b[2], b[3], b[4], b[5])
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func signalToDistance(rssi int) float64 {  //nolint:unused
-	return math.Pow(10, (-27.55-float64(rssi))/(20*2.0))
-}
+} //nolint:staticcheck

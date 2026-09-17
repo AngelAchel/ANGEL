@@ -144,7 +144,7 @@ func (e *QueryEngine) SolrBoost(field string, value string, boost float64) (stri
 }
 
 // SolrDisMax builds a Solr dismax query injection payload.
-func (e *QueryEngine) SolrDisMQ(q string,qf string,mm string) (string, error) {
+func (e *QueryEngine) SolrDisMQ(q string, qf string, mm string) (string, error) {
 	if q == "" {
 		return "", fmt.Errorf("query string is required")
 	}

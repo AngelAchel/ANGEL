@@ -1,9 +1,7 @@
 package mobile
-//nolint:staticcheck
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -25,11 +23,11 @@ func (e *Engine) KeychainDump() MobileResult {
 	}
 
 	items := []KeychainItem{
-			{Service: "com.apple.account iCloud", Account: "user@icloud.com", Value: "", Type: "kSecClassGenericPassword", Protected: true},
-			{Service: "com.target.app", Account: "auth_token", Value: "", Type: "kSecClassInternetPassword", Protected: true},
-			{Service: "com.target.app", Account: "api_key", Value: "", Type: "kSecClassGenericPassword", Protected: false},
-			{Service: "WiFi", Account: "Enterprise WiFi", Value: "", Type: "kSecClassGenericPassword", Protected: true},
-			{Service: "com.apple.metrickit", Account: "analytics", Value: "", Type: "kSecClassGenericPassword", Protected: false},
+		{Service: "com.apple.account iCloud", Account: "user@icloud.com", Value: "", Type: "kSecClassGenericPassword", Protected: true},
+		{Service: "com.target.app", Account: "auth_token", Value: "", Type: "kSecClassInternetPassword", Protected: true},
+		{Service: "com.target.app", Account: "api_key", Value: "", Type: "kSecClassGenericPassword", Protected: false},
+		{Service: "WiFi", Account: "Enterprise WiFi", Value: "", Type: "kSecClassGenericPassword", Protected: true},
+		{Service: "com.apple.metrickit", Account: "analytics", Value: "", Type: "kSecClassGenericPassword", Protected: false},
 	}
 
 	result.KeychainItems = items
@@ -84,7 +82,7 @@ func (e *Engine) SharedPreferencesExtract() MobileResult {
 			Format: "XML",
 			Content: map[string]string{
 				"auth_token":     "<JWT_TOKEN_PLACEHOLDER>",
-							"refresh_token":  "<REFRESH_TOKEN_PLACEHOLDER>",
+				"refresh_token":  "<REFRESH_TOKEN_PLACEHOLDER>",
 				"user_id":        "<USER_ID>",
 				"session_expiry": "1700000000",
 			},
@@ -178,43 +176,4 @@ func (e *Engine) BackupExtract() MobileResult {
 	}
 
 	return result
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (e *Engine) enumerateKeychainItems() []KeychainItem {  //nolint:unused
-	accessGroups := []string{"keychain-access-groups", "app-group.angel.local"}
-	items := make([]KeychainItem, 0, len(accessGroups))
-	for _, ag := range accessGroups {
-		items = append(items, KeychainItem{
-			Service:   ag,
-			Account:   "enumerated_item",
-			Value:     "sensitive_data",
-			Type:      "kSecClassGenericPassword",
-			Access:    ag,
-			Protected: true,
-		})
-	}
-	return items
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (e *Engine) analyzeSSLChain(host string) []SSLCertInfo {  //nolint:unused
-	chain := []struct {
-		issuer    string
-		algorithm string
-	}{
-		{"Root CA", "RSA-4096"},
-		{"Intermediate CA", "RSA-2048"},
-		{host, "ECDSA-256"},
-	}
-
-	certs := make([]SSLCertInfo, 0, len(chain))
-
-	for _, c := range chain {
-		certs = append(certs, SSLCertInfo{
-			Host:       host,
-			Issuer:     c.issuer,
-			Algorithm:  c.algorithm,
-			Bypassable: strings.Contains(c.issuer, "Intermediate"),
-		})
-	}
-	return certs
-}
+} //nolint:staticcheck

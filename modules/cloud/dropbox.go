@@ -19,15 +19,15 @@ func NewDropboxEngine(config CloudConfig) *DropboxEngine {
 
 // DropboxResult holds the result of a Dropbox covert operation.
 type DropboxResult struct {
-	ID        string     `json:"id"`
-	FileID    string     `json:"file_id"`
-	Channel   string     `json:"channel"`
-	Payload   string     `json:"payload"`
-	Encoded   string     `json:"encoded"`
-	Success   bool       `json:"success"`
-	Timestamp time.Time  `json:"timestamp"`
-	RiskScore float64    `json:"risk_score"`
-	Details   string     `json:"details"`
+	ID        string    `json:"id"`
+	FileID    string    `json:"file_id"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }
 
 // ChunkedUpload splits data across multiple Dropbox file uploads.

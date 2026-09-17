@@ -17,5 +17,5 @@ func (o *Orchestrator) Orchestrate() ([]string, error) {
 	return results, nil
 }
 
-func (o *Orchestrator) Name() string { return "Orchestrator" }
+func (o *Orchestrator) Name() string         { return "Orchestrator" }
 func (o *Orchestrator) Timestamp() time.Time { return time.Now() }

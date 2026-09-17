@@ -16,5 +16,5 @@ func (m *Metadata) Gather() ([]string, error) {
 	return results, nil
 }
 
-func (m *Metadata) Name() string { return "Metadata" }
+func (m *Metadata) Name() string         { return "Metadata" }
 func (m *Metadata) Timestamp() time.Time { return time.Now() }

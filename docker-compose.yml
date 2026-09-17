@@ -45,7 +45,7 @@ services:
     restart: unless-stopped
     command: ["-bind", "0.0.0.0", "-port", "8443"]
     healthcheck:
-      test: ["CMD", "curl", "-f", "-s", "http://localhost:8443/"]
+      test: ["CMD-SHELL", "pgrep -f teamserver || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -76,7 +76,7 @@ services:
       - angel-teamserver
     command: ["-addr", "0.0.0.0", "-port", "3000"]
     healthcheck:
-      test: ["CMD", "curl", "-f", "-s", "http://localhost:3000/"]
+      test: ["CMD-SHELL", "curl -f -s http://localhost:3000/ >/dev/null 2>&1 || pgrep -f console || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -102,7 +102,7 @@ services:
     restart: unless-stopped
     command: ["-bind", "0.0.0.0", "-port", "9444"]
     healthcheck:
-      test: ["CMD", "curl", "-f", "-s", "http://localhost:9444/"]
+      test: ["CMD-SHELL", "pgrep -f angel-rules || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3

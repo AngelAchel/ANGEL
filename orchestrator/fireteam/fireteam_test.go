@@ -37,7 +37,7 @@ func TestAddAgent(t *testing.T) {
 
 func TestAddAgent_MaxCapacity(t *testing.T) {
 	ft := NewFireteam(1)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon}) //nolint:errcheck
 	err := ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit})
 	if err == nil {
 		t.Fatal("expected error when exceeding max capacity")
@@ -49,8 +49,8 @@ func TestAddAgent_MaxCapacity(t *testing.T) {
 
 func TestRemoveAgent(t *testing.T) {
 	ft := NewFireteam(3)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
-	ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit})  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})   //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit}) //nolint:errcheck
 
 	err := ft.RemoveAgent("a1")
 	if err != nil {
@@ -89,11 +89,11 @@ func TestAddTask(t *testing.T) {
 
 func TestExecuteSequential(t *testing.T) {
 	ft := NewFireteam(2)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
-	ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit})  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})   //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit}) //nolint:errcheck
 
-	ft.AddTask(&Task{ID: "t1", Type: "scan", Payload: map[string]interface{}{"target": "10.0.0.1"}})  //nolint:errcheck
-	ft.AddTask(&Task{ID: "t2", Type: "exploit", Payload: map[string]interface{}{"target": "10.0.0.2"}})  //nolint:errcheck
+	ft.AddTask(&Task{ID: "t1", Type: "scan", Payload: map[string]interface{}{"target": "10.0.0.1"}})    //nolint:errcheck
+	ft.AddTask(&Task{ID: "t2", Type: "exploit", Payload: map[string]interface{}{"target": "10.0.0.2"}}) //nolint:errcheck
 
 	err := ft.ExecuteSequential()
 	if err != nil {
@@ -120,10 +120,10 @@ func TestExecuteSequential(t *testing.T) {
 
 func TestExecuteSequential_AgentReused(t *testing.T) {
 	ft := NewFireteam(1)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon}) //nolint:errcheck
 
-	ft.AddTask(&Task{ID: "t1", Type: "scan"})  //nolint:errcheck
-	ft.AddTask(&Task{ID: "t2", Type: "exploit"})  //nolint:errcheck
+	ft.AddTask(&Task{ID: "t1", Type: "scan"})    //nolint:errcheck
+	ft.AddTask(&Task{ID: "t2", Type: "exploit"}) //nolint:errcheck
 
 	err := ft.ExecuteSequential()
 	if err != nil {
@@ -152,13 +152,13 @@ func TestExecuteSequential_AgentReused(t *testing.T) {
 
 func TestExecuteParallel(t *testing.T) {
 	ft := NewFireteam(3)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
-	ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit})  //nolint:errcheck
-	ft.AddAgent(&Agent{ID: "a3", Name: "Agent 3", Type: AgentLateral})  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})   //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit}) //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a3", Name: "Agent 3", Type: AgentLateral}) //nolint:errcheck
 
-	ft.AddTask(&Task{ID: "t1", Type: "scan"})  //nolint:errcheck
-	ft.AddTask(&Task{ID: "t2", Type: "exploit"})  //nolint:errcheck
-	ft.AddTask(&Task{ID: "t3", Type: "lateral"})  //nolint:errcheck
+	ft.AddTask(&Task{ID: "t1", Type: "scan"})    //nolint:errcheck
+	ft.AddTask(&Task{ID: "t2", Type: "exploit"}) //nolint:errcheck
+	ft.AddTask(&Task{ID: "t3", Type: "lateral"}) //nolint:errcheck
 
 	err := ft.ExecuteParallel()
 	if err != nil {
@@ -179,10 +179,10 @@ func TestExecuteParallel(t *testing.T) {
 
 func TestExecuteParallel_MoreTasksThanAgents(t *testing.T) {
 	ft := NewFireteam(1)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon}) //nolint:errcheck
 
-	ft.AddTask(&Task{ID: "t1", Type: "scan"})  //nolint:errcheck
-	ft.AddTask(&Task{ID: "t2", Type: "scan"})  //nolint:errcheck
+	ft.AddTask(&Task{ID: "t1", Type: "scan"}) //nolint:errcheck
+	ft.AddTask(&Task{ID: "t2", Type: "scan"}) //nolint:errcheck
 
 	err := ft.ExecuteParallel()
 	if err != nil {
@@ -211,8 +211,8 @@ func TestExecuteParallel_MoreTasksThanAgents(t *testing.T) {
 
 func TestGetStatus(t *testing.T) {
 	ft := NewFireteam(3)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
-	ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit})  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})   //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a2", Name: "Agent 2", Type: AgentExploit}) //nolint:errcheck
 
 	status := ft.GetStatus()
 	if status["total_agents"] != 2 {
@@ -231,9 +231,9 @@ func TestGetStatus(t *testing.T) {
 
 func TestReset(t *testing.T) {
 	ft := NewFireteam(2)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
-	ft.AddTask(&Task{ID: "t1", Type: "scan"})  //nolint:errcheck
-	ft.ExecuteSequential()  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon}) //nolint:errcheck
+	ft.AddTask(&Task{ID: "t1", Type: "scan"})                        //nolint:errcheck
+	ft.ExecuteSequential()                                           //nolint:errcheck
 
 	ft.Reset()
 	if len(ft.tasks) != 0 {
@@ -250,14 +250,14 @@ func TestReset(t *testing.T) {
 func TestAgentStatusTransitions(t *testing.T) {
 	ft := NewFireteam(1)
 	agent := &Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon}
-	ft.AddAgent(agent)  //nolint:errcheck
+	ft.AddAgent(agent) //nolint:errcheck
 
 	if agent.Status != StatusIdle {
 		t.Errorf("expected idle before execution, got %s", agent.Status)
 	}
 
-	ft.AddTask(&Task{ID: "t1", Type: "scan"})  //nolint:errcheck
-	ft.ExecuteSequential()  //nolint:errcheck
+	ft.AddTask(&Task{ID: "t1", Type: "scan"}) //nolint:errcheck
+	ft.ExecuteSequential()                    //nolint:errcheck
 
 	// After execution, defer in executeTask sets agent back to idle.
 	agent.mu.Lock()
@@ -275,9 +275,9 @@ func TestAgentStatusTransitions(t *testing.T) {
 
 func TestResultFields(t *testing.T) {
 	ft := NewFireteam(1)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
-	ft.AddTask(&Task{ID: "t1", Type: "scan", Payload: map[string]interface{}{"key": "value"}})  //nolint:errcheck
-	ft.ExecuteSequential()  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})                           //nolint:errcheck
+	ft.AddTask(&Task{ID: "t1", Type: "scan", Payload: map[string]interface{}{"key": "value"}}) //nolint:errcheck
+	ft.ExecuteSequential()                                                                     //nolint:errcheck
 
 	results := ft.GetResults()
 	if len(results) != 1 {
@@ -300,9 +300,9 @@ func TestResultFields(t *testing.T) {
 
 func TestGetResults_ReturnsCopy(t *testing.T) {
 	ft := NewFireteam(1)
-	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon})  //nolint:errcheck
-	ft.AddTask(&Task{ID: "t1", Type: "scan"})  //nolint:errcheck
-	ft.ExecuteSequential()  //nolint:errcheck
+	ft.AddAgent(&Agent{ID: "a1", Name: "Agent 1", Type: AgentRecon}) //nolint:errcheck
+	ft.AddTask(&Task{ID: "t1", Type: "scan"})                        //nolint:errcheck
+	ft.ExecuteSequential()                                           //nolint:errcheck
 
 	results1 := ft.GetResults()
 	results2 := ft.GetResults()
@@ -319,10 +319,10 @@ func TestGetResults_ReturnsCopy(t *testing.T) {
 func TestExecuteParallel_ConcurrentSafety(t *testing.T) {
 	ft := NewFireteam(5)
 	for i := 0; i < 5; i++ {
-		ft.AddAgent(&Agent{ID: "a" + string(rune('1'+i)), Name: "Agent", Type: AgentRecon})  //nolint:errcheck
+		ft.AddAgent(&Agent{ID: "a" + string(rune('1'+i)), Name: "Agent", Type: AgentRecon}) //nolint:errcheck
 	}
 	for i := 0; i < 10; i++ {
-		ft.AddTask(&Task{ID: "t" + string(rune('0'+i)), Type: "scan"})  //nolint:errcheck
+		ft.AddTask(&Task{ID: "t" + string(rune('0'+i)), Type: "scan"}) //nolint:errcheck
 	}
 
 	err := ft.ExecuteParallel()

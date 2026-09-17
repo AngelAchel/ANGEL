@@ -16,5 +16,5 @@ func (e *Persister) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Persister) Name() string { return "Persister" }
+func (e *Persister) Name() string         { return "Persister" }
 func (e *Persister) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *AiAgent0021) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *AiAgent0021) Name() string { return "AiAgent0021" }
+func (e *AiAgent0021) Name() string         { return "AiAgent0021" }
 func (e *AiAgent0021) Timestamp() time.Time { return time.Now() }

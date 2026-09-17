@@ -16,6 +16,6 @@ func (c *CertRenewal) Check() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (c *CertRenewal) Name() string { return "CertRenewal" }
-func (c *CertRenewal) Platform() string { return "windows" }
+func (c *CertRenewal) Name() string            { return "CertRenewal" }
+func (c *CertRenewal) Platform() string        { return "windows" }
 func (c *CertRenewal) RequiresElevation() bool { return false }

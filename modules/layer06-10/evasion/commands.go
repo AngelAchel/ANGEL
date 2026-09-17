@@ -16,6 +16,6 @@ func (e *Commands) Execute(cmd string) ([]string, error) {
 	return results, nil
 }
 
-func (e *Commands) Name() string { return "Commands" }
+func (e *Commands) Name() string              { return "Commands" }
 func (e *Commands) Category() EvasionCategory { return CategorySyscall }
-func (e *Commands) Timestamp() time.Time { return time.Now() }
+func (e *Commands) Timestamp() time.Time      { return time.Now() }

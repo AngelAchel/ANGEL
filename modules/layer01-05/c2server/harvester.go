@@ -16,5 +16,5 @@ func (e *Harvester) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Harvester) Name() string { return "Harvester" }
+func (e *Harvester) Name() string         { return "Harvester" }
 func (e *Harvester) Timestamp() time.Time { return time.Now() }

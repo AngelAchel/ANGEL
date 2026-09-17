@@ -1,5 +1,4 @@
 package crypto
-//nolint:staticcheck
 
 import (
 	"crypto/cipher"
@@ -348,112 +347,7 @@ func log(x float64) float64 {
 		sum += z / float64(2*i+1)
 	}
 	return sum*2 + float64(n)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (e *Engine) calculateKeySize(ciphertext []byte) int {  //nolint:unused
-	if len(ciphertext) < 32 {
-		return 16
-	}
-
-	hammingDistances := make([]float64, 0)
-	for keySize := 2; keySize <= 32; keySize++ {
-		if len(ciphertext) < keySize*4 {
-			continue
-		}
-		blocks := make([][]byte, 4)
-		for i := 0; i < 4; i++ {
-			start := i * keySize
-			end := start + keySize
-			if end > len(ciphertext) {
-				break
-			}
-			blocks[i] = ciphertext[start:end]
-		}
-		if len(blocks) < 4 {
-			continue
-		}
-
-		totalDist := 0
-		count := 0
-		for i := 0; i < len(blocks)-1; i++ {
-			for j := i + 1; j < len(blocks); j++ {
-				totalDist += hammingDistance(blocks[i], blocks[j])
-				count++
-			}
-		}
-		if count > 0 {
-			avgDist := float64(totalDist) / float64(count) / float64(keySize)
-			hammingDistances = append(hammingDistances, avgDist)
-		}
-	}
-
-	if len(hammingDistances) == 0 {
-		return 16
-	}
-
-	bestIdx := 0
-	bestScore := hammingDistances[0]
-	for i, d := range hammingDistances {
-		if d < bestScore {
-			bestScore = d
-			bestIdx = i
-		}
-	}
-	return bestIdx + 2
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func hammingDistance(a, b []byte) int {  //nolint:unused
-	dist := 0
-	for i := 0; i < len(a) && i < len(b); i++ {
-		xor := a[i] ^ b[i]
-		for j := 0; j < 8; j++ {
-			if xor&(1<<uint(j)) != 0 {
-				dist++
-			}
-		}
-	}
-	return dist
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (e *Engine) detectCipherMode(ciphertext []byte, blockSize int) string {  //nolint:unused
-	if len(ciphertext) < blockSize*2 {
-		return "unknown"
-	}
-
-	blocks := make(map[string]int)
-	for i := 0; i+blockSize <= len(ciphertext); i += blockSize {
-		block := hex.EncodeToString(ciphertext[i : i+blockSize])
-		blocks[block]++
-	}
-
-	for _, count := range blocks {
-		if count > 1 {
-			return "ECB"
-		}
-	}
-
-	if len(e.config.IV) > 0 {
-		return "CBC"
-	}
-	return "CTR"
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (e *Engine) analyzeIV(iv []byte) map[string]interface{} {  //nolint:unused
-	analysis := make(map[string]interface{})
-	analysis["length"] = len(iv)
-	analysis["all_zeros"] = true
-	analysis["all_ones"] = true
-	for _, b := range iv {
-		if b != 0 {
-			analysis["all_zeros"] = false
-		}
-		if b != 0xff {
-			analysis["all_ones"] = false
-		}
-	}
-	analysis["entropy"] = calculateEntropy(iv)
-	return analysis
-}
+} //nolint:staticcheck
 
 var _ = cipher.Block(nil)
 var _ = des.NewTripleDESCipher

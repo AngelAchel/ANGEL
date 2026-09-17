@@ -16,5 +16,5 @@ func (e *Pipeline) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Pipeline) Name() string { return "Pipeline" }
+func (e *Pipeline) Name() string         { return "Pipeline" }
 func (e *Pipeline) Timestamp() time.Time { return time.Now() }

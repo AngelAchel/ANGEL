@@ -16,5 +16,5 @@ func (e *Scraper) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Scraper) Name() string { return "Scraper" }
+func (e *Scraper) Name() string         { return "Scraper" }
 func (e *Scraper) Timestamp() time.Time { return time.Now() }

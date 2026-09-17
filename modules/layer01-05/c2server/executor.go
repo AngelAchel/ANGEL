@@ -16,5 +16,5 @@ func (e *Executor) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Executor) Name() string { return "Executor" }
+func (e *Executor) Name() string         { return "Executor" }
 func (e *Executor) Timestamp() time.Time { return time.Now() }

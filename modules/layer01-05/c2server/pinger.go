@@ -16,5 +16,5 @@ func (e *Pinger) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Pinger) Name() string { return "Pinger" }
+func (e *Pinger) Name() string         { return "Pinger" }
 func (e *Pinger) Timestamp() time.Time { return time.Now() }

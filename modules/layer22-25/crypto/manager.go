@@ -15,5 +15,5 @@ func (m *Manager) Manage() error {
 	return nil
 }
 
-func (m *Manager) Name() string { return "Manager" }
+func (m *Manager) Name() string         { return "Manager" }
 func (m *Manager) Timestamp() time.Time { return time.Now() }

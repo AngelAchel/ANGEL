@@ -16,5 +16,5 @@ func (e *Bomber) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Bomber) Name() string { return "Bomber" }
+func (e *Bomber) Name() string         { return "Bomber" }
 func (e *Bomber) Timestamp() time.Time { return time.Now() }

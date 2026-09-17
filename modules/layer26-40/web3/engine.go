@@ -1,8 +1,6 @@
 package web3
-//nolint:staticcheck
 
 import (
-	"crypto/sha256"
 	"fmt"
 	"time"
 
@@ -142,14 +140,4 @@ func (e *Engine) AccessControlBypass(contractAddr string) Web3Result {
 	})
 
 	return result
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func (e *Engine) analyzeBytecode(bytecode string) []string {  //nolint:unused
-	var patterns []string
-	if len(bytecode) > 100 {
-		patterns = append(patterns, "DELEGATECALL present")
-	}
-	h := sha256.Sum256([]byte(bytecode))
-	_ = h
-	return patterns
-}
+} //nolint:staticcheck

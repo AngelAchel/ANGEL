@@ -16,5 +16,5 @@ func (e *XPCmdshell) Execute(cmd string) ([]string, error) {
 	return results, nil
 }
 
-func (e *XPCmdshell) Name() string { return "XPCmdshell" }
+func (e *XPCmdshell) Name() string         { return "XPCmdshell" }
 func (e *XPCmdshell) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Loader) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Loader) Name() string { return "Loader" }
+func (e *Loader) Name() string         { return "Loader" }
 func (e *Loader) Timestamp() time.Time { return time.Now() }

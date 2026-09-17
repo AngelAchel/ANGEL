@@ -300,7 +300,7 @@ func (e *Engine) buildTunnelPacket(info TunnelInfo) []byte {
 	buf := make([]byte, 0, len(protoBytes)+1+1+len(payloadBytes))
 	buf = append(buf, protoBytes...)
 	buf = append(buf, byte(info.HopLimit))
-	buf = append(buf, 0xff) // Next header: IPv6
+	buf = append(buf, 0xff)            // Next header: IPv6
 	buf = append(buf, payloadBytes...) // Payload length
 
 	return buf
@@ -311,14 +311,12 @@ func (e *Engine) isValidIPv6(addr string) bool {
 	return ip != nil && ip.To4() == nil
 }
 
-//nolint:unused
 func generateRandomBytes(n int) []byte {
 	b := make([]byte, n)
 	rand.Read(b)
 	return b
 }
 
-//nolint:unused
 func generateRandomHex(n int) string {
 	b := make([]byte, n)
 	rand.Read(b)

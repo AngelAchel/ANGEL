@@ -19,15 +19,15 @@ func NewBlockchainEngine(config CloudConfig) *BlockchainEngine {
 
 // BlockchainResult holds the result of a blockchain covert operation.
 type BlockchainResult struct {
-	ID        string     `json:"id"`
-	TxHash    string     `json:"tx_hash"`
-	Channel   string     `json:"channel"`
-	Payload   string     `json:"payload"`
-	Encoded   string     `json:"encoded"`
-	Success   bool       `json:"success"`
-	Timestamp time.Time  `json:"timestamp"`
-	RiskScore float64    `json:"risk_score"`
-	Details   string     `json:"details"`
+	ID        string    `json:"id"`
+	TxHash    string    `json:"tx_hash"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }
 
 // OpReturnEmbed encodes data in Bitcoin OP_RETURN outputs.

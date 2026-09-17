@@ -16,5 +16,5 @@ func (i *ImplantCrypto) Encrypt() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantCrypto) Name() string { return "ImplantCrypto" }
+func (i *ImplantCrypto) Name() string         { return "ImplantCrypto" }
 func (i *ImplantCrypto) Timestamp() time.Time { return time.Now() }

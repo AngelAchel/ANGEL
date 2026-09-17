@@ -16,5 +16,5 @@ func (m *Models) Get() ([]string, error) {
 	return results, nil
 }
 
-func (m *Models) Name() string { return "Models" }
+func (m *Models) Name() string         { return "Models" }
 func (m *Models) Timestamp() time.Time { return time.Now() }

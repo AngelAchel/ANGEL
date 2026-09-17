@@ -16,5 +16,5 @@ func (e *Controller) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Controller) Name() string { return "Controller" }
+func (e *Controller) Name() string         { return "Controller" }
 func (e *Controller) Timestamp() time.Time { return time.Now() }

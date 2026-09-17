@@ -16,5 +16,5 @@ func (e *Crawler) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Crawler) Name() string { return "Crawler" }
+func (e *Crawler) Name() string         { return "Crawler" }
 func (e *Crawler) Timestamp() time.Time { return time.Now() }

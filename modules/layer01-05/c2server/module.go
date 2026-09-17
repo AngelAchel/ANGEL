@@ -16,5 +16,5 @@ func (e *Module) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Module) Name() string { return "Module" }
+func (e *Module) Name() string         { return "Module" }
 func (e *Module) Timestamp() time.Time { return time.Now() }

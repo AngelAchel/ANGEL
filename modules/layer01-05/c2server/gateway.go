@@ -16,5 +16,5 @@ func (e *Gateway) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Gateway) Name() string { return "Gateway" }
+func (e *Gateway) Name() string         { return "Gateway" }
 func (e *Gateway) Timestamp() time.Time { return time.Now() }

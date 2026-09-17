@@ -16,5 +16,5 @@ func (x *XMLParam) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (x *XMLParam) Name() string { return "XMLParam" }
+func (x *XMLParam) Name() string         { return "XMLParam" }
 func (x *XMLParam) Timestamp() time.Time { return time.Now() }

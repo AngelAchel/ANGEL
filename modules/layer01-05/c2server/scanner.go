@@ -16,5 +16,5 @@ func (e *Scanner) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Scanner) Name() string { return "Scanner" }
+func (e *Scanner) Name() string         { return "Scanner" }
 func (e *Scanner) Timestamp() time.Time { return time.Now() }

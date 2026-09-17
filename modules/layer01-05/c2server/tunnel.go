@@ -16,5 +16,5 @@ func (e *Tunnel) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Tunnel) Name() string { return "Tunnel" }
+func (e *Tunnel) Name() string         { return "Tunnel" }
 func (e *Tunnel) Timestamp() time.Time { return time.Now() }

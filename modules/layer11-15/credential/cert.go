@@ -16,6 +16,6 @@ func (c *CertExtractor) Extract() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (c *CertExtractor) Name() string { return "CertExtractor" }
-func (c *CertExtractor) Platform() string { return "windows" }
+func (c *CertExtractor) Name() string            { return "CertExtractor" }
+func (c *CertExtractor) Platform() string        { return "windows" }
 func (c *CertExtractor) RequiresElevation() bool { return true }

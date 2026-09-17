@@ -30,6 +30,6 @@ func NewAndroidConfig() *AndroidConfig {
 	}
 }
 
-func (c *AndroidConfig) Validate() error { return nil }
+func (c *AndroidConfig) Validate() error          { return nil }
 func (c *AndroidConfig) Marshal() ([]byte, error) { return json.Marshal(c) }
-func (c *AndroidConfig) Name() string { return "AndroidConfig" }
+func (c *AndroidConfig) Name() string             { return "AndroidConfig" }

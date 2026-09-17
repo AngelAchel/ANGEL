@@ -16,5 +16,5 @@ func (m *Multipart) Upload() ([]string, error) {
 	return results, nil
 }
 
-func (m *Multipart) Name() string { return "Multipart" }
+func (m *Multipart) Name() string         { return "Multipart" }
 func (m *Multipart) Timestamp() time.Time { return time.Now() }

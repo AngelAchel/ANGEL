@@ -16,5 +16,5 @@ func (e *Jwt) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Jwt) Name() string { return "Jwt" }
+func (e *Jwt) Name() string         { return "Jwt" }
 func (e *Jwt) Timestamp() time.Time { return time.Now() }

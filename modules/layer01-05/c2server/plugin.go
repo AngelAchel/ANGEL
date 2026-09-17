@@ -16,5 +16,5 @@ func (e *Plugin) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Plugin) Name() string { return "Plugin" }
+func (e *Plugin) Name() string         { return "Plugin" }
 func (e *Plugin) Timestamp() time.Time { return time.Now() }

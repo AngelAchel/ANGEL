@@ -16,5 +16,5 @@ func (a *Autocomplete) Complete(cmd string) ([]string, error) {
 	return results, nil
 }
 
-func (a *Autocomplete) Name() string { return "Autocomplete" }
+func (a *Autocomplete) Name() string         { return "Autocomplete" }
 func (a *Autocomplete) Timestamp() time.Time { return time.Now() }

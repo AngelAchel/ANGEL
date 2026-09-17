@@ -16,5 +16,5 @@ func (j *JSInject) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (j *JSInject) Name() string { return "JSInject" }
+func (j *JSInject) Name() string         { return "JSInject" }
 func (j *JSInject) Timestamp() time.Time { return time.Now() }

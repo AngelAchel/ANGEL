@@ -17,5 +17,5 @@ func (t *WindowsTask) Execute() ([]string, error) {
 	return results, nil
 }
 
-func (t *WindowsTask) Name() string { return "WindowsTask" }
+func (t *WindowsTask) Name() string         { return "WindowsTask" }
 func (t *WindowsTask) Timestamp() time.Time { return time.Now() }

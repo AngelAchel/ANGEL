@@ -16,5 +16,5 @@ func (b *BooleanBlind) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (b *BooleanBlind) Name() string { return "BooleanBlind" }
+func (b *BooleanBlind) Name() string         { return "BooleanBlind" }
 func (b *BooleanBlind) Timestamp() time.Time { return time.Now() }

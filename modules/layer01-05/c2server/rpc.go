@@ -16,5 +16,5 @@ func (e *Rpc) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Rpc) Name() string { return "Rpc" }
+func (e *Rpc) Name() string         { return "Rpc" }
 func (e *Rpc) Timestamp() time.Time { return time.Now() }

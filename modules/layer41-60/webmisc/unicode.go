@@ -16,5 +16,5 @@ func (u *Unicode) Normalize() ([]string, error) {
 	return results, nil
 }
 
-func (u *Unicode) Name() string { return "Unicode" }
+func (u *Unicode) Name() string         { return "Unicode" }
 func (u *Unicode) Timestamp() time.Time { return time.Now() }

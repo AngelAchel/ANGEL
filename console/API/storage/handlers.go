@@ -16,5 +16,5 @@ func (h *Handlers) Handle() ([]string, error) {
 	return results, nil
 }
 
-func (h *Handlers) Name() string { return "Handlers" }
+func (h *Handlers) Name() string         { return "Handlers" }
 func (h *Handlers) Timestamp() time.Time { return time.Now() }

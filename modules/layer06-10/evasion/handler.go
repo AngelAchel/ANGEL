@@ -17,7 +17,7 @@ func (h *Handler) Handle(event Event) ([]string, error) {
 	return results, nil
 }
 
-func (h *Handler) Name() string { return "Handler" }
+func (h *Handler) Name() string         { return "Handler" }
 func (h *Handler) Timestamp() time.Time { return time.Now() }
 
 type Event struct {

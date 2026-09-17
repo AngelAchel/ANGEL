@@ -27,14 +27,14 @@ type CloudConfig struct {
 
 // CloudResult holds the result of a cloud covert operation.
 type CloudResult struct {
-	ID         string        `json:"id"`
-	Provider   string        `json:"provider"`
-	AccountID  string        `json:"account_id"`
-	Channel    string        `json:"channel"`
-	Payload    string        `json:"payload"`
-	Encoded    string        `json:"encoded"`
-	Success    bool          `json:"success"`
-	Timestamp  time.Time     `json:"timestamp"`
-	RiskScore  float64       `json:"risk_score"`
-	Details    string        `json:"details"`
+	ID        string    `json:"id"`
+	Provider  string    `json:"provider"`
+	AccountID string    `json:"account_id"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }

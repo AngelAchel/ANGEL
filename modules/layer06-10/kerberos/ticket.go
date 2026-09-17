@@ -1,5 +1,4 @@
 package kerberos
-//nolint:staticcheck
 
 import (
 	"crypto/aes"
@@ -362,12 +361,4 @@ func hexToBytes(hexStr string) ([]byte, error) {
 		result[i/2] = b
 	}
 	return result, nil
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func generateRandomBytes(n int) ([]byte, error) {  //nolint:unused
-	b := make([]byte, n)
-	if _, err := rand.Read(b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
+} //nolint:staticcheck

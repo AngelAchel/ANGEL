@@ -16,5 +16,5 @@ func (e *KhuntUnzip) Hunt() ([]string, error) {
 	return results, nil
 }
 
-func (e *KhuntUnzip) Name() string { return "KhuntUnzip" }
+func (e *KhuntUnzip) Name() string         { return "KhuntUnzip" }
 func (e *KhuntUnzip) Timestamp() time.Time { return time.Now() }

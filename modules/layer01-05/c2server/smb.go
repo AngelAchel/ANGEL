@@ -16,5 +16,5 @@ func (e *Smb) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Smb) Name() string { return "Smb" }
+func (e *Smb) Name() string         { return "Smb" }
 func (e *Smb) Timestamp() time.Time { return time.Now() }

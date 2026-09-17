@@ -26,7 +26,7 @@ func (s *HMACSigner) Verify(data, signature string) bool {
 	return hmac.Equal([]byte(expected), []byte(signature))
 }
 
-func (s *HMACSigner) Name() string { return "HMACSigner" }
+func (s *HMACSigner) Name() string         { return "HMACSigner" }
 func (s *HMACSigner) Timestamp() time.Time { return time.Now() }
 func (s *HMACSigner) Run() ([]string, error) {
 	results := make([]string, 0, 1)

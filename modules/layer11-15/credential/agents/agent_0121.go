@@ -16,5 +16,5 @@ func (e *CredentialAgent0121) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *CredentialAgent0121) Name() string { return "CredentialAgent0121" }
+func (e *CredentialAgent0121) Name() string         { return "CredentialAgent0121" }
 func (e *CredentialAgent0121) Timestamp() time.Time { return time.Now() }

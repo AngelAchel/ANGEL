@@ -16,5 +16,5 @@ func (r *RotationManager) Rotate() ([]string, error) {
 	return results, nil
 }
 
-func (r *RotationManager) Name() string { return "RotationManager" }
+func (r *RotationManager) Name() string         { return "RotationManager" }
 func (r *RotationManager) Timestamp() time.Time { return time.Now() }

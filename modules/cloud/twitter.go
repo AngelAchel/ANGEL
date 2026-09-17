@@ -19,15 +19,15 @@ func NewTwitterEngine(config CloudConfig) *TwitterEngine {
 
 // TwitterResult holds the result of a Twitter covert operation.
 type TwitterResult struct {
-	ID        string     `json:"id"`
-	TweetID   string     `json:"tweet_id"`
-	Channel   string     `json:"channel"`
-	Payload   string     `json:"payload"`
-	Encoded   string     `json:"encoded"`
-	Success   bool       `json:"success"`
-	Timestamp time.Time  `json:"timestamp"`
-	RiskScore float64    `json:"risk_score"`
-	Details   string     `json:"details"`
+	ID        string    `json:"id"`
+	TweetID   string    `json:"tweet_id"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }
 
 // TweetText hides data in tweet text content.

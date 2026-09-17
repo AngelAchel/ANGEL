@@ -1,10 +1,6 @@
 package ai
-//nolint:staticcheck
 
 import (
-	"crypto/rand"
-	"crypto/sha256"
-	"encoding/hex"
 	"fmt"
 	"strings"
 	"time"
@@ -222,15 +218,4 @@ func (e *Engine) calculateScore(result AIResult) int {
 		score = 100
 	}
 	return score
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func generateRandomPerturbation() string {  //nolint:unused
-	b := make([]byte, 8)
-	rand.Read(b)
-	return hex.EncodeToString(b)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func hashPrompt(prompt string) string {  //nolint:unused
-	h := sha256.Sum256([]byte(prompt))
-	return hex.EncodeToString(h[:])
-}
+} //nolint:staticcheck

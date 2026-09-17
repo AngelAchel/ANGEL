@@ -15,5 +15,5 @@ func (m *WindowsMain) Run() error {
 	return nil
 }
 
-func (m *WindowsMain) Name() string { return "WindowsMain" }
+func (m *WindowsMain) Name() string         { return "WindowsMain" }
 func (m *WindowsMain) Timestamp() time.Time { return time.Now() }

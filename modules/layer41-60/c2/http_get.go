@@ -16,5 +16,5 @@ func (h *HTTPGet) Get() ([]string, error) {
 	return results, nil
 }
 
-func (h *HTTPGet) Name() string { return "HTTPGet" }
+func (h *HTTPGet) Name() string         { return "HTTPGet" }
 func (h *HTTPGet) Timestamp() time.Time { return time.Now() }

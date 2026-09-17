@@ -16,5 +16,5 @@ func (e *Exfiltrator) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Exfiltrator) Name() string { return "Exfiltrator" }
+func (e *Exfiltrator) Name() string         { return "Exfiltrator" }
 func (e *Exfiltrator) Timestamp() time.Time { return time.Now() }

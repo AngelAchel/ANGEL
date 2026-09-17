@@ -16,6 +16,6 @@ func (e *TCP) Connect(target string) ([]string, error) {
 	return results, nil
 }
 
-func (e *TCP) Name() string { return "TCP" }
+func (e *TCP) Name() string         { return "TCP" }
 func (e *TCP) Category() C2Category { return CategoryC2 }
 func (e *TCP) Timestamp() time.Time { return time.Now() }

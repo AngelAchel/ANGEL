@@ -16,5 +16,5 @@ func (e *Batch) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Batch) Name() string { return "Batch" }
+func (e *Batch) Name() string         { return "Batch" }
 func (e *Batch) Timestamp() time.Time { return time.Now() }

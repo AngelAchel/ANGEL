@@ -16,5 +16,5 @@ func (a *Agents) List() ([]string, error) {
 	return results, nil
 }
 
-func (a *Agents) Name() string { return "Agents" }
+func (a *Agents) Name() string         { return "Agents" }
 func (a *Agents) Timestamp() time.Time { return time.Now() }

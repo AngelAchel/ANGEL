@@ -16,5 +16,5 @@ func (e *DoubleURL) Encode(url string) ([]string, error) {
 	return results, nil
 }
 
-func (e *DoubleURL) Name() string { return "DoubleURL" }
+func (e *DoubleURL) Name() string         { return "DoubleURL" }
 func (e *DoubleURL) Timestamp() time.Time { return time.Now() }

@@ -1,10 +1,8 @@
 package smb_beacon
-//nolint:staticcheck
 
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"fmt"
 	"sync"
 	"time"
 )
@@ -208,14 +206,4 @@ func generateBeaconID() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func formatBeaconStatus(beacon *SMBBeacon) string {  //nolint:unused
-	status := "🔴 Disconnected"
-	if beacon.IsConnected() {
-		status = "🟢 Connected"
-	}
-
-	return fmt.Sprintf("Beacon %s: %s (Last checkin: %v)",
-		beacon.GetID()[:8], status, beacon.GetLastCheckin())
-}
+} //nolint:staticcheck

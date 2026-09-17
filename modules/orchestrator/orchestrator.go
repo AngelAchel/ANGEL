@@ -57,7 +57,7 @@ func (o *Orchestrator) Subscribe(topic string, handler func(Event)) {
 	o.handlers[topic] = handler
 }
 
-func (o *Orchestrator) Name() string { return "Orchestrator" }
+func (o *Orchestrator) Name() string         { return "Orchestrator" }
 func (o *Orchestrator) Timestamp() time.Time { return time.Now() }
 func (o *Orchestrator) Run() ([]string, error) {
 	results := make([]string, 0, 1)

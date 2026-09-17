@@ -16,5 +16,5 @@ func (i *ImplantPersistence) Persist() ([]string, error) {
 	return results, nil
 }
 
-func (i *ImplantPersistence) Name() string { return "ImplantPersistence" }
+func (i *ImplantPersistence) Name() string         { return "ImplantPersistence" }
 func (i *ImplantPersistence) Timestamp() time.Time { return time.Now() }

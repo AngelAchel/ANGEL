@@ -19,15 +19,15 @@ func NewGDriveEngine(config CloudConfig) *GDriveEngine {
 
 // GDriveResult holds the result of a GDrive covert operation.
 type GDriveResult struct {
-	ID         string        `json:"id"`
-	FileID     string        `json:"file_id"`
-	Channel    string        `json:"channel"`
-	Payload    string        `json:"payload"`
-	Encoded    string        `json:"encoded"`
-	Success    bool          `json:"success"`
-	Timestamp  time.Time     `json:"timestamp"`
-	RiskScore  float64       `json:"risk_score"`
-	Details    string        `json:"details"`
+	ID        string    `json:"id"`
+	FileID    string    `json:"file_id"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }
 
 // UploadEmbed embeds a payload into a Google Drive file metadata.

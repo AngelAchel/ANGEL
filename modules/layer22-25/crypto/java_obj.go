@@ -16,5 +16,5 @@ func (j *JavaObj) Process() ([]string, error) {
 	return results, nil
 }
 
-func (j *JavaObj) Name() string { return "JavaObj" }
+func (j *JavaObj) Name() string         { return "JavaObj" }
 func (j *JavaObj) Timestamp() time.Time { return time.Now() }

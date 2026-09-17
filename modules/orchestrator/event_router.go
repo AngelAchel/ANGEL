@@ -17,5 +17,5 @@ func (r *EventRouter) Route(event Event) ([]string, error) {
 	return results, nil
 }
 
-func (r *EventRouter) Name() string { return "EventRouter" }
+func (r *EventRouter) Name() string         { return "EventRouter" }
 func (r *EventRouter) Timestamp() time.Time { return time.Now() }

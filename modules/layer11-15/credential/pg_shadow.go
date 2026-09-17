@@ -16,6 +16,6 @@ func (e *PGShadow) Extract() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (e *PGShadow) Name() string { return "PGShadow" }
-func (e *PGShadow) Platform() string { return "linux" }
+func (e *PGShadow) Name() string            { return "PGShadow" }
+func (e *PGShadow) Platform() string        { return "linux" }
 func (e *PGShadow) RequiresElevation() bool { return true }

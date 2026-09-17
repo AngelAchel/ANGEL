@@ -16,5 +16,5 @@ func (e *Validator) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Validator) Name() string { return "Validator" }
+func (e *Validator) Name() string         { return "Validator" }
 func (e *Validator) Timestamp() time.Time { return time.Now() }

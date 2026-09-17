@@ -16,5 +16,5 @@ func (o *OOBICMP) Ping() ([]string, error) {
 	return results, nil
 }
 
-func (o *OOBICMP) Name() string { return "OOBICMP" }
+func (o *OOBICMP) Name() string         { return "OOBICMP" }
 func (o *OOBICMP) Timestamp() time.Time { return time.Now() }

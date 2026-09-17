@@ -75,7 +75,7 @@ func TestRegisterTool_Duplicate(t *testing.T) {
 func TestExecuteTool_WithFunc(t *testing.T) {
 	srv := NewMCPServer(5)
 	called := false
-	srv.RegisterTool(&Tool{  //nolint:errcheck
+	srv.RegisterTool(&Tool{ //nolint:errcheck
 		ID:   "test-tool",
 		Name: "Test Tool",
 		Execute: func(params map[string]interface{}) (*ToolResult, error) {
@@ -105,7 +105,7 @@ func TestExecuteTool_WithFunc(t *testing.T) {
 
 func TestExecuteTool_WithFunc_Error(t *testing.T) {
 	srv := NewMCPServer(5)
-	srv.RegisterTool(&Tool{  //nolint:errcheck
+	srv.RegisterTool(&Tool{ //nolint:errcheck
 		ID:   "fail-tool",
 		Name: "Fail Tool",
 		Execute: func(params map[string]interface{}) (*ToolResult, error) {
@@ -177,7 +177,7 @@ func TestCreateSession(t *testing.T) {
 
 func TestCreateSession_MaxReached(t *testing.T) {
 	srv := NewMCPServer(1)
-	srv.CreateSession("s1")  //nolint:errcheck
+	srv.CreateSession("s1") //nolint:errcheck
 	_, err := srv.CreateSession("s2")
 	if err == nil {
 		t.Fatal("expected error when max sessions reached")
@@ -186,7 +186,7 @@ func TestCreateSession_MaxReached(t *testing.T) {
 
 func TestCloseSession(t *testing.T) {
 	srv := NewMCPServer(5)
-	srv.CreateSession("sess1")  //nolint:errcheck
+	srv.CreateSession("sess1") //nolint:errcheck
 
 	err := srv.CloseSession("sess1")
 	if err != nil {
@@ -225,7 +225,7 @@ func TestListTools(t *testing.T) {
 
 func TestGetStatus(t *testing.T) {
 	srv := NewMCPServer(3)
-	srv.CreateSession("s1")  //nolint:errcheck
+	srv.CreateSession("s1") //nolint:errcheck
 
 	status := srv.GetStatus()
 	if status["total_tools"] != 10 {

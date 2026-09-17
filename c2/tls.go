@@ -16,5 +16,5 @@ func (t *TLS) Handshake() ([]string, error) {
 	return results, nil
 }
 
-func (t *TLS) Name() string { return "TLS" }
+func (t *TLS) Name() string         { return "TLS" }
 func (t *TLS) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Stream) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Stream) Name() string { return "Stream" }
+func (e *Stream) Name() string         { return "Stream" }
 func (e *Stream) Timestamp() time.Time { return time.Now() }

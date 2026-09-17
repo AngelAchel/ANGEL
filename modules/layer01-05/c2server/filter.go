@@ -16,5 +16,5 @@ func (e *Filter) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Filter) Name() string { return "Filter" }
+func (e *Filter) Name() string         { return "Filter" }
 func (e *Filter) Timestamp() time.Time { return time.Now() }

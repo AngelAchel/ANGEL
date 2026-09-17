@@ -16,5 +16,5 @@ func (e *Mapper) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Mapper) Name() string { return "Mapper" }
+func (e *Mapper) Name() string         { return "Mapper" }
 func (e *Mapper) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Worker) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Worker) Name() string { return "Worker" }
+func (e *Worker) Name() string         { return "Worker" }
 func (e *Worker) Timestamp() time.Time { return time.Now() }

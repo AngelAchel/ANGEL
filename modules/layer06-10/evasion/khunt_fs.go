@@ -16,5 +16,5 @@ func (e *KhuntFS) Hunt() ([]string, error) {
 	return results, nil
 }
 
-func (e *KhuntFS) Name() string { return "KhuntFS" }
+func (e *KhuntFS) Name() string         { return "KhuntFS" }
 func (e *KhuntFS) Timestamp() time.Time { return time.Now() }

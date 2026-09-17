@@ -16,5 +16,5 @@ func (e *Transformer) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Transformer) Name() string { return "Transformer" }
+func (e *Transformer) Name() string         { return "Transformer" }
 func (e *Transformer) Timestamp() time.Time { return time.Now() }

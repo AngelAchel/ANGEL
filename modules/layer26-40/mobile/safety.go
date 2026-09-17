@@ -16,5 +16,5 @@ func (s *Safety) Check() ([]string, error) {
 	return results, nil
 }
 
-func (s *Safety) Name() string { return "Safety" }
+func (s *Safety) Name() string         { return "Safety" }
 func (s *Safety) Timestamp() time.Time { return time.Now() }

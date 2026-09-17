@@ -16,5 +16,5 @@ func (h *HTTP) Request() ([]string, error) {
 	return results, nil
 }
 
-func (h *HTTP) Name() string { return "HTTP" }
+func (h *HTTP) Name() string         { return "HTTP" }
 func (h *HTTP) Timestamp() time.Time { return time.Now() }

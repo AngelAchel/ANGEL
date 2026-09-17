@@ -41,9 +41,9 @@ func (e *WhitespaceEngine) TabInject(s string, interval int) string {
 
 // ZeroWidthEncode encodes a binary string using zero-width characters.
 func (e *WhitespaceEngine) ZeroWidthEncode(bits string) string {
-	zwj := "\u200D"   // zero-width joiner
-	zwnj := "\u200C"  // zero-width non-joiner
-	zwsp := "\u200B"  // zero-width space
+	zwj := "\u200D"  // zero-width joiner
+	zwnj := "\u200C" // zero-width non-joiner
+	zwsp := "\u200B" // zero-width space
 
 	var result strings.Builder
 	for _, bit := range bits {

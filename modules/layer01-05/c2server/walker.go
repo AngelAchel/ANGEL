@@ -16,5 +16,5 @@ func (e *Walker) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Walker) Name() string { return "Walker" }
+func (e *Walker) Name() string         { return "Walker" }
 func (e *Walker) Timestamp() time.Time { return time.Now() }

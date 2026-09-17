@@ -16,5 +16,5 @@ func (s *Stacked) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (s *Stacked) Name() string { return "Stacked" }
+func (s *Stacked) Name() string         { return "Stacked" }
 func (s *Stacked) Timestamp() time.Time { return time.Now() }

@@ -1,5 +1,4 @@
 package kerberos
-//nolint:staticcheck
 
 import (
 	"crypto/rand"
@@ -9,16 +8,15 @@ import (
 	"encoding/pem"
 	"fmt"
 	"math/big"
-	"sync"
 	"time"
 
 	"github.com/angel-platform/angel/pkg/logger"
 )
 
 type ADCSEngine struct {
-	config *KerberosConfig  //nolint:staticcheck
+	config *KerberosConfig //nolint:staticcheck
 	logger *logger.Logger  //nolint:staticcheck
-	mu     sync.RWMutex  //nolint:unused
+
 }
 
 func NewADCSEngine(config *KerberosConfig) *ADCSEngine {

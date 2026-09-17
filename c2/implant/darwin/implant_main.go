@@ -15,5 +15,5 @@ func (m *DarwinMain) Run() error {
 	return nil
 }
 
-func (m *DarwinMain) Name() string { return "DarwinMain" }
+func (m *DarwinMain) Name() string         { return "DarwinMain" }
 func (m *DarwinMain) Timestamp() time.Time { return time.Now() }

@@ -1,5 +1,4 @@
 package sqli
-//nolint:staticcheck
 
 import (
 	"net/http"
@@ -71,17 +70,16 @@ type SQLiConfig struct {
 	Retries        int
 	Techniques     []InjectionType
 	DBMS           DBMSType
-	Level          int  //nolint:staticcheck
-	Risk           int  //nolint:staticcheck
-	//nolint:unused
-	tamper         bool
-	UseWAFBypass   bool
-	Verbose        bool
-	ProxyURL       string
-	CustomHeaders  map[string]string
-	Cookies        map[string]string
-	Params         []string
-	HTTPClient     *http.Client
+	Level          int //nolint:staticcheck
+	Risk           int //nolint:staticcheck
+
+	UseWAFBypass  bool
+	Verbose       bool
+	ProxyURL      string
+	CustomHeaders map[string]string
+	Cookies       map[string]string
+	Params        []string
+	HTTPClient    *http.Client
 }
 
 func DefaultConfig() *SQLiConfig {

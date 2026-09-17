@@ -16,5 +16,5 @@ func (e *ErrorBased) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (e *ErrorBased) Name() string { return "ErrorBased" }
+func (e *ErrorBased) Name() string         { return "ErrorBased" }
 func (e *ErrorBased) Timestamp() time.Time { return time.Now() }

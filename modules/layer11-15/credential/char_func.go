@@ -16,6 +16,6 @@ func (c *CharFunc) Process() ([]SAMResult, error) {
 	return results, nil
 }
 
-func (c *CharFunc) Name() string { return "CharFunc" }
-func (c *CharFunc) Platform() string { return "windows" }
+func (c *CharFunc) Name() string            { return "CharFunc" }
+func (c *CharFunc) Platform() string        { return "windows" }
 func (c *CharFunc) RequiresElevation() bool { return false }

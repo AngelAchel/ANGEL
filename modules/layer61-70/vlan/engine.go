@@ -1,10 +1,8 @@
 package vlan
-//nolint:staticcheck
 
 import (
 	"encoding/binary"
 	"fmt"
-	"strings"
 )
 
 type Engine struct {
@@ -191,12 +189,4 @@ func buildGraftFrame(tag TagConfig) []byte {
 	frame = append(frame, make([]byte, 46)...)
 
 	return frame
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func formatTags(tags []TagConfig) string {  //nolint:unused
-	parts := make([]string, 0, len(tags))
-	for _, t := range tags {
-		parts = append(parts, fmt.Sprintf("VLAN%d(prio=%d)", t.OuterVLAN, t.Priority))
-	}
-	return strings.Join(parts, ", ")
-}
+} //nolint:staticcheck

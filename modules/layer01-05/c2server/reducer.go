@@ -16,5 +16,5 @@ func (e *Reducer) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Reducer) Name() string { return "Reducer" }
+func (e *Reducer) Name() string         { return "Reducer" }
 func (e *Reducer) Timestamp() time.Time { return time.Now() }

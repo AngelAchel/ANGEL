@@ -17,5 +17,5 @@ func (b *Bridge) Connect() ([]string, error) {
 	return results, nil
 }
 
-func (b *Bridge) Name() string { return "Bridge" }
+func (b *Bridge) Name() string         { return "Bridge" }
 func (b *Bridge) Timestamp() time.Time { return time.Now() }

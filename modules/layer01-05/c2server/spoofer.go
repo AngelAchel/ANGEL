@@ -16,5 +16,5 @@ func (e *Spoofer) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Spoofer) Name() string { return "Spoofer" }
+func (e *Spoofer) Name() string         { return "Spoofer" }
 func (e *Spoofer) Timestamp() time.Time { return time.Now() }

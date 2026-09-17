@@ -1,13 +1,10 @@
 package evasion
-//nolint:staticcheck
 
 import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"math"
 	"os"
-	"os/user"
 	"runtime"
 	"strings"
 	"sync"
@@ -819,67 +816,8 @@ func (d *RAMSizeCheck) Detect() DetectionResult {
 		result.RiskScore = 0.0
 	}
 	return result
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func currentUser() string {  //nolint:unused
-	u, err := user.Current()
-	if err != nil {
-		return "unknown"
-	}
-	return u.Username
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func isCommonVMUser() bool {  //nolint:unused
-	vmUsers := []string{
-		"sandbox",
-		"malware",
-		"virus",
-		"test",
-		"user",
-		"admin",
-		"john",
-		"jane",
-		"susan",
-		"peter",
-	}
-	username := strings.ToLower(currentUser())
-	for _, u := range vmUsers {
-		if username == u {
-			return true
-		}
-	}
-	return false
-}
+} //nolint:staticcheck
 
-func detectEnvironmentFingerprint() string {  //nolint:unused
-	fingerprint := fmt.Sprintf("%s-%s-%s-%d",
-		runtime.GOOS,
-		runtime.GOARCH,
-		currentUser(),
-		time.Now().UnixNano(),
-	)
-	return fingerprint[:min(16, len(fingerprint))]
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func calculateRiskScore(results []DetectionResult) float64 {  //nolint:unused
-	if len(results) == 0 {
-		return 0.0
-	}
-	total := 0.0
-	count := 0
-	for _, r := range results {
-		if r.Detected {
-			total += r.RiskScore
-			count++
-		}
-	}
-	if count == 0 {
-		return 0.0
-	}
-	return math.Min(total/float64(count), 1.0)
-}
-
-//nolint:unused
 func generateHash(data []byte) string {
 	hash := sha256.Sum256(data)
 	return hex.EncodeToString(hash[:])

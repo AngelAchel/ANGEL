@@ -16,5 +16,5 @@ func (e *Manager) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Manager) Name() string { return "Manager" }
+func (e *Manager) Name() string         { return "Manager" }
 func (e *Manager) Timestamp() time.Time { return time.Now() }

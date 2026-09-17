@@ -210,7 +210,6 @@ func (h *HookingExtractor) RequiresAdmin() bool {
 	return true
 }
 
-//nolint:unused
 func validateLSASSMethod(method string) error {
 	validMethods := []string{"minidump", "direct", "com", "mini_dump"}
 	for _, m := range validMethods {

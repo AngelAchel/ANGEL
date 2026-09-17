@@ -94,7 +94,6 @@ func (v *VSSExtractExtractor) Name() string {
 	return "VSSExtract"
 }
 
-//nolint:unused
 func validateSAMMethod(method string) error {
 	validMethods := []string{"reg", "vss", "nanodump", "registry_dump"}
 	for _, m := range validMethods {

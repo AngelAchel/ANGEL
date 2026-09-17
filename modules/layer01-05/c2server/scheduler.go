@@ -16,5 +16,5 @@ func (e *Scheduler) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Scheduler) Name() string { return "Scheduler" }
+func (e *Scheduler) Name() string         { return "Scheduler" }
 func (e *Scheduler) Timestamp() time.Time { return time.Now() }

@@ -16,5 +16,5 @@ func (e *Graphql) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Graphql) Name() string { return "Graphql" }
+func (e *Graphql) Name() string         { return "Graphql" }
 func (e *Graphql) Timestamp() time.Time { return time.Now() }

@@ -16,6 +16,6 @@ func (e *CopyProgram) Copy(src string, dst string) ([]string, error) {
 	return results, nil
 }
 
-func (e *CopyProgram) Name() string { return "CopyProgram" }
+func (e *CopyProgram) Name() string              { return "CopyProgram" }
 func (e *CopyProgram) Category() EvasionCategory { return CategorySyscall }
-func (e *CopyProgram) Timestamp() time.Time { return time.Now() }
+func (e *CopyProgram) Timestamp() time.Time      { return time.Now() }

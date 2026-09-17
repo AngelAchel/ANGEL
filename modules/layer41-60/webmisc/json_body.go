@@ -16,5 +16,5 @@ func (j *JSONBody) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (j *JSONBody) Name() string { return "JSONBody" }
+func (j *JSONBody) Name() string         { return "JSONBody" }
 func (j *JSONBody) Timestamp() time.Time { return time.Now() }

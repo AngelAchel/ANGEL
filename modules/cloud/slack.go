@@ -19,15 +19,15 @@ func NewSlackEngine(config CloudConfig) *SlackEngine {
 
 // SlackResult holds the result of a Slack covert operation.
 type SlackResult struct {
-	ID        string     `json:"id"`
-	ChannelID string     `json:"channel_id"`
-	Channel   string     `json:"channel"`
-	Payload   string     `json:"payload"`
-	Encoded   string     `json:"encoded"`
-	Success   bool       `json:"success"`
-	Timestamp time.Time  `json:"timestamp"`
-	RiskScore float64    `json:"risk_score"`
-	Details   string     `json:"details"`
+	ID        string    `json:"id"`
+	ChannelID string    `json:"channel_id"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }
 
 // CodeBlock hides data inside Slack code block messages.

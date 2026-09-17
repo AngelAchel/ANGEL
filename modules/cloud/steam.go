@@ -19,15 +19,15 @@ func NewSteamEngine(config CloudConfig) *SteamEngine {
 
 // SteamResult holds the result of a Steam covert operation.
 type SteamResult struct {
-	ID        string     `json:"id"`
-	ChannelID string     `json:"channel_id"`
-	Channel   string     `json:"channel"`
-	Payload   string     `json:"payload"`
-	Encoded   string     `json:"encoded"`
-	Success   bool       `json:"success"`
-	Timestamp time.Time  `json:"timestamp"`
-	RiskScore float64    `json:"risk_score"`
-	Details   string     `json:"details"`
+	ID        string    `json:"id"`
+	ChannelID string    `json:"channel_id"`
+	Channel   string    `json:"channel"`
+	Payload   string    `json:"payload"`
+	Encoded   string    `json:"encoded"`
+	Success   bool      `json:"success"`
+	Timestamp time.Time `json:"timestamp"`
+	RiskScore float64   `json:"risk_score"`
+	Details   string    `json:"details"`
 }
 
 // WorkshopFile hides data in Steam Workshop file metadata.

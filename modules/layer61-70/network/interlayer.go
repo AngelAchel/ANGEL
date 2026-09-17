@@ -17,5 +17,5 @@ func (h *InterLayerHandler) Handle(topic string) ([]string, error) {
 	return results, nil
 }
 
-func (h *InterLayerHandler) Name() string { return "InterLayerHandler" }
+func (h *InterLayerHandler) Name() string         { return "InterLayerHandler" }
 func (h *InterLayerHandler) Timestamp() time.Time { return time.Now() }

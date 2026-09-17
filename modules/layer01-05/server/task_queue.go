@@ -1,20 +1,17 @@
 package server
-//nolint:staticcheck
 
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"fmt"
 	"sync"
 	"time"
 )
 
 type TaskQueue struct {
 	mu       sync.RWMutex
-	tasks    map[string]*QueuedTask  //nolint:staticcheck
-	priority []string  //nolint:staticcheck
-	//nolint:unused
-	running  bool
+	tasks    map[string]*QueuedTask //nolint:staticcheck
+	priority []string               //nolint:staticcheck
+
 }
 
 type QueuedTask struct {
@@ -149,19 +146,4 @@ func generateTaskID() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
-}  //nolint:staticcheck
-  //nolint:staticcheck
-func formatTaskStatus(status string) string {  //nolint:unused
-	switch status {
-	case "pending":
-		return "⏳ Pending"
-	case "processing":
-		return "🔄 Processing"
-	case "completed":
-		return "✅ Completed"
-	case "failed":
-		return "❌ Failed"
-	default:
-		return fmt.Sprintf("Unknown: %s", status)
-	}
-}
+} //nolint:staticcheck

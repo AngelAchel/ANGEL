@@ -17,7 +17,7 @@ func (t *Transformer) Transform(event Event) ([]string, error) {
 	return results, nil
 }
 
-func (t *Transformer) Name() string { return "Transformer" }
+func (t *Transformer) Name() string         { return "Transformer" }
 func (t *Transformer) Timestamp() time.Time { return time.Now() }
 
 type Event struct {

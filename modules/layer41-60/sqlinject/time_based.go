@@ -16,5 +16,5 @@ func (t *TimeBased) Inject() ([]string, error) {
 	return results, nil
 }
 
-func (t *TimeBased) Name() string { return "TimeBased" }
+func (t *TimeBased) Name() string         { return "TimeBased" }
 func (t *TimeBased) Timestamp() time.Time { return time.Now() }

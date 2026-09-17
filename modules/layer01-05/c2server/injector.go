@@ -16,5 +16,5 @@ func (e *Injector) Run() ([]string, error) {
 	return results, nil
 }
 
-func (e *Injector) Name() string { return "Injector" }
+func (e *Injector) Name() string         { return "Injector" }
 func (e *Injector) Timestamp() time.Time { return time.Now() }
