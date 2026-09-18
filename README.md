@@ -198,54 +198,6 @@ Layers 61–70   Memory Corruption · Deserialization · Race Condition · Graph
 
 ---
 
-## Contributing
-
-We welcome contributions — whether it's a bug report, feature request, or pull request.
-
-### Report a Bug
-
-Found something broken? [Open an issue](https://github.com/AngelAchel/ANGEL/issues/new) with:
-- Steps to reproduce
-- Expected vs actual behavior
-- Environment (OS, Go version, Docker version)
-- Relevant logs or screenshots
-
-### Suggest a Feature
-
-Have an idea? [Open a discussion](https://github.com/AngelAchel/ANGEL/discussions) first before writing code. This prevents wasted effort if the feature is out of scope.
-
-### Submit a Pull Request
-
-```bash
-# 1. Fork and clone
-git clone https://github.com/<your-username>/ANGEL.git
-cd ANGEL
-
-# 2. Create a feature branch
-git checkout -b feat/your-feature
-
-# 3. Make your changes, then verify
-make lint && make test
-
-# 4. Commit with a clear message
-git commit -m "feat: add X"
-git push origin feat/your-feature
-```
-
-Then open a Pull Request against `main`.
-
-### Code Style
-
-- **Go:** `gofmt`, `golangci-lint` (run `make lint`)
-- **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) — `feat:`, `fix:`, `docs:`, `chore:`
-- **Tests:** Required for new features. Run `make test` locally before pushing
-
-### Good First Issues
-
-New to the project? Look for issues tagged [`good first issue`](https://github.com/AngelAchel/ANGEL/labels/good%20first%20issue) — those are scoped for newcomers.
-
----
-
 ## License
 
 This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
