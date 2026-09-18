@@ -6,10 +6,10 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o bin/angel-rules ./cmd/rules-loader/
 
 FROM alpine:3.21
-RUN apk add --no-cache ca-certificates tzdata
+RUN apk add --no-cache ca-certificates tzdata procps
 WORKDIR /app
 COPY --from=builder /app/bin/angel-rules .
 RUN chmod +x ./angel-rules
 EXPOSE 9444
-HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=10s CMD-SHELL "pgrep -f angel-rules || exit 1"
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=10s CMD ["sh", "-c", "pgrep -f angel-rules >/dev/null || exit 1"]
 ENTRYPOINT ["./angel-rules"]
