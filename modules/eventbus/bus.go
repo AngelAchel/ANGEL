@@ -3,61 +3,66 @@ package eventbus
 import (
 	"sync"
 	"time"
+
+	"github.com/angel-platform/angel/pkg/eventbus"
 )
 
-// Bus is the event bus
+// Bus wraps pkg/eventbus.EventBus for compatibility.
+// All operations delegate to the global EventBus instance.
 type Bus struct {
-	mu          sync.RWMutex
-	subscribers map[string][]string
-	handlers    map[string][]string
+	inner *eventbus.EventBus
 }
 
-// NewBus creates a new event bus
+// NewBus creates a new Bus backed by pkg/eventbus.
 func NewBus() *Bus {
 	return &Bus{
-		subscribers: make(map[string][]string),
-		handlers:    make(map[string][]string),
+		inner: getGlobalBus(),
 	}
 }
 
-// Publish publishes an event to the bus
+// Publish publishes an event to all subscribers matching the topic.
 func (b *Bus) Publish(topic string, data map[string]interface{}) {
-	b.mu.RLock()
-	defer b.mu.RUnlock()
-	for t, channels := range b.subscribers {
-		if topic == t || len(topic) >= len(t) {
-			for _, ch := range channels {
-				_ = ch
-			}
-		}
-	}
+	_, _ = b.inner.Publish(topic, "", "event", data)
 }
 
-// Subscribe subscribes to a topic
-func (b *Bus) Subscribe(topic string) string {
-	b.mu.Lock()
-	defer b.mu.Unlock()
-	ch := "channel-" + topic
-	b.subscribers[topic] = append(b.subscribers[topic], ch)
-	return ch
+// Subscribe subscribes to a topic with a callback handler.
+func (b *Bus) Subscribe(topic string, handler func(Event) error) {
+	SubscribeWithHandler(topic, handler)
 }
 
-// Handle handles events for a topic
-func (b *Bus) Handle(topic string, handler string) {
-	b.mu.Lock()
-	defer b.mu.Unlock()
-	b.handlers[topic] = append(b.handlers[topic], handler)
+// SubscribeChannel subscribes to a topic and returns a channel of events.
+func (b *Bus) SubscribeChannel(topic string) chan Event {
+	return Subscribe(topic)
 }
 
-// Name returns the name of the bus
+// Handle registers a handler for a topic.
+func (b *Bus) Handle(topic string, handler func(Event) error) {
+	SubscribeWithHandler(topic, handler)
+}
+
+// Name returns the bus name.
 func (b *Bus) Name() string { return "Bus" }
 
-// Timestamp returns the timestamp of the bus
+// Timestamp returns the current timestamp.
 func (b *Bus) Timestamp() time.Time { return time.Now() }
 
-// Run runs the bus
+// Run initializes the bus and returns status.
 func (b *Bus) Run() ([]string, error) {
-	results := make([]string, 0, 1)
-	results = append(results, "bus:running")
-	return results, nil
+	return []string{"bus:running"}, nil
+}
+
+// Inner returns the underlying pkg/eventbus.EventBus.
+func (b *Bus) Inner() *eventbus.EventBus {
+	return b.inner
+}
+
+var busOnce sync.Once
+var defaultBus *Bus
+
+// DefaultBus returns the singleton Bus instance.
+func DefaultBus() *Bus {
+	busOnce.Do(func() {
+		defaultBus = NewBus()
+	})
+	return defaultBus
 }

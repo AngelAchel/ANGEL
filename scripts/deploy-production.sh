@@ -65,10 +65,12 @@ DOMAIN=$DOMAIN
 VPS_IP=$VPS_IP
 EOF
 
-echo "Env vars saved to /etc/angel.env"
-echo "TEAMSERVER_KEY: $TEAMSERVER_KEY"
-echo "CRYPTO_KEY: $CRYPTO_KEY"
-echo "JWT_SECRET: $JWT_SECRET"
+echo "Env vars saved to /etc/angel.env (permissions: 600)"
+chmod 600 /etc/angel.env
+echo ""
+echo "IMPORTANT: Generated secrets are stored in /etc/angel.env"
+echo "          View with: sudo cat /etc/angel.env"
+echo "          Rotate anytime with: openssl rand -base64 32"
 
 # Step 5: TLS cert (Let's Encrypt)
 echo "[5/6] Setting up TLS..."
@@ -166,11 +168,8 @@ echo "Teamserver: https://$DOMAIN:8443"
 echo "Console:    https://$DOMAIN:3000"
 echo "Rules:      https://$DOMAIN:9444"
 echo ""
-echo "Env vars:"
-cat /etc/angel.env
-echo ""
 echo "Next steps:"
 echo "1. Configure nginx reverse proxy with TLS"
 echo "2. Open firewall ports: 443, 8443, 3000"
 echo "3. Test: curl https://$DOMAIN:8443"
-echo "4. Save env vars securely!"
+echo "4. View secrets: sudo cat /etc/angel.env"

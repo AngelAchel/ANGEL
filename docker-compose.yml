@@ -21,7 +21,7 @@ services:
       TEAMSERVER_ADDR: "0.0.0.0"
       TEAMSERVER_PORT: "8443"
       DATABASE_URL: "sqlite:///data/angel.db"
-      DATABASE_ENCRYPTION_KEY: "${DATABASE_ENCRYPTION_KEY:-ANGEL-ENC-docker-dev}"
+      DATABASE_ENCRYPTION_KEY: "${DATABASE_ENCRYPTION_KEY:-}"
       TLS_CERT_FILE: "/app/certs/server.crt"
       TLS_KEY_FILE: "/app/certs/server.key"
       LOG_LEVEL: "debug"
@@ -37,8 +37,8 @@ services:
       ENCRYPTION_ALGORITHM: "aes-256-gcm"
       ENCRYPTION_KEY_ROTATION: "24h"
       SUPABASE_URL: "${SUPABASE_URL:-http://localhost:54321}"
-      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY:-ANGEL-ANON-docker-dev}"
-      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-service-role-default}"
+      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY:-}"
+      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-}"
     networks:
       - angel-net
     restart: unless-stopped
@@ -93,8 +93,8 @@ services:
       - ./lab/data:/app/data
     environment:
       SUPABASE_URL: "${SUPABASE_URL:-http://localhost:54321}"
-      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY:-ANGEL-ANON-docker-dev}"
-      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-service-role-default}"
+      SUPABASE_ANON_KEY: "${SUPABASE_ANON_KEY:-}"
+      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-}"
       LOG_LEVEL: "info"
     networks:
       - angel-net

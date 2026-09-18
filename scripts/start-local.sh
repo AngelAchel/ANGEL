@@ -13,18 +13,21 @@ echo "  ANGEL - Start Local Services"
 echo "=========================================="
 echo ""
 
-# Check env vars
+# Check env vars - must be set, no fallback to test values
 if [ -z "$TEAMSERVER_KEY" ]; then
-    echo -e "  ${YELLOW}⚠ TEAMSERVER_KEY not set, using test value${NC}"
-    export TEAMSERVER_KEY="test-key-local"
+    echo -e "  ${RED}✗ TEAMSERVER_KEY not set${NC}"
+    echo "  Generate: export TEAMSERVER_KEY=\"\$(openssl rand -base64 32)\""
+    exit 1
 fi
 if [ -z "$CRYPTO_KEY" ]; then
-    echo -e "  ${YELLOW}⚠ CRYPTO_KEY not set, using test value${NC}"
-    export CRYPTO_KEY="test-crypto-local"
+    echo -e "  ${RED}✗ CRYPTO_KEY not set${NC}"
+    echo "  Generate: export CRYPTO_KEY=\"\$(openssl rand -base64 32)\""
+    exit 1
 fi
 if [ -z "$JWT_SECRET" ]; then
-    echo -e "  ${YELLOW}⚠ JWT_SECRET not set, using test value${NC}"
-    export JWT_SECRET="test-jwt-local"
+    echo -e "  ${RED}✗ JWT_SECRET not set${NC}"
+    echo "  Generate: export JWT_SECRET=\"\$(openssl rand -base64 32)\""
+    exit 1
 fi
 
 # Create lab directories
