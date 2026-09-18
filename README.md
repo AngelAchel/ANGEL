@@ -10,8 +10,8 @@
 
 <p align="center">
   <a href="https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml"><img src="https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Custom-red" alt="License" /></a>
-  <a href="https://github.com/AngelAchel/ANGEL"><img src="https://img.shields.io/badge/Docker-Deploy-blue" alt="Docker" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow" alt="License" /></a>
+  <a href="https://golang.org"><img src="https://img.shields.io/badge/Go-1.25+-00ADD8?logo=go" alt="Go Version" /></a>
 </p>
 
 > **ANGEL** — Offensive security framework for **authorized** penetration testing and red team engagements. 70-layer attack surface with real-time cross-module event bus orchestration.
@@ -200,21 +200,55 @@ Layers 61–70   Memory Corruption · Deserialization · Race Condition · Graph
 
 ## Contributing
 
-Contributions are welcome. For major changes, please open an issue first to discuss what you'd like to change.
+We welcome contributions — whether it's a bug report, feature request, or pull request.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -m 'feat: add your feature'`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
+### Report a Bug
 
-Please ensure `make lint && make test` passes before submitting.
+Found something broken? [Open an issue](https://github.com/AngelAchel/ANGEL/issues/new) with:
+- Steps to reproduce
+- Expected vs actual behavior
+- Environment (OS, Go version, Docker version)
+- Relevant logs or screenshots
+
+### Suggest a Feature
+
+Have an idea? [Open a discussion](https://github.com/AngelAchel/ANGEL/discussions) first before writing code. This prevents wasted effort if the feature is out of scope.
+
+### Submit a Pull Request
+
+```bash
+# 1. Fork and clone
+git clone https://github.com/<your-username>/ANGEL.git
+cd ANGEL
+
+# 2. Create a feature branch
+git checkout -b feat/your-feature
+
+# 3. Make your changes, then verify
+make lint && make test
+
+# 4. Commit with a clear message
+git commit -m "feat: add X"
+git push origin feat/your-feature
+```
+
+Then open a Pull Request against `main`.
+
+### Code Style
+
+- **Go:** `gofmt`, `golangci-lint` (run `make lint`)
+- **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) — `feat:`, `fix:`, `docs:`, `chore:`
+- **Tests:** Required for new features. Run `make test` locally before pushing
+
+### Good First Issues
+
+New to the project? Look for issues tagged [`good first issue`](https://github.com/AngelAchel/ANGEL/labels/good%20first%20issue) — those are scoped for newcomers.
 
 ---
 
 ## License
 
-Custom License — See [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
 
 ANGEL is intended for **authorized security professionals** conducting penetration tests and red team operations. Unauthorized use is illegal.
 
