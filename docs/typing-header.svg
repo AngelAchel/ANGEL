@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 130" width="900" height="130">
+  <defs>
+    <linearGradient id="termBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#141829"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4a8cff"/>
+      <stop offset="100%" stop-color="#ff3b3b"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="900" height="130" rx="8" fill="url(#termBg)" stroke="#1a3a6a" stroke-width="1"/>
+
+  <!-- Terminal top bar -->
+  <rect x="0" y="0" width="900" height="24" rx="8" fill="#0f1e3d"/>
+  <rect x="0" y="16" width="900" height="8" fill="#0f1e3d"/>
+  <circle cx="16" cy="12" r="5" fill="#ff5c5c"/>
+  <circle cx="34" cy="12" r="5" fill="#ffb84a"/>
+  <circle cx="52" cy="12" r="5" fill="#4ade80"/>
+  <text x="450" y="16" font-family="monospace" font-size="10" fill="#6b7a99" text-anchor="middle">angel@localhost: ~/ANGEL</text>
+
+  <!-- Line 1: prompt + whoami -->
+  <text x="16" y="52" font-family="monospace" font-size="14" fill="#4ade80">$</text>
+  <text x="34" y="52" font-family="monospace" font-size="14" fill="#ffffff">whoami</text>
+
+  <!-- Line 2: typed output (revealed) -->
+  <g clip-path="url(#revealClip)">
+    <text x="16" y="80" font-family="monospace" font-size="15" fill="url(#accent)" font-weight="700" letter-spacing="0.5">Angel Achel · Software Engineer · Security Researcher</text>
+  </g>
+
+  <clipPath id="revealClip">
+    <rect x="0" y="0" width="0" height="130">
+      <animate attributeName="width" from="0" to="900" dur="3.5s" begin="0.5s" fill="freeze"/>
+    </rect>
+  </clipPath>
+
+  <!-- Line 3: prompt + blinking cursor -->
+  <text x="16" y="110" font-family="monospace" font-size="13" fill="#4ade80">$</text>
+  <rect x="34" y="100" width="8" height="14" fill="#4a8cff" filter="url(#glow)">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Status text -->
+  <text x="884" y="110" font-family="monospace" font-size="10" fill="#4a5570" text-anchor="end">
+    70 LAYERS · 96 MODULES
+  </text>
+
+  <!-- Scanning line -->
+  <rect x="0" y="24" width="900" height="1" fill="#4a8cff" opacity="0.4">
+    <animate attributeName="y" from="24" to="130" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0;0.4" dur="4s" repeatCount="indefinite"/>
+  </rect>
+</svg>
