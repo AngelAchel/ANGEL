@@ -1,6 +1,8 @@
 module github.com/angel-platform/angel
 
-go 1.22
+go 1.25
+
+toolchain go1.25.10
 
 require (
 	github.com/google/uuid v1.6.0
