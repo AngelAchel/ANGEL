@@ -1,181 +1,264 @@
-# ANGEL Platform
+# ANGEL
+
+<p align="center">
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&duration=3000&color=FF4444&center=true&vCenter=true&width=600&lines=ANGEL+Platform;Offensive+Security+Framework;70+Layers+of+Attack+Surface;Red+Team+Operations+Engine" alt="ANGEL Platform" />
+
+</p>
+
+<p align="center">
 
 [![CI](https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml)
-[![Go Report](https://golangci-lint.run/badge/github.com/AngelAchel/ANGEL)](https://golangci-lint.run/)
-[![License](https://img.shields.io/badge/License-Custom-blue)](LICENSE)
+[![Go Report](https://golangci-lint.run/badge/github.com/AngelAchel/ANGEL)](https://golangci-lint.run)
+[![License](https://img.shields.io/badge/License-Custom-red)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Deploy-blue)](https://github.com/AngelAchel/ANGEL)
 
-> **ANGEL** is an offensive security framework for authorized penetration testing and red team engagements.
+</p>
+
+> **ANGEL** — Offensive security framework for authorized penetration testing and red team engagements.
 > 70-layer attack surface with real-time cross-module event bus orchestration.
+
+---
+
+## Capabilities
+
+ANGEL delivers a complete red team toolkit spanning the full offensive lifecycle:
+
+| Phase | Capabilities |
+|-------|-------------|
+| **Reconnaissance** | OSINT, network enumeration, service discovery, vulnerability mapping |
+| **Initial Access** | C2 implant delivery, phishing, supply chain, credential stuffing |
+| **Execution** | Command execution, script injection, memory-resident payloads |
+| **Persistence** | Scheduled tasks, registry hooks, service installation, rootkit |
+| **Privilege Escalation** | Kernel exploits, token manipulation, ACL abuse, credential dumping |
+| **Defense Evasion** | Anti-analysis, anti-debug, sleep masking, syscall obfuscation |
+| **Credential Access** | LSASS, browser wallets, VPN tokens, MFA bypass, biometric |
+| **Discovery** | Domain recon, user enumeration, share scanning, subnet mapping |
+| **Lateral Movement** | SMB, RDP, WinRM, SSH, WMI, Pass-the-Hash, Pass-the-Ticket |
+| **Collection** | Filesystem, email, browser history, keylogger, screen capture |
+| **Exfiltration** | Encrypted channels, DNS tunneling, HTTP(S) covert, cloud storage |
+| **Impact** | Data destruction, ransomware simulation, service disruption |
+
+---
 
 ## Architecture
 
-ANGEL is organized into **13 module groups** spanning **70 security layers**:
+ANGEL operates as a distributed, event-driven framework. Every module communicates
+through a real-time event bus enabling parallel, coordinated operations across all layers.
 
-| Layer Range | Domain |
-|-------------|--------|
-| 01–05 | Brain, C2 Implant, Listener, DBPost, Decoy, Resilience |
-| 06–10 | Evasion, Kerberos, Lateral Movement, Persistence, Rootkit |
-| 11–15 | Brain, Collector, Credential, Destruction, Orchestrator |
-| 16–21 | Cleanup, Evidence, Exploit, Infra, OSINT, Report |
-| 22–25 | Auth Bypass, Crypto, Destruction Chain, Implant Gen, Net Evasion |
-| 26–40 | AI, API, C2, Cloud, Container, IR, Malware, Mobile, Physical, Social Engineering |
-| 41–60 | Cache Smuggle, Cert Forgery, CSRF, DNSSEC, IoT, IPv6, LDAP, MDNS, SCADA, SQL Inject |
-| 61–70 | ARP/DHCP, Biz Logic, Crypto, Deserialization, GraphQL, gRPC, Memory, Race Condition, VLAN |
-
-All modules communicate via the **event bus** (`modules/eventbus/`) for real-time cross-layer orchestration.
-
-## Visual Architecture
-
-Animated overview of the 70-layer attack surface and event bus orchestration:
-
-```svg
-![ANGEL Architecture Animation](docs/architecture-animation.svg)
+```
++-------------------------------------------------------------+
+|                        OPERATIONS CENTER                          |
+|                  ANGEL Console - Web Dashboard                    |
+|              REST API . WebSocket . Real-time Monitoring        |
++------------------------------------------------------------+
+|                       |
+|            +----------+---------+
+|            |      EVENT BUS       |
+|            |  (Real-time Orchestration)|
+|            |  96 modules connected |
+|            |  Publish / Subscribe |
+|            +----------+---------+
+|                       |
++-----------------------+------------------------+
+|                       |                        |
++----+-----------------+ +-------------+ +------+-----------------+
+| C2 TEAMSERVER     | | IMPLANT GEN  | | RULES ENGINE      |
+| Port 8443         | | 7 OS/Arch     | | JSON-based        |
+| Encrypted         | | AES-256      | | Auto-execution    |
+| Heartbeats        | | Domain Front  | |                    |
++-------------------+ +-------------+ +----------------------+
 ```
 
-Or view interactive: [Architecture Animation](docs/architecture-animation.svg)
+**70 Layers - 13 Domains:**
+
+```
+Layer 01-05   ████████████████████  Brain . C2 Implant . Listener . DBPost . Resilience
+Layer 06-10   ████████████████████  Evasion . Kerberos . Lateral . Persistence . Rootkit
+Layer 11-15   ████████████████████  Brain . Collector . Credential . Destruction . Orchestrator
+Layer 16-21   ████████████████████  Cleanup . Evidence . Exploit . Infra . OSINT . Report
+Layer 22-25   ████████████████████  Auth Bypass . Crypto . Destruction Chain . Implant Gen . Net Evasion
+Layer 26-40   ████████████████████  AI . Cloud . Mobile . Supply Chain . Wireless . Zero Trust
+Layer 41-60   ████████████████████  SQLi . XSS . CSRF . DNSSEC . IoT . SCADA . Compliance
+Layer 61-70   ████████████████████  Memory . GraphQL . gRPC . Race Condition . VLAN . Deserialization
+```
+
+---
 
 ## Quick Start
+
+### Prerequisites
+
+- Go 1.22+
+- Node.js 20+
+- Docker & Docker Compose
+- Git
+
+### Clone and Deploy
 
 ```bash
 git clone https://github.com/AngelAchel/ANGEL.git
 cd ANGEL
 cp .env.example .env.local
-# Edit .env.local — set TEAMSERVER_KEY, CRYPTO_KEY, JWT_SECRET
 make build && make test && make lint
 make setup
 ```
 
-## Deployment
+### Docker Deployment (Recommended)
 
-### Docker Compose (Recommended)
 ```bash
-make setup
+make engage SCOPE=target.txt
 docker compose up -d
-docker compose ps
 ```
 
-Services:
-- **angel-teamserver** — C2 server on port `8443`
-- **angel-console** — API Gateway / Dashboard on port `3000`
-- **angel-rules** — Rules engine (one-shot)
-- **dvwa** — Target practice on port `8081`
+Services launch automatically:
 
-### Native (Kali Linux)
+| Service | Port | Purpose |
+|---------|------|---------|
+| **angel-teamserver** | `8443` | C2 server with encrypted channels |
+| **angel-console** | `3000` | Dashboard & API gateway |
+| **angel-rules** | -- | Rules engine (one-shot) |
+| **dvwa** | `8081` | Target practice environment |
+
+### Native Deployment (Kali Linux)
+
 ```bash
 CGO_ENABLED=0 make build
 bash scripts/start-local.sh
 bash scripts/health-check.sh
 ```
 
-## Usage
+---
+
+## Operational Flow
+
+```
++----------+     +----------+     +----------+     +----------+
+|  TARGET  |---->|  IMPLANT |---->|  C2      |---->|  EXFIL   |
+|  SCAN    |     |  DELIVER |     |  MANAGE  |     |  COLLECT |
++----------+     +----------+     +----------+     +----------+
+      |                |                |                |
+      v                v                v                v
+ 70 layers       AES-256 encrypted    Event bus        Real-time
+ parallel         domain fronting     orchestration    command & ctrl
+```
+
+### Generate Implant
 
 ```bash
-# Generate implant
 ./bin/angel-generate -os linux -arch amd64 -server http://localhost:8443 -out lab/implants
+./bin/angel-generate -os windows -arch amd64 -server https://target.com -evasion domain-fronting
+```
 
-# Define target scope
-echo "192.168.1.1" > target.txt
+### Define Scope and Engage
 
-# Start engagement
+```bash
+echo "192.168.1.0/24" > target.txt
 make engage SCOPE=target.txt
+```
 
-# Monitor dashboard
-open http://localhost:3000
+### Monitor Dashboard
 
-# Cleanup
+```
+http://localhost:3000
+```
+
+Real-time monitoring of all agents, tasks, results, and activity logs.
+
+### Cleanup
+
+```bash
 make cleanup
 ```
 
-### Attack Target Visualization
-
-When engaged, ANGEL visualizes the attack progression across all 70 layers:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  TARGET: 192.168.1.1                                        │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐       │
-│  │ Layer 01 │→│ Layer 06 │→│ Layer 11 │→│ Layer 16 │...    │
-│  │ C2 Implant│→│Evasion  │→│ Brain   │→│ Exploit │       │
-│  └─────────┘  └─────────┘  └─────────┘  └─────────┘       │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐       │
-│  │ Layer 26 │→│ Layer 41 │→│ Layer 61 │→│ BREACHED │       │
-│  │ AI/Cloud │→│SQLi/IoT │→│Memory   │→│✓ TARGET  │       │
-│  └─────────┘  └─────────┘  └─────────┘  └─────────┘       │
-└─────────────────────────────────────────────────────────────┘
-```
+---
 
 ## Make Targets
 
 | Target | Description |
 |--------|-------------|
-| `make build` | Build all binaries |
-| `make test` | Run test suite (93 packages) |
-| `make lint` | Run golangci-lint |
-| `make fmt` | Format code |
-| `make setup` | Install deps + build + deploy |
-| `make engage` | Start penetration engagement |
-| `make docker` | Build Docker image |
-| `make clean` | Remove build artifacts |
-
-## Verification
-
-```bash
-make build    # All binaries compile
-make test     # 93 packages, 0 failures
-make lint     # 0 issues
-./lab/test_lab_full.sh  # End-to-end lab tests
-```
-
-## Project Structure
-
-```
-ANGEL/
-├── cmd/               # Entry points (teamserver, console, generator, rules-loader)
-├── c2/                # C2 core (implant, profiles)
-├── gateway/           # API Gateway (auth, RBAC, rate limit)
-├── orchestrator/      # Orchestration engine
-├── frontend/          # Angular dashboard
-├── modules/           # 70-layer security modules
-├── pkg/               # Shared packages (crypto, eventbus, logger, types)
-├── scripts/           # Build, lint, health check scripts
-├── tests/             # E2E and integration tests
-├── docs/              # Documentation
-├── lab/               # Lab environment (configs, implants, logs)
-├── Dockerfile.*       # Container builds
-└── docker-compose.yml # Docker orchestration
-```
-
-## Testing
-
-```bash
-make test                              # Full test suite
-./lab/test_lab.sh                      # Layer-by-layer test
-./lab/test_lab_full.sh                 # Full 70-layer test
-```
-
-## Legal
-
-⚠️ **ANGEL is for authorized offensive security testing only.**
-
-- Written permission required before any engagement
-- Only target systems within scope
-- All activity is logged via the evidence ledger
-- Post-engagement cleanup ensures no artifacts remain
-
-## Documentation
-
-- [USAGE_GUIDE.md](USAGE_GUIDE.md) — Full usage guide
-- [STRUKTUR_ANGEL.md](STRUKTUR_ANGEL.md) — 70-layer blueprint
-- [docs/NATIVE-RUN.md](docs/NATIVE-RUN.md) — Native run (no Docker)
-- [docs/KALI.md](docs/KALI.md) — Kali Linux compatibility
-- [docs/TERMUX.md](docs/TERMUX.md) — Termux compatibility
-- [docs/PRODUCTION.md](docs/PRODUCTION.md) — Production deployment
-
-## License
-
-Custom license — see LICENSE file.
+| `make build` | Build all 5 binaries (teamserver, console, rules, generate, doctor) |
+| `make test` | Run all test suites across 93 packages |
+| `make lint` | golangci-lint, staticcheck, go vet, errcheck |
+| `make report` | Generate HTML engagement report |
+| `make setup` | Initialize environment, copy .env.local |
+| `make engage` | Start Docker services with target scope |
+| `make cleanup` | Stop and remove all containers |
+| `make doctor` | Verify system compatibility (Go, Docker, Node, ports) |
 
 ---
 
-**ANGEL Platform** — Offensive Security Framework
-GitHub: https://github.com/AngelAchel/ANGEL
+## Module Coverage
+
+| Domain | Layers | Key Tools |
+|--------|--------|-----------|
+| **C2 Framework** | 01-05 | Cobalt Strike compatible, Havoc, Sliver protocols |
+| **Evasion & Stealth** | 06-10 | 11 sleep handlers, 7 syscall methods, 15 anti-analysis |
+| **Credential Theft** | 11-15 | LSASS, browser wallets, gaming, cloud, MFA, biometric |
+| **Lateral Movement** | 06-10 | SMB beacon, WinRM, SSH, WMI, Pass-the-Hash |
+| **Web Exploitation** | 41-60 | SQLi (8 DBMS), XSS, CSRF, cache smuggling, SSRF |
+| **Network Attacks** | 41-60 | DNSSEC, IPv6, LDAP, SCADA, IoT, MDNS |
+| **AI & Cloud** | 26-40 | LLM injection, cloud takeover, container escape |
+| **Deserialization** | 61-70 | Java, Python, PHP, .NET, Ruby gadget chains |
+| **Forensics** | 61-70 | Memory analysis, timeline reconstruction, artifact recovery |
+
+---
+
+## Deployment Options
+
+### Docker Compose
+
+Production-ready with TLS encryption, health checks, and automated recovery.
+
+```yaml
+angel-teamserver: 8443/tcp, 443/tcp, 5353/udp
+angel-console:     3000/tcp
+dvwa:              8081/tcp
+```
+
+### Native Linux/Kali
+
+Direct binary execution with system-level access for kernel exploitation and hardware attacks.
+
+### Cross-Platform
+
+Compiles natively for Linux, Windows, and macOS (amd64/arm64).
+
+---
+
+## Security & Compliance
+
+- **Authorized use only** — ANGEL is designed for penetration testing with explicit written authorization.
+- **No hardcoded credentials** — All secrets loaded from environment configuration.
+- **End-to-end encryption** — AES-256 on all C2 channels, ECDH key exchange.
+- **Event bus isolation** — Module communication via encrypted event bus, no direct imports.
+- **Audit logging** — Full chain-of-custody logging for compliance reports.
+
+---
+
+## Documentation
+
+- **[USAGE_GUIDE.md](USAGE_GUIDE.md)** — Complete operational guide
+- **[STRUKTUR_ANGEL.md](STRUKTUR_ANGEL.md)** — Full architecture blueprint (70 layers)
+- **[docs/API.md](docs/API.md)** — API reference
+- **[docs/PRODUCTION.md](docs/PRODUCTION.md)** — Production deployment guide
+- **[docs/NATIVE-RUN.md](docs/NATIVE-RUN.md)** — Native Linux setup
+
+---
+
+## License
+
+Custom License — See [LICENSE](LICENSE) for details.
+
+**ANGEL** is intended for authorized security professionals conducting penetration tests
+and red team operations. Unauthorized use is illegal.
+
+---
+
+<p align="center">
+
+<img src="https://img.shields.io/badge/ANGEL-Platform-red?style=for-the-badge" alt="ANGEL Platform">
+
+**70 Layers . 96 Modules . Event-Driven . Production-Ready**
+
+</p>
