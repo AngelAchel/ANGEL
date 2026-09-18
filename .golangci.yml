@@ -24,7 +24,6 @@ linters:
     - govet
     - misspell
   disable:
-    - typecheck
     - nakedret
     - prealloc
     - unconvert
