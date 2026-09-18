@@ -67,7 +67,7 @@ func TestRecoveryMiddleware_PanicRecovery(t *testing.T) {
 }
 
 func TestCORSMiddleware(t *testing.T) {
-	m := &CORSMiddleware{Origin: "https://example.com"}
+	m := &CORSMiddleware{Origin: "https://angel.local"}
 	next := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	})
@@ -77,8 +77,8 @@ func TestCORSMiddleware(t *testing.T) {
 	rr := httptest.NewRecorder()
 	wrapped.ServeHTTP(rr, req)
 
-	if rr.Header().Get("Access-Control-Allow-Origin") != "https://example.com" {
-		t.Errorf("CORS origin = %q, want %q", rr.Header().Get("Access-Control-Allow-Origin"), "https://example.com")
+	if rr.Header().Get("Access-Control-Allow-Origin") != "https://angel.local" {
+		t.Errorf("CORS origin = %q, want %q", rr.Header().Get("Access-Control-Allow-Origin"), "https://angel.local")
 	}
 	if rr.Header().Get("Access-Control-Allow-Methods") != "GET, POST, PUT, DELETE, OPTIONS" {
 		t.Error("CORS methods not set correctly")
@@ -102,7 +102,7 @@ func TestCORSMiddleware_DefaultOrigin(t *testing.T) {
 }
 
 func TestCORSMiddleware_OptionsRequest(t *testing.T) {
-	m := &CORSMiddleware{Origin: "https://example.com"}
+	m := &CORSMiddleware{Origin: "https://angel.local"}
 	called := false
 	next := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		called = true

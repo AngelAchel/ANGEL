@@ -61,7 +61,7 @@ lint:
 	@echo "Running linter..."
 	@which golangci-lint > /dev/null 2>&1 || curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.60.3
 	@echo "Checking formatting..."
-	@test -z "$(gofmt -l .)" && echo "Formatting OK" || (echo "Formatting issues:"; gofmt -l .; exit 1)
+	@if test -z "$(gofmt -l .)"; then echo "Formatting OK"; else echo "Formatting issues:"; gofmt -l .; exit 1; fi
 	@echo "Running golangci-lint..."
 	golangci-lint run --config .golangci.yml ./...
 

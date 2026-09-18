@@ -6,7 +6,6 @@ import (
 	"github.com/angel-platform/angel/gateway"
 )
 
-
 func TestEngineRASpoof(t *testing.T) {
 	gw := New(gateway.DefaultConfig())
 	if gw == nil {

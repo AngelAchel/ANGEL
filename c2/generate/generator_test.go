@@ -22,7 +22,7 @@ func TestGeneratorSupportedPlatforms(t *testing.T) {
 
 func TestGeneratorGenerate(t *testing.T) {
 	gen := NewGenerator(nil, "/tmp/test-angel-output")
-	outputPath, err := gen.Generate("https://teamserver.example.com")
+	outputPath, err := gen.Generate("https://teamserver.angel.local")
 	if err != nil {
 		t.Fatalf("generation failed: %v", err)
 	}

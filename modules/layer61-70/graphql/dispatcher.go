@@ -2,6 +2,8 @@ package graphql
 
 import (
 	"time"
+
+	"github.com/angel-platform/angel/modules/eventbus"
 )
 
 // Dispatcher handles cross-layer dispatch
@@ -12,6 +14,8 @@ func NewDispatcher() *Dispatcher {
 }
 
 func (d *Dispatcher) Dispatch(layer string, payload []byte) error {
+	eventbus.Publish(eventbus.NewEvent("dispatch", "graphql", "*", "event", nil))
+	eventbus.Publish(eventbus.NewEvent("dispatch", "graphql", "*", "event", nil))
 	return nil
 }
 

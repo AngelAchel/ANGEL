@@ -8,7 +8,6 @@ services:
     env_file:
       - lab/configs/lab.env
     ports:
-      - "8080:8080"
       - "8443:8443"
       - "443:443"
       - "5353:53/udp"
@@ -45,7 +44,7 @@ services:
     restart: unless-stopped
     command: ["-bind", "0.0.0.0", "-port", "8443"]
     healthcheck:
-      test: ["CMD-SHELL", "pgrep -f teamserver || exit 1"]
+      test: ["CMD-SHELL", "pgrep -f angel || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -64,11 +63,11 @@ services:
     volumes:
       - ./lab/data:/app/data
     environment:
-      TEAMSERVER_ADDR: "http://angel-teamserver:8080"
+      TEAMSERVER_ADDR: "http://angel-teamserver:8443"
       API_GATEWAY_ADDR: "0.0.0.0"
       API_GATEWAY_PORT: "3000"
       FRONTEND_URL: "http://localhost:4200"
-      FRONTEND_API_URL: "http://localhost:8080"
+      FRONTEND_API_URL: "http://localhost:3000"
     networks:
       - angel-net
     restart: unless-stopped

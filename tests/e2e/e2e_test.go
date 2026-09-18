@@ -142,5 +142,5 @@ func TestE2EGatewayCRUD(t *testing.T) {
 	if err != nil {
 		t.Fatalf("health check failed: %v", err)
 	}
-	resp.Body.Close()
+	_ = resp.Body.Close() //nolint:errcheck
 }

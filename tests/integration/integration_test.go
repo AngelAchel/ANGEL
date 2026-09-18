@@ -59,7 +59,7 @@ func TestIntegrationFullWorkflow(t *testing.T) {
 		if err != nil {
 			t.Fatalf("health check failed: %v", err)
 		}
-		resp.Body.Close()
+		_ = resp.Body.Close() //nolint:errcheck
 	})
 }
 
@@ -69,7 +69,7 @@ func TestIntegrationC2Workflow(t *testing.T) {
 		if gen == nil {
 			t.Fatal("expected non-nil generator")
 		}
-		path, err := gen.Generate("https://teamserver.example.com")
+		path, err := gen.Generate("https://teamserver.angel.local")
 		if err != nil {
 			t.Errorf("generation failed: %v", err)
 		}

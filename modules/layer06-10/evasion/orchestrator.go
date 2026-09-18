@@ -2,6 +2,8 @@ package evasion
 
 import (
 	"time"
+
+	"github.com/angel-platform/angel/modules/eventbus"
 )
 
 // Orchestrator manages cross-layer orchestration
@@ -12,6 +14,8 @@ func NewOrchestrator() *Orchestrator {
 }
 
 func (o *Orchestrator) Orchestrate() error {
+	eventbus.Publish(eventbus.NewEvent("orchestrate", "evasion", "*", "event", nil))
+	eventbus.Publish(eventbus.NewEvent("orchestrate", "evasion", "*", "event", nil))
 	return nil
 }
 

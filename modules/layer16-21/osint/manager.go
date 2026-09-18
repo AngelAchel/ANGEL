@@ -2,6 +2,8 @@ package osint
 
 import (
 	"time"
+
+	"github.com/angel-platform/angel/modules/eventbus"
 )
 
 // Manager manages cross-layer operations
@@ -12,6 +14,8 @@ func NewManager() *Manager {
 }
 
 func (m *Manager) Manage() error {
+	eventbus.Publish(eventbus.NewEvent("manage", "osint", "*", "event", nil))
+	eventbus.Publish(eventbus.NewEvent("manage", "osint", "*", "event", nil))
 	return nil
 }
 

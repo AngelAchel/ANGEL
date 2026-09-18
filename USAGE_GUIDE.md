@@ -65,7 +65,7 @@ docker compose up -d
 ```
 
 **Service:**
-- `angel-teamserver` — C2 di port 8443, 8080, 443, 5353/udp, 4455
+- `angel-teamserver` — C2 di port 8443, 443, 5353/udp, 4455
 - `angel-console` — API Gateway di port 3000
 - `angel-rules` — Rules engine (one-shot, bukan server)
 - `dvwa` — Target latihan DVWA di port 8081

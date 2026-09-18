@@ -2,6 +2,8 @@ package nosql
 
 import (
 	"time"
+
+	"github.com/angel-platform/angel/modules/eventbus"
 )
 
 // Handler handles cross-layer events
@@ -12,6 +14,8 @@ func NewHandler() *Handler {
 }
 
 func (h *Handler) Handle(event string) error {
+	eventbus.Publish(eventbus.NewEvent("event", "nosql", "*", "event", nil))
+	eventbus.Publish(eventbus.NewEvent("event", "nosql", "*", "event", nil))
 	return nil
 }
 

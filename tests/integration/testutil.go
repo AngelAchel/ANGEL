@@ -19,7 +19,7 @@ func getFreePort() int {
 		return 39999 // fallback
 	}
 	port := l.Addr().(*net.TCPAddr).Port
-	l.Close()
+	_ = l.Close() //nolint:errcheck
 	return port
 }
 
@@ -47,8 +47,8 @@ func StartGateway(t testing.TB, gw *gateway.Gateway) func() {
 		for i := 0; i < 50; i++ {
 			resp, err := http.Get(addr)
 			if err == nil {
-				io.Copy(io.Discard, resp.Body)
-				resp.Body.Close()
+				_, _ = io.Copy(io.Discard, resp.Body) //nolint:errcheck
+				_ = resp.Body.Close()                 //nolint:errcheck
 				return
 			}
 			time.Sleep(100 * time.Millisecond)

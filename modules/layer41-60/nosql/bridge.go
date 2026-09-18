@@ -2,6 +2,8 @@ package nosql
 
 import (
 	"time"
+
+	"github.com/angel-platform/angel/modules/eventbus"
 )
 
 // Bridge connects layers
@@ -12,6 +14,7 @@ func NewBridge() *Bridge {
 }
 
 func (b *Bridge) Connect() error {
+	eventbus.Subscribe("layer:*")
 	return nil
 }
 

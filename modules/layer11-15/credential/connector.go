@@ -2,6 +2,8 @@ package credential
 
 import (
 	"time"
+
+	"github.com/angel-platform/angel/modules/eventbus"
 )
 
 // Connector connects this layer to other layers
@@ -28,12 +30,13 @@ func NewEventBusConnector() *EventBusConnector {
 }
 
 func (e *EventBusConnector) Publish(topic string, data map[string]interface{}) error {
+	event := eventbus.NewEvent(topic, "credential", "*", "event", data)
+	eventbus.Publish(event)
 	return nil
 }
 
-func (e *EventBusConnector) Subscribe(topic string) chan string {
-	ch := make(chan string, 10)
-	return ch
+func (e *EventBusConnector) Subscribe(topic string) chan eventbus.Event {
+	return eventbus.Subscribe(topic)
 }
 
 func (e *EventBusConnector) Name() string         { return "EventBusConnector" }

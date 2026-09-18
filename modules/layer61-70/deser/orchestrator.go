@@ -2,6 +2,8 @@ package deser
 
 import (
 	"time"
+
+	"github.com/angel-platform/angel/modules/eventbus"
 )
 
 // Orchestrator manages cross-layer orchestration
@@ -12,6 +14,8 @@ func NewOrchestrator() *Orchestrator {
 }
 
 func (o *Orchestrator) Orchestrate() error {
+	eventbus.Publish(eventbus.NewEvent("orchestrate", "deser", "*", "event", nil))
+	eventbus.Publish(eventbus.NewEvent("orchestrate", "deser", "*", "event", nil))
 	return nil
 }
 

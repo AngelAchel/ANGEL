@@ -5,6 +5,7 @@ import (
 	"sync"
 	"time"
 
+	modbus "github.com/angel-platform/angel/modules/eventbus"
 	"github.com/angel-platform/angel/pkg/eventbus"
 	"github.com/angel-platform/angel/pkg/logger"
 	"github.com/angel-platform/angel/pkg/types"
@@ -57,6 +58,7 @@ func (d *Dispatcher) Dispatch(agentID string, task *types.Task) error {
 		})
 	}
 
+	modbus.Publish(modbus.NewEvent("dispatch", "orchestrator", "*", "event", nil))
 	status.Status = types.TaskStatusRunning
 	return nil
 }
@@ -88,6 +90,7 @@ func (d *Dispatcher) DispatchAll(task *types.Task) error {
 		})
 	}
 
+	modbus.Publish(modbus.NewEvent("dispatch", "orchestrator", "*", "event", nil))
 	status.Status = types.TaskStatusRunning
 	return nil
 }
@@ -128,6 +131,7 @@ func (d *Dispatcher) UpdateStatus(taskID string, status types.TaskStatus, result
 		taskStatus.EndedAt = time.Now()
 	}
 
+	modbus.Publish(modbus.NewEvent("dispatch", "orchestrator", "*", "event", nil))
 	return nil
 }
 

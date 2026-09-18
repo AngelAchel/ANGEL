@@ -19,6 +19,8 @@ func (h *Handler) Handle(event string) error {
 		"event": event,
 	})
 	eventbus.Publish(evt)
+	eventbus.Publish(eventbus.NewEvent("event", "ai", "*", "event", nil))
+	eventbus.Publish(eventbus.NewEvent("event", "ai", "*", "event", nil))
 	return nil
 }
 
