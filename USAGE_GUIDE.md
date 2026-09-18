@@ -181,7 +181,6 @@ make cleanup
 
 ### Generate Laporan
 ```bash
-source .env.local
 make report
 # Output: report.html
 ```

@@ -29,9 +29,9 @@ CGO_ENABLED=0 go build -o bin/angel-rules ./cmd/rules-loader
 ### Set Environment Variables
 
 ```bash
-export TEAMSERVER_KEY="your-key-here"
-export CRYPTO_KEY="your-crypto-key-here"
-export JWT_SECRET="your-jwt-secret-here"
+export TEAMSERVER_KEY="ANGEL-KEY-1789711789"
+export CRYPTO_KEY="ANGEL-CRYPTO-1789711789"
+export JWT_SECRET="ANGEL-JWT-1789711789"
 ```
 
 ### Start Services (Local)
