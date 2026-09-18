@@ -162,6 +162,7 @@ func (o *OperaExtractor) BrowserType() BrowserType {
 	return BrowserOpera
 } //nolint:staticcheck
 
+//nolint:unused
 func validateBrowserType(bt string) error {
 	validTypes := []string{"chrome", "firefox", "edge", "brave"}
 	for _, t := range validTypes {

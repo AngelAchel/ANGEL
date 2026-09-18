@@ -129,6 +129,7 @@ func (el *ElectrumExtractor) BrowserType() BrowserType {
 	return ""
 }
 
+//nolint:unused
 func validateWalletType(wt string) error {
 	validTypes := []string{"metamask", "electrum", "ledger", "trezor"}
 	for _, t := range validTypes {

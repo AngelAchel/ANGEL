@@ -85,6 +85,7 @@ func (t *TokenPrimaryThief) Name() string {
 	return "TokenPrimary"
 }
 
+//nolint:unused
 func validateTokenMethod(method string) error {
 	validMethods := []string{"primary", "msv", "wdigest", "ssp"}
 	for _, m := range validMethods {

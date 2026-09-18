@@ -818,6 +818,7 @@ func (d *RAMSizeCheck) Detect() DetectionResult {
 	return result
 } //nolint:staticcheck
 
+//nolint:unused
 func generateHash(data []byte) string {
 	hash := sha256.Sum256(data)
 	return hex.EncodeToString(hash[:])

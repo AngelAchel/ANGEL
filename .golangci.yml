@@ -1,19 +1,29 @@
-version: "1"
+version: "2"
 
 run:
   timeout: 30m
   modules-download-mode: readonly
-  tests: true
-  skip-dirs:
+  tests: false
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 50
+  max-same-issues: 5
+  exclude-files:
+    - '_test\.go'
+  exclude-dirs:
     - vendor
     - node_modules
     - frontend
     - bin
     - lab
-  skip-dirs-regexp:
+  exclude-dirs-regexp:
     - '.*/frontend/.*'
-  skip-files:
-    - _test.go
+  exclude-rules:
+    - path: 'vendor/'
+      linters:
+        - errcheck
+        - staticcheck
 
 linters:
   enable:
@@ -36,20 +46,7 @@ linters-settings:
   goimports:
     local-prefix: github.com/angel-platform/angel
 
-issues:
-  exclude-use-default: false
-  max-issues-per-linter: 50
-  max-same-issues: 5
-  exclude-rules:
-    - path: '_test\.go'
-      linters:
-        - errcheck
-        - nakedret
-    - path: 'vendor/'
-      linters:
-        - errcheck
-        - staticcheck
-
 output:
-  formats: colored-line-number
+  formats:
+    colored-line-number: {}
   print-issued-lines: true

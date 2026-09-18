@@ -482,6 +482,7 @@ func platformSyscallImpl(addr uintptr, args ...uintptr) (uintptr, error) {
 	return ret, nil
 }
 
+//nolint:unused
 func (t *TartarusGate) buildSyscallPrologue(syscallNum uint32) []byte {
 	prologue := make([]byte, 16)
 	prologue[0] = 0x4C
@@ -489,6 +490,7 @@ func (t *TartarusGate) buildSyscallPrologue(syscallNum uint32) []byte {
 	return prologue
 }
 
+//nolint:unused
 func (sw *SysWhispers3) generateIndirectSyscallShellcode(stub *SyscallStub) []byte {
 	shellcode := make([]byte, 0, 16)
 	shellcode = append(shellcode, 0x4C)

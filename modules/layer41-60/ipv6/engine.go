@@ -311,12 +311,14 @@ func (e *Engine) isValidIPv6(addr string) bool {
 	return ip != nil && ip.To4() == nil
 }
 
+//nolint:unused
 func generateRandomBytes(n int) []byte {
 	b := make([]byte, n)
 	rand.Read(b)
 	return b
 }
 
+//nolint:unused
 func generateRandomHex(n int) string {
 	b := make([]byte, n)
 	rand.Read(b)
