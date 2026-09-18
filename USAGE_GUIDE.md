@@ -89,7 +89,7 @@ docker compose down
 
 ---
 
-## SECTION 2B: NATIVE RUN (TANPA DOCKER)
+## SECTION 3: NATIVE RUN (TANPA DOCKER)
 
 Untuk Kali Linux atau environment tanpa Docker.
 
@@ -269,7 +269,8 @@ ANGEL/
 ## SECTION 9: REFERENCE
 
 - `STRUKTUR_ANGEL.md` — Blueprint 70 layer
-- `TEST_SCENARIOS.md` — 1.346 test case (TC-001..TC-1346)
+- `tests/e2e/` — E2E test scenarios
+- `tests/integration/` — Integration test scenarios
 |- `docs/report_template.md` — Template laporan
 |- `docs/NATIVE-RUN.md` — Native run (tanpa Docker)
 |- `docs/KALI.md` — Kali Linux compatibility

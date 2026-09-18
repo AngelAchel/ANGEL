@@ -1,116 +1,153 @@
-# 🛡️ ANGEL TOOLKIT
+# ANGEL Platform
 
-> **STATUS:** OPERATIONAL Red Team
-> 
-> **CLASS:** Offensive Security — P0/P1 Hard/Expert Full Attack
-> 
-> **LEGAL:** Only authorized systems
-> 
-> **Built:** Cyber Security Software Engineer
----
+[![CI](https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml)
+[![Go Report](https://golangci-lint.run/badge/github.com/AngelAchel/ANGEL)](https://golangci-lint.run/)
+[![License](https://img.shields.io/badge/License-Custom-blue)](LICENSE)
 
-## ⚔️ ATTACK
+> **ANGEL** is an offensive security framework for authorized penetration testing and red team engagements.
+> 70-layer attack surface with real-time cross-module event bus orchestration.
 
-![Attack Visualization](attack_viz.gif)
+## Architecture
 
----
+ANGEL is organized into **13 module groups** spanning **70 security layers**:
 
-## >> INITIALIZE
+| Layer Range | Domain |
+|-------------|--------|
+| 01–05 | Brain, C2 Implant, Listener, DBPost, Decoy, Resilience |
+| 06–10 | Evasion, Kerberos, Lateral Movement, Persistence, Rootkit |
+| 11–15 | Brain, Collector, Credential, Destruction, Orchestrator |
+| 16–21 | Cleanup, Evidence, Exploit, Infra, OSINT, Report |
+| 22–25 | Auth Bypass, Crypto, Destruction Chain, Implant Gen, Net Evasion |
+| 26–40 | AI, API, C2, Cloud, Container, IR, Malware, Mobile, Physical, Social Engineering |
+| 41–60 | Cache Smuggle, Cert Forgery, CSRF, DNSSEC, IoT, IPv6, LDAP, MDNS, SCADA, SQL Inject |
+| 61–70 | ARP/DHCP, Biz Logic, Crypto, Deserialization, GraphQL, gRPC, Memory, Race Condition, VLAN |
+
+All modules communicate via the **event bus** (`modules/eventbus/`) for real-time cross-layer orchestration.
+
+## Quick Start
 
 ```bash
-git clone <REPO_URL> && cd ANGEL
-export TEAMSERVER_KEY=<strong-random-key>
-export CRYPTO_KEY=<strong-random-key>
-export JWT_SECRET=<strong-random-secret>
-make build && docker compose up -d
-./lab/test_lab_full.sh
+git clone https://github.com/AngelAchel/ANGEL.git
+cd ANGEL
+cp .env.example .env.local
+# Edit .env.local — set TEAMSERVER_KEY, CRYPTO_KEY, JWT_SECRET
+make build && make test && make lint
+make setup
 ```
 
----
+## Deployment
 
-## >> DEPLOY
-
+### Docker Compose (Recommended)
 ```bash
+make setup
 docker compose up -d
 docker compose ps
-docker compose logs -f angel-teamserver
 ```
 
----
+Services:
+- **angel-teamserver** — C2 server on port `8443`
+- **angel-console** — API Gateway / Dashboard on port `3000`
+- **angel-rules** — Rules engine (one-shot)
+- **dvwa** — Target practice on port `8081`
 
-## >> GENERATE IMPLANT
+### Native (Kali Linux)
+```bash
+CGO_ENABLED=0 make build
+bash scripts/start-local.sh
+bash scripts/health-check.sh
+```
+
+## Usage
 
 ```bash
+# Generate implant
 ./bin/angel-generate -os linux -arch amd64 -server http://localhost:8443 -out lab/implants
-./bin/angel-generate -os windows -arch amd64 -server http://localhost:8443 -out lab/implants
-```
 
----
-
-## >> ENGAGE
-
-```bash
+# Define target scope
 echo "192.168.1.1" > target.txt
+
+# Start engagement
 make engage SCOPE=target.txt
+
+# Monitor dashboard
+open http://localhost:3000
+
+# Cleanup
+make cleanup
 ```
 
----
+## Make Targets
 
-## >> MONITOR
+| Target | Description |
+|--------|-------------|
+| `make build` | Build all binaries |
+| `make test` | Run test suite (93 packages) |
+| `make lint` | Run golangci-lint |
+| `make fmt` | Format code |
+| `make setup` | Install deps + build + deploy |
+| `make engage` | Start penetration engagement |
+| `make docker` | Build Docker image |
+| `make clean` | Remove build artifacts |
+
+## Verification
 
 ```bash
-http://localhost:3000
-docker compose ps
-docker compose logs -f angel-teamserver
+make build    # All binaries compile
+make test     # 93 packages, 0 failures
+make lint     # 0 issues
+./lab/test_lab_full.sh  # End-to-end lab tests
 ```
 
+## Project Structure
+
+```
+ANGEL/
+├── cmd/               # Entry points (teamserver, console, generator, rules-loader)
+├── c2/                # C2 core (implant, profiles)
+├── gateway/           # API Gateway (auth, RBAC, rate limit)
+├── orchestrator/      # Orchestration engine
+├── frontend/          # Angular dashboard
+├── modules/           # 70-layer security modules
+├── pkg/               # Shared packages (crypto, eventbus, logger, types)
+├── scripts/           # Build, lint, health check scripts
+├── tests/             # E2E and integration tests
+├── docs/              # Documentation
+├── lab/               # Lab environment (configs, implants, logs)
+├── Dockerfile.*       # Container builds
+└── docker-compose.yml # Docker orchestration
+```
+
+## Testing
+
+```bash
+make test                              # Full test suite
+./lab/test_lab.sh                      # Layer-by-layer test
+./lab/test_lab_full.sh                 # Full 70-layer test
+```
+
+## Legal
+
+⚠️ **ANGEL is for authorized offensive security testing only.**
+
+- Written permission required before any engagement
+- Only target systems within scope
+- All activity is logged via the evidence ledger
+- Post-engagement cleanup ensures no artifacts remain
+
+## Documentation
+
+- [USAGE_GUIDE.md](USAGE_GUIDE.md) — Full usage guide
+- [STRUKTUR_ANGEL.md](STRUKTUR_ANGEL.md) — 70-layer blueprint
+- [docs/NATIVE-RUN.md](docs/NATIVE-RUN.md) — Native run (no Docker)
+- [docs/KALI.md](docs/KALI.md) — Kali Linux compatibility
+- [docs/TERMUX.md](docs/TERMUX.md) — Termux compatibility
+- [docs/PRODUCTION.md](docs/PRODUCTION.md) — Production deployment
+
+## License
+
+Custom license — see LICENSE file.
+
 ---
 
-## >> DAMPAK PERUSAHAAN
-
-| Skenario | Dampak |
-|----------|--------|
-| 💀 Credential Dump | Semua password bocor, root access |
-| 🔥 Data Exfiltration | Data permanen keluar, tak terlacak |
-| 🧠 Ransomware | Semua file terenkripsi, backup hancur |
-| 🕵️ Espionage | Intel kompetitor dicuri |
-| 🔌 Persistence | Backdoor permanen, tidak hilang |
-| 🧹 Anti-Forensik | Bukti dihapus, tidak ada jejak |
-| 💀 Privilege Escalation | User biasa jadi root |
-| 🌐 Lateral Movement | Semua server terinfeksi |
-| 🔥 Destruction | Database, log, backup — semua hilang |
-| 💀 Complete Takeover | Full kontrol infrastruktur |
-
-
----
-
-## >> IMPACT
-
-| Capability | Detail |
-|------------|--------|
-| 🎯 70 Layer Attack Surface | Full offensive stack |
-| ⚔️ 700+ Techniques | Fallback chains, anti-analysis |
-| 🧬 83 Modules | C2, Evasion, Credential, Exploit, Malware |
-| 🔌 Event Bus | Real-time cross-layer orchestration |
-| 🛡️ 93 Tests | All passing — zero regressions |
-| 💀 Signature-Free | Defender gak kenal |
-| 🔥 Privilege Escalation | Auto escalate |
-| 🕵️ OSINT + Recon | Passive & active intel |
-| 💀 Exfiltration | Data out, no trace |
-| 🧹 Cleanup | Leave zero evidence |
-
-
----
-
-## >> LEGAL
-
-⚠️ Only authorized systems. Contract + written permission required.
-
-⚠️ For official offensive security engagement only.
-
-⚠️ All activity logged via evidence ledger.
-
----
-
-**ANGEL Platform — Offensive Security Framework**
+**ANGEL Platform** — Offensive Security Framework
 GitHub: https://github.com/AngelAchel/ANGEL
