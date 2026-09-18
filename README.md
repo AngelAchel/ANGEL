@@ -24,6 +24,16 @@ ANGEL is organized into **13 module groups** spanning **70 security layers**:
 
 All modules communicate via the **event bus** (`modules/eventbus/`) for real-time cross-layer orchestration.
 
+## Visual Architecture
+
+Animated overview of the 70-layer attack surface and event bus orchestration:
+
+```svg
+![ANGEL Architecture Animation](docs/architecture-animation.svg)
+```
+
+Or view interactive: [Architecture Animation](docs/architecture-animation.svg)
+
 ## Quick Start
 
 ```bash
@@ -74,6 +84,24 @@ open http://localhost:3000
 
 # Cleanup
 make cleanup
+```
+
+### Attack Target Visualization
+
+When engaged, ANGEL visualizes the attack progression across all 70 layers:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  TARGET: 192.168.1.1                                        │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐       │
+│  │ Layer 01 │→│ Layer 06 │→│ Layer 11 │→│ Layer 16 │...    │
+│  │ C2 Implant│→│Evasion  │→│ Brain   │→│ Exploit │       │
+│  └─────────┘  └─────────┘  └─────────┘  └─────────┘       │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐       │
+│  │ Layer 26 │→│ Layer 41 │→│ Layer 61 │→│ BREACHED │       │
+│  │ AI/Cloud │→│SQLi/IoT │→│Memory   │→│✓ TARGET  │       │
+│  └─────────┘  └─────────┘  └─────────┘  └─────────┘       │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## Make Targets

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a3e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="layerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1e3a5f" />
+      <stop offset="100%" style="stop-color:#2d5a8a" />
+    </linearGradient>
+    <linearGradient id="targetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff4444" />
+      <stop offset="100%" style="stop-color:#cc0000" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+      @keyframes attack { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(400px); opacity: 0; } }
+      @keyframes moveRight { 0% { transform: translateX(0); } 100% { transform: translateX(600px); } }
+      @keyframes glow { 0%, 100% { filter: url(#glow); } 50% { filter: none; } }
+      .layer-text { fill: #e0e0e0; font-family: 'Courier New', monospace; font-size: 10px; }
+      .target-circle { animation: pulse 2s infinite; }
+      .attack-line { stroke: #ff4444; stroke-width: 2; stroke-dasharray: 5,5; animation: moveRight 3s infinite; }
+      .event-bus-line { stroke: #44aaff; stroke-width: 1; opacity: 0.6; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)" />
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="18" font-weight="bold">ANGEL — 70-Layer Offensive Security Framework</text>
+  
+  <!-- Target area (right side - attack target) -->
+  <rect x="650" y="120" width="120" height="120" rx="60" fill="url(#targetGrad)" filter="url(#glow)" />
+  <text x="710" y="145" text-anchor="middle" fill="white" font-family="Arial" font-size="8">TARGET</text>
+  <text x="710" y="160" text-anchor="middle" fill="white" font-family="Arial" font-size="8">SYSTEM</text>
+  <circle cx="710" cy="250" r="15" fill="#ff4444" class="target-circle" />
+  <text x="710" y="255" text-anchor="middle" fill="white" font-family="Arial" font-size="6">BREACH</text>
+  
+  <!-- Layer columns -->
+  <!-- Layer 01-05 -->
+  <rect x="50" y="60" width="100" height="40" rx="5" fill="url(#layerGrad)" />
+  <text x="100" y="84" text-anchor="middle" class="layer-text">Layer 01-05</text>
+  <text x="100" y="98" text-anchor="middle" class="layer-text">C2 Implant</text>
+  
+  <!-- Layer 06-10 -->
+  <rect x="160" y="60" width="100" height="40" rx="5" fill="url(#layerGrad)" />
+  <text x="210" y="84" text-anchor="middle" class="layer-text">Layer 06-10</text>
+  <text x="210" y="98" text-anchor="middle" class="layer-text">Evasion/Kerberos</text>
+  
+  <!-- Layer 11-15 -->
+  <rect x="270" y="60" width="100" height="40" rx="5" fill="url(#layerGrad)" />
+  <text x="320" y="84" text-anchor="middle" class="layer-text">Layer 11-15</text>
+  <text x="320" y="98" text-anchor="middle" class="layer-text">Brain/Credential</text>
+  
+  <!-- Layer 16-25 -->
+  <rect x="380" y="60" width="100" height="40" rx="5" fill="url(#layerGrad)" />
+  <text x="430" y="84" text-anchor="middle" class="layer-text">Layer 16-25</text>
+  <text x="430" y="98" text-anchor="middle" class="layer-text">Exploit/Crypto</text>
+  
+  <!-- Layer 26-40 -->
+  <rect x="490" y="60" width="100" height="40" rx="5" fill="url(#layerGrad)" />
+  <text x="540" y="84" text-anchor="middle" class="layer-text">Layer 26-40</text>
+  <text x="540" y="98" text-anchor="middle" class="layer-text">AI/Cloud/Mobile</text>
+  
+  <!-- Layer 41-60 -->
+  <rect x="600" y="60" width="100" height="40" rx="5" fill="url(#layerGrad)" />
+  <text x="650" y="84" text-anchor="middle" class="layer-text">Layer 41-60</text>
+  <text x="650" y="98" text-anchor="middle" class="layer-text">SQLi/IoT/SCADA</text>
+  
+  <!-- Layer 61-70 -->
+  <rect x="710" y="60" width="80" height="40" rx="5" fill="url(#layerGrad)" />
+  <text x="750" y="84" text-anchor="middle" class="layer-text">Layer</text>
+  <text x="750" y="98" text-anchor="middle" class="layer-text">61-70</text>
+  
+  <!-- Event bus (horizontal line connecting layers) -->
+  <line x1="50" y1="130" x2="790" y2="130" stroke="#44aaff" stroke-width="2" opacity="0.5" />
+  <circle cx="50" cy="130" r="3" fill="#44aaff">
+    <animate attributeName="cx" values="50;790;50" dur="4s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Attack arrows from layers to target -->
+  <line x1="100" y1="120" x2="650" y2="180" stroke="#ff4444" stroke-width="1.5" opacity="0.6" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;10" dur="0.5s" repeatCount="indefinite" />
+  </line>
+  <line x1="210" y1="120" x2="650" y2="195" stroke="#ff4444" stroke-width="1.5" opacity="0.6" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;10" dur="0.5s" repeatCount="indefinite" />
+  </line>
+  <line x1="320" y1="120" x2="650" y2="210" stroke="#ff4444" stroke-width="1.5" opacity="0.6" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;10" dur="0.5s" repeatCount="indefinite" />
+  </line>
+  <line x1="540" y1="120" x2="650" y2="225" stroke="#ff4444" stroke-width="1.5" opacity="0.6" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;10" dur="0.5s" repeatCount="indefinite" />
+  </line>
+  <line x1="650" y1="120" x2="670" y2="180" stroke="#ff4444" stroke-width="1.5" opacity="0.6" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;10" dur="0.5s" repeatCount="indefinite" />
+  </line>
+  
+  <!-- Animated attack particles -->
+  <circle r="4" fill="#ff4444" filter="url(#glow)">
+    <animateMotion path="M100,120 Q300,100 650,180" dur="3s" repeatCount="indefinite" />
+  </circle>
+  <circle r="3" fill="#44aaff" filter="url(#glow)">
+    <animateMotion path="M210,120 Q400,80 650,195" dur="3.5s" repeatCount="indefinite" />
+  </circle>
+  <circle r="4" fill="#ff8800" filter="url(#glow)">
+    <animateMotion path="M320,120 Q500,110 650,210" dur="2.8s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Bottom section: Event Bus -->
+  <rect x="50" y="350" width="700" height="80" rx="10" fill="#0d1117" stroke="#44aaff" stroke-width="1" opacity="0.8" />
+  <text x="400" y="372" text-anchor="middle" fill="#44aaff" font-family="Arial" font-size="12" font-weight="bold">EVENT BUS — Real-time Cross-Module Orchestration</text>
+  <text x="400" y="392" text-anchor="middle" fill="#888" font-family="Arial" font-size="9">Publish/Subscribe across all 70 layers | modules/eventbus/ | 103 connected files</text>
+  
+  <!-- Animated event flow dots -->
+  <circle r="3" fill="#44aaff">
+    <animateMotion path="M60,390 Q200,370 400,390 Q600,410 740,390" dur="4s" repeatCount="indefinite" />
+  </circle>
+  <circle r="3" fill="#44aaff">
+    <animateMotion path="M60,390 Q200,370 400,390 Q600,410 740,390" dur="4s" begin="1s" repeatCount="indefinite" />
+  </circle>
+  <circle r="3" fill="#44aaff">
+    <animateMotion path="M60,390 Q200,370 400,390 Q600,410 740,390" dur="4s" begin="2s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Footer -->
+  <text x="400" y="480" text-anchor="middle" fill="#555" font-family="Arial" font-size="8">ANGEL Platform — 70 Layers | Go + Angular | Docker Deployable</text>
+</svg>
