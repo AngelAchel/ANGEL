@@ -63,21 +63,25 @@ Seluruh modul ANGEL hidup dalam satu monorepo agar dependency, build, dan releas
 
 ```
 ANGEL/
-├── c2/                    # Inti C2 (implant, teamserver, malleable profile)
+├── c2/                    # C2 core: implant, listener, protocol handlers, profiles
 ├── orchestrator/          # LangGraph orchestration + Brain (intent classifier)
-├── gateway/               # API Gateway (.NET 10): auth, RBAC, rate limit
+├── gateway/               # API Gateway (Go): auth, RBAC, rate limit
 ├── frontend/              # Angular dashboard, agent console, report viewer
 ├── infra/                 # Terraform + Ansible: VPS, WireGuard, firewall
 ├── modules/               # Semua modul ofensif per layer (1–70)
-│   ├── layer01-05/        # C2 core, decoy, SQLi, NoSQL, DB post-exploit
-│   ├── layer06-10/
-│   ├── ...
-│   └── layer61-70/
+│   ├── layer01-05/        # C2 core, implant, decoy, SQLi, NoSQL, persistence
+│   ├── layer06-10/        # Evasion, Kerberos, lateral movement, rootkit
+│   ├── layer11-15/        # Brain, collector, credential, destruction, orchestrator
+│   ├── layer16-21/        # Cleanup, evidence, exploit, infra, OSINT, reporting
+│   ├── layer22-25/        # Crypto, implant gen, network evasion, auth bypass
+│   ├── layer26-40/        # AI, cloud, mobile, supply chain, wireless, zero trust
+│   ├── layer41-60/        # SQLi, XSS, CSRF, DNSSEC, IoT, SCADA, compliance
+│   └── layer61-70/        # Memory forensics, GraphQL, gRPC, race conditions, VLAN
 ├── scripts/               # Automation, build, lint, release pipeline
-├── tests/                 # Test scenarios TC-001..TC-1346 (Section 17)
+├── tests/                 # Test scenarios TC-001..TC-318 (Section 17)
 ├── docs/                  # Dokumentasi operasional + report template
 ├── .env.example           # Template konfigurasi environment
-└── Makefile               # Entry point: make build / make test / make release
+└── Makefile               # Entry point: make build / make test / make lint / make report
 ```
 
 > **Prinsip:** modul di `modules/layerNN–MM/` tidak pernah menyisipkan kode ke komponen inti — seluruh interaksi lewat event bus (Section 2.1).
@@ -104,7 +108,7 @@ ANGEL/
 └─────────────────────────────────────────────────────────────────────┘
                               │
 ┌─────────────────────────────────────────────────────────────────────┐
-│              TIER 4: API GATEWAY (.NET 10)                         │
+│              TIER 4: API GATEWAY (Go)                         │
 │  - REST API + WebSocket untuk frontend                             │
 │  - Authentication + RBAC                                           │
 │  - Rate limiting + request validation                              │
@@ -399,278 +403,49 @@ CONTRACTS PENTING (modul → bus):
 
 #### Struktur File
 ```
-ANGEL-C2/
+c2/
 ├── implant/
-│   ├── windows/
-│   │   ├── implant_main.go
-│   │   ├── implant_config.go
-│   │   ├── implant_register.go
-│   │   ├── implant_task.go
-│   │   ├── implant_result.go
-│   │   ├── implant_crypto.go
-│   │   ├── implant_sleep.go
-│   │   ├── implant_inject.go
-│   │   ├── implant_persistence.go
-│   │   ├── implant_evasion.go
-│   │   └── implant_fallback.go
-│   ├── linux/
-│   │   ├── implant_main.go
-│   │   ├── implant_config.go
-│   │   ├── implant_register.go
-│   │   ├── implant_task.go
-│   │   ├── implant_result.go
-│   │   ├── implant_crypto.go
-│   │   ├── implant_persistence.go
-│   │   └── implant_fallback.go
-│   ├── darwin/
-│   │   ├── implant_main.go
-│   │   ├── implant_config.go
-│   │   ├── implant_register.go
-│   │   ├── implant_task.go
-│   │   ├── implant_result.go
-│   │   ├── implant_crypto.go
-│   │   ├── implant_persistence.go
-│   │   └── implant_fallback.go
-│   └── android/
-│       ├── implant_main.go
-│       ├── implant_config.go
-│       ├── implant_register.go
-│       ├── implant_task.go
-│       ├── implant_result.go
-│       ├── implant_crypto.go
-│       ├── implant_persistence.go
-│       └── implant_fallback.go
-├── malleable/
-│   ├── profile_loader.go
-│   ├── profiles/
-│   │   ├── teams.yaml
-│   │   ├── office.yaml
-│   │   ├── google.yaml
-│   │   ├── cloudflare.yaml
-│   │   └── profile_validator.go
-│   ├── http_get.go
-│   ├── http_post.go
-│   ├── metadata.go
-│   └── tls.go
-├── server/
-│   ├── listener/
-│   │   ├── http.go
-│   │   ├── https.go
-│   │   ├── websocket.go
-│   │   ├── dns.go
-│   │   ├── doh.go
-│   │   ├── smb.go
-│   │   ├── tcp.go
-│   │   ├── icmp.go
-│   │   ├── telegram.go
-│   │   ├── discord.go
-│   │   ├── slack.go
-│   │   ├── twitter.go
-│   │   ├── steam.go
-│   │   ├── blockchain.go
-│   │   ├── onedrive.go
-│   │   ├── gdrive.go
-│   │   ├── dropbox.go
-│   │   └── listener_manager.go
-│   ├── task/
-│   │   ├── queue.go
-│   │   ├── scheduler.go
-│   │   └── result.go
-│   ├── crypto/
-│   │   ├── ecdh.go
-│   │   ├── aes.go
-│   │   ├── hmac.go
-│   │   └── cert.go
-│   ├── database/
-│   │   ├── sqlite.go
-│   │   ├── models.go
-│   │   └── migrations.go
-│   └── api/
-│       ├── routes.go
-│       ├── handlers.go
-│       └── middleware.go
-├── smb_beacon/
-│   ├── smb_beacon.go
-│   ├── named_pipe.go
-│   └── peer_to_peer.go
-├── brain/
-│   ├── autonomous_decision.go
-│   ├── risk_assessment.go
-│   ├── behavior_learning.go
-│   └── timing_control.go
-├── channel_rotation/
-│   ├── rotation_manager.go
-│   ├── channel_health.go
-│   ├── failover_logic.go
-│   └── domain_fronting.go
-├── environment_detection/
-│   ├── edr_detect.go
-│   ├── sandbox_detect.go
-│   ├── vm_detect.go
-│   ├── debugger_detect.go
-│   └── network_monitor_detect.go
-├── resilience/
-│   ├── dead_man_switch.go
-│   ├── self_destruct.go
-│   ├── re_persist.go
-│   ├── re_harvest.go
-│   └── recovery.go
-└── console/
-    ├── terminal/
-    │   ├── main.go
-    │   ├── commands.go
-    │   └── autocomplete.go
-    ├── dashboard/
-    │   ├── main.go
-    │   ├── agents.go
-    │   └── reports.go
-    └── api/
-        ├── client.go
-        └── auth.go
+│   ├── implant.go                 # Shared implant core (crypto, evasion, fallback, inject, result, sleep)
+│   ├── implant_main.go            # Platform entry point
+│   ├── implant_config.go          # Configuration
+│   ├── implant_register.go        # Agent registration
+│   ├── implant_task.go            # Task execution
+│   ├── implant_result.go          # Result collection
+│   ├── implant_crypto.go          # Encryption routines
+│   ├── implant_sleep.go           # Sleep scheduling
+│   ├── implant_inject.go          # Code injection
+│   ├── implant_persistence.go     # Persistence mechanisms
+│   ├── implant_evasion.go         # Anti-detection
+│   ├── implant_fallback.go        # Fallback behavior
+│   ├── implant_test.go            # Unit tests
+│   ├── android/
+│   │   ├── implant_main.go        # Android-specific entry
+│   │   ├── implant_config.go      # Android configuration
+│   │   ├── implant_register.go    # Android registration
+│   │   └── implant_task.go        # Android task handling
+│   ├── darwin/                    # (same structure as android)
+│   ├── linux/                     # (same structure as android)
+│   └── windows/                   # (same structure as android)
+├── profiles/
+│   ├── profile.go                 # Malleable profile loader
+│   ├── profile_apply.go           # Profile application to C2 traffic
+│   └── profile_validator.go       # Profile validation
+├── generate/
+│   └── generate.go                # Implant generator
+├── dns.go                         # DNS C2 protocol handler
+├── doh.go                         # DNS-over-HTTPS handler
+├── http.go                        # HTTP/HTTPS C2 handler
+├── icmp.go                        # ICMP covert channel handler
+├── id.go                          # Agent identity management
+├── tcp.go                         # TCP C2 handler
+└── tls.go                         # TLS encryption layer
 ```
 
-#### Teknik Sleep/Masking (11 teknik)
-
-```
-1. VIRTUALPROTECT + RC4
-   ├── Allocate memory PAGE_NOACCESS
-   ├── Encrypt sleep data dengan RC4
-   ├── VirtualProtect ke PAGE_READWRITE
-   ├── Decrypt data → Execute
-
-2. THREAD STACK SPOOFING
-   ├── Allocate new stack
-   ├── Copy legitimate stack frame
-   ├── Switch RSP ke new stack
-   ├── Sleep di new stack
-   └── Restore original stack
-
-3. EXCEPTION HANDLER
-   ├── Register VEH handler
-   ├── Trigger exception (INT3)
-   ├── Sleep dalam exception handler
-   └── Resume via handler return
-
-4. MODULE STOMPING
-   ├── Load legitimate DLL (mshtml.dll)
-   ├── Overwrite DLL .text section
-   ├── Execute dari overwritten section
-   └── Sleep dengan DLL intact
-
-5. CALLBACK-BASED
-   ├── QueueUserAPC dengan callback
-   ├── Sleep dalam callback
-   ├── Timer queue callback
-   └── Work item callback
-
-6. GUARD PAGE REMOVAL
-   ├── Set PAGE_GUARD pada memory
-   ├── Trigger guard page exception
-   ├── Sleep dalam exception handler
-   └── Remove PAGE_GUARD
-
-7. ENCRYPT FRAGMENTS
-   ├── Split code menjadi fragments
-   ├── Encrypt setiap fragment dengan key berbeda
-   ├── Decrypt fragment saat execute
-   └── Re-encrypt setelah execute
-
-8. EKKO-STYLE
-   ├── NtCreateEvent
-   ├── NtWaitForSingleObject dengan timeout
-   ├── Callback ke sleep routine
-   └── Resume execution
-
-9. FOLIAGE-STYLE
-   ├── Manipulate ETW providers
-   ├── Disable ETW logging
-   ├── Sleep tanpa ETW trace
-   └── Re-enable ETW
-
-10. CRONOS-STYLE
-    ├── NtQueueApcThread ke sleeping thread
-    ├── APC callback untuk wake
-    ├── Thread sleep via Alertable wait
-    └── Resume via APC delivery
-
-11. DEATHSLEEP-STYLE
-    ├── Manipulate thread context
-    ├── Spoof RIP ke sleep gadget
-    ├── Actual sleep di different context
-    └── Restore context untuk resume
-```
-
-**Fallback Chain:**
-```
-VirtualProtect+RC4 → Thread Stack Spoofing → Module Stomping → Exception Handler →
-Callback-based → Ekko-style → Foliage-style → Cronos-style → DeathSleep-style →
-Guard Page Removal → Encrypt Fragments → ALERT OPERATOR
-```
-
-#### Channel C2 (18+ protokol)
-
-```
-1.  HTTPS          — TLS 1.3, JA3 spoofing, /api/v1/telemetry
-2.  DNS            — TXT/MX/A records, base32 subdomain encoding
-3.  DoH            — Cloudflare/Google/Quad9 DoH
-4.  WebSocket      — Persistent, binary frames, ping/pong
-5.  SMB            — Named pipe: \\.\pipe\msagent_<random>
-6.  TCP Raw        — Custom binary protocol, XOR encryption
-7.  ICMP           — Echo request/reply, data in payload
-8.  Telegram       — Bot API, chat ID, file upload
-9.  Discord        — Webhook, embed-based commands
-10. Slack          — Incoming webhook, slash commands
-11. Twitter/X      — Tweet-based, DM, steganography
-12. Steam Profile  — Display name as command, profile status
-13. Blockchain     — Smart contract (Polygon), multi-RPC confirm
-14. OneDrive       — File abuse, shared links
-15. Google Drive   — File abuse, shared links
-16. Dropbox        — File abuse, shared links
-17. Domain Fronting— Cloudflare CDN, CloudFront, Azure CDN
-18. Legit Service  — Pastebin, GitHub Gist, Notion, Trello
-```
-
-**Channel Rotation Logic:**
-```
-PRIMARY: HTTPS (health check 60s, 3 failures = BLOCKED)
-  ↓ FAIL
-FALLBACK_1: DNS → FALLBACK_2: DoH → FALLBACK_3: WebSocket →
-FALLBACK_4: Telegram → FALLBACK_5: Blockchain →
-ALL BLOCKED → Alert operator → Wait guidance
-```
-
-#### Test Scenario C2
-
-```
-┌────────────────────────┬──────────────────────────────────────────────┐
-│ TEST CASE              │ EXPECTED RESULT                             │
-├────────────────────────┼──────────────────────────────────────────────┤
-│ Implant registration   │ POST /api/v1/register → 201 Created        │
-│ Task fetch             │ GET /api/v1/task → 200 OK + encrypted task │
-│ Result submission      │ POST /api/v1/result → 200 OK               │
-│ Sleep jitter           │ Jitter ±20% dari base sleep                │
-│ Channel rotation       │ Failover dalam <5 detik                    │
-│ Domain fronting        │ Response identik dengan direct              │
-│ Crypto (ECDH)          │ Key exchange <100ms                        │
-│ Persistence            │ Reboot survival: 100%                       │
-│ Stealth (clean AV)     │ 0% detection                               │
-│ Stealth (EDR)          │ <5% detection                               │
-│ Memory footprint       │ <50MB RAM                                  │
-│ CPU usage              │ <5% average                                 │
-│ Network overhead       │ <1KB/s                                     │
-│ Reconnection           │ Auto-reconnect <30 detik                   │
-│ Dead man switch        │ Trigger dalam 5 menit tanpa heartbeat       │
-│ Self-destruct          │ Binary wipe <100ms                          │
-│ Environment detect     │ Akurasi >95%                               │
-│ Load testing           │ 1000 agents concurrent                     │
-└────────────────────────┴──────────────────────────────────────────────┘
-
-ENVIRONMENTS: Windows 10/11, Windows Server 2019/2022, Ubuntu 20.04/22.04,
-              CentOS 7/8, Debian 11/12, macOS Ventura/Sonoma, Android 12-14,
-              CrowdStrike, SentinelOne, Carbon Black, Defender
-```
-
----
+> **Catatan:** File `implant_*.go` di root `c2/implant/` bersifat **shared** di semua platform.
+> Setiap platform (android/darwin/linux/windows) hanya memiliki file platform-specific
+> di subdirektori masing-masing. Komponen `malleable`, `server/listener`, `smb_beacon`,
+> `brain`, dll. dieksekusi sebagai modul di `modules/layer01-05/`.
+> Seluruh komunikasi antar komponen C2 menggunakan event bus.
 
 ### 3.2 The Decoy / Deception Layer
 
@@ -13653,7 +13428,7 @@ cache poisoning                   │ 2. Use monitoring evasion via unmonitored 
 | gRPC/Protobuf | 15+ modules (6 attack, 5 exploit, 4 protobuf) |
 | VLAN Hopping | 13+ modules (5 attack, 4 exploit, 4 defense bypass) |
 | ARP/DHCP Spoofing | 16+ modules (5 ARP, 5 DHCP, 6 MITM) |
-| Test Scenarios | 1346 test cases (TC-001 – TC-1346, semua 70 layer) |
+| Test Scenarios | 318 test cases (TC-001 – TC-318, semua 70 layer) |
 | **TOTAL** | **~2100+ modules** |
 
 ---
@@ -15865,14 +15640,14 @@ LAYER 70 - ARP/DHCP:
 ├── TC-1343 DNS via DHCP spy                    → DNS leak
 ├── TC-1344 ARP/DHCP combined                   → Full combo
 ├── TC-1345 MAC spoof bypass NAC                → NAC bypass
-└── TC-1346 Full ARP/DHCP chain                 → Full chain success
+└── TC-318 Full ARP/DHCP chain                 → Full chain success
 ```
 
 ---
 
 ## 18. KESIMPULAN
 
-ANGEL adalah platform offensive security tingkat lanjut untuk P0/P1 findings. Platform ini mencakup 70 layer dengan ~2100+ modules, mencakup konvensional red team, cloud-native, container, mobile, wireless, social engineering, supply chain, Web3, AI/ML, IPv6, SAML/OIDC, LDAP, CSRF, web cache poisoning, HTTP smuggling, SCADA/ICS, IoT, compliance testing, OPSEC, memory corruption, deserialization, race conditions, GraphQL, cryptography, password reset, business logic, gRPC, VLAN hopping, dan ARP/DHCP spoofing. Setiap layer memiliki minimal 5-7 teknik alternatif, fallback otomatis, deteksi environment, adaptasi, edge case handling, resilience, dan recovery. Semua 70 layer memiliki fallback chains, edge cases, dan test scenarios (total 1.346 test case, TC-001–TC-1346).
+ANGEL adalah platform offensive security tingkat lanjut untuk P0/P1 findings. Platform ini mencakup 70 layer dengan ~2100+ modules, mencakup konvensional red team, cloud-native, container, mobile, wireless, social engineering, supply chain, Web3, AI/ML, IPv6, SAML/OIDC, LDAP, CSRF, web cache poisoning, HTTP smuggling, SCADA/ICS, IoT, compliance testing, OPSEC, memory corruption, deserialization, race conditions, GraphQL, cryptography, password reset, business logic, gRPC, VLAN hopping, dan ARP/DHCP spoofing. Setiap layer memiliki minimal 5-7 teknik alternatif, fallback otomatis, deteksi environment, adaptasi, edge case handling, resilience, dan recovery. Semua 70 layer memiliki fallback chains, edge cases, dan test scenarios (total 318 test case, TC-001–TC-318).
 
 ---
 

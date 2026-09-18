@@ -1,9 +1,9 @@
-# Test Scenarios - TC-001 to TC-1346
+# Test Scenarios - TC-001 to TC-318
 
 ## Overview
 
 This document contains test scenarios for all 70 layers of the ANGEL platform.
-Each test case follows the format: TC-XXX - [Description]
+Each test case follows the format: TC-XXX - [Description]. Total: 318 scenarios.
 
 ## Layer 1-5: Core C2 (TC-001 to TC-100)
 

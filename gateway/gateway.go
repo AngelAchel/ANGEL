@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/angel-platform/angel/gateway/auth"
+	"github.com/angel-platform/angel/modules/eventbus"
 )
 
 type Middleware interface {
@@ -431,6 +432,22 @@ func (gw *Gateway) handleTasks(w http.ResponseWriter, r *http.Request) {
 		gw.tasks[task.ID] = task
 		gw.mu.Unlock()
 		gw.addActivity("tasks", fmt.Sprintf("created task %s for agent %s", task.ID, req.AgentID))
+		// Publish task to eventbus for C2 modules
+		eg := eventbus.Event{
+			ID:       task.ID,
+			Topic:    "c2/task",
+			Source:   "gateway",
+			Dest:     "c2/teamserver",
+			Type:     string(eventbus.EventTypeCommand),
+			Priority: task.Priority,
+			Data: map[string]interface{}{
+				"task_id":  task.ID,
+				"agent_id": task.AgentID,
+				"type":     task.Type,
+				"payload":  task.Payload,
+			},
+		}
+		eventbus.Publish(eg)
 		gw.writeJSON(w, http.StatusCreated, map[string]interface{}{"status": "task_created", "task_id": task.ID})
 	default:
 		gw.writeJSON(w, http.StatusMethodNotAllowed, map[string]string{"error": "method_not_allowed"})
@@ -459,6 +476,25 @@ func (gw *Gateway) handleResults(w http.ResponseWriter, r *http.Request) {
 		resultList = append(resultList, r)
 	}
 	gw.mu.RUnlock()
+	// Publish results to eventbus for C2 modules
+	if len(resultList) > 0 {
+		for _, res := range resultList {
+			eg := eventbus.Event{
+				ID:     res.ID,
+				Topic:  "c2/result",
+				Source: "gateway",
+				Dest:   "c2/teamserver",
+				Type:   string(eventbus.EventTypeResult),
+				Data: map[string]interface{}{
+					"task_id":  res.TaskID,
+					"agent_id": res.AgentID,
+					"output":   res.Output,
+					"success":  res.Success,
+				},
+			}
+			eventbus.Publish(eg)
+		}
+	}
 	gw.writeJSON(w, http.StatusOK, map[string]interface{}{"results": resultList})
 }
 
