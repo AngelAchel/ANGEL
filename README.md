@@ -2,14 +2,14 @@
 
 <p align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&duration=3000&color=FF4444&center=true&vCenter=true&width=600&lines=ANGEL+Platform;Offensive+Security+Framework;70+Layers+of+Attack+Surface;Red+Team+Operations+Engine" alt="ANGEL Platform" />
+<img src="docs/attack-animation.svg" alt="ANGEL Platform Attack Animation" width="800" />
 
 </p>
 
 <p align="center">
 
 [![CI](https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml)
-[![Go Report](https://golangci-lint.run/badge/github.com/AngelAchel/ANGEL)](https://golangci-lint.run)
+[![Go Report](https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml/badge.svg?branch=main&job=lint)](https://github.com/AngelAchel/ANGEL/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Custom-red)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-Deploy-blue)](https://github.com/AngelAchel/ANGEL)
 
@@ -89,7 +89,7 @@ Layer 61-70   ████████████████████  Memo
 
 ### Prerequisites
 
-- Go 1.22+
+- Go 1.25+
 - Node.js 20+
 - Docker & Docker Compose
 - Git
