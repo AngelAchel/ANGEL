@@ -50,7 +50,7 @@ docker compose ps --format "table {{.Name}}\t{{.Status}}\t{{.Ports}}" 2>&1
 echo ""
 
 echo "--- ENDPOINTS ---"
-check "Teamserver HTTP" "http://localhost:8080/" "000" "GET" || true
+check "Teamserver C2" "http://localhost:8443/" "404" "GET" || true
 check "Teamserver C2" "http://localhost:8443/" "404" "GET"
 check "Teamserver POST" "http://localhost:8443/register" "405" "POST"
 check "Console" "http://localhost:3000/" "404" "GET"

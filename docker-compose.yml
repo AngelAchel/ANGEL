@@ -21,7 +21,7 @@ services:
       TEAMSERVER_ADDR: "0.0.0.0"
       TEAMSERVER_PORT: "8443"
       DATABASE_URL: "sqlite:///data/angel.db"
-      DATABASE_ENCRYPTION_KEY: "${DATABASE_ENCRYPTION_KEY}"
+      DATABASE_ENCRYPTION_KEY: "${DATABASE_ENCRYPTION_KEY:-ANGEL-ENC-docker-dev}"
       TLS_CERT_FILE: "/app/certs/server.crt"
       TLS_KEY_FILE: "/app/certs/server.key"
       LOG_LEVEL: "debug"
