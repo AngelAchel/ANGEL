@@ -103,6 +103,9 @@ jobs:
     needs: [lint, build, test]
     steps:
       - uses: actions/checkout@v4
+      - name: Docker login
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Validate docker compose
         run: |
           export IMAGE_OWNER="${GITHUB_REPOSITORY_OWNER,,}"
@@ -115,10 +118,6 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login "$DOCKER_REGISTRY" --username "$DOCKER_USERNAME" --password-stdin
           docker compose build --parallel
           docker compose push
-        env:
-          DOCKER_REGISTRY: ghcr.io
-          DOCKER_USERNAME: ${{ github.actor }}
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
   frontend:
     name: Frontend Build
