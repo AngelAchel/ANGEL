@@ -1,252 +1,258 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="900" height="450">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#050510" />
-      <stop offset="50%" style="stop-color:#0a0a25" />
-      <stop offset="100%" style="stop-color:#050510" />
-    </linearGradient>
-    <linearGradient id="layerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a3050" />
-      <stop offset="100%" style="stop-color:#0d1f35" />
-    </linearGradient>
-    <linearGradient id="layerGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#2a4a70" />
-      <stop offset="100%" style="stop-color:#1a3050" />
-    </linearGradient>
-    <linearGradient id="targetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#ff2222" />
-      <stop offset="50%" style="stop-color:#cc0000" />
-      <stop offset="100%" style="stop-color:#880000" />
-    </linearGradient>
-    <radialGradient id="flashGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:#ffff00;stop-opacity:0.8" />
-      <stop offset="40%" style="stop-color:#ff4400;stop-opacity:0.4" />
-      <stop offset="100%" style="stop-color:#ff0000;stop-opacity:0" />
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0a1428"/>
+      <stop offset="100%" stop-color="#050810"/>
     </radialGradient>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <linearGradient id="packetFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a5cff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#4a8cff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#2a5cff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="dangerFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff3b3b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff5c5c" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ff3b3b" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="radarGlow">
+      <stop offset="0%" stop-color="#4a8cff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#4a8cff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glowBlue">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowRed">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <filter id="glowStrong">
-      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="glowExtreme">
-      <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <style>
-      @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.15)} }
-      @keyframes attack1 { 0%{transform:translate(0,0);opacity:1} 60%{opacity:1} 100%{transform:translate(650px,300px);opacity:0} }
-      @keyframes attack2 { 0%{transform:translate(0,0);opacity:1} 60%{opacity:1} 100%{transform:translate(700px,350px);opacity:0} }
-      @keyframes attack3 { 0%{transform:translate(0,0);opacity:1} 60%{opacity:1} 100%{transform:translate(750px,280px);opacity:0} }
-      @keyframes attack4 { 0%{transform:translate(0,0);opacity:1} 60%{opacity:1} 100%{transform:translate(600px,380px);opacity:0} }
-      @keyframes attack5 { 0%{transform:translate(0,0);opacity:1} 60%{opacity:1} 100%{transform:translate(800px,250px);opacity:0} }
-      @keyframes attack6 { 0%{transform:translate(0,0);opacity:1} 60%{opacity:1} 100%{transform:translate(550px,320px);opacity:0} }
-      @keyframes scanLine { 0%{transform:translateY(-10px);opacity:0} 5%{opacity:0.7} 95%{opacity:0.7} 100%{transform:translateY(400px);opacity:0} }
-      @keyframes targetPulse { 0%,100%{opacity:1;filter:url(#glow)} 50%{opacity:0.6;filter:url(#glowStrong)} }
-      @keyframes breachFlash { 0%{opacity:0;r:0} 30%{opacity:1;r:40} 60%{opacity:0.8;r:60} 100%{opacity:0;r:80} }
-      @keyframes radarSweep { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
-      @keyframes layerGlow { 0%,100%{opacity:0.3} 50%{opacity:0.8} }
-      @keyframes dotMove1 { 0%{cx:100;cy:130} 50%{cx:400;cy:150} 100%{cx:700;cy:180} }
-      @keyframes dotMove2 { 0%{cx:160;cy:130} 50%{cx:500;cy:160} 100%{cx:750;cy:200} }
-      @keyframes dotMove3 { 0%{cx:220;cy:130} 50%{cx:600;cy:170} 100%{cx:780;cy:210} }
-      @keyframes borderPulse { 0%,100%{stroke-opacity:0.3} 50%{stroke-opacity:0.8} }
-      .layer-text { fill:#d0e0ff; font-family:'Courier New',monospace; font-size:12px; }
-      .layer-title { fill:#ffffff; font-family:Arial,sans-serif; font-size:13px; font-weight:bold; }
-      .title { fill:#ffffff; font-family:Arial,sans-serif; font-size:22px; font-weight:bold; }
-      .subtitle { fill:#88aacc; font-family:Arial,sans-serif; font-size:13px; }
-      .stat { fill:#44aaff; font-family:'Courier New',monospace; font-size:10px; }
-      .attack-dot { animation:attack1 4s infinite; }
-      .attack-dot2 { animation:attack2 4.5s infinite 0.5s; }
-      .attack-dot3 { animation:attack3 3.8s infinite 1s; }
-      .attack-dot4 { animation:attack4 5s infinite 1.5s; }
-      .attack-dot5 { animation:attack5 4.2s infinite 2s; }
-      .attack-dot6 { animation:attack6 4.8s infinite 0.8s; }
-      .target-group { animation:targetPulse 2s infinite; }
-      .breach-flash { animation:breachFlash 3s infinite; }
-      .radar-ring { animation:borderPulse 3s infinite; }
-    </style>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a3a6a" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
   </defs>
 
-  <!-- Background -->
-  <rect width="900" height="450" fill="url(#bg)" />
+  <rect width="1200" height="700" fill="url(#bgGrad)"/>
+  <rect width="1200" height="700" fill="url(#grid)"/>
 
-  <!-- Grid pattern -->
-  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
-    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#111133" stroke-width="0.5"/>
-  </pattern>
-  <rect width="900" height="450" fill="url(#grid)" opacity="0.3"/>
+  <g transform="translate(950, 480)">
+    <circle r="180" fill="url(#radarGlow)"/>
+    <circle r="180" fill="none" stroke="#2a5cff" stroke-width="1" opacity="0.3"/>
+    <circle r="130" fill="none" stroke="#2a5cff" stroke-width="1" opacity="0.25"/>
+    <circle r="80" fill="none" stroke="#2a5cff" stroke-width="1" opacity="0.2"/>
+    <circle r="30" fill="none" stroke="#2a5cff" stroke-width="1" opacity="0.15"/>
+    <line x1="0" y1="0" x2="180" y2="0" stroke="#4a8cff" stroke-width="2" filter="url(#glowBlue)">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
+    </line>
+    <circle cx="60" cy="-40" r="3" fill="#4a8cff" filter="url(#glowBlue)">
+      <animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="-90" cy="50" r="3" fill="#ff3b3b" filter="url(#glowRed)">
+      <animate attributeName="opacity" values="0;1;0" dur="4s" begin="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="120" cy="80" r="2" fill="#4a8cff" filter="url(#glowBlue)">
+      <animate attributeName="opacity" values="0;1;0" dur="4s" begin="2.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Title -->
-  <text x="450" y="32" text-anchor="middle" class="title">ANGEL PLATFORM</text>
-  <text x="450" y="52" text-anchor="middle" class="subtitle">70-Layer Offensive Security Framework — Real-Time Attack Simulation</text>
-  <text x="450" y="68" text-anchor="middle" class="stat">LIVE ▸ 96 MODULES CONNECTED ▸ 70 LAYERS ACTIVE ▸ EVENT BUS ORCHESTRATION</text>
+  <g transform="translate(0, 0)">
+    <rect x="0" y="0" width="1200" height="50" fill="#050810" opacity="0.8"/>
+    <line x1="0" y1="50" x2="1200" y2="50" stroke="#2a5cff" stroke-width="1" opacity="0.3"/>
+    <circle cx="30" cy="25" r="5" fill="#4ade80" filter="url(#glowBlue)">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <text x="45" y="30" font-family="monospace" font-size="12" fill="#4ade80" font-weight="600">SYSTEM ACTIVE</text>
+    <text x="220" y="30" font-family="monospace" font-size="11" fill="#8892a8">│</text>
+    <text x="240" y="30" font-family="monospace" font-size="11" fill="#8892a8">LAYERS:</text>
+    <text x="310" y="30" font-family="monospace" font-size="11" fill="#4a8cff" font-weight="600">70/70</text>
+    <text x="400" y="30" font-family="monospace" font-size="11" fill="#8892a8">│</text>
+    <text x="420" y="30" font-family="monospace" font-size="11" fill="#8892a8">MODULES:</text>
+    <text x="510" y="30" font-family="monospace" font-size="11" fill="#4a8cff" font-weight="600">96</text>
+    <text x="560" y="30" font-family="monospace" font-size="11" fill="#8892a8">│</text>
+    <text x="580" y="30" font-family="monospace" font-size="11" fill="#8892a8">UPTIME:</text>
+    <text x="660" y="30" font-family="monospace" font-size="11" fill="#4ade80" font-weight="600">T+00:04:21</text>
+    <text x="1150" y="30" font-family="monospace" font-size="11" fill="#ff3b3b" font-weight="600" text-anchor="end">● LIVE</text>
+    <circle cx="1165" cy="25" r="4" fill="#ff3b3b" filter="url(#glowRed)">
+      <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Radar circle (decoration behind target) -->
-  <circle cx="760" cy="280" r="100" fill="none" stroke="#1a3050" stroke-width="1" class="radar-ring" />
-  <circle cx="760" cy="280" r="70" fill="none" stroke="#1a3050" stroke-width="0.5" class="radar-ring" style="animation-delay:1s" />
-  <circle cx="760" cy="280" r="40" fill="none" stroke="#1a3050" stroke-width="0.5" class="radar-ring" style="animation-delay:2s" />
+  <text x="40" y="95" font-family="monospace" font-size="24" fill="#ffffff" font-weight="700" letter-spacing="1">
+    ANGEL<tspan fill="#4a8cff">::</tspan>ATTACK_SURFACE
+  </text>
+  <text x="40" y="115" font-family="monospace" font-size="11" fill="#6b7a99" letter-spacing="2">
+    70-LAYER ORCHESTRATION · EVENT-BUS v4.0 · REAL-TIME
+  </text>
 
-  <!-- Layer columns -->
-  <!-- Layer 01-05 -->
-  <rect x="30" y="80" width="90" height="35" rx="4" fill="url(#layerGrad)" stroke="#2a5080" stroke-width="1" style="animation:borderPulse 3s infinite" />
-  <text x="75" y="102" text-anchor="middle" class="layer-title">Layer 01-05</text>
-  <text x="75" y="118" text-anchor="middle" class="layer-text">Brain · C2 · Implant</text>
-  <!-- Layer 06-10 -->
-  <rect x="130" y="80" width="90" height="35" rx="4" fill="url(#layerGrad)" stroke="#2a5080" stroke-width="1" style="animation:borderPulse 3s infinite 0.3s" />
-  <text x="175" y="102" text-anchor="middle" class="layer-title">Layer 06-10</text>
-  <text x="175" y="118" text-anchor="middle" class="layer-text">Evasion · Kerberos · Lateral</text>
-  <!-- Layer 11-15 -->
-  <rect x="230" y="80" width="90" height="35" rx="4" fill="url(#layerGrad)" stroke="#2a5080" stroke-width="1" style="animation:borderPulse 3s infinite 0.6s" />
-  <text x="275" y="102" text-anchor="middle" class="layer-title">Layer 11-15</text>
-  <text x="275" y="118" text-anchor="middle" class="layer-text">Brain · Credential · Destruct</text>
-  <!-- Layer 16-25 -->
-  <rect x="330" y="80" width="90" height="35" rx="4" fill="url(#layerGrad)" stroke="#2a5080" stroke-width="1" style="animation:borderPulse 3s infinite 0.9s" />
-  <text x="375" y="102" text-anchor="middle" class="layer-title">Layer 16-25</text>
-  <text x="375" y="118" text-anchor="middle" class="layer-text">Exploit · Crypto · ImplantGen</text>
-  <!-- Layer 26-40 -->
-  <rect x="430" y="80" width="90" height="35" rx="4" fill="url(#layerGrad)" stroke="#2a5080" stroke-width="1" style="animation:borderPulse 3s infinite 1.2s" />
-  <text x="475" y="102" text-anchor="middle" class="layer-title">Layer 26-40</text>
-  <text x="475" y="118" text-anchor="middle" class="layer-text">AI · Cloud · Mobile · ZeroTrust</text>
-  <!-- Layer 41-60 -->
-  <rect x="530" y="80" width="90" height="35" rx="4" fill="url(#layerGrad)" stroke="#2a5080" stroke-width="1" style="animation:borderPulse 3s infinite 1.5s" />
-  <text x="575" y="102" text-anchor="middle" class="layer-title">Layer 41-60</text>
-  <text x="575" y="118" text-anchor="middle" class="layer-text">SQLi · XSS · DNSSEC · SCADA</text>
-  <!-- Layer 61-70 -->
-  <rect x="630" y="80" width="90" height="35" rx="4" fill="url(#layerGrad)" stroke="#2a5080" stroke-width="1" style="animation:borderPulse 3s infinite 1.8s" />
-  <text x="675" y="102" text-anchor="middle" class="layer-title">Layer 61-70</text>
-  <text x="675" y="118" text-anchor="middle" class="layer-text">Memory · GraphQL · gRPC · Race</text>
+  <g transform="translate(40, 135)">
+    <rect x="0" y="0" width="600" height="6" rx="3" fill="#0f1e3d"/>
+    <rect x="0" y="0" width="0" height="6" rx="3" fill="#4a8cff" filter="url(#glowBlue)">
+      <animate attributeName="width" from="0" to="600" dur="8s" repeatCount="indefinite"/>
+    </rect>
+    <text x="620" y="8" font-family="monospace" font-size="10" fill="#4a8cff" font-weight="600">PROGRESS</text>
+  </g>
 
-  <!-- Layer glow animation -->
-  <rect x="30" y="80" width="90" height="35" rx="4" fill="none" stroke="#ff4444" stroke-width="2" opacity="0" class="layer-glow-box">
-    <animate attributeName="opacity" values="0;0.5;0" dur="2s" repeatCount="indefinite" />
-  </rect>
+  <g transform="translate(400, 300)">
+    <circle r="50" fill="none" stroke="#4a8cff" stroke-width="1" opacity="0.3">
+      <animate attributeName="r" values="50;70;50" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="35" fill="#0f1e3d" stroke="#4a8cff" stroke-width="2" filter="url(#glowBlue)"/>
+    <text y="-3" font-family="monospace" font-size="10" fill="#4a8cff" font-weight="700" text-anchor="middle">ORCHESTRATOR</text>
+    <text y="12" font-family="monospace" font-size="9" fill="#8892a8" text-anchor="middle">BRAIN + LANGGRAPH</text>
+  </g>
 
-  <!-- Event bus connections -->
-  <line x1="75" y1="130" x2="175" y2="130" stroke="#2a4060" stroke-width="1" stroke-dasharray="4,4">
-    <animate attributeName="stroke-dashoffset" values="0;8" dur="1s" repeatCount="indefinite" />
-  </line>
-  <line x1="175" y1="130" x2="275" y2="130" stroke="#2a4060" stroke-width="1" stroke-dasharray="4,4">
-    <animate attributeName="stroke-dashoffset" values="0;8" dur="1s" repeatCount="indefinite" style="animation-delay:0.2s" />
-  </line>
-  <line x1="275" y1="130" x2="375" y2="130" stroke="#2a4060" stroke-width="1" stroke-dasharray="4,4">
-    <animate attributeName="stroke-dashoffset" values="0;8" dur="1s" repeatCount="indefinite" style="animation-delay:0.4s" />
-  </line>
-  <line x1="375" y1="130" x2="475" y2="130" stroke="#2a4060" stroke-width="1" stroke-dasharray="4,4">
-    <animate attributeName="stroke-dashoffset" values="0;8" dur="1s" repeatCount="indefinite" style="animation-delay:0.6s" />
-  </line>
-  <line x1="475" y1="130" x2="575" y2="130" stroke="#2a4060" stroke-width="1" stroke-dasharray="4,4">
-    <animate attributeName="stroke-dashoffset" values="0;8" dur="1s" repeatCount="indefinite" style="animation-delay:0.8s" />
-  </line>
-  <line x1="575" y1="130" x2="675" y2="130" stroke="#2a4060" stroke-width="1" stroke-dasharray="4,4">
-    <animate attributeName="stroke-dashoffset" values="0;8" dur="1s" repeatCount="indefinite" style="animation-delay:1.0s" />
-  </line>
+  <g transform="translate(180, 220)">
+    <circle r="22" fill="#0f1e3d" stroke="#2a5cff" stroke-width="1.5"/>
+    <text y="4" font-family="monospace" font-size="8" fill="#2a5cff" font-weight="700" text-anchor="middle">C2</text>
+    <circle cx="18" cy="-18" r="3" fill="#2a5cff" filter="url(#glowBlue)">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="4s" begin="0s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Target area -->
-  <rect x="700" y="150" width="160" height="100" rx="50" fill="url(#targetGrad)" filter="url(#glowStrong)" class="target-group" />
-  <text x="780" y="178" text-anchor="middle" fill="white" font-family="Arial" font-size="10" font-weight="bold">TARGET SYSTEM</text>
-  <text x="780" y="195" text-anchor="middle" fill="#ffaa00" font-family="Arial" font-size="8">BREACHED</text>
-  <circle cx="780" cy="255" r="15" fill="#ff2222" filter="url(#glow)" class="target-group">
-    <animate attributeName="r" values="15;18;15" dur="2s" repeatCount="indefinite" />
-  </circle>
-  <text x="780" y="260" text-anchor="middle" fill="white" font-family="Arial" font-size="6">ACTIVE</text>
+  <g transform="translate(180, 300)">
+    <circle r="22" fill="#1a1533" stroke="#7a5cff" stroke-width="1.5"/>
+    <text y="4" font-family="monospace" font-size="8" fill="#7a5cff" font-weight="700" text-anchor="middle">EVA</text>
+    <circle cx="18" cy="-18" r="3" fill="#7a5cff" filter="url(#glowBlue)">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="4s" begin="0.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Breach flash effects -->
-  <circle cx="780" cy="210" r="0" fill="url(#flashGrad)" class="breach-flash" />
-  <circle cx="780" cy="210" r="0" fill="#ffff00" opacity="0.3" class="breach-flash" style="animation-delay:1s" />
+  <g transform="translate(180, 380)">
+    <circle r="22" fill="#2e1a1a" stroke="#ff5c5c" stroke-width="1.5"/>
+    <text y="4" font-family="monospace" font-size="8" fill="#ff5c5c" font-weight="700" text-anchor="middle">CRED</text>
+    <circle cx="18" cy="-18" r="3" fill="#ff5c5c" filter="url(#glowRed)">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="4s" begin="1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Attack particles -->
-  <!-- Particle 1: Red -->
-  <circle r="6" fill="#ff4444" filter="url(#glowStrong)" class="attack-dot">
-    <animateMotion path="M75,130 Q200,100 350,130 Q500,160 650,170 Q720,190 780,210" dur="4s" repeatCount="indefinite" />
-    <animate attributeName="r" values="6;8;3;0" dur="4s" repeatCount="indefinite" />
-  </circle>
-  <!-- Particle trail 1 -->
-  <circle r="4" fill="#ff6644" opacity="0.6">
-    <animateMotion path="M75,130 Q200,100 350,130 Q500,160 650,170 Q720,190 780,210" dur="4s" repeatCount="indefinite" />
-    <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="4s" repeatCount="indefinite" />
-    <animate attributeName="r" values="4;3;2;0" dur="4s" repeatCount="indefinite" />
-  </circle>
+  <g transform="translate(620, 220)">
+    <circle r="22" fill="#2e2010" stroke="#ff8b3b" stroke-width="1.5"/>
+    <text y="4" font-family="monospace" font-size="8" fill="#ff8b3b" font-weight="700" text-anchor="middle">EXP</text>
+    <circle cx="18" cy="-18" r="3" fill="#ff8b3b" filter="url(#glowBlue)">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="4s" begin="1.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Particle 2: Orange -->
-  <circle r="5" fill="#ff8800" filter="url(#glow)" class="attack-dot2">
-    <animateMotion path="M175,130 Q300,90 450,120 Q550,150 650,160 Q740,180 780,210" dur="4.5s" repeatCount="indefinite" />
-    <animate attributeName="r" values="5;7;4;0" dur="4.5s" repeatCount="indefinite" />
-  </circle>
-  <circle r="3" fill="#ffaa44" opacity="0.5">
-    <animateMotion path="M175,130 Q300,90 450,120 Q550,150 650,160 Q740,180 780,210" dur="4.5s" repeatCount="indefinite" />
-    <animate attributeName="opacity" values="0.5;0.3;0.1;0" dur="4.5s" repeatCount="indefinite" />
-  </circle>
+  <g transform="translate(620, 300)">
+    <circle r="22" fill="#2e1030" stroke="#ff5c8b" stroke-width="1.5"/>
+    <text y="4" font-family="monospace" font-size="8" fill="#ff5c8b" font-weight="700" text-anchor="middle">AI</text>
+    <circle cx="18" cy="-18" r="3" fill="#ff5c8b" filter="url(#glowBlue)">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="4s" begin="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Particle 3: Yellow -->
-  <circle r="5" fill="#ffcc00" filter="url(#glow)" class="attack-dot3">
-    <animateMotion path="M275,130 Q400,80 550,110 Q600,140 650,155 Q760,170 780,210" dur="3.8s" repeatCount="indefinite" />
-    <animate attributeName="r" values="5;6;3;0" dur="3.8s" repeatCount="indefinite" />
-  </circle>
+  <g transform="translate(620, 380)">
+    <circle r="22" fill="#2e1020" stroke="#ff3b6b" stroke-width="1.5"/>
+    <text y="4" font-family="monospace" font-size="8" fill="#ff3b6b" font-weight="700" text-anchor="middle">WEB</text>
+    <circle cx="18" cy="-18" r="3" fill="#ff3b6b" filter="url(#glowRed)">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="4s" begin="2.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- Particle 4: Blue -->
-  <circle r="5" fill="#44aaff" filter="url(#glow)" class="attack-dot4">
-    <animateMotion path="M375,130 Q500,100 600,130 Q650,145 680,160 Q730,180 780,210" dur="5s" repeatCount="indefinite" />
-    <animate attributeName="r" values="5;7;4;0" dur="5s" repeatCount="indefinite" />
-  </circle>
+  <g transform="translate(400, 480)">
+    <circle r="30" fill="#3a0a0a" stroke="#ff3b3b" stroke-width="2" filter="url(#glowRed)">
+      <animate attributeName="stroke-width" values="2;4;2" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <text y="-2" font-family="monospace" font-size="10" fill="#ff3b3b" font-weight="700" text-anchor="middle">FULL ATTACK</text>
+    <text y="14" font-family="monospace" font-size="8" fill="#ffcccc" text-anchor="middle">DESTRUCTION CHAIN</text>
+  </g>
 
-  <!-- Particle 5: Green -->
-  <circle r="4" fill="#44ff44" filter="url(#glow)" class="attack-dot5">
-    <animateMotion path="M475,130 Q600,90 680,120 Q720,140 760,180 780,210" dur="4.2s" repeatCount="indefinite" />
-    <animate attributeName="r" values="4;6;3;0" dur="4.2s" repeatCount="indefinite" />
-  </circle>
+  <g transform="translate(900, 300)">
+    <circle r="40" fill="none" stroke="#ff3b3b" stroke-width="2" opacity="0.3">
+      <animate attributeName="r" values="30;55;30" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="25" fill="none" stroke="#ff3b3b" stroke-width="2" opacity="0.6">
+      <animate attributeName="r" values="20;35;20" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="15" fill="#ff3b3b" filter="url(#glowStrong)">
+      <animate attributeName="r" values="12;18;12" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <text y="55" font-family="monospace" font-size="10" fill="#ff3b3b" font-weight="700" text-anchor="middle" letter-spacing="1">TARGET</text>
+    <text y="70" font-family="monospace" font-size="10" fill="#ff3b3b" font-weight="700" text-anchor="middle" letter-spacing="1">BREACHED</text>
+  </g>
 
-  <!-- Particle 6: Purple -->
-  <circle r="4" fill="#aa44ff" filter="url(#glow)" class="attack-dot6">
-    <animateMotion path="M575,130 Q700,110 740,140 Q760,170 770,200 780,210" dur="4.8s" repeatCount="indefinite" />
-    <animate attributeName="r" values="4;5;2;0" dur="4.8s" repeatCount="indefinite" />
-  </circle>
-
-  <!-- Scan line effect -->
-  <rect x="0" y="0" width="900" height="2" fill="#ff4444" opacity="0.5" class="scan-line" filter="url(#glowStrong)" />
-  <rect x="0" y="0" width="900" height="1" fill="#ff8800" opacity="0.3" class="scan-line" style="animation-delay:0.5s" />
-
-  <!-- Event bus flow dots -->
-  <circle r="3" fill="#44aaff" filter="url(#glow)">
-    <animateMotion path="M60,145 Q180,125 320,145 Q480,165 620,148 Q720,155 780,190" dur="4s" repeatCount="indefinite" />
-  </circle>
-  <circle r="3" fill="#44aaff" filter="url(#glow)">
-    <animateMotion path="M60,145 Q180,125 320,145 Q480,165 620,148 Q720,155 780,190" dur="4s" repeatCount="indefinite" begin="1.3s" />
-  </circle>
-  <circle r="3" fill="#44aaff" filter="url(#glow)">
-    <animateMotion path="M60,145 Q180,125 320,145 Q480,165 620,148 Q720,155 780,190" dur="4s" repeatCount="indefinite" begin="2.6s" />
-  </circle>
-  <circle r="2" fill="#44aaff" opacity="0.5">
-    <animateMotion path="M60,145 Q180,125 320,145 Q480,165 620,148 Q720,155 780,190" dur="4s" repeatCount="indefinite" begin="0.5s" />
-    <animate attributeName="opacity" values="0.5;0.2;0.5" dur="1s" repeatCount="indefinite" />
+  <path d="M 205 220 Q 300 220 365 285" stroke="#2a5cff" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <circle r="3" fill="#4a8cff" filter="url(#glowBlue)">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M 205 220 Q 300 220 365 285"/>
   </circle>
 
-  <!-- Status bar at bottom -->
-  <rect x="30" y="390" width="840" height="30" rx="6" fill="#0a0a1a" stroke="#2a4060" stroke-width="1" opacity="0.9" />
-  <text x="60" y="408" class="stat">◈ STATUS: ACTIVE</text>
-  <text x="250" y="408" class="stat">◈ LAYERS: 70/70 COMPROMISED</text>
-  <text x="480" y="408" class="stat">◈ MODULES: 96/96 CONNECTED</text>
-  <text x="700" y="408" class="stat">◈ ENCRYPTION: AES-256 ACTIVE</text>
-
-  <!-- Mini indicator lights -->
-  <circle cx="470" cy="382" r="4" fill="#00ff44" filter="url(#glow)">
-    <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite" />
-  </circle>
-  <circle cx="550" cy="382" r="4" fill="#ff4444" filter="url(#glow)">
-    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" style="animation-delay:0.5s" />
-  </circle>
-  <circle cx="630" cy="382" r="4" fill="#00aaff" filter="url(#glow)">
-    <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite" style="animation-delay:1s" />
+  <path d="M 205 300 L 365 300" stroke="#7a5cff" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <circle r="3" fill="#7a5cff" filter="url(#glowBlue)">
+    <animateMotion dur="1.5s" begin="0.3s" repeatCount="indefinite" path="M 205 300 L 365 300"/>
   </circle>
 
-  <!-- Corner decorations -->
-  <line x1="0" y1="0" x2="0" y2="70" stroke="#ff4444" stroke-width="2" opacity="0.5" />
-  <line x1="0" y1="0" x2="70" y2="0" stroke="#ff4444" stroke-width="2" opacity="0.5" />
-  <line x1="900" y1="0" x2="900" y2="70" stroke="#44aaff" stroke-width="2" opacity="0.5" />
-  <line x1="900" y1="0" x2="830" y2="0" stroke="#44aaff" stroke-width="2" opacity="0.5" />
-  <line x1="0" y1="450" x2="0" y2="380" stroke="#44aaff" stroke-width="2" opacity="0.5" />
-  <line x1="0" y1="450" x2="70" y2="450" stroke="#44aaff" stroke-width="2" opacity="0.5" />
-  <line x1="900" y1="450" x2="900" y2="380" stroke="#ff4444" stroke-width="2" opacity="0.5" />
-  <line x1="900" y1="450" x2="830" y2="450" stroke="#ff4444" stroke-width="2" opacity="0.5" />
+  <path d="M 205 380 Q 300 380 365 315" stroke="#ff5c5c" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <circle r="3" fill="#ff5c5c" filter="url(#glowRed)">
+    <animateMotion dur="2.2s" begin="0.6s" repeatCount="indefinite" path="M 205 380 Q 300 380 365 315"/>
+  </circle>
+
+  <path d="M 435 285 Q 500 220 595 220" stroke="#ff8b3b" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <circle r="3" fill="#ff8b3b" filter="url(#glowBlue)">
+    <animateMotion dur="1.8s" begin="0.9s" repeatCount="indefinite" path="M 435 285 Q 500 220 595 220"/>
+  </circle>
+
+  <path d="M 435 300 L 595 300" stroke="#ff5c8b" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <circle r="3" fill="#ff5c8b" filter="url(#glowBlue)">
+    <animateMotion dur="1.5s" begin="1.2s" repeatCount="indefinite" path="M 435 300 L 595 300"/>
+  </circle>
+
+  <path d="M 435 315 Q 500 380 595 380" stroke="#ff3b6b" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <circle r="3" fill="#ff3b6b" filter="url(#glowRed)">
+    <animateMotion dur="2s" begin="1.5s" repeatCount="indefinite" path="M 435 315 Q 500 380 595 380"/>
+  </circle>
+
+  <path d="M 400 335 L 400 445" stroke="#ff3b3b" stroke-width="2" fill="none" opacity="0.5">
+    <animate attributeName="stroke-opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+  </path>
+
+  <path d="M 430 480 Q 650 480 870 320" stroke="#ff3b3b" stroke-width="2.5" fill="none" opacity="0.6" stroke-dasharray="10 5">
+    <animate attributeName="stroke-dashoffset" from="0" to="-30" dur="1s" repeatCount="indefinite"/>
+  </path>
+  <circle r="5" fill="#ff3b3b" filter="url(#glowStrong)">
+    <animateMotion dur="2.5s" repeatCount="indefinite" path="M 430 480 Q 650 480 870 320"/>
+    <animate attributeName="r" values="4;6;4" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="4" fill="#ff8b3b" filter="url(#glowRed)">
+    <animateMotion dur="2.5s" begin="0.8s" repeatCount="indefinite" path="M 430 480 Q 650 480 870 320"/>
+  </circle>
+  <circle r="4" fill="#ff5c8b" filter="url(#glowRed)">
+    <animateMotion dur="2.5s" begin="1.6s" repeatCount="indefinite" path="M 430 480 Q 650 480 870 320"/>
+  </circle>
+
+  <g transform="translate(740, 80)">
+    <rect x="0" y="0" width="420" height="180" rx="6" fill="#050810" stroke="#1a3a6a" stroke-width="1" opacity="0.9"/>
+    <rect x="0" y="0" width="420" height="24" rx="6" fill="#0a1428"/>
+    <text x="12" y="16" font-family="monospace" font-size="10" fill="#4a8cff" font-weight="600">● LIVE FEED</text>
+    <text x="410" y="16" font-family="monospace" font-size="10" fill="#4ade80" text-anchor="end">● REC</text>
+
+    <g font-family="monospace" font-size="9" fill="#8892a8">
+      <text x="12" y="45">[<tspan fill="#4a8cff">00:00</tspan>] layer01-05 · C2 INIT · OK</text>
+      <text x="12" y="60">[<tspan fill="#4a8cff">00:01</tspan>] layer06-10 · EDR EVASION · BYPASS</text>
+      <text x="12" y="75">[<tspan fill="#4a8cff">00:02</tspan>] layer11-15 · CRED DUMP · 47 hashes</text>
+      <text x="12" y="90">[<tspan fill="#ff8b3b">00:03</tspan>] layer16-25 · EXPLOIT · RCE gained</text>
+      <text x="12" y="105">[<tspan fill="#ff5c8b">00:04</tspan>] layer26-40 · CLOUD · AWS keys</text>
+      <text x="12" y="120">[<tspan fill="#ff3b6b">00:05</tspan>] layer41-60 · LATERAL · 12 hosts</text>
+      <text x="12" y="135">[<tspan fill="#ff3b3b">00:06</tspan>] layer61-70 · FULL ATTACK · EXEC</text>
+      <text x="12" y="150">[<tspan fill="#ff3b3b">00:07</tspan>] TARGET · BREACHED ✓</text>
+    </g>
+
+    <text x="12" y="170" font-family="monospace" font-size="9" fill="#4ade80">$ <tspan fill="#ffffff">_</tspan>
+      <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <g transform="translate(0, 660)">
+    <line x1="0" y1="0" x2="1200" y2="0" stroke="#1a3a6a" stroke-width="1" opacity="0.5"/>
+    <text x="40" y="25" font-family="monospace" font-size="10" fill="#4a5570">
+      ANGEL PLATFORM · v4.0 · EVENT-BUS AES-256 · ECDH secp256r1
+    </text>
+    <text x="1160" y="25" font-family="monospace" font-size="10" fill="#4a5570" text-anchor="end">
+      AUTHORIZED ENGAGEMENTS ONLY
+    </text>
+  </g>
 </svg>
