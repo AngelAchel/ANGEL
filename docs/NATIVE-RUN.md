@@ -102,7 +102,7 @@ bash scripts/stop-local.sh
 bash scripts/health-check.sh
 
 # Doctor check
-./aegis/angel doctor
+./bin/angel-doctor doctor
 ```
 
 ### Runtime Proof (Actual Execution)

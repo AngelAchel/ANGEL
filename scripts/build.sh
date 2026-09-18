@@ -30,6 +30,14 @@ echo "Building rules-loader..."
 go build -ldflags "-X main.Version=$VERSION -X main.BuildTime=$BUILD_TIME" \
     -o "$BUILD_DIR/angel-rules" ./cmd/rules-loader/
 
+echo "Building generator..."
+go build -ldflags "-X main.Version=$VERSION -X main.BuildTime=$BUILD_TIME" \
+    -o "$BUILD_DIR/angel-generate" ./cmd/generator/
+
+echo "Building doctor..."
+go build -ldflags "-X main.Version=$VERSION -X main.BuildTime=$BUILD_TIME" \
+    -o "$BUILD_DIR/angel-doctor" ./cmd/doctor/
+
 echo ""
 echo "=== Build Complete ==="
 echo "Binaries: $BUILD_DIR/"

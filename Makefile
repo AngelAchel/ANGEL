@@ -23,6 +23,7 @@ build-linux:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(GO_FLAGS) -o bin/angel-console-linux-amd64 ./cmd/console/
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(GO_FLAGS) -o bin/angel-rules-linux-amd64 ./cmd/rules-loader/
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(GO_FLAGS) -o bin/angel-generate-linux-amd64 ./cmd/generator/
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(GO_FLAGS) -o bin/angel-doctor-linux-amd64 ./cmd/doctor/
 
 build-windows:
 	@echo "Building for Windows..."
@@ -86,6 +87,7 @@ dev:
 # Generate report
 report:
 	@echo "Generating HTML report..."
+	@$(if $(strip $(JWT_SECRET)),,		$(error JWT_SECRET is required. Run: source .env.local))
 	@go run ./cmd/console/ report --format html --output report.html
 	@echo "Report: report.html"
 
@@ -182,7 +184,7 @@ engage:
 cleanup:
 	@echo "Cleaning up after engagement..."
 	@docker compose down 2>/dev/null || true
-	@pkill -f "angel" 2>/dev/null || true
+	@ps aux | grep -v grep | grep "angel-" | awk '{print $$2}' | xargs kill -9 2>/dev/null || true
 	@rm -f /tmp/angel-*
 	@echo "Cleanup complete"
 

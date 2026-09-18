@@ -117,7 +117,7 @@ export TEAMSERVER_KEY=<key> CRYPTO_KEY=<key> JWT_SECRET=<key>
 ### Cek Kesehatan
 ```bash
 bash scripts/health-check.sh
-# Atau: ./aegis/angel doctor
+# Atau: ./bin/angel-doctor doctor
 ```
 
 ### Stop
@@ -155,8 +155,13 @@ make engage SCOPE=target.txt
 
 Atau via Docker:
 ```bash
-docker compose up -d angel-teamserver angel-console
+docker compose up -d angel-teamserver angel-console angel-rules
 ```
+
+### Selama Engagement
+- **Dashboard:** `http://localhost:3000`
+- **Teamserver:** `http://localhost:8443`
+- **Doctor:** `./bin/angel-doctor doctor`
 
 ### During Engagement
 - **Dashboard:** `http://localhost:3000`
@@ -176,6 +181,7 @@ make cleanup
 
 ### Generate Laporan
 ```bash
+source .env.local
 make report
 # Output: report.html
 ```
@@ -189,7 +195,7 @@ ANGEL/
 ├── Makefile           # Entry point: make build / test / release
 ├── .env.example       # Template environment
 ├── go.mod             # Go module
-├── cmd/               # Entry points (teamserver, console, generator, rules-loader)
+├── cmd/               # Entry points (teamserver, console, generator, rules-loader, doctor)
 ├── c2/                # C2 core (implant, profiles, generator)
 ├── gateway/           # API Gateway (auth, RBAC, rate limit)
 ├── orchestrator/      # LangGraph orchestration + Brain
@@ -276,7 +282,7 @@ ANGEL/
 |- `docs/KALI.md` — Kali Linux compatibility
 |- `docs/TERMUX.md` — Termux compatibility
 |- `docs/DEPENDENCIES.md` — Full dependency list
-|- `aegis/angel doctor` — System checker
+|- `./bin/angel-doctor doctor` — System checker
 |- `scripts/start-local.sh` — Start native services
 |- `scripts/stop-local.sh` — Stop native services
 |- `scripts/health-check.sh` — Health check
