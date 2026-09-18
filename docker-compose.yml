@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.angel
-    image: angel:latest
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_OWNER:-angelachel}/angel:latest
     container_name: angel-teamserver
     env_file:
       - lab/configs/lab.env
@@ -54,7 +54,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.console
-    image: angel-console:latest
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_OWNER:-angelachel}/angel-console:latest
     container_name: angel-console
     env_file:
       - lab/configs/lab.env
@@ -85,7 +85,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.rules
-    image: angel-rules:latest
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_OWNER:-angelachel}/angel-rules:latest
     container_name: angel-rules
     env_file:
       - lab/configs/lab.env
