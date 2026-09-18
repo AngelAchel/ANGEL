@@ -1,7 +1,11 @@
 package mcp
 
 import (
+	"bytes"
+	"context"
 	"fmt"
+	"os/exec"
+	"strings"
 	"sync"
 	"time"
 )
@@ -49,21 +53,108 @@ func NewMCPServer(maxSessions int) *MCPServer {
 
 func (s *MCPServer) registerDefaultTools() {
 	defaultTools := []*Tool{
-		{ID: "nmap", Name: "Nmap Scanner", Description: "Network port scanner", Category: "recon", Timeout: 60 * time.Second},
-		{ID: "nuclei", Name: "Nuclei Scanner", Description: "Vulnerability scanner", Category: "exploit", Timeout: 120 * time.Second},
-		{ID: "ffuf", Name: "FFuf Fuzzer", Description: "Web fuzzer", Category: "recon", Timeout: 60 * time.Second},
-		{ID: "hydra", Name: "Hydra Brute Force", Description: "Password brute force", Category: "credential", Timeout: 300 * time.Second},
-		{ID: "metasploit", Name: "Metasploit Framework", Description: "Exploitation framework", Category: "exploit", Timeout: 600 * time.Second},
-		{ID: "playwright", Name: "Playwright Browser", Description: "Browser automation", Category: "recon", Timeout: 60 * time.Second},
-		{ID: "subfinder", Name: "Subfinder", Description: "Subdomain enumeration", Category: "recon", Timeout: 60 * time.Second},
-		{ID: "shodan", Name: "Shodan CLI", Description: "Internet device search", Category: "recon", Timeout: 30 * time.Second},
-		{ID: "sqlmap", Name: "SQLMap", Description: "SQL injection tool", Category: "exploit", Timeout: 120 * time.Second},
-		{ID: "mimikatz", Name: "Mimikatz", Description: "Credential extraction", Category: "credential", Timeout: 60 * time.Second},
+		{ID: "nmap", Name: "Nmap Scanner", Description: "Network port scanner", Category: "recon", Timeout: 60 * time.Second,
+			Execute: s.execCommand("nmap")},
+		{ID: "nuclei", Name: "Nuclei Scanner", Description: "Vulnerability scanner", Category: "exploit", Timeout: 120 * time.Second,
+			Execute: s.execCommand("nuclei")},
+		{ID: "ffuf", Name: "FFuf Fuzzer", Description: "Web fuzzer", Category: "recon", Timeout: 60 * time.Second,
+			Execute: s.execCommand("ffuf")},
+		{ID: "hydra", Name: "Hydra Brute Force", Description: "Password brute force", Category: "credential", Timeout: 300 * time.Second,
+			Execute: s.execCommand("hydra")},
+		{ID: "metasploit", Name: "Metasploit Framework", Description: "Exploitation framework", Category: "exploit", Timeout: 600 * time.Second,
+			Execute: s.execCommand("msfconsole")},
+		{ID: "playwright", Name: "Playwright Browser", Description: "Browser automation", Category: "recon", Timeout: 60 * time.Second,
+			Execute: s.execCommand("playwright")},
+		{ID: "subfinder", Name: "Subfinder", Description: "Subdomain enumeration", Category: "recon", Timeout: 60 * time.Second,
+			Execute: s.execCommand("subfinder")},
+		{ID: "shodan", Name: "Shodan CLI", Description: "Internet device search", Category: "recon", Timeout: 30 * time.Second,
+			Execute: s.execCommand("shodan")},
+		{ID: "sqlmap", Name: "SQLMap", Description: "SQL injection tool", Category: "exploit", Timeout: 120 * time.Second,
+			Execute: s.execCommand("sqlmap")},
+		{ID: "mimikatz", Name: "Mimikatz", Description: "Credential extraction", Category: "credential", Timeout: 60 * time.Second,
+			Execute: s.execCommand("mimikatz")},
 	}
 
 	for _, tool := range defaultTools {
 		s.tools[tool.ID] = tool
 	}
+}
+
+// execCommand returns an Execute function that invokes the external binary
+// identified by binary. argv/flags are passed through params["args"] (string slice).
+// If the binary is not found on PATH, a clear error is returned instead of the
+// previous "simulated" stub result.
+func (s *MCPServer) execCommand(binary string) func(params map[string]interface{}) (*ToolResult, error) {
+	return func(params map[string]interface{}) (*ToolResult, error) {
+		// build argv
+		var argv []string
+		argv = append(argv, binary)
+		if raw, ok := params["args"]; ok {
+			if arr, ok := raw.([]interface{}); ok {
+				for _, a := range arr {
+					argv = append(argv, fmt.Sprintf("%v", a))
+				}
+			} else if sArr, ok := raw.(string); ok {
+				argv = append(argv, sArr)
+			}
+		}
+		return s.runExternal(argv, params)
+	}
+}
+
+// runExternal executes the given argv (binary + args) with the tool's timeout.
+// Returns a structured ToolResult. If the binary is missing from PATH, returns
+// a clear actionable error rather than the old "simulated" stub output.
+func (s *MCPServer) runExternal(argv []string, params map[string]interface{}) (*ToolResult, error) {
+	binary := argv[0]
+	start := time.Now()
+
+	// locate binary on PATH
+	if _, err := exec.LookPath(binary); err != nil {
+		return &ToolResult{
+			Success: false,
+			Error:   fmt.Sprintf("binary %q not found on PATH; install it or add it to PATH", binary),
+		}, nil
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
+	defer cancel()
+
+	cmd := exec.CommandContext(ctx, argv[0], argv[1:]...)
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+	// optional working dir / env passthrough
+	if wd, ok := params["cwd"].(string); ok && wd != "" {
+		cmd.Dir = wd
+	}
+	if envMap, ok := params["env"].(map[string]interface{}); ok {
+		cmd.Env = append(cmd.Environ())
+		for k, v := range envMap {
+			cmd.Env = append(cmd.Env, fmt.Sprintf("%s=%v", k, v))
+		}
+	}
+
+	err := cmd.Run()
+	result := &ToolResult{
+		Success: err == nil,
+		Data: map[string]interface{}{
+			"tool":   binary,
+			"argv":   strings.Join(argv, " "),
+			"stdout": stdout.String(),
+			"stderr": stderr.String(),
+		},
+		Duration: time.Since(start),
+	}
+	if err != nil {
+		result.Error = fmt.Sprintf("exit=%v: %s", err, stderr.String())
+		// context.DeadlineExceeded → keep success=false with a timeout note
+	}
+	if ctx.Err() == context.DeadlineExceeded {
+		result.Error = fmt.Sprintf("timeout after %v", 120*time.Second)
+		result.Success = false
+	}
+	return result, nil
 }
 
 func (s *MCPServer) RegisterTool(tool *Tool) error {
