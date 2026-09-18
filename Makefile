@@ -13,12 +13,7 @@ all: lint fmt test build
 # Build all binaries
 build:
 	@echo "Building $(APP_NAME)..."
-	@mkdir -p bin
-	go build $(GO_FLAGS) -o bin/angel ./cmd/teamserver/
-	go build $(GO_FLAGS) -o bin/angel-console ./cmd/console/
-	go build $(GO_FLAGS) -o bin/angel-rules ./cmd/rules-loader/
-	go build $(GO_FLAGS) -o bin/angel-generate ./cmd/generator/
-	@echo "Build complete: bin/"
+	@bash scripts/build.sh
 
 # Build for specific platform
 build-linux:
@@ -46,8 +41,7 @@ build-all: build-linux build-windows build-darwin
 
 # Run tests
 test:
-	@echo "Running tests..."
-	go test -v -race -cover ./...
+	@bash scripts/test.sh
 
 # Run tests with coverage report
 test-coverage:
@@ -58,12 +52,7 @@ test-coverage:
 
 # Lint code
 lint:
-	@echo "Running linter..."
-	@which golangci-lint > /dev/null 2>&1 || curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.60.3
-	@echo "Checking formatting..."
-	@if test -z "$(gofmt -l .)"; then echo "Formatting OK"; else echo "Formatting issues:"; gofmt -l .; exit 1; fi
-	@echo "Running golangci-lint..."
-	golangci-lint run --config .golangci.yml ./...
+	@bash scripts/lint.sh
 
 # Format code
 fmt:

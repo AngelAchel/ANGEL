@@ -30,3 +30,6 @@ Thumbs.db
 bin/
 lab/logs/
 linux
+coverage.html
+coverage.out
+*.html
