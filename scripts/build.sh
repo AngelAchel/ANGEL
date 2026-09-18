@@ -38,6 +38,10 @@ echo "Building doctor..."
 go build -ldflags "-X main.Version=$VERSION -X main.BuildTime=$BUILD_TIME" \
     -o "$BUILD_DIR/angel-doctor" ./cmd/doctor/
 
+echo "Building report..."
+go build -ldflags "-X main.Version=$VERSION -X main.BuildTime=$BUILD_TIME" \
+    -o "$BUILD_DIR/angel-report" ./cmd/report/
+
 echo ""
 echo "=== Build Complete ==="
 echo "Binaries: $BUILD_DIR/"

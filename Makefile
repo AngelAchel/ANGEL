@@ -87,8 +87,8 @@ dev:
 # Generate report
 report:
 	@echo "Generating HTML report..."
-	@$(if $(strip $(JWT_SECRET)),,		$(error JWT_SECRET is required. Run: source .env.local))
-	@go run ./cmd/console/ report --format html --output report.html
+	@go build -o bin/angel-report ./cmd/report/
+	@bin/angel-report --format html --output report.html
 	@echo "Report: report.html"
 
 # Generate PDF report (requires: go get github.com/jung-kurt/gofpdf)
