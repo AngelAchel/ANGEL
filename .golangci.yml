@@ -1,4 +1,4 @@
-version: "2"
+version: "1"
 
 run:
   timeout: 30m
@@ -51,5 +51,5 @@ issues:
         - staticcheck
 
 output:
-  format: colored-line-number
+  formats: colored-line-number
   print-issued-lines: true

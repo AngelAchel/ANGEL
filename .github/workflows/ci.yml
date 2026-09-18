@@ -10,6 +10,9 @@ permissions:
   contents: read
   packages: write
 
+env:
+  GO_VERSION: '1.25.13'
+
 jobs:
   lint:
     name: Lint & Format
@@ -18,10 +21,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.25.10'
+          go-version: ${{ env.GO_VERSION }}
       - name: Install golangci-lint
         run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.60.3
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.61.0
       - name: Check formatting
         run: |
           test -z "$(gofmt -l .)" && echo "All Go files formatted" || (echo "Formatting issues found" && gofmt -l . && exit 1)
@@ -39,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.25.10'
+          go-version: ${{ env.GO_VERSION }}
       - name: Build all binaries
         run: |
           go mod download
@@ -53,7 +56,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.25.10'
+          go-version: ${{ env.GO_VERSION }}
       - name: Test
         run: |
           go mod download
@@ -67,7 +70,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.25.10'
+          go-version: ${{ env.GO_VERSION }}
       - name: Run govulncheck
         run: |
           go install golang.org/x/vuln/cmd/govulncheck@latest
@@ -87,7 +90,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.25.10'
+          go-version: ${{ env.GO_VERSION }}
       - name: Build all binaries
         run: |
           CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o bin/angel-${{ matrix.os }}-${{ matrix.arch }} ./cmd/teamserver
